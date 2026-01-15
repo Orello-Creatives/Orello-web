@@ -12,10 +12,26 @@ export default function CreativePartnerHero() {
   const cursorRef = useRef(null);
 
   useEffect(() => {
-    // Set initial GSAP config for smoother animations
     gsap.config({ 
       force3D: true,
       nullTargetWarn: false
+    });
+
+    // Set initial states immediately
+    gsap.set(videoBoxRef.current, {
+      top: "15%",
+      right: "24%",
+      left: "auto",
+      xPercent: 0,
+      yPercent: 0,
+      rotation: 10,
+      width: "300px",
+      height: "184px",
+      borderRadius: "0.5rem",
+    });
+
+    gsap.set(".hero-container", {
+      y: 0
     });
 
     const tl = gsap.timeline();
@@ -45,8 +61,7 @@ export default function CreativePartnerHero() {
       }
     );
 
-    // Background arcs animation - First phase (0% to 40% scroll)
-    circleRefs.current.forEach((circle, index) => {
+    circleRefs.current.forEach((circle) => {
       if (circle) {
         gsap.to(circle, {
           scrollTrigger: {
@@ -66,8 +81,7 @@ export default function CreativePartnerHero() {
       }
     });
 
-    // Animation for transition arcs - they appear as original arcs fade (0% to 40% scroll)
-    transitionArcRefs.current.forEach((arc, index) => {
+    transitionArcRefs.current.forEach((arc) => {
       if (arc) {
         gsap.fromTo(
           arc,
@@ -91,49 +105,34 @@ export default function CreativePartnerHero() {
       }
     });
 
-    // Video movement and straightening - STARTS AFTER arcs (40% to 60% scroll)
-    gsap.fromTo(videoBoxRef.current,
-      {
-        top: "15%",
-        right: "24%",
-        rotation: 10,
-      },
-      {
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "40% top",
-          end: "60% top",
-          scrub: 1.5,
-          anticipatePin: 1,
-        },
-        top: "50%",
-        right: "50%",
-        rotation: 0,
-        ease: "power2.inOut",
-      }
-    );
-
-    // Video expansion - happens after movement (60% to 80% scroll)
-    gsap.to(videoBoxRef.current, {
+    gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
-        start: "60% top",
-        end: "80% top",
+        start: "40% top",
+        end: "70% top",
         scrub: 1.5,
         anticipatePin: 1,
-      },
+        invalidateOnRefresh: true,
+      }
+    })
+    .to(videoBoxRef.current, {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      xPercent: -50,
+      yPercent: -50,
+      rotation: 0,
+      ease: "power2.inOut",
+      duration: 0.4,
+    })
+    .to(videoBoxRef.current, {
       width: "70vw",
       height: "80vh",
       borderRadius: "1rem",
-      xPercent: -50,
-      yPercent: -50,
-      right: "auto",
-      top: "55%",
-      left: "50%",
       ease: "power2.inOut",
-    });
+      duration: 0.6,
+    }, "-=0.1");
      
-    
     gsap.fromTo(
       ".arrow-down",
       { y: 0 },
@@ -146,18 +145,30 @@ export default function CreativePartnerHero() {
       }
     );
 
-    // Animate hero text container moving up when card moves (40% to 60% scroll)
     gsap.to(".hero-container", {
       scrollTrigger: {
         trigger: containerRef.current,
         start: "40% top",
-        end: "60% top",
+        end: "55% top",
         scrub: 1.5,
         anticipatePin: 1,
+        invalidateOnRefresh: true,
       },
       y: "-80vh",
       ease: "power2.inOut",
     });
+
+    // Force scroll to top on mount and refresh
+    window.scrollTo(0, 0);
+    
+    // Refresh ScrollTrigger after a brief delay to ensure proper positioning
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   useEffect(() => {
@@ -203,18 +214,15 @@ export default function CreativePartnerHero() {
   }, []);
 
   return (
-    <div className="bg-[#eadecf] cursor-none pb-174">
-      {/* Cursor */}
+    <div className="bg-[#eadecf] cursor-none">
       <div
         ref={cursorRef}
         className="hidden md:block fixed w-6 h-6 bg-amber-500 rounded-full pointer-events-none z-50 mix-blend-difference"
         style={{ transform: "translate(-50%, -50%)", willChange: "transform" }}
       />
 
-      <div ref={containerRef} className="relative h-[200vh]">
-        {/* FIXED ARCS CONTAINER */}
+      <div ref={containerRef} className="relative h-[350vh]">
         <div className="fixed inset-0 flex items-end justify-center pointer-events-none z-0 overflow-hidden">
-          {/* Initial Arcs - Light colored, fade out on scroll */}
           <div
             ref={(el) => (circleRefs.current[1] = el)}
             className="absolute w-[120vw] h-[110vw] bg-[#fdf6e9] left-1/2"
@@ -236,7 +244,6 @@ export default function CreativePartnerHero() {
             style={{ borderRadius: "50%", bottom: "-30vw", opacity: 0.6, transform: "translateX(-50%)", willChange: "transform, opacity" }}
           />
 
-          {/* New Transition Arcs - Dark colored, appear during scroll with constant gaps */}
           <div
             ref={(el) => (transitionArcRefs.current[0] = el)}
             className="absolute w-[40vw] h-[40vw] bg-[#F4EDE2] left-1/2"
@@ -249,7 +256,6 @@ export default function CreativePartnerHero() {
           />
         </div>
 
-        {/* FIXED TEXT CONTAINER */}
         <div className="fixed inset-0 flex items-center justify-center z-10 px-8 pointer-events-none">
           <div className="hero-container" style={{ willChange: "transform" }}>
             <h1 className="leading-[0.9] tracking-tight text-[6.5rem] sm:text-[8rem] md:text-[10rem]">
@@ -290,10 +296,8 @@ export default function CreativePartnerHero() {
               <div className="hero-text font-black text-[#4b433b]" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>PARTNER</div>
             </h1>
           </div>
-
         </div>
 
-        {/* Video Box */}
         <div
           ref={videoBoxRef}
           className="fixed w-75 h-46 bg-gray-400 rounded-lg overflow-hidden shadow-2xl z-5"
