@@ -24,46 +24,32 @@ const HomeAbout = () => {
 
     /* ===============================
        Word-by-word fade animation
-       Each word fades through 3 stages sequentially
+       Two states: faded out → fully visible
     =============================== */
     const words = textRef.current.querySelectorAll('.word')
-    const totalWords = words.length
 
-    // Initial state - fully transparent and dark
-    gsap.set(words, { opacity: 0.15, color: '#404040' })
+    // Initial state - light gray and slightly below
+    gsap.set(words, { opacity: 1, color: '#999999', y: 20 })
 
     // Create one timeline that controls all words
     const masterTimeline = gsap.timeline({
       scrollTrigger: {
         trigger: textRef.current,
-        start: 'top 75%',
+        start: 'top 55%',
         end: 'bottom 25%',
         scrub: 1,
       }
     })
 
-    // Animate each word sequentially
+    // Animate each word sequentially from light gray to dark black with upward movement
     words.forEach((word, index) => {
-      // Each word gets 3 animation steps
-      masterTimeline
-        .to(word, {
-          opacity: 0.4,
-          color: '#505050',
-          duration: 0.3,
-          ease: 'none'
-        }, index * 0.1)
-        .to(word, {
-          opacity: 0.7,
-          color: '#707070',
-          duration: 0.3,
-          ease: 'none'
-        }, index * 0.1 + 0.3)
-        .to(word, {
-          opacity: 1,
-          color: '#1f2937',
-          duration: 0.4,
-          ease: 'none'
-        }, index * 0.1 + 0.6)
+      masterTimeline.to(word, {
+        opacity: 1,
+        color: '#000000',
+        y: 0,
+        duration: 0.3,
+        ease: 'none'
+      }, index * 0.4)
     })
   }, [])
 
@@ -105,10 +91,10 @@ const HomeAbout = () => {
         </div>
 
         {/* Main content with text reveal */}
-        <div className="max-w-6xl mx-auto px-8 py-32">
+        <div className="max-w-6xl mx-auto px-8 py-32 items-center justify-center">
           <h2
             ref={textRef}
-            className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900"
+            className="text-5xl md:text-6xl lg:text-7xl font-bold items-center justify-center"
             style={{ 
               fontFamily: 'Satoshi, sans-serif',
               lineHeight: '1.2',

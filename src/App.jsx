@@ -5,7 +5,7 @@ const App = () => {
   return (
     <div>
       <HomePage />
-      
+      <div className="h-[100vh]"></div>
     </div>
   );
 };
