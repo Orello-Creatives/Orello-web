@@ -12,6 +12,12 @@ export default function CreativePartnerHero() {
   const cursorRef = useRef(null);
 
   useEffect(() => {
+    // Set initial GSAP config for smoother animations
+    gsap.config({ 
+      force3D: true,
+      nullTargetWarn: false
+    });
+
     const tl = gsap.timeline();
 
     tl.fromTo(
@@ -20,9 +26,9 @@ export default function CreativePartnerHero() {
       {
         y: 0,
         opacity: 1,
-        duration: 1.2,
-        stagger: 0.15,
-        ease: "power3.out",
+        duration: 1.4,
+        stagger: 0.18,
+        ease: "power4.out",
       }
     );
 
@@ -33,51 +39,56 @@ export default function CreativePartnerHero() {
         scale: 1,
         rotation: 10,
         opacity: 1,
-        duration: 1.2,
+        duration: 1.4,
         delay: 0.8,
-        ease: "back.out(1.4)",
+        ease: "elastic.out(1, 0.6)",
       }
     );
 
     // Background arcs animation - First phase (0% to 40% scroll)
-    circleRefs.current.forEach((circle) => {
-      gsap.to(circle, {
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "40% top",
-          scrub: 1,
-        },
-        scale: 8,
-        keyframes: [
-          { opacity: 0.6, duration: 0.3 },
-          { opacity: 0, duration: 0.7 },
-        ],
-        ease: "power1.inOut",
-      });
-    });
-
-    // Animation for transition arcs - they appear as original arcs fade (0% to 40% scroll)
-    transitionArcRefs.current.forEach((arc, index) => {
-      const delay = index * 0.1;
-      gsap.fromTo(
-        arc,
-        { 
-          scale: 1, 
-          opacity: 0,
-        },
-        {
+    circleRefs.current.forEach((circle, index) => {
+      if (circle) {
+        gsap.to(circle, {
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top top",
             end: "40% top",
-            scrub: 1,
+            scrub: 2,
+            anticipatePin: 1,
           },
           scale: 8,
-          opacity: 0.7,
-          ease: "power1.inOut",
-        }
-      );
+          keyframes: [
+            { opacity: 0.6, duration: 0.3, ease: "power2.in" },
+            { opacity: 0, duration: 0.7, ease: "power2.out" },
+          ],
+          ease: "power2.inOut",
+        });
+      }
+    });
+
+    // Animation for transition arcs - they appear as original arcs fade (0% to 40% scroll)
+    transitionArcRefs.current.forEach((arc, index) => {
+      if (arc) {
+        gsap.fromTo(
+          arc,
+          { 
+            scale: 1, 
+            opacity: 0,
+          },
+          {
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top top",
+              end: "40% top",
+              scrub: 2,
+              anticipatePin: 1,
+            },
+            scale: 8,
+            opacity: 0.7,
+            ease: "power2.inOut",
+          }
+        );
+      }
     });
 
     // Video movement and straightening - STARTS AFTER arcs (40% to 60% scroll)
@@ -92,13 +103,13 @@ export default function CreativePartnerHero() {
           trigger: containerRef.current,
           start: "40% top",
           end: "60% top",
-          scrub: 1,
-          toggleActions: "play none none reverse",
+          scrub: 1.5,
+          anticipatePin: 1,
         },
         top: "50%",
         right: "50%",
         rotation: 0,
-        ease: "none",
+        ease: "power2.inOut",
       }
     );
 
@@ -108,15 +119,18 @@ export default function CreativePartnerHero() {
         trigger: containerRef.current,
         start: "60% top",
         end: "80% top",
-        scrub: 1,
-        toggleActions: "play none none reverse",
+        scrub: 1.5,
+        anticipatePin: 1,
       },
       width: "70vw",
       height: "80vh",
       borderRadius: "1rem",
-      right: "15vw",
-      top: "10vh",
-      ease: "none",
+      xPercent: -50,
+      yPercent: -50,
+      right: "auto",
+      top: "55%",
+      left: "50%",
+      ease: "power2.inOut",
     });
      
     
@@ -125,10 +139,10 @@ export default function CreativePartnerHero() {
       { y: 0 },
       {
         y: 12,
-        duration: 0.8,
+        duration: 1,
         repeat: -1,
         yoyo: true,
-        ease: "power1.inOut",
+        ease: "sine.inOut",
       }
     );
 
@@ -138,10 +152,11 @@ export default function CreativePartnerHero() {
         trigger: containerRef.current,
         start: "40% top",
         end: "60% top",
-        scrub: 1,
+        scrub: 1.5,
+        anticipatePin: 1,
       },
       y: "-80vh",
-      ease: "none",
+      ease: "power2.inOut",
     });
   }, []);
 
@@ -154,29 +169,32 @@ export default function CreativePartnerHero() {
       gsap.to(cursorRef.current, {
         x: clientX,
         y: clientY,
-        duration: 0.3,
-        ease: "power2.out",
+        duration: 0.4,
+        ease: "power3.out",
       });
 
       gsap.to(".layer-front", {
         x: (clientX - cx) / 20,
         y: (clientY - cy) / 20,
         rotation: -2,
-        duration: 0.6,
+        duration: 0.8,
+        ease: "power2.out",
       });
 
       gsap.to(".layer-middle", {
         x: (clientX - cx) / 40,
         y: (clientY - cy) / 40,
-         rotation: -2,
-        duration: 0.7,
+        rotation: -2,
+        duration: 0.9,
+        ease: "power2.out",
       });
 
       gsap.to(".layer-back", {
         x: (clientX - cx) / 60,
         y: (clientY - cy) / 60,
-         rotation: -2,
-        duration: 0.8,
+        rotation: -2,
+        duration: 1,
+        ease: "power2.out",
       });
     };
 
@@ -185,12 +203,12 @@ export default function CreativePartnerHero() {
   }, []);
 
   return (
-    <div className="bg-[#eadecf] cursor-none  pb-174">
+    <div className="bg-[#eadecf] cursor-none pb-174">
       {/* Cursor */}
       <div
         ref={cursorRef}
         className="hidden md:block fixed w-6 h-6 bg-amber-500 rounded-full pointer-events-none z-50 mix-blend-difference"
-        style={{ transform: "translate(-50%, -50%)" }}
+        style={{ transform: "translate(-50%, -50%)", willChange: "transform" }}
       />
 
       <div ref={containerRef} className="relative h-[200vh]">
@@ -200,40 +218,40 @@ export default function CreativePartnerHero() {
           <div
             ref={(el) => (circleRefs.current[1] = el)}
             className="absolute w-[120vw] h-[110vw] bg-[#fdf6e9] left-1/2"
-            style={{ borderRadius: "50%", bottom: "-60vw", opacity: 0.6, transform: "translateX(-50%)" }}
+            style={{ borderRadius: "50%", bottom: "-60vw", opacity: 0.6, transform: "translateX(-50%)", willChange: "transform, opacity" }}
           />
           <div
             ref={(el) => (circleRefs.current[2] = el)}
             className="absolute w-[95vw] h-[85vw] bg-[#eadecf] left-1/2"
-            style={{ borderRadius: "50%", bottom: "-50vw", opacity: 0.6, transform: "translateX(-50%)" }}
+            style={{ borderRadius: "50%", bottom: "-50vw", opacity: 0.6, transform: "translateX(-50%)", willChange: "transform, opacity" }}
           />
           <div
             ref={(el) => (circleRefs.current[3] = el)}
             className="absolute w-[70vw] h-[65vw] bg-[#fdf6e9] left-1/2"
-            style={{ borderRadius: "50%", bottom: "-40vw", opacity: 0.6, transform: "translateX(-50%)" }}
+            style={{ borderRadius: "50%", bottom: "-40vw", opacity: 0.6, transform: "translateX(-50%)", willChange: "transform, opacity" }}
           />
           <div
             ref={(el) => (circleRefs.current[4] = el)}
             className="absolute w-[45vw] h-[45vw] bg-[#eadecf] left-1/2"
-            style={{ borderRadius: "50%", bottom: "-30vw", opacity: 0.6, transform: "translateX(-50%)" }}
+            style={{ borderRadius: "50%", bottom: "-30vw", opacity: 0.6, transform: "translateX(-50%)", willChange: "transform, opacity" }}
           />
 
           {/* New Transition Arcs - Dark colored, appear during scroll with constant gaps */}
           <div
-            ref={(el) => (transitionArcRefs.current[4] = el)}
+            ref={(el) => (transitionArcRefs.current[0] = el)}
             className="absolute w-[40vw] h-[40vw] bg-[#F4EDE2] left-1/2"
-            style={{ borderRadius: "50%", bottom: "-40vw", opacity: 0, transform: "translateX(-50%)" }}
+            style={{ borderRadius: "50%", bottom: "-40vw", opacity: 0, transform: "translateX(-50%)", willChange: "transform, opacity" }}
           />
           <div
-            ref={(el) => (transitionArcRefs.current[4] = el)}
+            ref={(el) => (transitionArcRefs.current[1] = el)}
             className="absolute w-[15vw] h-[0vw] bg-[#f4ede2] left-1/2"
-            style={{ borderRadius: "50%", bottom: "-40vw", opacity: 0, transform: "translateX(-50%)" }}
+            style={{ borderRadius: "50%", bottom: "-40vw", opacity: 0, transform: "translateX(-50%)", willChange: "transform, opacity" }}
           />
         </div>
 
         {/* FIXED TEXT CONTAINER */}
         <div className="fixed inset-0 flex items-center justify-center z-10 px-8 pointer-events-none">
-          <div className="hero-container">
+          <div className="hero-container" style={{ willChange: "transform" }}>
             <h1 className="leading-[0.9] tracking-tight text-[6.5rem] sm:text-[8rem] md:text-[10rem]">
               <div className="font-black text-[#4B433B] ml-4" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>YOUR</div>
 
@@ -242,17 +260,17 @@ export default function CreativePartnerHero() {
                   className="layer-back absolute inset-0 text-[#4b433b]"
                   style={{
                     transform: "translate(16px,16px)",
-                    
+                    willChange: "transform"
                   }}
                 >
                   CREATIVE
                 </div>
 
                 <div
-                  className="layer-middle absolute inset-0 text-[#d98127] "
+                  className="layer-middle absolute inset-0 text-[#d98127]"
                   style={{
                     transform: "translate(8px,8px)",
-                    
+                    willChange: "transform"
                   }}
                 >
                   CREATIVE
@@ -261,8 +279,8 @@ export default function CreativePartnerHero() {
                 <div
                   className="layer-front hero-text relative text-[#f7af19]"
                   style={{
-                    
                     textShadow: "6px 6px 18px rgba(0,0,0,0.15)",
+                    willChange: "transform"
                   }}
                 >
                   CREATIVE
@@ -279,7 +297,7 @@ export default function CreativePartnerHero() {
         <div
           ref={videoBoxRef}
           className="fixed w-75 h-46 bg-gray-400 rounded-lg overflow-hidden shadow-2xl z-5"
-          style={{ top: "15%", right: "24%" }}
+          style={{ top: "15%", right: "24%", willChange: "transform, width, height" }}
         >
           <video
             className="w-full h-full object-cover"
