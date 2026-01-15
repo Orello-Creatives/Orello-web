@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import HeroServices from '../sections/HeroServices'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -9,9 +10,7 @@ const HomeAbout = () => {
   const textRef = useRef(null)
 
   useEffect(() => {
-    /* ===============================
-       Infinite scrolling banner
-    =============================== */
+   
     const banner = bannerRef.current
     const bannerWidth = banner.scrollWidth / 2
 
@@ -22,10 +21,7 @@ const HomeAbout = () => {
       repeat: -1,
     })
 
-    /* ===============================
-       Word-by-word fade animation
-       Two states: faded out → fully visible
-    =============================== */
+   
     const words = textRef.current.querySelectorAll('.word')
 
     // Initial state - light gray and slightly below
@@ -91,7 +87,7 @@ const HomeAbout = () => {
         </div>
 
         {/* Main content with text reveal */}
-        <div className="max-w-6xl mx-auto px-8 py-32 items-center justify-center">
+        <div className="container mx-auto px-8 py-32 items-center justify-center">
           <h2
             ref={textRef}
             className="text-5xl md:text-6xl lg:text-7xl font-bold items-center justify-center"
@@ -111,6 +107,7 @@ const HomeAbout = () => {
           </h2>
         </div>
       </div>
+   <HeroServices />
     </section>
   )
 }
