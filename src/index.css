@@ -1,7 +1,9 @@
 @import "@fontsource/mona-sans/index.css";
 @import "tailwindcss";
 
-
+/* -------------------- */
+/* Satoshi Font Faces  */
+/* -------------------- */
 
 @font-face {
   font-family: "Satoshi";
@@ -30,16 +32,24 @@
 @font-face {
   font-family: "Satoshi";
   src: url("./assets/fonts/satoshi/Satoshi-Black.woff") format("woff");
-  font-weight: 700;
+  font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
 
+/* -------------------- */
+/* Theme Tokens (v4)   */
+/* -------------------- */
+
 @theme {
-  /* 2. Register the font variable */
   --font-mona: "Mona Sans", sans-serif;
-  --font-mona: "Mona Sans", sans-serif;
+  --font-heading: "Satoshi", sans-serif;
+  --font-body: "Satoshi", sans-serif;
 }
+
+/* -------------------- */
+/* Custom Properties   */
+/* -------------------- */
 
 @property --angle-1 {
   syntax: "<angle>";
@@ -53,42 +63,59 @@
   initial-value: -45deg;
 }
 
-
-@theme {
-  --font-heading: 'Satoshi', sans-serif;
-  
-}
+/* -------------------- */
+/* Utilities Layer     */
+/* -------------------- */
 
 @layer utilities {
   .container {
-    @apply w-full mx-auto px-4 sm:max-w-[640px] md:max-w-[768px] lg:max-w-[1024px] xl:max-w-[1280px];
+    @apply w-full mx-auto px-4
+      sm:max-w-[640px]
+      md:max-w-[768px]
+      lg:max-w-[1024px]
+      xl:max-w-[1280px];
   }
-  
+
   h1 {
-    @apply text-[28px] md:text-[42px] lg:text-[52px] leading-[120%] font-mona;
+    @apply text-[28px] md:text-[42px] lg:text-[52px]
+      leading-[120%]
+      font-[var(--font-mona)];
   }
+
   h2 {
-    @apply text-[30px] md:text-[46px] lg:text-[60px] leading-[120%] font-mona;
+    @apply text-[30px] md:text-[46px] lg:text-[60px]
+      leading-[120%]
+      font-[var(--font-mona)];
   }
+
   h3 {
-    @apply text-[24px] md:text-[36px] lg:text-[48px] leading-[125%] font-bold;
+    @apply text-[24px] md:text-[36px] lg:text-[48px]
+      leading-[125%]
+      font-bold;
   }
 
   h4 {
-    @apply text-[18px] md:text-[20px] lg:text-[22px] leading-[130] font-semibold;
+    @apply text-[18px] md:text-[20px] lg:text-[22px]
+      leading-[130%]
+      font-semibold;
   }
-  
+
   .paragraph {
-    @apply text-[14px] md:text-[18px] lg:text-[20px] leading-[160%] font-;
+    @apply text-[14px] md:text-[18px] lg:text-[20px]
+      leading-[160%]
+      font-[var(--font-body)];
   }
- 
+
   .heading {
-    @apply text-[13px] md:text-[14px] lg:text-[15px] tracking-[1.5px] md:tracking-[2px];
+    @apply text-[13px] md:text-[14px] lg:text-[15px]
+      tracking-[1.5px] md:tracking-[2px];
   }
+
   .footerText {
     @apply text-[12px];
   }
+
   .subtitle {
-    @apply text-(--color-bg-text-Secondary);
+    @apply text-[color:var(--color-bg-text-Secondary)];
   }
 }
