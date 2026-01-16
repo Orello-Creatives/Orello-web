@@ -51,7 +51,7 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
 
         gsap.to(reveal, {
           clipPath: `inset(${top}px ${right}px ${bottom}px ${left}px)`,
-          duration: 0.15,
+          duration: 1,
           ease: 'power2.out',
           overwrite: 'auto'
         });
@@ -92,7 +92,7 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
         gsap.to(image, {
           x: moveX,
           y: moveY,
-          duration: 0.6,
+          duration: 0.9,
           ease: 'power2.out',
           overwrite: 'auto'
         });
@@ -148,17 +148,17 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
       requestAnimationFrame(() => {
         isHovered = true;
         
-        // Animate to open (full square) - adjust duration here
+        // Animate to open 
         gsap.to(reveal, {
           clipPath: `inset(${initialTop}px ${initialRight}px ${initialBottom}px ${initialLeft}px)`,
-          duration: 4, // Open animation duration
+          duration: 1, // Open animation duration
           ease: 'power2.out',
           overwrite: true
         });
         
         gsap.to(image, {
           scale: 1.1,
-          duration: 0.6,
+          duration: 1,
           ease: 'power2.out',
           force3D: true,
           overwrite: true
@@ -208,7 +208,7 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
       // Animate to close
       gsap.to(reveal, {
         clipPath: endClipPath,
-        duration: 0.4,
+        duration: 0.6,
         ease: 'power2.inOut',
         overwrite: true,
         onComplete: () => {
@@ -250,10 +250,11 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
       ref={cardRef}
       className="relative cursor-pointer overflow-hidden group border-b border-gray-700"
     >
+   
       {/* Content - Default solid text */}
-      <div className="relative z-20 flex items-start justify-between p-8 py-10">
+      <div className="relative z-20 flex items-start justify-between p-5 py-7 sm:p-6 sm:py-8 lg:p-8 lg:py-10">
         <div className="flex-1">
-          <h3 className="font-semibold mb-2 text-black">
+          <h3 className="font-light mb-2 text-black">
             {title}
           </h3>
           <p className="paragraph text-black">
@@ -262,7 +263,7 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
         </div>
         <ArrowUpRight 
           ref={arrowRef}
-          className="w-8 h-8 transition-colors duration-200 group-hover:translate-x-1 group-hover:-translate-y-1 flex-shrink-0 ml-4 text-black" 
+          className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 transition-colors duration-200 group-hover:translate-x-1 group-hover:-translate-y-1 flex-shrink-0 ml-3 sm:ml-3.5 lg:ml-4 text-black" 
           strokeWidth={1.5}
         />
       </div>
@@ -291,12 +292,12 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
         <div
           className="absolute inset-0"
         >
-          <div className="relative flex items-start justify-between p-8 py-10 h-full">
+          <div className="relative flex items-start justify-between p-5 py-7 sm:p-6 sm:py-8 lg:p-8 lg:py-10 h-full">
             <div className="flex-1">
               <h3
-                className="font-semibold mb-2" 
+                className="font-light mb-2" 
                 style={{
-                  WebkitTextStroke: '2px #000',
+                  WebkitTextStroke: '1px #000',
                   color: 'transparent',
                   paintOrder: 'stroke fill'
                   
@@ -304,6 +305,7 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
               >
                 {title}
               </h3>
+              
               <p 
                 className="paragraph" 
                 style={{
@@ -318,7 +320,7 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
               </p>
             </div>
             <ArrowUpRight 
-              className="w-8 h-8 flex-shrink-0 ml-4" 
+              className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 flex-shrink-0 ml-3 sm:ml-3.5 lg:ml-4" 
               strokeWidth={1.5}
               style={{ color: '#d98127' }}
             />
@@ -329,7 +331,7 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
   );
 };
 
-export default function ServicesSection() {
+export default function heroServices() {
   const services = [
     {
       title: 'Brand Identity',
@@ -354,14 +356,14 @@ export default function ServicesSection() {
   ];
 
   return (
-    <div className="bg-[#F9F5ED] py-28">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-12 gap-8">
+    <div className="bg-[#F9F5ED] py-16 sm:py-20 lg:py-28">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-0">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8">
           {/* Left side - Header */}
-          <div className="col-span-5">
-            <h2 className="font-semibold mb-6">
+          <div className="lg:col-span-5 lg:pl-8">
+            <h2 className="font-light mb-6">
               Our<br />
-              <span className="font-bold">Services</span>
+              <span className="font-semibold">Services</span>
             </h2>
             <p className="paragraph leading-relaxed mb-8 max-w-[370px]">
               Orello is a purpose-driven global design partner that helps impact-oriented organisations communicate with clarity, empathy, and intention.
@@ -372,7 +374,7 @@ export default function ServicesSection() {
           </div>
 
           {/* Right side - Service Cards */}
-          <div className="col-span-7">
+          <div className="lg:col-span-7">
             {services.map((service, index) => (
               <ServiceCard
                 key={index}

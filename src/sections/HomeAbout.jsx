@@ -31,7 +31,7 @@ const HomeAbout = () => {
     const masterTimeline = gsap.timeline({
       scrollTrigger: {
         trigger: textRef.current,
-        start: 'top 55%',
+        start: 'top 75%',
         end: 'bottom 25%',
         scrub: 1,
       }
@@ -66,7 +66,7 @@ const HomeAbout = () => {
 
   return (
     <section className="relative z-20 -mt-32">
-      <div className="min-h-[700px] bg-[#f9f5ed] shadow-2xl overflow-hidden rounded-t-[100px]">
+      <div className=" bg-[#f9f5ed] shadow-2xl overflow-hidden rounded-t-[100px]">
         {/* Infinite scrolling banner */}
         <div className="py-6 overflow-hidden border-b border-gray-200 bg-[#F4EDE2] mt-16">
           <div ref={bannerRef} className="flex whitespace-nowrap">

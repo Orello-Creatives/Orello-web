@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+import Navbar from '../components/Navbar'
 gsap.registerPlugin(ScrollTrigger);
 
 export default function CreativePartnerHero() {
@@ -17,6 +17,10 @@ export default function CreativePartnerHero() {
       nullTargetWarn: false
     });
 
+    // Responsive initial position
+    const isMobile = window.innerWidth < 768;
+    const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+
     // Set initial states immediately
     gsap.set(videoBoxRef.current, {
       top: "15%",
@@ -25,8 +29,8 @@ export default function CreativePartnerHero() {
       xPercent: 0,
       yPercent: 0,
       rotation: 10,
-      width: "300px",
-      height: "184px",
+      width: isMobile ? "180px" : isTablet ? "240px" : "300px",
+      height: isMobile ? "110px" : isTablet ? "147px" : "184px",
       borderRadius: "0.5rem",
     });
 
@@ -108,8 +112,8 @@ export default function CreativePartnerHero() {
     gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
-        start: "40% top",
-        end: "70% top",
+        start: "30% top",
+        end: "65% top",
         scrub: 1.5,
         anticipatePin: 1,
         invalidateOnRefresh: true,
@@ -126,8 +130,8 @@ export default function CreativePartnerHero() {
       duration: 0.4,
     })
     .to(videoBoxRef.current, {
-      width: "70vw",
-      height: "80vh",
+      width: isMobile ? "90vw" : isTablet ? "80vw" : "70vw",
+      height: isMobile ? "70vh" : isTablet ? "75vh" : "80vh",
       borderRadius: "1rem",
       ease: "power2.inOut",
       duration: 0.6,
@@ -201,8 +205,8 @@ export default function CreativePartnerHero() {
       });
 
       gsap.to(".layer-back", {
-        x: (clientX - cx) / 60,
-        y: (clientY - cy) / 60,
+        x: (clientX - cx) / 80,
+        y: (clientY - cy) / 80,
         rotation: -2,
         duration: 1,
         ease: "power2.out",
@@ -214,13 +218,13 @@ export default function CreativePartnerHero() {
   }, []);
 
   return (
-    <div className="bg-[#eadecf] cursor-none">
+    <div className="bg-[#eadecf] cursor-none pb-0 lg:pb-50">
       <div
         ref={cursorRef}
-        className="hidden md:block fixed w-6 h-6 bg-amber-500 rounded-full pointer-events-none z-50 mix-blend-difference"
+        className="hidden md:block fixed w-6 h-6 bg-amber-500 rounded-full pointer-events-none mix-blend-difference"
         style={{ transform: "translate(-50%, -50%)", willChange: "transform" }}
       />
-
+<Navbar />
       <div ref={containerRef} className="relative h-[350vh]">
         <div className="fixed inset-0 flex items-end justify-center pointer-events-none z-0 overflow-hidden">
           <div
@@ -256,16 +260,16 @@ export default function CreativePartnerHero() {
           />
         </div>
 
-        <div className="fixed inset-0 flex items-center justify-center z-10 px-8 pointer-events-none">
+        <div className="fixed inset-0 flex items-center justify-center z-10 px-4 sm:px-6 md:px-8 pointer-events-none pb-5">
           <div className="hero-container" style={{ willChange: "transform" }}>
-            <h1 className="leading-[0.9] tracking-tight text-[6.5rem] sm:text-[8rem] md:text-[10rem]">
-              <div className="font-black text-[#4B433B] ml-4" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>YOUR</div>
+            <h1 className="leading-[0.9] tracking-tight text-[3.5rem] sm:text-[5rem] md:text-[7rem] lg:text-[10rem]">
+              <div className="font-black text-[#4B433B] ml-2 sm:ml-3 md:ml-4" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>YOUR</div>
 
-              <div className="relative inline-block my-2" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>
+              <div className="relative inline-block my-1 sm:my-1.5 md:my-2" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>
                 <div
                   className="layer-back absolute inset-0 text-[#4b433b]"
                   style={{
-                    transform: "translate(16px,16px)",
+                    transform: "translate(8px,8px) sm:translate(12px,12px) md:translate(20px,20px)",
                     willChange: "transform"
                   }}
                 >
@@ -275,7 +279,7 @@ export default function CreativePartnerHero() {
                 <div
                   className="layer-middle absolute inset-0 text-[#d98127]"
                   style={{
-                    transform: "translate(8px,8px)",
+                    transform: "translate(4px,4px) sm:translate(6px,6px) md:translate(8px,8px)",
                     willChange: "transform"
                   }}
                 >
@@ -285,7 +289,7 @@ export default function CreativePartnerHero() {
                 <div
                   className="layer-front hero-text relative text-[#f7af19]"
                   style={{
-                    textShadow: "6px 6px 18px rgba(0,0,0,0.15)",
+                    textShadow: "3px 3px 10px rgba(0,0,0,0.15), 6px 6px 18px rgba(0,0,0,0.15)",
                     willChange: "transform"
                   }}
                 >
@@ -300,7 +304,7 @@ export default function CreativePartnerHero() {
 
         <div
           ref={videoBoxRef}
-          className="fixed w-75 h-46 bg-gray-400 rounded-lg overflow-hidden shadow-2xl z-5"
+          className="fixed w-75 h-46 bg-gray-400 rounded-lg overflow-hidden shadow-2xl z-5 "
           style={{ top: "15%", right: "24%", willChange: "transform, width, height" }}
         >
           <video
