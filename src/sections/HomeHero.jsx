@@ -3,6 +3,8 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from '../components/Navbar'
 gsap.registerPlugin(ScrollTrigger);
+import video from '../assets/videos/video.mp4'
+
 
 export default function CreativePartnerHero() {
   const containerRef = useRef(null);
@@ -17,21 +19,55 @@ export default function CreativePartnerHero() {
       nullTargetWarn: false
     });
 
-    // Responsive initial position
-    const isMobile = window.innerWidth < 768;
-    const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+    const mm = gsap.matchMedia();
 
-    // Set initial states immediately
-    gsap.set(videoBoxRef.current, {
-      top: "15%",
-      right: "24%",
-      left: "auto",
-      xPercent: 0,
-      yPercent: 0,
-      rotation: 10,
-      width: isMobile ? "180px" : isTablet ? "240px" : "300px",
-      height: isMobile ? "110px" : isTablet ? "147px" : "184px",
-      borderRadius: "0.5rem",
+   mm.add("(max-width: 767px)", () => {
+  gsap.set(videoBoxRef.current, {
+    top: "50%",
+    right: "10%",
+    rotation: 2,
+    width: "300px",
+    height: "200px",
+  });
+
+  gsap.from(videoBoxRef.current, {
+    scale: 0.9,
+    opacity: 0,
+    duration: 1,
+    ease: "power3.out",
+  });
+});
+
+    /* ========== TABLET INITIAL STATE ========== */
+    mm.add("(min-width: 768px) and (max-width: 1023px)", () => {
+      gsap.set(videoBoxRef.current, {
+        top: "18%",
+        right: "14%",
+        left: "auto",
+        xPercent: 0,
+        yPercent: 0,
+        rotation: 10,
+        width: "240px",
+        height: "150px",
+        borderRadius: "0.75rem",
+        scale: 1,
+      });
+    });
+
+    /* ========== DESKTOP INITIAL STATE ========== */
+    mm.add("(min-width: 1024px)", () => {
+      gsap.set(videoBoxRef.current, {
+        top: "15%",
+        right: "24%",
+        left: "auto",
+        xPercent: 0,
+        yPercent: 0,
+        rotation: 10,
+        width: "300px",
+        height: "184px",
+        borderRadius: "1rem",
+        scale: 1,
+      });
     });
 
     gsap.set(".hero-container", {
@@ -57,7 +93,7 @@ export default function CreativePartnerHero() {
       { scale: 0, rotation: 0, opacity: 0 },
       {
         scale: 1,
-        rotation: 10,
+        rotation: window.innerWidth < 768 ? 6 : 10,
         opacity: 1,
         duration: 1.4,
         delay: 0.8,
@@ -109,6 +145,9 @@ export default function CreativePartnerHero() {
       }
     });
 
+    const isMobile = window.innerWidth < 768;
+    const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+
     gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
@@ -120,7 +159,7 @@ export default function CreativePartnerHero() {
       }
     })
     .to(videoBoxRef.current, {
-      top: "50%",
+      top: "55%",
       left: "50%",
       right: "auto",
       xPercent: -50,
@@ -171,6 +210,7 @@ export default function CreativePartnerHero() {
     }, 100);
 
     return () => {
+      mm.revert();
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
@@ -260,7 +300,7 @@ export default function CreativePartnerHero() {
           />
         </div>
 
-        <div className="fixed inset-0 flex items-center justify-center z-10 px-4 sm:px-6 md:px-8 pointer-events-none pb-5">
+        <div className="fixed inset-0 flex mt-50 sm:mt-60 lg:mt-0 lg:items-center justify-center z-10 px-4 sm:px-6 md:px-8 pointer-events-none pb-5">
           <div className="hero-container" style={{ willChange: "transform" }}>
             <h1 className="leading-[0.9] tracking-tight text-[3.5rem] sm:text-[5rem] md:text-[7rem] lg:text-[10rem]">
               <div className="font-black text-[#4B433B] ml-2 sm:ml-3 md:ml-4" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>YOUR</div>
@@ -307,15 +347,16 @@ export default function CreativePartnerHero() {
           className="fixed w-75 h-46 bg-gray-400 rounded-lg overflow-hidden shadow-2xl z-5 "
           style={{ top: "15%", right: "24%", willChange: "transform, width, height" }}
         >
-          <video
-            className="w-full h-full object-cover"
-            autoPlay
-            loop
-            muted
-            playsInline
-          >
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-creative-work-in-a-film-production-studio-42677-large.mp4" />
-          </video>
+         <video
+  className="w-full h-full object-cover"
+  autoPlay
+  loop
+  muted
+  playsInline
+  preload="auto"
+>
+  <source src={video} type="video/mp4" />
+</video>
         </div>
       </div>
     </div>

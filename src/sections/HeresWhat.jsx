@@ -144,7 +144,7 @@ export default function TestimonialsSection() {
 
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
             {/* BUTTON 1 */}
-            <button className="relative overflow-hidden bg-white text-black py-3 md:py-4 rounded-full font-semibold group w-full sm:w-auto">
+            <button className="relative overflow-hidden cursor-pointer bg-white text-black py-3 md:py-4 rounded-full font-semibold group w-full sm:w-auto">
               {/* Text */}
               <span
                 className="
@@ -193,7 +193,7 @@ export default function TestimonialsSection() {
             </button>
 
             {/* BUTTON 2 */}
-            <button className="relative overflow-hidden bg-white text-black py-3 md:py-4 rounded-full font-semibold group w-full sm:w-auto">
+            <button className="relative overflow-hidden cursor-pointer bg-white text-black py-3 md:py-4 rounded-full font-semibold group w-full sm:w-auto">
               {/* Text */}
               <span
                 className="

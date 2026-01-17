@@ -141,11 +141,11 @@ const AFewSelected = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-15">
           {projects.map((project, index) => (
             <div key={index} className="group">
-              <div className="overflow-hidden rounded-2xl sm:rounded-3xl aspect-[4/3] mb-3 sm:mb-4 bg-white relative">
+              <div className="overflow-hidden rounded-2xl cursor-pointer sm:rounded-3xl aspect-[4/3] mb-3 sm:mb-4 bg-white relative">
                 <img 
                   src={project.image} 
                   alt={project.title}
-                  className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
+                  className="w-full h-full  object-cover transition-opacity duration-500 group-hover:opacity-0"
                 />
                 {/* White background appears on hover - add your logo here */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
