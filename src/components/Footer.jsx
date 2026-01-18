@@ -18,10 +18,10 @@ const Footer = () => {
         </h2>
 
         <div className="flex gap-3 sm:gap-4 flex-wrap justify-center">
-          <button className="px-6 sm:px-8 md:px-10 py-3 sm:py-4 bg-black text-white rounded-full font-bold text-sm sm:text-base hover:bg-gray-900 transition-all">
+          <button className="px-6 sm:px-8 md:px-10 py-3 cursor-pointer sm:py-4 bg-black text-white rounded-full font-bold text-sm sm:text-base hover:bg-gray-900 transition-all">
             Contact Us
           </button>
-          <button className="px-6 sm:px-8 md:px-10 py-3 sm:py-4 bg-[#F7AF19] text-black rounded-full font-bold text-sm sm:text-base hover:bg-[#e5a314] transition-all">
+          <button className="px-6 sm:px-8 md:px-10 py-3 sm:py-4 bg-[#F7AF19] cursor-pointer text-black rounded-full font-bold text-sm sm:text-base hover:bg-[#e5a314] transition-all">
             Book a meeting
           </button>
         </div>

@@ -85,7 +85,7 @@ export default function ContactSection() {
 
             <div className="space-y-6">
               {/* Email Card */}
-              <div className="bg-[#FFFBF3] rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="bg-[#FFFBF3]  cursor-pointer rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
                    <img src={msg}></img>
@@ -103,25 +103,31 @@ export default function ContactSection() {
               </div>
 
               {/* Location Card */}
-              <div className="bg-[#FFFBF3] rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="bg-[#FFFBF3] cursor-pointer rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
                    <img src={loc}></img>
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-gray-700 mb-1">Location</p>
-                    <button 
-                      onClick={() => window.open('https://maps.google.com', '_blank')}
-                      className="text-lg font-semibold text-gray-900 hover:text-orange-600 transition-colors"
-                    >
-                      Get direction
-                    </button>
+                   <button
+  onClick={() =>
+    window.open(
+      'https://www.google.com/search?q=Orello+Creatives+Pvt+Ltd+Bengaluru',
+      '_blank'
+    )
+  }
+  className="text-lg font-semibold text-gray-900 hover:text-orange-600 transition-colors"
+>
+  Get direction
+</button>
+
                   </div>
                 </div>
               </div>
 
               {/* Phone Card */}
-             <div className="bg-[#FFFBF3] rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+             <div className="bg-[#FFFBF3]  cursor-pointer rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
   <div className="flex items-start gap-4">
     
     {/* Icon */}
