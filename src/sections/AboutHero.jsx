@@ -18,101 +18,98 @@ export default function AboutOrello() {
   const transitionArcRefs = useRef([]);
   const contentRef = useRef(null);
 
-  useEffect(() => {
-    // Enhanced performance configuration
-    gsap.config({ 
-      force3D: true,
-      nullTargetWarn: false
-    });
+ useEffect(() => {
+  gsap.config({
+    force3D: true,
+    nullTargetWarn: false,
+  });
 
-    const mm = gsap.matchMedia();
+  const mm = gsap.matchMedia();
 
-    // Only apply animations on desktop (min-width: 768px)
-    mm.add("(min-width: 768px)", () => {
-      // Store animation contexts for proper cleanup
-      const ctx = gsap.context(() => {
-        // Animate circles expanding with optimized settings
-        circleRefs.current.forEach((circle, index) => {
-          if (circle) {
-            gsap.to(circle, {
-              scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top top",
-                end: "40% top",
-                scrub: 1.5,
-                anticipatePin: 1,
-                invalidateOnRefresh: true,
-              },
-              scale: 8,
-              opacity: 0,
-              ease: "power2.inOut",
-              force3D: true,
-            });
-          }
+  mm.add("(min-width: 768px)", () => {
+    const ctx = gsap.context(() => {
+
+      // === HERO STYLE CIRCLE ANIMATION ===
+      circleRefs.current.forEach((circle) => {
+        if (!circle) return;
+
+        gsap.to(circle, {
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: "40% top",
+            scrub: 2,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+          scale: 8,
+          keyframes: [
+            { opacity: 0.6, duration: 0.3, ease: "power2.in" },
+            { opacity: 0, duration: 0.7, ease: "power2.out" },
+          ],
+          ease: "power2.inOut",
+          force3D: true,
         });
+      });
 
-        // Animate transition arcs with optimized settings
-        transitionArcRefs.current.forEach((arc, index) => {
-          if (arc) {
-            gsap.fromTo(
-              arc,
-              { 
-                scale: 1, 
-                opacity: 0,
-                force3D: true,
-              },
-              {
-                scrollTrigger: {
-                  trigger: containerRef.current,
-                  start: "top top",
-                  end: "40% top",
-                  scrub: 1.5,
-                  anticipatePin: 1,
-                  invalidateOnRefresh: true,
-                },
-                scale: 8,
-                opacity: 0.7,
-                ease: "power2.inOut",
-                force3D: true,
-              }
-            );
-          }
-        });
+      // === HERO STYLE TRANSITION ARCS ===
+      transitionArcRefs.current.forEach((arc) => {
+        if (!arc) return;
 
-        // Move content up while scrolling down - optimized
-        if (contentRef.current) {
-          gsap.to(contentRef.current, {
+        gsap.fromTo(
+          arc,
+          {
+            scale: 1,
+            opacity: 0,
+            force3D: true,
+          },
+          {
             scrollTrigger: {
               trigger: containerRef.current,
               start: "top top",
               end: "40% top",
-              scrub: 1,
+              scrub: 2,
               anticipatePin: 1,
               invalidateOnRefresh: true,
             },
-            y: "-100vh",
-            ease: "none",
+            scale: 8,
+            opacity: 0.7,
+            ease: "power2.inOut",
             force3D: true,
-          });
-        }
-      }, containerRef);
+          }
+        );
+      });
 
-      return () => {
-        ctx.revert();
-      };
-    });
+      // === CONTENT MOVE (same behavior you already had) ===
+      if (contentRef.current) {
+        gsap.to(contentRef.current, {
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: "40% top",
+            scrub: 1,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+          y: "-100vh",
+          ease: "none",
+          force3D: true,
+        });
+      }
 
-    // Refresh ScrollTrigger after layout is ready
-    const refreshTimeout = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 100);
+    }, containerRef);
 
-    return () => {
-      clearTimeout(refreshTimeout);
-      mm.revert();
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
-  }, []);
+    return () => ctx.revert();
+  });
+
+  setTimeout(() => ScrollTrigger.refresh(), 100);
+
+  return () => {
+    mm.revert();
+    ScrollTrigger.getAll().forEach((t) => t.kill());
+  };
+}, []);
+
 
   const partners = [
     { name: "Hamleys", logo: log7 },
