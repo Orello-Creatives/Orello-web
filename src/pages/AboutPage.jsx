@@ -3,6 +3,10 @@ import AboutHero from '../sections/AboutHero'
 import OrelloIsa from '../sections/OrelloIsa'
 import WhyWeAre from '../sections/WhyWeAre'
 import MeetOur from '../sections/MeetOur'
+import LatestReads from '../sections/LatestReads'
+import Footer from '../components/Footer'
+
+
 const AboutPage = () => {
   return (
     <div className="w-full">
@@ -10,7 +14,8 @@ const AboutPage = () => {
       <OrelloIsa />
       <WhyWeAre />
       <MeetOur />
-      <div className="h-screen"></div> 
+      <LatestReads />
+      <Footer />
     </div>
   )
 }

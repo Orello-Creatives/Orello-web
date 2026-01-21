@@ -25,39 +25,16 @@ export default function AboutOrello() {
       nullTargetWarn: false
     });
 
-    // Store animation contexts for proper cleanup
-    const ctx = gsap.context(() => {
-      // Animate circles expanding with optimized settings
-      circleRefs.current.forEach((circle, index) => {
-        if (circle) {
-          gsap.to(circle, {
-            scrollTrigger: {
-              trigger: containerRef.current,
-              start: "top top",
-              end: "40% top",
-              scrub: 1.5,
-              anticipatePin: 1,
-              invalidateOnRefresh: true,
-            },
-            scale: 8,
-            opacity: 0,
-            ease: "power2.inOut",
-            force3D: true,
-          });
-        }
-      });
+    const mm = gsap.matchMedia();
 
-      // Animate transition arcs with optimized settings
-      transitionArcRefs.current.forEach((arc, index) => {
-        if (arc) {
-          gsap.fromTo(
-            arc,
-            { 
-              scale: 1, 
-              opacity: 0,
-              force3D: true,
-            },
-            {
+    // Only apply animations on desktop (min-width: 768px)
+    mm.add("(min-width: 768px)", () => {
+      // Store animation contexts for proper cleanup
+      const ctx = gsap.context(() => {
+        // Animate circles expanding with optimized settings
+        circleRefs.current.forEach((circle, index) => {
+          if (circle) {
+            gsap.to(circle, {
               scrollTrigger: {
                 trigger: containerRef.current,
                 start: "top top",
@@ -67,31 +44,63 @@ export default function AboutOrello() {
                 invalidateOnRefresh: true,
               },
               scale: 8,
-              opacity: 0.7,
+              opacity: 0,
               ease: "power2.inOut",
               force3D: true,
-            }
-          );
-        }
-      });
-
-      // Move content up while scrolling down - optimized
-      if (contentRef.current) {
-        gsap.to(contentRef.current, {
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top top",
-            end: "40% top",
-            scrub: 1,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-          },
-          y: "-100vh",
-          ease: "none",
-          force3D: true,
+            });
+          }
         });
-      }
-    }, containerRef);
+
+        // Animate transition arcs with optimized settings
+        transitionArcRefs.current.forEach((arc, index) => {
+          if (arc) {
+            gsap.fromTo(
+              arc,
+              { 
+                scale: 1, 
+                opacity: 0,
+                force3D: true,
+              },
+              {
+                scrollTrigger: {
+                  trigger: containerRef.current,
+                  start: "top top",
+                  end: "40% top",
+                  scrub: 1.5,
+                  anticipatePin: 1,
+                  invalidateOnRefresh: true,
+                },
+                scale: 8,
+                opacity: 0.7,
+                ease: "power2.inOut",
+                force3D: true,
+              }
+            );
+          }
+        });
+
+        // Move content up while scrolling down - optimized
+        if (contentRef.current) {
+          gsap.to(contentRef.current, {
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top top",
+              end: "40% top",
+              scrub: 1,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+            },
+            y: "-100vh",
+            ease: "none",
+            force3D: true,
+          });
+        }
+      }, containerRef);
+
+      return () => {
+        ctx.revert();
+      };
+    });
 
     // Refresh ScrollTrigger after layout is ready
     const refreshTimeout = setTimeout(() => {
@@ -100,7 +109,7 @@ export default function AboutOrello() {
 
     return () => {
       clearTimeout(refreshTimeout);
-      ctx.revert();
+      mm.revert();
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
@@ -118,7 +127,7 @@ export default function AboutOrello() {
 
   return (
     <div className="bg-[#eadecf]">
-      <div ref={containerRef} className="relative h-[100vh] overflow-hidden">
+      <div ref={containerRef} className="relative h-full overflow-hidden">
         {/* Background Circles - Same as Hero */}
         <div className="fixed inset-0 flex items-end justify-center pointer-events-none z-0 overflow-hidden">
           <div
@@ -194,7 +203,7 @@ export default function AboutOrello() {
         {/* Content */}
        <div
   ref={contentRef}
-  className="relative flex flex-col items-center justify-center z-10 pt-30"
+  className="relative flex flex-col items-center justify-center z-10 py-10 pt-30"
 >
 
           <div className="container">
