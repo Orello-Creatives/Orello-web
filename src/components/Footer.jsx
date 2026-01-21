@@ -2,6 +2,10 @@ import React from 'react'
 import { Instagram, Linkedin, MapPin, Mail } from 'lucide-react'
 import orello from '../assets/logos/orello.svg'
 import orelloclip from '../assets/logos/orelloclip.svg'
+import instagram from '../assets/logos/instagram.svg'
+import linkedin from '../assets/logos/linkedin.svg'
+import locatio from '../assets/logos/locatio.svg'
+import mailid from '../assets/logos/mailid.svg'
 
 const Footer = () => {
   return (
@@ -86,14 +90,19 @@ const Footer = () => {
                   <span className="text-black font-black text-xs uppercase tracking-widest">
                     Socials
                   </span>
-                  <div className="flex gap-2">
-                    {[Instagram, Linkedin, MapPin, Mail].map((Icon, idx) => (
+                   <div className="flex gap-2">
+                    {[
+                      { img: instagram, alt: 'Instagram' },
+                      { img: linkedin, alt: 'LinkedIn' },
+                      { img: locatio, alt: 'Location' },
+                      { img: mailid, alt: 'Email' }
+                    ].map((social, idx) => (
                       <a
                         key={idx}
                         href="#"
-                        className="w-9 h-9 sm:w-10 sm:h-10 bg-black rounded-xl flex items-center justify-center hover:bg-gray-800 transition-colors"
+                        className="w-9 h-9 sm:w-10 sm:h-10 bg-[#F9F5ED] rounded-xl flex items-center justify-center hover:bg-gray-800 transition-colors"
                       >
-                        <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                        <img src={social.img} alt={social.alt} className="w-4 h-4 sm:w-5 sm:h-5" />
                       </a>
                     ))}
                   </div>

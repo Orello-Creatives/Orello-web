@@ -71,7 +71,7 @@ const OrelloNavbar = () => {
           {/* Desktop CTA */}
           <div className="hidden md:block">
             <button className="px-6 lg:px-8 py-2.5 lg:py-3 bg-[#4B433B] text-white rounded-full text-sm lg:text-base font-medium hover:bg-[#2d2d2d] transition-colors">
-              contact us
+              Contact us
             </button>
           </div>
 

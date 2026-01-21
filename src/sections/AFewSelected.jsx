@@ -33,6 +33,7 @@ import row5logo2 from '../assets/logos/row5logo2.svg'
 import row5logo3 from '../assets/logos/row5logo3.svg'
 import row5logo4 from '../assets/logos/row5logo4.svg'
 import row5logo5 from '../assets/logos/row5logo5.svg'
+import smile from '../assets/logos/smile.svg'
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -180,10 +181,10 @@ const AFewSelected = () => {
 
           {/* CTA Card */}
           <div className="bg-[#1a1a1a] rounded-2xl sm:rounded-3xl aspect-[4/3] flex flex-col justify-center px-5 py-6 sm:px-6 sm:py-8 md:px-8 md:py-10 lg:px-10 lg:py-12 relative overflow-hidden">
-            <h3 className="font-bold mb-3 sm:mb-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-              Like what <br /> you see? 
-              <span className="inline-block w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4 bg-[#f7af19] rounded-full ml-2"></span>
-            </h3>
+            <h3 className="font-bold mb-3 sm:mb-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl flex items-end ">
+  Like what <br /> you see?
+  <img src={smile} className="w-8 mr-2" />
+</h3>
             <p className="text-white paragraph mb-4 sm:mb-6 md:mb-8 max-w-xs sm:max-w-sm md:max-w-md text-sm sm:text-base">
               Orello is a purpose-driven global design partner that helps impact-oriented organizations.
             </p>

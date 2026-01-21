@@ -83,10 +83,10 @@
   }
 
   h2 {
-    @apply text-[30px] md:text-[46px] lg:text-[60px]
-      leading-[120%]
-      font-[var(--font-mona)];
-  }
+  @apply text-[30px] md:text-[46px] lg:text-[60px] leading-[120%];
+  font-family: var(--font-mona);
+}
+
 
   h3 {
     @apply text-[24px] md:text-[36px] lg:text-[48px]
