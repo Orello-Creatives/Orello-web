@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import orello from '../assets/logos/orello.svg'
 
@@ -8,7 +9,13 @@ const OrelloNavbar = () => {
   const menuRef = useRef(null)
   const menuItemsRef = useRef([])
 
-  const navLinks = ['home', 'about us', 'work', 'services', 'resources']
+  const navLinks = [
+    { name: 'home', path: '/' },
+    { name: 'about us', path: '/about' },
+    { name: 'work', path: '/casestudy-overview' },
+    { name: 'services', path: '/services' },
+    { name: 'resources', path: '/resources' }
+  ]
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -48,31 +55,35 @@ const OrelloNavbar = () => {
 
           {/* Logo */}
           <div className="flex-shrink-0">
-            <img
-              src={orello}
-              alt="Orello Logo"
-              className="h-8 sm:h-10 md:h-12 w-auto"
-            />
+            <Link to="/">
+              <img
+                src={orello}
+                alt="Orello Logo"
+                className="h-8 sm:h-10 md:h-12 w-auto"
+              />
+            </Link>
           </div>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
             {navLinks.map((link) => (
-              <a
-                key={link}
-                href={`#${link.split(' ').join('-')}`}
+              <Link
+                key={link.name}
+                to={link.path}
                 className="px-4 lg:px-6 py-2 text-[#4B433B] text-sm lg:text-base font-medium transition-colors capitalize hover:opacity-70"
               >
-                {link}
-              </a>
+                {link.name}
+              </Link>
             ))}
           </div>
 
           {/* Desktop CTA */}
           <div className="hidden md:block">
-            <button className="px-6 lg:px-8 py-2.5 lg:py-3 bg-[#4B433B] text-white rounded-full text-sm lg:text-base font-medium hover:bg-[#2d2d2d] transition-colors">
-              Contact us
-            </button>
+            <Link to="/contact">
+              <button className="px-6 lg:px-8 py-2.5 lg:py-3 bg-[#4B433B] text-white rounded-full text-sm lg:text-base font-medium hover:bg-[#2d2d2d] transition-colors">
+                Contact us
+              </button>
+            </Link>
           </div>
 
           {/* Mobile Toggle */}
@@ -94,23 +105,27 @@ const OrelloNavbar = () => {
         >
           <div className="flex flex-col space-y-3 pb-6">
             {navLinks.map((link, index) => (
-              <a
-                key={link}
+              <Link
+                key={link.name}
                 ref={(el) => (menuItemsRef.current[index] = el)}
-                href={`#${link.split(' ').join('-')}`}
+                to={link.path}
                 className="px-4 py-2 text-black text-base font-medium capitalize hover:opacity-70"
                 onClick={() => setIsMenuOpen(false)}
               >
-                {link}
-              </a>
+                {link.name}
+              </Link>
             ))}
 
-            <button
+            <Link
+              to="/contact"
               ref={(el) => (menuItemsRef.current[navLinks.length] = el)}
-              className="mx-4 mt-2 px-6 py-4 bg-[#3d3d3d] text-white rounded-full text-base font-medium hover:bg-[#2d2d2d] transition-colors"
             >
-              contact us
-            </button>
+              <button
+                className="mx-4 mt-2 px-6 py-4 bg-[#3d3d3d] text-white rounded-full text-base font-medium hover:bg-[#2d2d2d] transition-colors"
+              >
+                contact us
+              </button>
+            </Link>
           </div>
         </div>
       </div>

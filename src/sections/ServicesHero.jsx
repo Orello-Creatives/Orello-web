@@ -19,158 +19,269 @@ export default function ServicesSection() {
   const serviceIcons = [useRef(null), useRef(null), useRef(null), useRef(null)];
   const textPlaceholders = [useRef(null), useRef(null), useRef(null), useRef(null)];
   const finalTextRef = useRef(null);
+  
+  // Background circle refs
+  const circleRefs = useRef([]);
+  const transitionArcRefs = useRef([]);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // 1. Initial State Setup
-      gsap.set(finalTextRef.current, { opacity: 0, visibility: 'hidden' });
-      gsap.set(".text-line", { y: 30, opacity: 0 });
+    // Force scroll to top on mount
+    window.scrollTo(0, 0);
 
-      const initialIconSpacing = 180; 
+    // Only run animations on large devices
+    const isDesktop = window.innerWidth >= 1024;
 
-      // Center all icons initially at the bottom
-      gsap.set(serviceIcons.map(r => r.current), {
-        top: '65%', 
-        left: '50%',
-        xPercent: -50,
-        yPercent: -50,
-        scale: 1,
-      });
+    if (isDesktop) {
+      const ctx = gsap.context(() => {
+        // 1. Initial State Setup - Set these IMMEDIATELY
+        gsap.set(finalTextRef.current, { opacity: 0, visibility: 'hidden' });
+        gsap.set(".text-line", { y: 30, opacity: 0 });
 
-      // Apply initial horizontal spread
-      serviceIcons.forEach((ref, i) => {
-        const offset = (i - 1.5) * initialIconSpacing; 
-        gsap.set(ref.current, { x: offset });
-      });
+        const initialIconSpacing = 180; 
 
-      // 2. Scroll Animation
-      const masterTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "+=350%",
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        }
-      });
-
-      // Phase 1: Header fades & Icons "Jump" up with gaps
-      masterTimeline.to([headerTextRef.current, descriptionRef.current], {
-        opacity: 0,
-        y: -60,
-        duration: 0.4,
-        ease: "power2.inOut"
-      }, 0);
-
-      serviceIcons.forEach((ref, i) => {
-        const expandedOffset = (i - 1.5) * (initialIconSpacing + 60); 
-        masterTimeline.to(ref.current, {
-          top: '40%',     
-          x: expandedOffset, 
-          scale: 1.5,     
-          duration: 0.4,
-          ease: "power2.out",
-        }, 0);
-      });
-
-      // Phase 2: Show final text layout
-      masterTimeline.to(finalTextRef.current, {
-        opacity: 1,
-        visibility: 'visible',
-        duration: 0.2,
-      }, 0.3);
-
-      // Phase 3: Icons land into text placeholders
-      serviceIcons.forEach((iconRef, i) => {
-        masterTimeline.to(iconRef.current, {
-          top: () => {
-            const targetRect = textPlaceholders[i].current.getBoundingClientRect();
-            const containerRect = stickyContainerRef.current.getBoundingClientRect();
-            return targetRect.top - containerRect.top + (targetRect.height / 2);
-          },
-          left: () => {
-            const targetRect = textPlaceholders[i].current.getBoundingClientRect();
-            const containerRect = stickyContainerRef.current.getBoundingClientRect();
-            return targetRect.left - containerRect.left + (targetRect.width / 2);
-          },
-          x: 0, 
+        // Center all icons initially at the bottom and make them visible
+        gsap.set(serviceIcons.map(r => r.current), {
+          top: '65%', 
+          left: '50%',
           xPercent: -50,
           yPercent: -50,
-          scale: 1, 
-          width: () => textPlaceholders[i].current.offsetWidth,
-          height: () => textPlaceholders[i].current.offsetHeight,
-          rotation: 360 + (i * 90),
-          duration: 0.8,
-          ease: "power3.inOut",
-        }, 0.4 + (i * 0.05));
-      });
+          scale: 1,
+          opacity: 1,
+        });
 
-      // Phase 4: Text lines slide in
-      masterTimeline.to(".text-line", {
-        y: 0,
-        opacity: 1,
-        stagger: 0.1,
-        duration: 0.6,
-        ease: "power2.out"
-      }, 0.5);
+        // Apply initial horizontal spread
+        serviceIcons.forEach((ref, i) => {
+          const offset = (i - 1.5) * initialIconSpacing; 
+          gsap.set(ref.current, { x: offset });
+        });
 
-    }, containerRef);
+        // Animate background circles on scroll
+        circleRefs.current.forEach((circle) => {
+          if (circle) {
+            gsap.to(circle, {
+              scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top top",
+                end: "40% top",
+                scrub: 2,
+                anticipatePin: 1,
+              },
+              scale: 8,
+              keyframes: [
+                { opacity: 0.6, duration: 0.3, ease: "power2.in" },
+                { opacity: 0, duration: 0.7, ease: "power2.out" },
+              ],
+              ease: "power2.inOut",
+            });
+          }
+        });
 
-    return () => ctx.revert();
+        transitionArcRefs.current.forEach((arc) => {
+          if (arc) {
+            gsap.fromTo(
+              arc,
+              { 
+                scale: 1, 
+                opacity: 0,
+              },
+              {
+                scrollTrigger: {
+                  trigger: containerRef.current,
+                  start: "top top",
+                  end: "40% top",
+                  scrub: 2,
+                  anticipatePin: 1,
+                },
+                scale: 8,
+                opacity: 0.7,
+                ease: "power2.inOut",
+              }
+            );
+          }
+        });
+
+        // 2. Scroll Animation
+        const masterTimeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: "+=350%",
+            scrub: 1,
+            pin: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          }
+        });
+
+        // Phase 1: Header fades & Icons "Jump" up with gaps
+        masterTimeline.to([headerTextRef.current, descriptionRef.current], {
+          opacity: 0,
+          y: -60,
+          duration: 0.4,
+          ease: "power2.inOut"
+        }, 0);
+
+        serviceIcons.forEach((ref, i) => {
+          const expandedOffset = (i - 1.5) * (initialIconSpacing + 60); 
+          masterTimeline.to(ref.current, {
+            top: '40%',     
+            x: expandedOffset, 
+            scale: 1.5,     
+            duration: 0.4,
+            ease: "power2.out",
+          }, 0);
+        });
+
+        // Phase 2: Show final text layout
+        masterTimeline.to(finalTextRef.current, {
+          opacity: 1,
+          visibility: 'visible',
+          duration: 0.2,
+        }, 0.3);
+
+        // Phase 3: Icons land into text placeholders
+        serviceIcons.forEach((iconRef, i) => {
+          masterTimeline.to(iconRef.current, {
+            top: () => {
+              const targetRect = textPlaceholders[i].current.getBoundingClientRect();
+              const containerRect = stickyContainerRef.current.getBoundingClientRect();
+              return targetRect.top - containerRect.top + (targetRect.height / 2);
+            },
+            left: () => {
+              const targetRect = textPlaceholders[i].current.getBoundingClientRect();
+              const containerRect = stickyContainerRef.current.getBoundingClientRect();
+              return targetRect.left - containerRect.left + (targetRect.width / 2);
+            },
+            x: 0, 
+            xPercent: -50,
+            yPercent: -50,
+            scale: 1, 
+            width: () => textPlaceholders[i].current.offsetWidth,
+            height: () => textPlaceholders[i].current.offsetHeight,
+            rotation: 360 + (i * 90),
+            duration: 0.8,
+            ease: "power3.inOut",
+          }, 0.4 + (i * 0.05));
+        });
+
+        // Phase 4: Text lines slide in
+        masterTimeline.to(".text-line", {
+          y: 0,
+          opacity: 1,
+          stagger: 0.1,
+          duration: 0.6,
+          ease: "power2.out"
+        }, 0.5);
+
+      }, containerRef);
+
+      // Refresh ScrollTrigger after a brief delay
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
+
+      return () => ctx.revert();
+    }
+    // No animations for mobile/tablet - content displays statically
   }, []);
 
   return (
     <div ref={containerRef} className="bg-[#eadecf] relative">
-      <div ref={stickyContainerRef} className="h-screen w-full overflow-hidden relative">
+      <div ref={stickyContainerRef} className="h-auto lg:h-screen w-full overflow-hidden relative py-12 lg:py-0">
         
-        {/* Background Decorative Circles using only #fdf6e9 and #eadecf */}
-        <div className="absolute inset-0 flex items-end justify-center pointer-events-none z-0 overflow-hidden">
-          <div className="absolute w-[140vw] h-[130vw] bg-[#fdf6e9] opacity-40 left-1/2" style={{ borderRadius: "50%", bottom: "-75vw", transform: "translateX(-50%)" }} />
-          <div className="absolute w-[115vw] h-[105vw] bg-[#eadecf] left-1/2" style={{ borderRadius: "50%", bottom: "-65vw", transform: "translateX(-50%)" }} />
-          <div className="absolute w-[90vw] h-[85vw] bg-[#fdf6e9] left-1/2" style={{ borderRadius: "50%", bottom: "-55vw", transform: "translateX(-50%)" }} />
-          <div className="absolute w-[65vw] h-[65vw] bg-[#eadecf] left-1/2" style={{ borderRadius: "50%", bottom: "-45vw", transform: "translateX(-50%)" }} />
-          <div className="absolute w-[40vw] h-[40vw] bg-[#fdf6e9] left-1/2" style={{ borderRadius: "50%", bottom: "-35vw", transform: "translateX(-50%)" }} />
+        {/* Background Decorative Circles - Hidden on mobile/tablet */}
+        <div className="absolute inset-0 items-end justify-center pointer-events-none z-0 overflow-hidden hidden lg:flex">
+          <div
+            ref={(el) => (circleRefs.current[1] = el)}
+            className="absolute w-[120vw] h-[110vw] bg-[#fdf6e9] left-1/2"
+            style={{ borderRadius: "50%", bottom: "-60vw", opacity: 0.6, transform: "translateX(-50%)", willChange: "transform, opacity" }}
+          />
+          <div
+            ref={(el) => (circleRefs.current[2] = el)}
+            className="absolute w-[95vw] h-[85vw] bg-[#eadecf] left-1/2"
+            style={{ borderRadius: "50%", bottom: "-50vw", opacity: 0.6, transform: "translateX(-50%)", willChange: "transform, opacity" }}
+          />
+          <div
+            ref={(el) => (circleRefs.current[3] = el)}
+            className="absolute w-[70vw] h-[65vw] bg-[#fdf6e9] left-1/2"
+            style={{ borderRadius: "50%", bottom: "-40vw", opacity: 0.6, transform: "translateX(-50%)", willChange: "transform, opacity" }}
+          />
+          <div
+            ref={(el) => (circleRefs.current[4] = el)}
+            className="absolute w-[45vw] h-[45vw] bg-[#eadecf] left-1/2"
+            style={{ borderRadius: "50%", bottom: "-30vw", opacity: 0.6, transform: "translateX(-50%)", willChange: "transform, opacity" }}
+          />
+
+          <div
+            ref={(el) => (transitionArcRefs.current[0] = el)}
+            className="absolute w-[40vw] h-[40vw] bg-[#F4EDE2] left-1/2"
+            style={{ borderRadius: "50%", bottom: "-40vw", opacity: 0, transform: "translateX(-50%)", willChange: "transform, opacity" }}
+          />
+          <div
+            ref={(el) => (transitionArcRefs.current[1] = el)}
+            className="absolute w-[15vw] h-[0vw] bg-[#f4ede2] left-1/2"
+            style={{ borderRadius: "50%", bottom: "-40vw", opacity: 0, transform: "translateX(-50%)", willChange: "transform, opacity" }}
+          />
         </div>
 
         <div className="relative z-10 h-full flex flex-col items-center px-4">
           
-          {/* Initial Header */}
-          <div ref={headerTextRef} className="absolute inset-0 flex flex-col items-center pt-[15vh] text-center">
-            <h2 className="text-[#402E1D] text-5xl sm:text-6xl lg:text-7xl font-black mb-6 font-mona">
+          {/* Initial Header - Shows on mobile/tablet, hidden during animation on desktop */}
+          <div ref={headerTextRef} className="static lg:absolute inset-0 flex flex-col items-center pt-8 md:pt-12 lg:pt-[15vh] text-center mb-8 lg:mb-0">
+            <h2 className="text-[#402E1D] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 md:mb-6 font-mona">
               Our Services
             </h2>
-            <p ref={descriptionRef} className="text-[#402E1D] text-base sm:text-xl max-w-3xl leading-relaxed">
+            <p ref={descriptionRef} className="text-[#402E1D] text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed px-4">
               Orello is a purpose-driven global design partner that helps impact-oriented
               <br className="hidden sm:block" />
               organisations communicate with clarity, empathy, and intention.
             </p>
           </div>
 
-          {/* Final Text Layout */}
-          <div ref={finalTextRef} className="h-full flex items-center justify-center max-w-6xl mx-auto text-center relative z-20">
-            <h2 className="text-black text-3xl sm:text-5xl lg:text-7xl font-black leading-tight" style={{ fontFamily: 'Satoshi, sans-serif' }}>
-              <span className="text-line inline">We help brands </span>
-              <span ref={textPlaceholders[0]} className="inline-flex w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 mx-2 align-middle" />
-              <span className="text-line inline">build identities and</span>
+          {/* Final Text Layout - Visible on mobile/tablet, animated on desktop */}
+          <div 
+            ref={finalTextRef} 
+            className="h-full flex items-center justify-center max-w-6xl mx-auto text-center relative z-20 opacity-100 visible lg:opacity-0 lg:invisible"
+          >
+            <h2 className="text-black text-xl sm:text-2xl md:text-4xl lg:text-7xl font-black leading-tight px-4" style={{ fontFamily: 'Satoshi, sans-serif' }}>
+              <span className="text-line inline opacity-100 lg:opacity-0">We help brands </span>
+              <span ref={textPlaceholders[0]} className="inline-flex w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 lg:w-20 lg:h-20 mx-1 md:mx-2 align-middle">
+                <img src={herologo1} alt="" className="w-full h-full object-contain lg:hidden" />
+              </span>
+              <span className="text-line inline opacity-100 lg:opacity-0">build identities and</span>
               <br />
-              <span className="text-line inline">communicate clearly with </span>
-              <span ref={textPlaceholders[1]} className="inline-flex w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 mx-2 align-middle" />
-              <span className="text-line inline">engaging visuals,</span>
+              <span className="text-line inline opacity-100 lg:opacity-0">communicate clearly with </span>
+              <span ref={textPlaceholders[1]} className="inline-flex w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 lg:w-20 lg:h-20 mx-1 md:mx-2 align-middle">
+                <img src={herologo2} alt="" className="w-full h-full object-contain lg:hidden" />
+              </span>
+              <span className="text-line inline opacity-100 lg:opacity-0">engaging visuals,</span>
               <br />
-              <span ref={textPlaceholders[2]} className="inline-flex w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 mx-2 align-middle" />
-              <span className="text-line inline">digital marketing, and</span>
+              <span ref={textPlaceholders[2]} className="inline-flex w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 lg:w-20 lg:h-20 mx-1 md:mx-2 align-middle">
+                <img src={herologo3} alt="" className="w-full h-full object-contain lg:hidden" />
+              </span>
+              <span className="text-line inline opacity-100 lg:opacity-0">digital marketing, and</span>
               <br />
-              <span ref={textPlaceholders[3]} className="inline-flex w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 mx-2 align-middle" />
-              <span className="text-line inline">intuitive platforms.</span>
+              <span ref={textPlaceholders[3]} className="inline-flex w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 lg:w-20 lg:h-20 mx-1 md:mx-2 align-middle">
+                <img src={herologo4} alt="" className="w-full h-full object-contain lg:hidden" />
+              </span>
+              <span className="text-line inline opacity-100 lg:opacity-0">intuitive platforms.</span>
             </h2>
           </div>
 
-          {/* Service Icons */}
-          <div className="absolute inset-0 pointer-events-none z-30">
+          {/* Service Icons - Animated on desktop only */}
+          <div className="absolute inset-0 pointer-events-none z-30 hidden lg:block">
             {[herologo1, herologo2, herologo3, herologo4].map((logo, idx) => (
-              <div key={idx} ref={serviceIcons[idx]} className="absolute w-36 h-36 md:w-48 lg:w-52">
+              <div 
+                key={idx} 
+                ref={serviceIcons[idx]} 
+                className="absolute w-36 h-36 md:w-48 lg:w-52"
+                style={{ 
+                  top: '65%', 
+                  left: '50%', 
+                  transform: 'translate(-50%, -50%)',
+                  opacity: 0
+                }}
+              >
                 <img src={logo} alt="" className="w-full h-full object-contain" />
               </div>
             ))}
