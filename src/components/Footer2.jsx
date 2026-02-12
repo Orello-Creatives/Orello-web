@@ -27,7 +27,7 @@ const Footer = () => {
             />
             {/* The Black Circle */}
             <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 bg-black rounded-full border-2 sm:border-4 border-[#fdf7ee] flex items-center justify-center shadow-xl">
-              <img src={orelloclip} alt="Orello mark" className="w-1/2" />
+              <img src={orelloclip} alt="Orello mark" className="" />
             </div>
           </div>
         </div>
