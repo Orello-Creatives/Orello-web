@@ -144,7 +144,7 @@ export default function PhotoGridSection() {
         <div className="mt-2">
           <a
             href="#"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border  text-sm font-medium text-gray-700 bg-[#4B433B] hover:bg-gray-50 hover:border-gray-600 transition-all duration-200 shadow-sm"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border  text-sm font-medium text-gray-700 bg-[#4B433B]  hover:border-gray-600 transition-all duration-200 shadow-sm"
           >
             <span className="text-[#F4EDE2]">View Report</span>
         

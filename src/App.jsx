@@ -9,6 +9,8 @@ import BlogPage from '../src/pages/BlogPage'
 import CaseStudyOverviewPage from '../src/pages/CaseStudyOverviewPage'
 import ServicesPage from '../src/pages/ServicesPage'
 import GBMCasestudy from '../src/pages/GBMCasestudy'
+import VillgroCasestudy from '../src/pages/VillgroCasestudy'
+import ColdeasyCasestudy from '../src/pages/ColdeasyCasestudy'
 const App = () => {
   return (
     <BrowserRouter>
@@ -23,6 +25,8 @@ const App = () => {
         <Route path="/casestudy-overview" element={<CaseStudyOverviewPage />} />
         <Route path="/gbm-casestudy" element={<GBMCasestudy />} />
         <Route path="/services" element={<ServicesPage />} />
+        <Route path="/villgro-casestudy" element={<VillgroCasestudy />} />
+        <Route path="/coldeasy-casestudy" element={<ColdeasyCasestudy />} />
       </Routes>
     </BrowserRouter>
   );

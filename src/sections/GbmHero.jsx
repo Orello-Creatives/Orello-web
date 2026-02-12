@@ -28,8 +28,8 @@ export default function CaseStudySection() {
             scrollTrigger: {
               trigger: containerRef.current,
               start: "top top",
-              end: "100% top",
-              scrub: 1.5,
+              end: "70% top",
+              scrub: 1,
               anticipatePin: 1,
               invalidateOnRefresh: true,
             },
@@ -45,7 +45,7 @@ export default function CaseStudySection() {
             scrollTrigger: {
               trigger: containerRef.current,
               start: "top top",
-              end: "40% top",
+              end: "70% top",
               scrub: 1,
               anticipatePin: 1,
               invalidateOnRefresh: true,
@@ -71,11 +71,14 @@ export default function CaseStudySection() {
 
   // Arc configs — responsive for all screen sizes
   const arcs = [
-    { w: "120vw", h: "110vw", bg: "#e8ddd0", bottom: "-60vw", wMd: "130vw", hMd: "120vw", bottomMd: "-65vw", wSm: "150vw", hSm: "140vw", bottomSm: "-75vw" },
-    { w: "95vw",  h: "85vw",  bg: "#faf5eb", bottom: "-50vw", wMd: "105vw", hMd: "95vw", bottomMd: "-55vw", wSm: "120vw", hSm: "110vw", bottomSm: "-60vw" },
-    { w: "70vw",  h: "65vw",  bg: "#e8ddd0", bottom: "-40vw", wMd: "80vw", hMd: "75vw", bottomMd: "-45vw", wSm: "95vw", hSm: "90vw", bottomSm: "-50vw" },
-    { w: "45vw",  h: "45vw",  bg: "#faf5eb", bottom: "-30vw", wMd: "55vw", hMd: "55vw", bottomMd: "-35vw", wSm: "70vw", hSm: "70vw", bottomSm: "-40vw" },
-    { w: "25vw",  h: "25vw",  bg: "#e8ddd0", bottom: "-20vw", wMd: "35vw", hMd: "35vw", bottomMd: "-25vw", wSm: "45vw", hSm: "45vw", bottomSm: "-30vw" },
+    { w: "140vw", h: "130vw", bg: "#e8ddd0", bottom: "-70vw", wMd: "150vw", hMd: "140vw", bottomMd: "-75vw", wSm: "170vw", hSm: "160vw", bottomSm: "-85vw" },
+    { w: "120vw", h: "110vw", bg: "#faf5eb", bottom: "-60vw", wMd: "130vw", hMd: "120vw", bottomMd: "-65vw", wSm: "150vw", hSm: "140vw", bottomSm: "-75vw" },
+    { w: "95vw",  h: "85vw",  bg: "#e8ddd0", bottom: "-50vw", wMd: "105vw", hMd: "95vw", bottomMd: "-55vw", wSm: "120vw", hSm: "110vw", bottomSm: "-60vw" },
+    { w: "70vw",  h: "65vw",  bg: "#faf5eb", bottom: "-40vw", wMd: "80vw", hMd: "75vw", bottomMd: "-45vw", wSm: "95vw", hSm: "90vw", bottomSm: "-50vw" },
+    { w: "45vw",  h: "45vw",  bg: "#e8ddd0", bottom: "-30vw", wMd: "55vw", hMd: "55vw", bottomMd: "-35vw", wSm: "70vw", hSm: "70vw", bottomSm: "-40vw" },
+    { w: "25vw",  h: "25vw",  bg: "#faf5eb", bottom: "-20vw", wMd: "35vw", hMd: "35vw", bottomMd: "-25vw", wSm: "45vw", hSm: "45vw", bottomSm: "-30vw" },
+    { w: "12vw",  h: "12vw",  bg: "#e8ddd0", bottom: "-12vw", wMd: "18vw", hMd: "18vw", bottomMd: "-15vw", wSm: "25vw", hSm: "25vw", bottomSm: "-20vw" },
+    { w: "6vw",   h: "6vw",   bg: "#faf5eb", bottom: "-6vw",  wMd: "10vw", hMd: "10vw", bottomMd: "-8vw",  wSm: "15vw", hSm: "15vw", bottomSm: "-12vw" },
   ];
 
   return (

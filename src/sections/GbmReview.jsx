@@ -1,6 +1,6 @@
 import { useState } from "react";
 import comma from '../assets/logos/comma.svg'
-import roshini from '../assets/logos/roshni.svg'
+import roshini2 from '../assets/logos/roshini2.svg'
 const testimonials = [
   {
     id: 1,
@@ -8,7 +8,7 @@ const testimonials = [
       "Orello Creatives designed impactful, visually stunning collateral for Villgro's GBM event. From Reports to brochures to standees, every item was crafted with detail and attention. The team's design expertise helped us leave a lasting impression on our audience and incredible experience!",
     name: "Roshini Muthukumar",
     role: "Manager Ecosystem Development",
-    avatar: roshini, 
+    avatar: roshini2, 
   },
   
 ];
