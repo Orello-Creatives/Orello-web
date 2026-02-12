@@ -8,6 +8,7 @@ import FAQPage from './pages/FAQPage'
 import BlogPage from '../src/pages/BlogPage'
 import CaseStudyOverviewPage from '../src/pages/CaseStudyOverviewPage'
 import ServicesPage from '../src/pages/ServicesPage'
+import GBMCasestudy from '../src/pages/GBMCasestudy'
 const App = () => {
   return (
     <BrowserRouter>
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/faq" element={<FAQPage />} />
         <Route path="/blogs" element={<BlogPage />} />
         <Route path="/casestudy-overview" element={<CaseStudyOverviewPage />} />
+        <Route path="/gbm-casestudy" element={<GBMCasestudy />} />
         <Route path="/services" element={<ServicesPage />} />
       </Routes>
     </BrowserRouter>
