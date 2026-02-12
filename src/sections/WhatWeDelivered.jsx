@@ -28,7 +28,7 @@ const stats = [
 
 export default function GreenBuildingSection() {
   return (
-    <div className="w-full bg-[#FDF6E9] font-sans">
+    <div className="w-full pt-10 bg-[#FDF6E9] font-sans">
 
       {/* Hero Image Placeholder */}
       <div className="container mx-auto">
