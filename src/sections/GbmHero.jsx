@@ -19,7 +19,7 @@ export default function CaseStudySection() {
 
     const mm = gsap.matchMedia();
 
-    mm.add("(min-width: 768px)", () => {
+    mm.add("(min-width: 868px)", () => {
       const ctx = gsap.context(() => {
         circleRefs.current.forEach((circle) => {
           if (!circle) return;
@@ -27,7 +27,7 @@ export default function CaseStudySection() {
             scrollTrigger: {
               trigger: containerRef.current,
               start: "top top",
-              end: "40% top",
+              end: "100% top",
               scrub: 1.5,
               anticipatePin: 1,
               invalidateOnRefresh: true,
