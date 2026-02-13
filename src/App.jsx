@@ -11,9 +11,22 @@ import ServicesPage from '../src/pages/ServicesPage'
 import GBMCasestudy from '../src/pages/GBMCasestudy'
 import VillgroCasestudy from '../src/pages/VillgroCasestudy'
 import ColdeasyCasestudy from '../src/pages/ColdeasyCasestudy'
+import ScrollToTop from './sections/ScrollToTop'
+import CanvaseCasestudy from './pages/CanvaseCasestudy'
+import GangpurCasestudy from './pages/GangpurCasestudy'
+import OceanCasestudy from './pages/OceanCasestudy'
+import G3Casestudy from './pages/G3Casestudy'
+import ScalepointCasestudy from './pages/ScalepointCasestudy'
+import TmtCasestudy from './pages/TmtCasestudy'
+import YaykwaCasestudy from './pages/YaykwaCasestudy'
+import YogCasestudy from './pages/YogCasestudy'
+import ExpCasestudy from './pages/ExpCasestudy'
+import AarkivaCasestudy from './pages/AarkivaCasestudy'
+import FindCasestudy from './pages/FindCasestudy'
 const App = () => {
   return (
     <BrowserRouter>
+    <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/contact" element={<ContactPage />} />
@@ -27,6 +40,17 @@ const App = () => {
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/villgro-casestudy" element={<VillgroCasestudy />} />
         <Route path="/coldeasy-casestudy" element={<ColdeasyCasestudy />} />
+        <Route path="/canvase-casestudy" element={<CanvaseCasestudy />} />
+        <Route path="/gangpur-casestudy" element={<GangpurCasestudy />} />
+        <Route path="/ocean-casestudy" element={<OceanCasestudy />} />
+        <Route path="/g3-casestudy" element={<G3Casestudy />} />
+        <Route path="/scalepoint-casestudy" element={<ScalepointCasestudy />} />
+        <Route path="/tmt-casestudy" element={<TmtCasestudy />} />
+        <Route path="/yaykwa-casestudy" element={<YaykwaCasestudy />} />
+        <Route path="/yog-casestudy" element={<YogCasestudy />} />
+        <Route path="/exp-casestudy" element={<ExpCasestudy />} />
+        <Route path="/aarkiva-casestudy" element={<AarkivaCasestudy />} />
+        <Route path="/findtheircare-casestudy" element={<FindCasestudy />} />
       </Routes>
     </BrowserRouter>
   );
