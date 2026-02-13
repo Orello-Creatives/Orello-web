@@ -80,7 +80,7 @@ const OrelloNavbar = () => {
           {/* Desktop CTA */}
           <div className="hidden md:block">
             <Link to="/contact">
-              <button className="px-6 lg:px-8 py-2.5 lg:py-3 bg-[#4B433B] text-white rounded-full text-sm lg:text-base font-medium hover:bg-[#2d2d2d] transition-colors">
+              <button className="px-6 lg:px-8 py-2.5 lg:py-3 cursor-pointer bg-[#4B433B] text-white rounded-full text-sm lg:text-base font-medium hover:bg-[#2d2d2d] transition-colors">
                 Contact us
               </button>
             </Link>
@@ -121,7 +121,7 @@ const OrelloNavbar = () => {
               ref={(el) => (menuItemsRef.current[navLinks.length] = el)}
             >
               <button
-                className="mx-4 mt-2 px-6 py-4 bg-[#3d3d3d] text-white rounded-full text-base font-medium hover:bg-[#2d2d2d] transition-colors"
+                className="mx-4 mt-2 px-6 py-4 bg-[#3d3d3d]  text-white rounded-full text-base font-medium hover:bg-[#2d2d2d] transition-colors"
               >
                 contact us
               </button>
