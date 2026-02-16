@@ -34,8 +34,8 @@ const ServicesSection = () => {
       id: 3,
       title: 'Grow',
       color: 'bg-[#B0DD63]',
-      description: 'We support digital presence and reach through thoughtful marketing and ongoing optimisation.',
-      tagline: 'The goal is visibility, relevance, and steady growth.',
+      description: 'We support digital presence and reach through thoughtful marketing and ongoing optimisation.The goal is visibility, relevance, and steady growth.',
+      tagline: '',
       items: [
         'DIGITAL MARKETING',
         'SEO AND DISCOVERABILITY',

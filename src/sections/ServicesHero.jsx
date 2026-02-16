@@ -47,6 +47,7 @@ export default function ServicesSection() {
           yPercent: -50,
           scale: 1,
           opacity: 1,
+          willChange: 'transform, opacity',
         });
 
         // Apply initial horizontal spread
@@ -62,16 +63,13 @@ export default function ServicesSection() {
               scrollTrigger: {
                 trigger: containerRef.current,
                 start: "top top",
-                end: "40% top",
-                scrub: 2,
+                end: "30% top",
+                scrub: 1.5,
                 anticipatePin: 1,
               },
               scale: 8,
-              keyframes: [
-                { opacity: 0.6, duration: 0.3, ease: "power2.in" },
-                { opacity: 0, duration: 0.7, ease: "power2.out" },
-              ],
-              ease: "power2.inOut",
+              opacity: 0,
+              ease: "none",
             });
           }
         });
@@ -88,13 +86,13 @@ export default function ServicesSection() {
                 scrollTrigger: {
                   trigger: containerRef.current,
                   start: "top top",
-                  end: "40% top",
-                  scrub: 2,
+                  end: "30% top",
+                  scrub: 1.5,
                   anticipatePin: 1,
                 },
                 scale: 8,
                 opacity: 0.7,
-                ease: "power2.inOut",
+                ease: "none",
               }
             );
           }
@@ -105,20 +103,21 @@ export default function ServicesSection() {
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top top",
-            end: "+=350%",
-            scrub: 1,
+            end: "+=400%",
+            scrub: 1.5,
             pin: true,
             anticipatePin: 1,
             invalidateOnRefresh: true,
+            fastScrollEnd: true,
           }
         });
 
-        // Phase 1: Header fades & Icons "Jump" up with gaps
+        // Phase 1: Header fades & Icons "Jump" up with gaps (0-1)
         masterTimeline.to([headerTextRef.current, descriptionRef.current], {
           opacity: 0,
           y: -60,
-          duration: 0.4,
-          ease: "power2.inOut"
+          duration: 1,
+          ease: "power1.inOut"
         }, 0);
 
         serviceIcons.forEach((ref, i) => {
@@ -127,19 +126,20 @@ export default function ServicesSection() {
             top: '40%',     
             x: expandedOffset, 
             scale: 1.5,     
-            duration: 0.4,
-            ease: "power2.out",
+            duration: 1,
+            ease: "back.out(1.2)",
           }, 0);
         });
 
-        // Phase 2: Show final text layout
+        // Phase 2: Show final text layout (1-1.5)
         masterTimeline.to(finalTextRef.current, {
           opacity: 1,
           visibility: 'visible',
-          duration: 0.2,
-        }, 0.3);
+          duration: 0.5,
+          ease: "power1.in"
+        }, 1);
 
-        // Phase 3: Icons land into text placeholders
+        // Phase 3: Icons land into text placeholders (1.5-3)
         serviceIcons.forEach((iconRef, i) => {
           masterTimeline.to(iconRef.current, {
             top: () => {
@@ -159,28 +159,31 @@ export default function ServicesSection() {
             width: () => textPlaceholders[i].current.offsetWidth,
             height: () => textPlaceholders[i].current.offsetHeight,
             rotation: 360 + (i * 90),
-            duration: 0.8,
-            ease: "power3.inOut",
-          }, 0.4 + (i * 0.05));
+            duration: 1.5,
+            ease: "power2.inOut",
+          }, 1.5 + (i * 0.08));
         });
 
-        // Phase 4: Text lines slide in
+        // Phase 4: Text lines slide in (2-3.5)
         masterTimeline.to(".text-line", {
           y: 0,
           opacity: 1,
-          stagger: 0.1,
-          duration: 0.6,
+          stagger: 0.12,
+          duration: 1,
           ease: "power2.out"
-        }, 0.5);
+        }, 2);
 
       }, containerRef);
 
       // Refresh ScrollTrigger after a brief delay
-      setTimeout(() => {
+      const refreshTimeout = setTimeout(() => {
         ScrollTrigger.refresh();
       }, 100);
 
-      return () => ctx.revert();
+      return () => {
+        ctx.revert();
+        clearTimeout(refreshTimeout);
+      };
     }
     // No animations for mobile/tablet - content displays statically
   }, []);
