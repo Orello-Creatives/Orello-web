@@ -1,5 +1,6 @@
 import React from 'react'
 import { Instagram, Linkedin, MapPin, Mail } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import orello from '../assets/logos/orello.svg'
 import orelloclip from '../assets/logos/orelloclip.svg'
 import instagram from '../assets/logos/instagram.svg'
@@ -9,6 +10,17 @@ import mailid from '../assets/logos/mailid.svg'
 
 
 const Footer = () => {
+  const footerLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'About Us', path: '/about' },
+    { name: 'Work', path: '/casestudy-overview' },
+    { name: 'Services', path: '/services' },
+    { name: 'Resources', path: '/resources' },
+    { name: 'Careers', path: '/careers' },
+    { name: 'FAQ', path: '/faq' },
+    { name: 'Contact Us', path: '/contact' }
+  ]
+
   return (
     <div className="bg-[#fcf4e9] flex flex-col relative w-full overflow-hidden ">
 
@@ -47,7 +59,9 @@ const Footer = () => {
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 sm:gap-8">
               {/* Logo Area */}
               <div className="w-full md:w-auto flex justify-start">
-                <img src={orello} alt="Orello Logo" className="w-32 sm:w-36 md:w-42" />
+                <Link to="/">
+                  <img src={orello} alt="Orello Logo" className="w-32 sm:w-36 md:w-42" />
+                </Link>
               </div>
 
               {/* Navigation & Socials Column */}
@@ -55,14 +69,14 @@ const Footer = () => {
                 
                 {/* Nav Links */}
                 <nav className="flex flex-wrap justify-start md:justify-end gap-2 sm:gap-3 w-full">
-                  {['Home', 'Case Studies', 'Blogs', 'Careers', 'Contact Us'].map((item) => (
-                    <a
-                      key={item}
-                      href="#"
+                  {footerLinks.map((link) => (
+                    <Link
+                      key={link.name}
+                      to={link.path}
                       className="px-4 sm:px-6 py-2 sm:py-2.5 bg-white rounded-lg text-black text-xs sm:text-sm font-bold shadow-sm hover:bg-gray-50 transition-colors"
                     >
-                      {item}
-                    </a>
+                      {link.name}
+                    </Link>
                   ))}
                 </nav>
 

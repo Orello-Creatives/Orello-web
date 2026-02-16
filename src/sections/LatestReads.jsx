@@ -1,6 +1,7 @@
 import read1 from '../assets/images/read1.png'
 import read2 from '../assets/images/read2.png'
 import read3 from '../assets/images/read3.png'
+import {Link} from 'react-router'
 
 export default function LatestReads() {
   const articles = [
@@ -36,7 +37,7 @@ export default function LatestReads() {
             Latest<span className="font-semibold"> Reads</span>
           </h2>
 
-          <button className="bg-[#F7AF19] text-black px-4 py-2 rounded-full font-medium hover:bg-yellow-300 transition-colors w-fit">
+          <button className="bg-[#F7AF19] cursor-pointer text-black px-4 py-2 rounded-full font-medium hover:bg-yellow-400 transition-colors w-fit">
             Explore all resources
           </button>
         </div>
@@ -49,6 +50,7 @@ export default function LatestReads() {
               className="group cursor-pointer"
             >
               {/* Image */}
+              <Link to ="/blogs">
               <div className="relative overflow-hidden rounded-2xl mb-4 aspect-video">
                 <img
                   src={article.image}
@@ -56,6 +58,7 @@ export default function LatestReads() {
                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                 />
               </div>
+              
 
               {/* Content */}
               <div>
@@ -69,6 +72,7 @@ export default function LatestReads() {
                   {article.tag}
                 </span>
               </div>
+              </Link>
             </div>
           ))}
         </div>

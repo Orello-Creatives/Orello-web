@@ -17,6 +17,7 @@ export default function AboutOrello() {
   const circleRefs = useRef([]);
   const transitionArcRefs = useRef([]);
   const contentRef = useRef(null);
+  const logoScrollRef = useRef(null);
 
  useEffect(() => {
   gsap.config({
@@ -80,7 +81,7 @@ export default function AboutOrello() {
         );
       });
 
-      // === CONTENT MOVE (same behavior you already had) ===
+      
       if (contentRef.current) {
         gsap.to(contentRef.current, {
           scrollTrigger: {
@@ -91,7 +92,7 @@ export default function AboutOrello() {
             anticipatePin: 1,
             invalidateOnRefresh: true,
           },
-          y: "-100vh",
+          y: "-10vh",
           ease: "none",
           force3D: true,
         });
@@ -101,6 +102,22 @@ export default function AboutOrello() {
 
     return () => ctx.revert();
   });
+
+  // === INFINITE LOGO SCROLL ANIMATION ===
+  if (logoScrollRef.current) {
+    const logoTrack = logoScrollRef.current;
+    const logoWidth = logoTrack.offsetWidth / 2; // Divide by 2 because we duplicate the logos
+    
+    gsap.to(logoTrack, {
+      x: -logoWidth,
+      duration: 20,
+      ease: "none",
+      repeat: -1,
+      modifiers: {
+        x: gsap.utils.unitize(x => parseFloat(x) % logoWidth)
+      }
+    });
+  }
 
   setTimeout(() => ScrollTrigger.refresh(), 100);
 
@@ -230,22 +247,43 @@ export default function AboutOrello() {
 
            {/* Partners Logo Strip */}
 <div className="mt-10 md:mt-14">
-  <div className="w-full bg-[#Fffdfa] py-6 md:py-8 rounded-xl">
+  <div className="w-full bg-[#Fffdfa] py-6 md:py-8 rounded-xl overflow-hidden">
     <div className="max-w-7xl mx-auto px-4">
-      <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-6 md:gap-x-12">
-        {partners.map((partner, index) => (
-          <div
-            key={index}
-            className="flex items-center justify-center h-8 sm:h-10 md:h-12 lg:h-14"
-          >
-            <img
-              src={partner.logo}
-              alt={partner.name}
-              className="h-full w-[130px] object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
-              loading="lazy"
-            />
-          </div>
-        ))}
+      <div className="relative overflow-hidden">
+        <div 
+          ref={logoScrollRef}
+          className="flex items-center gap-x-8 md:gap-x-12"
+          style={{ willChange: 'transform' }}
+        >
+          {/* Original logos */}
+          {partners.map((partner, index) => (
+            <div
+              key={index}
+              className="flex items-center justify-center h-8 sm:h-10 md:h-12 lg:h-14 flex-shrink-0"
+            >
+              <img
+                src={partner.logo}
+                alt={partner.name}
+                className="h-full w-[130px] object-contain opacity-80"
+                loading="lazy"
+              />
+            </div>
+          ))}
+          {/* Duplicated logos for seamless loop */}
+          {partners.map((partner, index) => (
+            <div
+              key={`duplicate-${index}`}
+              className="flex items-center justify-center h-8 sm:h-10 md:h-12 lg:h-14 flex-shrink-0"
+            >
+              <img
+                src={partner.logo}
+                alt={partner.name}
+                className="h-full w-[130px] object-contain opacity-80"
+                loading="lazy"
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </div>

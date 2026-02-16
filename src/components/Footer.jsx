@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Instagram, Linkedin, MapPin, Mail } from 'lucide-react'
 import orello from '../assets/logos/orello.svg'
 import orelloclip from '../assets/logos/orelloclip.svg'
@@ -22,12 +23,16 @@ const Footer = () => {
         </h2>
 
         <div className="flex gap-3 sm:gap-4 flex-wrap justify-center">
-          <button className="px-6 sm:px-8 md:px-10 py-3 cursor-pointer sm:py-4 bg-black text-white rounded-full font-bold text-sm sm:text-base hover:bg-gray-900 transition-all">
-            Contact Us
-          </button>
-          <button className="px-6 sm:px-8 md:px-10 py-3 sm:py-4 bg-[#F7AF19] cursor-pointer text-black rounded-full font-bold text-sm sm:text-base hover:bg-[#e5a314] transition-all">
-            Book a meeting
-          </button>
+          <Link to="/contact">
+            <button className="px-6 sm:px-8 md:px-10 py-3 cursor-pointer sm:py-4 bg-black text-white rounded-full font-bold text-sm sm:text-base hover:bg-gray-900 transition-all">
+              Contact Us
+            </button>
+          </Link>
+          <Link to="/contact">
+            <button className="px-6 sm:px-8 md:px-10 py-3 sm:py-4 bg-[#F7AF19] cursor-pointer text-black rounded-full font-bold text-sm sm:text-base hover:bg-[#e5a314] transition-all">
+              Book a meeting
+            </button>
+          </Link>
         </div>
       </div>
 
@@ -66,7 +71,9 @@ const Footer = () => {
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 sm:gap-8">
               {/* Logo Area */}
               <div className="w-full md:w-auto flex justify-start">
-                <img src={orello} alt="Orello Logo" className="w-32 sm:w-36 md:w-42" />
+                <Link to="/">
+                  <img src={orello} alt="Orello Logo" className="w-32 sm:w-36 md:w-42" />
+                </Link>
               </div>
 
               {/* Navigation & Socials Column */}
@@ -74,14 +81,20 @@ const Footer = () => {
                 
                 {/* Nav Links */}
                 <nav className="flex flex-wrap justify-start md:justify-end gap-2 sm:gap-3 w-full">
-                  {['Home', 'Case Studies', 'Blogs', 'Careers', 'Contact Us'].map((item) => (
-                    <a
-                      key={item}
-                      href="#"
+                  {[
+                    { name: 'Home', path: '/' },
+                    { name: 'Case Studies', path: '/casestudy-overview' },
+                    { name: 'Blogs', path: '/blogs' },
+                    { name: 'Careers', path: '/careers' },
+                    { name: 'Contact Us', path: '/contact' }
+                  ].map((item) => (
+                    <Link
+                      key={item.name}
+                      to={item.path}
                       className="px-4 sm:px-6 py-2 sm:py-2.5 bg-white rounded-lg text-black text-xs sm:text-sm font-bold shadow-sm hover:bg-gray-50 transition-colors"
                     >
-                      {item}
-                    </a>
+                      {item.name}
+                    </Link>
                   ))}
                 </nav>
 
@@ -91,20 +104,36 @@ const Footer = () => {
                     Socials
                   </span>
                    <div className="flex gap-2">
-                    {[
-                      { img: instagram, alt: 'Instagram' },
-                      { img: linkedin, alt: 'LinkedIn' },
-                      { img: locatio, alt: 'Location' },
-                      { img: mailid, alt: 'Email' }
-                    ].map((social, idx) => (
-                      <a
-                        key={idx}
-                        href="#"
-                        className="w-9 h-9 sm:w-10 sm:h-10 bg-[#F9F5ED] rounded-xl flex items-center justify-center hover:bg-gray-800 transition-colors"
-                      >
-                        <img src={social.img} alt={social.alt} className="w-4 h-4 sm:w-5 sm:h-5" />
-                      </a>
-                    ))}
+                    <a
+                      href="https://www.instagram.com/orello.io"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-9 h-9 sm:w-10 sm:h-10 bg-[#F9F5ED] rounded-xl flex items-center justify-center hover:bg-[#F7AF19] transition-colors"
+                    >
+                      <img src={instagram} alt="Instagram" className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/company/orello"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-9 h-9 sm:w-10 sm:h-10 bg-[#F9F5ED] rounded-xl flex items-center justify-center hover:bg-[#F7AF19] transition-colors"
+                    >
+                      <img src={linkedin} alt="LinkedIn" className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </a>
+                    <a
+                      href="https://www.google.com/search?q=Orello+Creatives+Pvt+Ltd+Bengaluru"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-9 h-9 sm:w-10 sm:h-10 bg-[#F9F5ED] rounded-xl flex items-center justify-center hover:bg-[#F7AF19] transition-colors"
+                    >
+                      <img src={locatio} alt="Location" className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </a>
+                    <a
+                      href="mailto:hello@orello.io"
+                      className="w-9 h-9 sm:w-10 sm:h-10 bg-[#F9F5ED] rounded-xl flex items-center justify-center hover:bg-[#F7AF19] transition-colors"
+                    >
+                      <img src={mailid} alt="Email" className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </a>
                   </div>
                 </div>
 

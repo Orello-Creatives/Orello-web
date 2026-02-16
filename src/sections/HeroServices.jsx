@@ -368,7 +368,7 @@ export default function heroServices() {
             <p className="paragraph leading-relaxed mb-8 max-w-[370px]">
               Orello is a purpose-driven global design partner that helps impact-oriented organisations communicate with clarity, empathy, and intention.
             </p>
-            <button className="bg-[#fdb441] text-black px-8 py-3 rounded-full font-medium hover:bg-[#fda521] transition-colors">
+            <button className="bg-[#F7AF19] cursor-pointer text-black px-8 py-3 rounded-full font-medium hover:bg-[#fda521] transition-colors">
               Know more
             </button>
           </div>

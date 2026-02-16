@@ -2,7 +2,7 @@ import React from 'react';
 import read1 from '../assets/images/read1.png'
 import read2 from '../assets/images/read2.png'
 import read3 from '../assets/images/read3.png'
-
+import {Link} from 'react-router'
 export default function BlogGridSection() {
   const blogPosts = [
     {
@@ -82,6 +82,7 @@ export default function BlogGridSection() {
   return (
     <div className="bg-[#F4EDE2] py-24">
       <div className="container">
+      <Link to ="/blogs">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogPosts.map((post) => (
             <div
@@ -126,6 +127,7 @@ export default function BlogGridSection() {
             </div>
           ))}
         </div>
+        </Link>
       </div>
     </div>
   );

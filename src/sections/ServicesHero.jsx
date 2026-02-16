@@ -244,30 +244,28 @@ export default function ServicesSection() {
           {/* Final Text Layout - Visible on mobile/tablet, animated on desktop */}
           <div 
             ref={finalTextRef} 
-            className="h-full flex items-center justify-center max-w-6xl mx-auto text-center relative z-20 opacity-100 visible lg:opacity-0 lg:invisible"
+            className="h-full flex items-center justify-center max-w-7xl  text-center relative z-20 opacity-100 visible lg:opacity-0 lg:invisible"
           >
             <h2 className="text-black text-xl sm:text-2xl md:text-4xl lg:text-7xl font-black leading-tight px-4" style={{ fontFamily: 'Satoshi, sans-serif' }}>
               <span className="text-line inline opacity-100 lg:opacity-0">We help brands </span>
               <span ref={textPlaceholders[0]} className="inline-flex w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 lg:w-20 lg:h-20 mx-1 md:mx-2 align-middle">
                 <img src={herologo1} alt="" className="w-full h-full object-contain lg:hidden" />
               </span>
-              <span className="text-line inline opacity-100 lg:opacity-0">build identities and</span>
-              <br />
-              <span className="text-line inline opacity-100 lg:opacity-0">communicate clearly with </span>
+              <span className="text-line inline opacity-100 lg:opacity-0">build identities and communicate clearly with </span>
               <span ref={textPlaceholders[1]} className="inline-flex w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 lg:w-20 lg:h-20 mx-1 md:mx-2 align-middle">
                 <img src={herologo2} alt="" className="w-full h-full object-contain lg:hidden" />
               </span>
               <span className="text-line inline opacity-100 lg:opacity-0">engaging visuals,</span>
-              <br />
+            
               <span ref={textPlaceholders[2]} className="inline-flex w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 lg:w-20 lg:h-20 mx-1 md:mx-2 align-middle">
                 <img src={herologo3} alt="" className="w-full h-full object-contain lg:hidden" />
               </span>
-              <span className="text-line inline opacity-100 lg:opacity-0">digital marketing, and</span>
-              <br />
+              <span className="text-line inline opacity-100 lg:opacity-0">digital marketing, and intuitive</span>
+             
               <span ref={textPlaceholders[3]} className="inline-flex w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 lg:w-20 lg:h-20 mx-1 md:mx-2 align-middle">
                 <img src={herologo4} alt="" className="w-full h-full object-contain lg:hidden" />
               </span>
-              <span className="text-line inline opacity-100 lg:opacity-0">intuitive platforms.</span>
+              <span className="text-line inline opacity-100 lg:opacity-0"> platforms.</span>
             </h2>
           </div>
 

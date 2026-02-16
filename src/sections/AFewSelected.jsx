@@ -34,6 +34,7 @@ import row5logo3 from '../assets/logos/row5logo3.svg'
 import row5logo4 from '../assets/logos/row5logo4.svg'
 import row5logo5 from '../assets/logos/row5logo5.svg'
 import smile from '../assets/logos/smile.svg'
+import { Link } from 'react-router';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -146,18 +147,8 @@ const AFewSelected = () => {
                 <img 
                   src={project.image} 
                   alt={project.title}
-                  className="w-full h-full  object-cover transition-opacity duration-500 group-hover:opacity-0"
+                  className="w-full h-full object-cover"
                 />
-                {/* White background appears on hover - add your logo here */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  {project.hoverLogo && (
-                    <img 
-                      src={project.hoverLogo} 
-                      alt={`${project.title} logo`}
-                      className="max-w-[70%] max-h-[70%] object-contain"
-                    />
-                  )}
-                </div>
               </div>
               <div className="flex justify-between items-center mb-2">
                 <h4 className="font-bold text-sm sm:text-base">{project.title}</h4>
@@ -189,10 +180,10 @@ const AFewSelected = () => {
               Orello is a purpose-driven global design partner that helps impact-oriented organizations.
             </p>
             <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 md:gap-4">
-              <button className="bg-[#f7af19] text-black font-bold py-2 px-4 sm:py-2.5 sm:px-5 md:py-3 md:px-6 rounded-full text-xs sm:text-sm transition w-full sm:w-auto">
+              <button className="bg-[#F7AF19] text-black cursor-pointer font-bold py-2 px-4 sm:py-2.5 sm:px-5 md:py-3 md:px-6 rounded-full text-xs sm:text-sm transition w-full sm:w-auto">
                 Lets Talk
               </button>
-              <button className="bg-white text-black font-bold py-2 px-4 sm:py-2.5 sm:px-5 md:py-3 md:px-6 rounded-full text-xs sm:text-sm hover:bg-zinc-200 transition w-full sm:w-auto">
+              <button className="bg-white text-black font-bold py-2 cursor-pointer px-4 sm:py-2.5 sm:px-5 md:py-3 md:px-6 rounded-full text-xs sm:text-sm hover:bg-zinc-200 transition w-full sm:w-auto">
                 See all work
               </button>
             </div>

@@ -189,7 +189,7 @@ const AFewSelected = () => {
               Orello is a purpose-driven global design partner that helps impact-oriented organizations.
             </p>
             <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 md:gap-4">
-              <button className="bg-[#f7af19] text-black font-bold py-2 px-4 sm:py-2.5 sm:px-5 md:py-3 md:px-6 rounded-full text-xs sm:text-sm transition w-full sm:w-auto">
+              <button className="bg-[rgb(247,175,25)] text-black font-bold py-2 px-4 sm:py-2.5 sm:px-5 md:py-3 md:px-6 rounded-full text-xs sm:text-sm transition w-full sm:w-auto">
                 Lets Talk
               </button>
               <button className="bg-white text-black font-bold py-2 px-4 sm:py-2.5 sm:px-5 md:py-3 md:px-6 rounded-full text-xs sm:text-sm hover:bg-zinc-200 transition w-full sm:w-auto">

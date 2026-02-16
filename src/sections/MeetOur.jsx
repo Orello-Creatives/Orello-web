@@ -9,7 +9,7 @@ import naveen from '../assets/images/naveen.png'
 import dobasreeta from '../assets/images/dobasreeta.png'
 import prasanna from '../assets/images/prasanna.png'
 import { useState } from 'react'
-
+import {Link} from 'react-router'
 
 export default function MeetOurTeam() {
   const [hoveredId, setHoveredId] = useState(null);
@@ -61,9 +61,11 @@ export default function MeetOurTeam() {
             <p className="text-gray-900 text-sm sm:text-base max-w-xs">
               A team of thinkers and doers who collaborate closely, combining thoughtful ideas with careful execution.
             </p>
-            <button className="bg-black text-white px-6 py-2 cursor-pointer rounded-full text-sm hover:bg-gray-800 transition-colors whitespace-nowrap">
-              Join Us
-            </button>
+            <Link to="/careers">
+              <button className="bg-black text-white px-6 py-2 cursor-pointer rounded-full text-sm  transition-colors whitespace-nowrap">
+                Join Us
+              </button>
+            </Link>
           </div>
         </div>
 

@@ -1,15 +1,22 @@
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import exp from '../assets/logos/exp.svg';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import log1 from '../assets/logos/log1.svg'
+import log7 from '../assets/logos/log7.svg'
+import log2 from '../assets/logos/log2.svg'
+import log3 from '../assets/logos/log3.svg'
+import log4 from '../assets/logos/log4.svg'
+import log5 from '../assets/logos/log5.svg'
+import log6 from '../assets/logos/log6.svg'
+import objects from '../assets/logos/objects.svg'
 
 gsap.registerPlugin(ScrollTrigger);
 
-
-export default function CaseStudySection() {
+export default function AboutOrello() {
   const containerRef = useRef(null);
   const circleRefs = useRef([]);
   const contentRef = useRef(null);
+  const logoScrollRef = useRef(null);
 
   useEffect(() => {
     gsap.config({ force3D: true, nullTargetWarn: false });
@@ -57,6 +64,22 @@ export default function CaseStudySection() {
       return () => ctx.revert();
     });
 
+    // === INFINITE LOGO SCROLL ANIMATION ===
+    if (logoScrollRef.current) {
+      const logoTrack = logoScrollRef.current;
+      const logoWidth = logoTrack.offsetWidth / 2;
+      
+      gsap.to(logoTrack, {
+        x: -logoWidth,
+        duration: 20,
+        ease: "none",
+        repeat: -1,
+        modifiers: {
+          x: gsap.utils.unitize(x => parseFloat(x) % logoWidth)
+        }
+      });
+    }
+
     const t = setTimeout(() => ScrollTrigger.refresh(), 100);
 
     return () => {
@@ -76,6 +99,17 @@ export default function CaseStudySection() {
     { w: "25vw",  h: "25vw",  bg: "#faf5eb", bottom: "-20vw", wMd: "35vw", hMd: "35vw", bottomMd: "-25vw", wSm: "45vw", hSm: "45vw", bottomSm: "-30vw" },
     { w: "12vw",  h: "12vw",  bg: "#e8ddd0", bottom: "-12vw", wMd: "18vw", hMd: "18vw", bottomMd: "-15vw", wSm: "25vw", hSm: "25vw", bottomSm: "-20vw" },
     { w: "6vw",   h: "6vw",   bg: "#faf5eb", bottom: "-6vw",  wMd: "10vw", hMd: "10vw", bottomMd: "-8vw",  wSm: "15vw", hSm: "15vw", bottomSm: "-12vw" },
+  ];
+
+  const partners = [
+    { name: "Hamleys", logo: log7 },
+    { name: "Hamleys", logo: log1 },
+    { name: "Sangapur Village", logo: log2 },
+    { name: "SCALEPOINT", logo: log3 },
+    { name: "ocean", logo: log4 },
+    { name: "Habitat", logo: log5 },
+    { name: "COLDEASY", logo: log6 },
+  
   ];
 
   return (
@@ -114,61 +148,77 @@ export default function CaseStudySection() {
         className="relative z-10 mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-[35px]"
         style={{ maxWidth: "1400px" }}
       >
-        {/* Logo Row */}
-        <div className="flex gap-2 sm:gap-2.5 md:gap-3 lg:gap-5 flex-wrap mb-3 sm:mb-3 md:mb-4">
+        <div className="container">
+          {/* Header */}
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#4B433B] mb-4 md:mb-6" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>
+              About Orello
+            </h2>
+            <p className="text-[#4B433B] text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed px-4">
+              Orello is a purpose-driven design and development partner for organisations creating impact
+              
+              across India, USA, Europe and UAE.
+            </p>
+          </div>
 
-          {/* coldeasy2 */}
-          <LogoCard>
-            <img src={exp} alt="Logo 2" className="max-h-4 sm:max-h-5 md:max-h-6 lg:max-h-8 w-auto object-contain" />
-          </LogoCard>
+          {/* Illustration */}
+          <div className="flex justify-center mb-8 md:mb-12 ">
+            <div className="relative w-full max-w-2xl px-4 ">
+              <img 
+                src={objects} 
+                alt="Team collaboration"
+                className="w-full h-auto"
+                loading="eager"
+              />
+            </div>
+          </div>
+
+          {/* Partners Logo Strip */}
+          <div className="mt-10 md:mt-14">
+            <div className="w-full bg-[#Fffdfa] py-6 md:py-8 rounded-xl overflow-hidden">
+              <div className="max-w-7xl mx-auto px-4">
+                <div className="relative overflow-hidden">
+                  <div 
+                    ref={logoScrollRef}
+                    className="flex items-center gap-x-8 md:gap-x-12"
+                    style={{ willChange: 'transform' }}
+                  >
+                    {/* Original logos */}
+                    {partners.map((partner, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center justify-center h-8 sm:h-10 md:h-12 lg:h-14 flex-shrink-0"
+                      >
+                        <img
+                          src={partner.logo}
+                          alt={partner.name}
+                          className="h-full w-[130px] object-contain opacity-80"
+                          loading="lazy"
+                        />
+                      </div>
+                    ))}
+                    {/* Duplicated logos for seamless loop */}
+                    {partners.map((partner, index) => (
+                      <div
+                        key={`duplicate-${index}`}
+                        className="flex items-center justify-center h-8 sm:h-10 md:h-12 lg:h-14 flex-shrink-0"
+                      >
+                        <img
+                          src={partner.logo}
+                          alt={partner.name}
+                          className="h-full w-[130px] object-contain opacity-80"
+                          loading="lazy"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>
-
-        {/* Headline */}
-        <h1
-          className="mb-3 sm:mb-3.5 md:mb-4 lg:mb-[18px] leading-[1.3] sm:leading-[1.35] md:leading-[1.38]"
-          style={{
-            fontSize: "clamp(1.75rem, 5.5vw, 4rem)",
-            color: "#402E1D",
-            maxWidth: "1200px",
-            fontFamily: "Georgia, serif",
-            fontWeight: 400,
-          }}
-        >
-          <strong className="font-black text-[#402E1D]" style={{ fontFamily: "sans-serif" }}>
-            Entrepreneurs’ Organization:  <br />
-          </strong>{" "}
-          <span className="font-light">Exploration – Peru Edition </span>
-        </h1>
-
-        {/* Body */}
-        <p
-          className="leading-[1.6] sm:leading-[1.65] md:leading-[1.7] lg:leading-[1.82] mb-6 sm:mb-8 md:mb-10 lg:mb-16"
-          style={{ 
-            fontSize: "clamp(0.9rem, 2vw, 1rem)",
-            color: "#0A0A0A", 
-            maxWidth: "920px" 
-          }}
-        >
-        Entrepreneurs’ Organization (EO), a global network of visionary founders and leaders, partnered with us to bring their flagship event -Exploration: Peru Edition - to life. From crafting a distinctive event logo to designing a vibrant landing page and motion graphics, we helped EO capture the spirit of adventure, connection, and cultural immersion that defines Exploration.
-        </p>
-
-        
-       
       </div>
-    </div>
-  );
-}
-
-function LogoCard({ children }) {
-  return (
-    <div
-      className="bg-white border border-black/[0.07] rounded-[4px] px-2 sm:px-2.5 md:px-3 lg:px-[14px] py-1.5 sm:py-1.5 md:py-1.5 lg:py-2 flex items-center justify-center w-auto min-w-[70px] sm:min-w-[80px] md:min-w-[100px] lg:min-w-[120px] min-h-[36px] sm:min-h-[40px] md:min-h-[44px] lg:min-h-[48px]"
-      style={{
-        boxShadow: "0 1px 4px rgba(0,0,0,0.05)",
-      }}
-    >
-      {children}
     </div>
   );
 }

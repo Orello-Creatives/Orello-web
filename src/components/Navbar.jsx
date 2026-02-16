@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { gsap } from 'gsap'
 import orello from '../assets/logos/orello.svg'
 
@@ -8,13 +8,16 @@ const OrelloNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef(null)
   const menuItemsRef = useRef([])
+  const location = useLocation()
 
   const navLinks = [
     { name: 'home', path: '/' },
     { name: 'about us', path: '/about' },
     { name: 'work', path: '/casestudy-overview' },
     { name: 'services', path: '/services' },
-    { name: 'resources', path: '/resources' }
+    { name: 'resources', path: '/resources' },
+    { name: 'careers', path: '/careers' },
+    { name: 'FAQ', path: '/faq' },
   ]
 
   useEffect(() => {
@@ -70,7 +73,9 @@ const OrelloNavbar = () => {
               <Link
                 key={link.name}
                 to={link.path}
-                className="px-4 lg:px-6 py-2 text-[#4B433B] text-sm lg:text-base font-medium transition-colors capitalize hover:opacity-70"
+                className={`px-4 lg:px-6 py-2 text-sm lg:text-base font-medium transition-colors capitalize hover:opacity-70 ${
+                  location.pathname === link.path ? 'text-[#D98127]' : 'text-[#4B433B]'
+                }`}
               >
                 {link.name}
               </Link>
@@ -109,7 +114,9 @@ const OrelloNavbar = () => {
                 key={link.name}
                 ref={(el) => (menuItemsRef.current[index] = el)}
                 to={link.path}
-                className="px-4 py-2 text-black text-base font-medium capitalize hover:opacity-70"
+                className={`px-4 py-2 text-base font-medium capitalize hover:opacity-70 ${
+                  location.pathname === link.path ? 'text-[#D98127]' : 'text-black'
+                }`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.name}

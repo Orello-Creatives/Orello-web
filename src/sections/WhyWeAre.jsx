@@ -5,7 +5,7 @@ import trust2 from '../assets/logos/trust2.svg'
 import trust3 from '../assets/logos/trust3.svg'
 import trust4 from '../assets/logos/trust4.svg'
 import bow from '../assets/logos/bow.svg'
-
+import {Link} from 'react-router'
 
 const TrustSection = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
@@ -178,7 +178,7 @@ const TrustSection = () => {
   };
 
   return (
-    <div className="relative bg-black z-50 overflow-x-hidden">
+    <div className="relative bg-black z-20 overflow-x-hidden">
       <div className="bg-[#FDF6E9] py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-4 rounded-t-[50px] sm:rounded-t-[75px] lg:rounded-t-[100px] w-full overflow-x-hidden">
         {/* Why We are trusted Section */}
         <div className="container mb-12 sm:mb-16 lg:mb-20">
@@ -309,9 +309,11 @@ const TrustSection = () => {
               <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#402E1D] font-light mb-2">Who</h2>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#402E1D]">We Work with</h2>
             </div>
-            <button className="bg-black text-white px-6 py-2 cursor-pointer rounded-full font-medium hover:bg-gray-800 transition-colors text-sm sm:text-base">
-              Join Us
-            </button>
+            <Link to="/careers">
+              <button className="bg-black text-white px-6 py-2 cursor-pointer rounded-full font-medium  transition-colors text-sm sm:text-base">
+                Join Us
+              </button>
+            </Link>
           </div>
         </div>
 
