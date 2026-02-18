@@ -24,10 +24,8 @@ const HomeAbout = () => {
    
     const words = textRef.current.querySelectorAll('.word')
 
-    // Initial state - light gray and slightly below
     gsap.set(words, { opacity: 1, color: '#999999', y: 20 })
 
-    // Create one timeline that controls all words
     const masterTimeline = gsap.timeline({
       scrollTrigger: {
         trigger: textRef.current,
@@ -37,7 +35,6 @@ const HomeAbout = () => {
       }
     })
 
-    // Animate each word sequentially from light gray to dark black with upward movement
     words.forEach((word, index) => {
       masterTimeline.to(word, {
         opacity: 1,
@@ -65,21 +62,21 @@ const HomeAbout = () => {
   const words = textContent.split(' ')
 
   return (
-    <section className="relative z-20 -mt-32">
-      <div className=" bg-[#f9f5ed] shadow-2xl overflow-hidden rounded-t-[100px]">
+    <section className="relative z-20 -mt-16 sm:-mt-24 md:-mt-32">
+      <div className="bg-[#f9f5ed] shadow-2xl overflow-hidden rounded-t-[40px] sm:rounded-t-[60px] md:rounded-t-[100px]">
         {/* Infinite scrolling banner */}
-        <div className="py-6 overflow-hidden border-b border-gray-200 bg-[#F4EDE2] mt-16">
+        <div className="py-4 sm:py-5 md:py-6 overflow-hidden border-b border-gray-200 bg-[#F4EDE2] mt-8 sm:mt-12 md:mt-16">
           <div ref={bannerRef} className="flex whitespace-nowrap">
             {[...industries, ...industries, ...industries, ...industries].map(
               (industry, index) => (
-                <div key={index} className="inline-flex items-center mx-4">
+                <div key={index} className="inline-flex items-center mx-2 sm:mx-3 md:mx-4">
                   <span
-                    className="text-base font-medium text-gray-700"
+                    className="text-sm sm:text-base font-medium text-gray-700"
                     style={{ fontFamily: 'Satoshi, sans-serif' }}
                   >
                     {industry}
                   </span>
-                  <span className="ml-4 w-2 h-2 bg-[#f7af19] rounded-full"></span>
+                  <span className="ml-2 sm:ml-4 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#f7af19] rounded-full"></span>
                 </div>
               )
             )}
@@ -87,16 +84,16 @@ const HomeAbout = () => {
         </div>
 
         {/* Main content with text reveal */}
-        <div className="container mx-auto px-8 py-32 items-center justify-center">
+        <div className="container mx-auto px-4 sm:px-6 md:px-8 py-16 sm:py-24 md:py-32 items-center justify-center">
           <h2
             ref={textRef}
-            className="text-5xl md:text-6xl lg:text-7xl font-bold items-center justify-center"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold items-center justify-center"
             style={{ 
               fontFamily: 'Satoshi, sans-serif',
               lineHeight: '1.2',
               display: 'flex',
               flexWrap: 'wrap',
-              gap: '0.75rem'
+              gap: '0.4rem',
             }}
           >
             {words.map((word, index) => (
@@ -107,7 +104,7 @@ const HomeAbout = () => {
           </h2>
         </div>
       </div>
-   <HeroServices />
+      <HeroServices />
     </section>
   )
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// Import your assets
+
 import herologo1 from '../assets/logos/herologo1.svg';
 import herologo2 from '../assets/logos/herologo2.svg';
 import herologo3 from '../assets/logos/herologo3.svg';

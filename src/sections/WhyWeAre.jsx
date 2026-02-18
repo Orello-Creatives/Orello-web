@@ -104,16 +104,24 @@ const TrustSection = () => {
     const banner = bannerRef.current;
     if (!banner) return;
 
-    const totalWidth = banner.scrollWidth / 2;
+    // Wait for layout to settle before measuring
+    const initBanner = () => {
+      const totalWidth = banner.scrollWidth / 4; // divided by 4 because we repeat x4
 
-    gsap.set(banner, { x: 0 });
+      gsap.killTweensOf(banner);
+      gsap.set(banner, { x: 0 });
 
-    gsap.to(banner, {
-      x: -totalWidth,
-      duration: 20,
-      ease: 'none',
-      repeat: -1
-    });
+      gsap.to(banner, {
+        x: -totalWidth,
+        duration: 20,
+        ease: 'none',
+        repeat: -1
+      });
+    };
+
+    // Small delay to ensure DOM is ready
+    const timer = setTimeout(initBanner, 100);
+    return () => clearTimeout(timer);
   }, []);
 
 
@@ -179,19 +187,20 @@ const TrustSection = () => {
 
   return (
     <div className="relative bg-black z-20 overflow-x-hidden">
-      <div className="bg-[#FDF6E9] py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-4 rounded-t-[50px] sm:rounded-t-[75px] lg:rounded-t-[100px] w-full overflow-x-hidden">
-        {/* Why We are trusted Section */}
-        <div className="container mb-12 sm:mb-16 lg:mb-20">
-          <div className="mb-8 sm:mb-12 lg:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#402E1D] font-light mb-2">Why</h2>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#402E1D]">We are trusted</h2>
+      <div className="bg-[#FDF6E9] py-10 sm:py-14 lg:py-24 px-4 sm:px-6 lg:px-4 rounded-t-[40px] sm:rounded-t-[60px] lg:rounded-t-[100px] w-full overflow-x-hidden">
+
+        {/* ── Why We Are Trusted ── */}
+        <div className="container mx-auto mb-10 sm:mb-14 lg:mb-20">
+          <div className="mb-6 sm:mb-10 lg:mb-16">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl text-[#402E1D] font-light mb-1">Why</h2>
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-semibold text-[#402E1D]">We are trusted</h2>
           </div>
 
-          {/* Desktop/Tablet Layout - Hidden on mobile */}
-          <div 
+          {/* Desktop / Tablet (md+) Layout */}
+          <div
             ref={containerRef}
             onMouseLeave={handleContainerMouseLeave}
-            className="hidden md:flex gap-4 lg:gap-6 h-64 sm:h-72 lg:h-80 justify-center"
+            className="hidden md:flex gap-3 lg:gap-6 h-60 sm:h-68 lg:h-80 justify-center"
           >
             {cards.map((card, index) => (
               <div
@@ -199,46 +208,60 @@ const TrustSection = () => {
                 ref={el => cardRefs.current[index] = el}
                 onMouseEnter={() => handleMouseEnter(index)}
                 className={`rounded-2xl lg:rounded-3xl p-4 lg:p-6 cursor-pointer shadow-lg hover:shadow-2xl relative overflow-hidden flex-1 flex flex-col transition-colors duration-300 ${
-                  hoveredCard === index ? card.color : (card.featured && hoveredCard === null ? card.color : 'bg-white')
+                  hoveredCard === index
+                    ? card.color
+                    : card.featured && hoveredCard === null
+                    ? card.color
+                    : 'bg-white'
                 }`}
-                style={{ minWidth: '150px' }}
+                style={{ minWidth: '120px' }}
               >
-                <div className="mb-3 lg:mb-4">
-                  <span className={`text-lg lg:text-xl font-bold transition-colors duration-300 ${
-                    hoveredCard === index ? card.numberColorHover : (card.featured && hoveredCard === null ? card.numberColorHover : card.numberColor)
+                <div className="mb-2 lg:mb-4">
+                  <span className={`text-base lg:text-xl font-bold transition-colors duration-300 ${
+                    hoveredCard === index
+                      ? card.numberColorHover
+                      : card.featured && hoveredCard === null
+                      ? card.numberColorHover
+                      : card.numberColor
                   }`}>
                     {card.number}
                   </span>
                 </div>
-                
-                {/* Logo Image - Only visible on hover or featured when no hover */}
-                <div className={`absolute bottom-6 lg:bottom-8 right-6 lg:right-8 transition-opacity duration-300 pointer-events-none ${
-                  hoveredCard === index ? 'opacity-100' : (card.featured && hoveredCard === null ? 'opacity-100' : 'opacity-0')
+
+                {/* Logo — visible on hover or featured */}
+                <div className={`absolute bottom-5 lg:bottom-8 right-4 lg:right-8 transition-opacity duration-300 pointer-events-none ${
+                  hoveredCard === index
+                    ? 'opacity-100'
+                    : card.featured && hoveredCard === null
+                    ? 'opacity-100'
+                    : 'opacity-0'
                 }`}>
-                  <img src={card.logo} alt={card.title} className="w-24 h-24 lg:w-32 lg:h-32 object-contain" />
+                  <img src={card.logo} alt={card.title} className="w-16 h-16 md:w-20 md:h-20 lg:w-32 lg:h-32 object-contain" />
                 </div>
 
-                {/* Content Section */}
+                {/* Text content — visible on hover or featured */}
                 <div className={`flex-1 transition-opacity duration-300 pointer-events-none ${
-                  hoveredCard === index ? 'opacity-100' : (card.featured && hoveredCard === null ? 'opacity-100' : 'opacity-0')
+                  hoveredCard === index
+                    ? 'opacity-100'
+                    : card.featured && hoveredCard === null
+                    ? 'opacity-100'
+                    : 'opacity-0'
                 }`}>
-                  <h4 className="font-bold text-gray-900 mb-2 lg:mb-3 text-sm lg:text-base">{card.title}</h4>
+                  <h4 className="font-bold text-gray-900 mb-1 lg:mb-3 text-xs md:text-sm lg:text-base">{card.title}</h4>
                   <p className="text-xs lg:text-sm text-gray-900 leading-relaxed">{card.description}</p>
                 </div>
 
-                {/* Arrow Button */}
-                <div
-                  className={`absolute bottom-4 lg:bottom-6 left-4 lg:left-6 w-8 h-8 lg:w-10 lg:h-10 rounded-full flex items-center justify-center transition-colors duration-300 pointer-events-none ${
-                    hoveredCard === index
-                      ? 'bg-black'
-                      : card.featured
-                        ? 'bg-gray-900'
-                        : card.iconBg
-                  }`}
-                >
+                {/* Arrow button */}
+                <div className={`absolute bottom-3 lg:bottom-6 left-3 lg:left-6 w-7 h-7 lg:w-10 lg:h-10 rounded-full flex items-center justify-center transition-colors duration-300 pointer-events-none ${
+                  hoveredCard === index
+                    ? 'bg-black'
+                    : card.featured
+                    ? 'bg-gray-900'
+                    : card.iconBg
+                }`}>
                   <svg
-                    width="14"
-                    height="14"
+                    width="12"
+                    height="12"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="white"
@@ -257,42 +280,32 @@ const TrustSection = () => {
             ))}
           </div>
 
-          {/* Mobile Layout - Visible only on mobile */}
-          <div className="md:hidden grid grid-cols-1 gap-4">
-            {cards.map((card, index) => (
+          {/* Mobile Layout (< md) — 2-column grid */}
+          <div className="md:hidden grid grid-cols-2 gap-3 sm:gap-4">
+            {cards.map((card) => (
               <div
                 key={card.id}
-                className={`rounded-2xl p-6 shadow-lg relative overflow-hidden ${card.color}`}
+                className={`rounded-2xl p-4 shadow-md relative overflow-hidden ${card.color}`}
+                style={{ minHeight: '180px' }}
               >
-                <div className="mb-4">
-                  <span className={`text-xl font-bold ${card.numberColorHover}`}>
-                    {card.number}
-                  </span>
-                </div>
-                
-                {/* Logo Image - Always visible on mobile */}
-                <div className="absolute bottom-6 right-6">
-                  <img src={card.logo} alt={card.title} className="w-24 h-24 object-contain" />
+                <span className={`text-base font-bold ${card.numberColorHover}`}>
+                  {card.number}
+                </span>
+
+                {/* Logo */}
+                <div className="absolute bottom-4 right-3">
+                  <img src={card.logo} alt={card.title} className="w-14 h-14 object-contain" />
                 </div>
 
-                {/* Content Section - Always visible on mobile */}
-                <div className="flex-1 mb-12">
-                  <h4 className="font-bold text-gray-900 mb-3">{card.title}</h4>
-                  <p className="text-sm text-gray-900 leading-relaxed pr-20">{card.description}</p>
+                {/* Text */}
+                <div className="mt-2 mb-10 pr-14">
+                  <h4 className="font-bold text-gray-900 mb-1 text-xs leading-tight">{card.title}</h4>
+                  <p className="text-[11px] text-gray-900 leading-relaxed">{card.description}</p>
                 </div>
 
-                {/* Arrow Button - Always black on mobile */}
-                <div className="absolute bottom-6 left-6 w-10 h-10 rounded-full bg-black flex items-center justify-center">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="white"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
+                {/* Arrow button */}
+                <div className="absolute bottom-4 left-4 w-8 h-8 rounded-full bg-black flex items-center justify-center">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12" />
                     <polyline points="12 5 19 12 12 19" />
                   </svg>
@@ -302,23 +315,23 @@ const TrustSection = () => {
           </div>
         </div>
 
-        {/* Who We Work with Section */}
-        <div className="container mb-12 sm:mb-14 lg:mb-16">
-          <div className="mb-8 sm:mb-10 lg:mb-12 flex flex-col sm:flex-row items-start sm:items-end gap-4 sm:gap-6 lg:gap-10">
+        {/* ── Who We Work With ── */}
+        <div className="container mx-auto mb-8 sm:mb-12 lg:mb-16">
+          <div className="mb-6 sm:mb-10 lg:mb-12 flex flex-col sm:flex-row items-start sm:items-end gap-3 sm:gap-6 lg:gap-10">
             <div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#402E1D] font-light mb-2">Who</h2>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#402E1D]">We Work with</h2>
+              <h2 className="text-2xl sm:text-4xl lg:text-5xl text-[#402E1D] font-light mb-1">Who</h2>
+              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-semibold text-[#402E1D]">We Work with</h2>
             </div>
             <Link to="/careers">
-              <button className="bg-black text-white px-6 py-2 cursor-pointer rounded-full font-medium  transition-colors text-sm sm:text-base">
+              <button className="bg-black text-white px-5 py-2 cursor-pointer rounded-full font-medium transition-colors text-sm sm:text-base">
                 Join Us
               </button>
             </Link>
           </div>
         </div>
 
-        {/* Infinite Scrolling Banner */}
-        <div className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] bg-[#FFC855] py-4 sm:py-5 lg:py-6 overflow-hidden mb-12 sm:mb-16 lg:mb-20">
+        {/* ── Infinite Scrolling Banner ── */}
+        <div className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] bg-[#FFC855] py-3 sm:py-4 lg:py-6 overflow-hidden mb-10 sm:mb-14 lg:mb-20">
           <div
             ref={bannerRef}
             className="flex items-center whitespace-nowrap"
@@ -327,33 +340,34 @@ const TrustSection = () => {
               (industry, index) => (
                 <span
                   key={index}
-                  className="inline-flex items-center mr-8 sm:mr-12 lg:mr-16 text-base sm:text-lg font-medium text-gray-900 leading-none"
+                  className="inline-flex items-center mr-6 sm:mr-10 lg:mr-16 text-sm sm:text-base lg:text-lg font-medium text-gray-900 leading-none"
                 >
-                  <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-black rounded-full mr-3 sm:mr-4 block"></span>
+                  <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-black rounded-full mr-2 sm:mr-3 lg:mr-4 block flex-shrink-0"></span>
                   {industry}
                 </span>
-              ))}
+              )
+            )}
           </div>
         </div>
 
-        {/* Bottom Cards Section */}
-        <div className="container">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
+        {/* ── Bottom Cards ── */}
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
             {workWithCards.map((card, index) => (
-              <div 
+              <div
                 key={index}
-                className="bg-[#F4EDE2] rounded-xl sm:rounded-2xl px-6 sm:px-7 lg:px-8 pb-12 sm:pb-14 lg:pb-16 pt-8 sm:pt-10 lg:pt-12 hover:shadow-lg transition-shadow duration-300"
+                className="bg-[#F4EDE2] rounded-xl sm:rounded-2xl px-5 sm:px-6 lg:px-8 pb-10 sm:pb-12 lg:pb-16 pt-7 sm:pt-9 lg:pt-12 hover:shadow-lg transition-shadow duration-300"
               >
-                <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-15 lg:h-15 bg-yellow-400 rounded-full flex items-center justify-center mb-4 sm:mb-5 lg:mb-6 p-2">
-                  <img src={card.icon} alt={card.title} className="w-8 sm:w-9 lg:w-10 object-contain" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-yellow-400 rounded-full flex items-center justify-center mb-4 sm:mb-5 lg:mb-6 p-2">
+                  <img src={card.icon} alt={card.title} className="w-6 sm:w-7 lg:w-9 object-contain" />
                 </div>
-
-                <h4 className="font-bold text-gray-900 mb-2 sm:mb-2.5 lg:mb-3 text-base sm:text-lg">{card.title}</h4>
-                <p className="text-sm text-black leading-relaxed">{card.description}</p>
+                <h4 className="font-bold text-gray-900 mb-2 text-sm sm:text-base lg:text-lg">{card.title}</h4>
+                <p className="text-xs sm:text-sm text-black leading-relaxed">{card.description}</p>
               </div>
             ))}
           </div>
         </div>
+
       </div>
     </div>
   );

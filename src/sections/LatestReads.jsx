@@ -29,7 +29,7 @@ export default function LatestReads() {
   ]
 
   return (
-    <div className="bg-black text-white px-4 sm:px-6 py-16 sm:py-20 md:py-24 relative z-20">
+    <div className="bg-black text-white  py-16 sm:py-20 md:py-24 relative z-20">
       <div className="container mx-auto">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 mb-10 sm:mb-12">

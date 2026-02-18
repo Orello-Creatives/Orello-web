@@ -21,22 +21,27 @@ export default function CreativePartnerHero() {
 
     const mm = gsap.matchMedia();
 
-   mm.add("(max-width: 767px)", () => {
-  gsap.set(videoBoxRef.current, {
-    top: "50%",
-    right: "10%",
-    rotation: 2,
-    width: "300px",
-    height: "200px",
-  });
+    mm.add("(max-width: 767px)", () => {
+      gsap.set(videoBoxRef.current, {
+        top: "45%",
+        right: "15%",
+        left: "auto",
+        xPercent: 0,
+        yPercent: 0,
+        rotation: 4,
+        width: "260px",
+        height: "150px",
+        borderRadius: "0.5rem",
+        scale: 1,
+      });
 
-  gsap.from(videoBoxRef.current, {
-    scale: 0.9,
-    opacity: 0,
-    duration: 1,
-    ease: "power3.out",
-  });
-});
+      gsap.from(videoBoxRef.current, {
+        scale: 0.9,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+      });
+    });
 
     /* ========== TABLET INITIAL STATE ========== */
     mm.add("(min-width: 768px) and (max-width: 1023px)", () => {
@@ -93,7 +98,7 @@ export default function CreativePartnerHero() {
       { scale: 0, rotation: 0, opacity: 0 },
       {
         scale: 1,
-        rotation: window.innerWidth < 768 ? 6 : 10,
+        rotation: window.innerWidth < 768 ? 4 : 10,
         opacity: 1,
         duration: 1.4,
         delay: 0.8,
@@ -169,8 +174,8 @@ export default function CreativePartnerHero() {
       duration: 0.4,
     })
     .to(videoBoxRef.current, {
-      width: isMobile ? "90vw" : isTablet ? "80vw" : "70vw",
-      height: isMobile ? "70vh" : isTablet ? "75vh" : "80vh",
+      width: isMobile ? "92vw" : isTablet ? "80vw" : "70vw",
+      height: isMobile ? "55vh" : isTablet ? "75vh" : "80vh",
       borderRadius: "1rem",
       ease: "power2.inOut",
       duration: 0.6,
@@ -264,7 +269,7 @@ export default function CreativePartnerHero() {
         className="hidden md:block fixed w-6 h-6 bg-amber-500 rounded-full pointer-events-none mix-blend-difference"
         style={{ transform: "translate(-50%, -50%)", willChange: "transform" }}
       />
-<Navbar />
+      <Navbar />
       <div ref={containerRef} className="relative h-[350vh]">
         <div className="fixed inset-0 flex items-end justify-center pointer-events-none z-0 overflow-hidden">
           <div
@@ -300,9 +305,10 @@ export default function CreativePartnerHero() {
           />
         </div>
 
-        <div className="fixed inset-0 flex mt-50 sm:mt-60 lg:mt-0 lg:items-center justify-center z-10 px-4 sm:px-6 md:px-8 pointer-events-none pb-5">
+        {/* Hero text — shifted up on mobile to leave room for video below */}
+        <div className="fixed inset-0 flex items-start sm:items-start lg:items-center justify-center z-10 px-4 sm:px-6 md:px-8 pointer-events-none pt-28 xs:pt-32 sm:pt-40 md:pt-52 lg:pt-0 pb-5">
           <div className="hero-container" style={{ willChange: "transform" }}>
-            <h1 className="leading-[0.9] tracking-tight text-[3.5rem] sm:text-[5rem] md:text-[7rem] lg:text-[10rem]">
+            <h1 className="leading-[0.9] tracking-tight text-[2.6rem] xs:text-[3rem] sm:text-[4.5rem] md:text-[6.5rem] lg:text-[10rem]">
               <div className="font-black text-[#4B433B] ml-2 sm:ml-3 md:ml-4" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>YOUR</div>
 
               <div className="relative inline-block my-1 sm:my-1.5 md:my-2" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>
@@ -342,21 +348,22 @@ export default function CreativePartnerHero() {
           </div>
         </div>
 
+        {/* Video box — initial inline style is overridden by gsap matchMedia */}
         <div
           ref={videoBoxRef}
-          className="fixed w-75 h-46 bg-gray-400 rounded-lg overflow-hidden shadow-2xl z-5 "
-          style={{ top: "15%", right: "24%", willChange: "transform, width, height" }}
+          className="fixed bg-gray-400 rounded-lg overflow-hidden shadow-2xl z-5"
+          style={{ top: "15%", right: "24%", width: "300px", height: "184px", willChange: "transform, width, height" }}
         >
-         <video
-  className="w-full h-full object-cover"
-  autoPlay
-  loop
-  muted
-  playsInline
-  preload="auto"
->
-  <source src={video} type="video/mp4" />
-</video>
+          <video
+            className="w-full h-full object-cover"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+          >
+            <source src={video} type="video/mp4" />
+          </video>
         </div>
       </div>
     </div>
