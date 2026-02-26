@@ -15,33 +15,76 @@ gsap.registerPlugin(ScrollTrigger);
 export default function AboutOrello() {
   const containerRef = useRef(null);
   const circleRefs = useRef([]);
+  const transitionArcRefs = useRef([]);
   const contentRef = useRef(null);
   const logoScrollRef = useRef(null);
+  const bgRef = useRef(null);
 
   useEffect(() => {
-    gsap.config({ force3D: true, nullTargetWarn: false });
+    gsap.config({
+      force3D: true,
+      nullTargetWarn: false,
+    });
 
     const mm = gsap.matchMedia();
 
-    // Desktop animations only (min-width: 1024px)
-    mm.add("(min-width: 1024px)", () => {
+    mm.add("(min-width: 768px)", () => {
       const ctx = gsap.context(() => {
+
+        // Make background fixed only on desktop
+        if (bgRef.current) {
+          gsap.set(bgRef.current, { position: 'fixed' });
+        }
+
+        // === HERO STYLE CIRCLE ANIMATION ===
         circleRefs.current.forEach((circle) => {
           if (!circle) return;
+
           gsap.to(circle, {
             scrollTrigger: {
               trigger: containerRef.current,
               start: "top top",
-              end: "70% top",
-              scrub: 1,
+              end: "40% top",
+              scrub: 2,
               anticipatePin: 1,
               invalidateOnRefresh: true,
             },
             scale: 8,
-            opacity: 0,
+            keyframes: [
+              { opacity: 0.6, duration: 0.3, ease: "power2.in" },
+              { opacity: 0, duration: 0.7, ease: "power2.out" },
+            ],
             ease: "power2.inOut",
             force3D: true,
           });
+        });
+
+        // === HERO STYLE TRANSITION ARCS — 8 arcs, hidden at start, appear on scroll ===
+        transitionArcRefs.current.forEach((arc) => {
+          if (!arc) return;
+
+          gsap.fromTo(
+            arc,
+            {
+              scale: 1,
+              opacity: 0,
+              force3D: true,
+            },
+            {
+              scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top top",
+                end: "40% top",
+                scrub: 2,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+              },
+              scale: 8,
+              opacity: 0.7,
+              ease: "power2.inOut",
+              force3D: true,
+            }
+          );
         });
 
         if (contentRef.current) {
@@ -49,29 +92,35 @@ export default function AboutOrello() {
             scrollTrigger: {
               trigger: containerRef.current,
               start: "top top",
-              end: "70% top",
+              end: "40% top",
               scrub: 1,
               anticipatePin: 1,
               invalidateOnRefresh: true,
             },
-            y: "-100vh",
+            y: "-10vh",
             ease: "none",
             force3D: true,
           });
         }
+
       }, containerRef);
 
-      return () => ctx.revert();
+      return () => {
+        if (bgRef.current) {
+          gsap.set(bgRef.current, { position: 'absolute' });
+        }
+        ctx.revert();
+      };
     });
 
     // === INFINITE LOGO SCROLL ANIMATION ===
     if (logoScrollRef.current) {
       const logoTrack = logoScrollRef.current;
       const logoWidth = logoTrack.offsetWidth / 2;
-      
+
       gsap.to(logoTrack, {
         x: -logoWidth,
-        duration: 20,
+        duration: 12,
         ease: "none",
         repeat: -1,
         modifiers: {
@@ -80,143 +129,218 @@ export default function AboutOrello() {
       });
     }
 
-    const t = setTimeout(() => ScrollTrigger.refresh(), 100);
+    setTimeout(() => ScrollTrigger.refresh(), 100);
 
     return () => {
-      clearTimeout(t);
       mm.revert();
-      ScrollTrigger.getAll().forEach((st) => st.kill());
+      ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
 
-  // Arc configs — responsive for all screen sizes
-  const arcs = [
-    { w: "140vw", h: "130vw", bg: "#e8ddd0", bottom: "-70vw", wMd: "150vw", hMd: "140vw", bottomMd: "-75vw", wSm: "170vw", hSm: "160vw", bottomSm: "-85vw" },
-    { w: "120vw", h: "110vw", bg: "#faf5eb", bottom: "-60vw", wMd: "130vw", hMd: "120vw", bottomMd: "-65vw", wSm: "150vw", hSm: "140vw", bottomSm: "-75vw" },
-    { w: "95vw",  h: "85vw",  bg: "#e8ddd0", bottom: "-50vw", wMd: "105vw", hMd: "95vw", bottomMd: "-55vw", wSm: "120vw", hSm: "110vw", bottomSm: "-60vw" },
-    { w: "70vw",  h: "65vw",  bg: "#faf5eb", bottom: "-40vw", wMd: "80vw", hMd: "75vw", bottomMd: "-45vw", wSm: "95vw", hSm: "90vw", bottomSm: "-50vw" },
-    { w: "45vw",  h: "45vw",  bg: "#e8ddd0", bottom: "-30vw", wMd: "55vw", hMd: "55vw", bottomMd: "-35vw", wSm: "70vw", hSm: "70vw", bottomSm: "-40vw" },
-    { w: "25vw",  h: "25vw",  bg: "#faf5eb", bottom: "-20vw", wMd: "35vw", hMd: "35vw", bottomMd: "-25vw", wSm: "45vw", hSm: "45vw", bottomSm: "-30vw" },
-    { w: "12vw",  h: "12vw",  bg: "#e8ddd0", bottom: "-12vw", wMd: "18vw", hMd: "18vw", bottomMd: "-15vw", wSm: "25vw", hSm: "25vw", bottomSm: "-20vw" },
-    { w: "6vw",   h: "6vw",   bg: "#faf5eb", bottom: "-6vw",  wMd: "10vw", hMd: "10vw", bottomMd: "-8vw",  wSm: "15vw", hSm: "15vw", bottomSm: "-12vw" },
-  ];
-
   const partners = [
-    { name: "Hamleys", logo: log7 },
-    { name: "Hamleys", logo: log1 },
+    { name: "Hamleys",          logo: log7 },
+    { name: "Hamleys",          logo: log1 },
     { name: "Sangapur Village", logo: log2 },
-    { name: "SCALEPOINT", logo: log3 },
-    { name: "ocean", logo: log4 },
-    { name: "Habitat", logo: log5 },
-    { name: "COLDEASY", logo: log6 },
-  
+    { name: "SCALEPOINT",       logo: log3 },
+    { name: "ocean",            logo: log4 },
+    { name: "Habitat",          logo: log5 },
+    { name: "COLDEASY",         logo: log6 },
   ];
 
   return (
-    <div
-      ref={containerRef}
-      className="relative overflow-hidden min-h-screen flex flex-col justify-center py-6 sm:py-8 md:py-12 lg:py-14"
-      style={{ 
-        backgroundColor: "#faf5eb", 
-        paddingTop: "clamp(40px, 8vw, 600px)" 
-      }}
-    >
-      {/* Semicircle Arcs */}
-      <div className="hidden lg:flex absolute inset-0 items-end justify-center pointer-events-none overflow-hidden">
-        {arcs.map((arc, i) => (
+    <div className="bg-[#eadecf]">
+      <div ref={containerRef} className="relative overflow-hidden isolate">
+
+        {/* Background — absolute on mobile, GSAP switches to fixed on desktop */}
+        <div
+          ref={bgRef}
+          className="absolute inset-0 flex items-end justify-center pointer-events-none z-0 overflow-hidden"
+          style={{ backgroundColor: '#eadecf', willChange: 'transform' }}
+        >
+
+          {/* ── BACKGROUND CIRCLES (visible at start, fade out on scroll) ── */}
           <div
-            key={i}
-            ref={(el) => (circleRefs.current[i] = el)}
-            className="absolute rounded-full"
+            ref={(el) => (circleRefs.current[0] = el)}
+            className="absolute w-[120vw] h-[110vw] bg-[#fdf6e9] left-1/2"
+            style={{ borderRadius: "50%", bottom: "-60vw", opacity: 0.6, transform: "translateX(-50%) translateZ(0)", willChange: "transform, opacity" }}
+          />
+          <div
+            ref={(el) => (circleRefs.current[1] = el)}
+            className="absolute w-[95vw] h-[85vw] bg-[#eadecf] left-1/2"
+            style={{ borderRadius: "50%", bottom: "-50vw", opacity: 0.6, transform: "translateX(-50%) translateZ(0)", willChange: "transform, opacity" }}
+          />
+          <div
+            ref={(el) => (circleRefs.current[2] = el)}
+            className="absolute w-[70vw] h-[65vw] bg-[#fdf6e9] left-1/2"
+            style={{ borderRadius: "50%", bottom: "-40vw", opacity: 0.6, transform: "translateX(-50%) translateZ(0)", willChange: "transform, opacity" }}
+          />
+          <div
+            ref={(el) => (circleRefs.current[3] = el)}
+            className="absolute w-[45vw] h-[45vw] bg-[#eadecf] left-1/2"
+            style={{ borderRadius: "50%", bottom: "-30vw", opacity: 0.6, transform: "translateX(-50%) translateZ(0)", willChange: "transform, opacity" }}
+          />
+
+          {/* ── TRANSITION ARCS — 8 arcs, opacity 0 at start, scale+fade IN on scroll ── */}
+
+          {/* Arc 1 — largest, widest */}
+          <div
+            ref={(el) => (transitionArcRefs.current[0] = el)}
+            className="absolute bg-[#f4ede2] left-1/2"
             style={{
-              left: "50%",
-              width: `min(${arc.w}, ${arc.wMd})`,
-              height: `min(${arc.h}, ${arc.hMd})`,
-              backgroundColor: arc.bg,
-              bottom: arc.bottom,
-              opacity: 0.6,
+              width: "140vw", height: "130vw",
+              borderRadius: "50% 50% 0 0 / 100% 100% 0 0",
+              bottom: "-70vw", opacity: 0,
               transform: "translateX(-50%) translateZ(0)",
-              willChange: "transform, opacity",
+              willChange: "transform, opacity"
             }}
           />
-        ))}
-      </div>
+          {/* Arc 2 */}
+          <div
+            ref={(el) => (transitionArcRefs.current[1] = el)}
+            className="absolute bg-[#fdf6e9] left-1/2"
+            style={{
+              width: "120vw", height: "110vw",
+              borderRadius: "50% 50% 0 0 / 100% 100% 0 0",
+              bottom: "-60vw", opacity: 0,
+              transform: "translateX(-50%) translateZ(0)",
+              willChange: "transform, opacity"
+            }}
+          />
+          {/* Arc 3 */}
+          <div
+            ref={(el) => (transitionArcRefs.current[2] = el)}
+            className="absolute bg-[#ede4d6] left-1/2"
+            style={{
+              width: "100vw", height: "90vw",
+              borderRadius: "50% 50% 0 0 / 100% 100% 0 0",
+              bottom: "-50vw", opacity: 0,
+              transform: "translateX(-50%) translateZ(0)",
+              willChange: "transform, opacity"
+            }}
+          />
+          {/* Arc 4 */}
+          <div
+            ref={(el) => (transitionArcRefs.current[3] = el)}
+            className="absolute bg-[#fdf6e9] left-1/2"
+            style={{
+              width: "80vw", height: "72vw",
+              borderRadius: "50% 50% 0 0 / 100% 100% 0 0",
+              bottom: "-40vw", opacity: 0,
+              transform: "translateX(-50%) translateZ(0)",
+              willChange: "transform, opacity"
+            }}
+          />
+          {/* Arc 5 */}
+          <div
+            ref={(el) => (transitionArcRefs.current[4] = el)}
+            className="absolute bg-[#e8ddd0] left-1/2"
+            style={{
+              width: "62vw", height: "56vw",
+              borderRadius: "50% 50% 0 0 / 100% 100% 0 0",
+              bottom: "-32vw", opacity: 0,
+              transform: "translateX(-50%) translateZ(0)",
+              willChange: "transform, opacity"
+            }}
+          />
+          {/* Arc 6 */}
+          <div
+            ref={(el) => (transitionArcRefs.current[5] = el)}
+            className="absolute bg-[#fdf6e9] left-1/2"
+            style={{
+              width: "45vw", height: "42vw",
+              borderRadius: "50% 50% 0 0 / 100% 100% 0 0",
+              bottom: "-24vw", opacity: 0,
+              transform: "translateX(-50%) translateZ(0)",
+              willChange: "transform, opacity"
+            }}
+          />
+          {/* Arc 7 */}
+          <div
+            ref={(el) => (transitionArcRefs.current[6] = el)}
+            className="absolute bg-[#ede4d6] left-1/2"
+            style={{
+              width: "30vw", height: "28vw",
+              borderRadius: "50% 50% 0 0 / 100% 100% 0 0",
+              bottom: "-16vw", opacity: 0,
+              transform: "translateX(-50%) translateZ(0)",
+              willChange: "transform, opacity"
+            }}
+          />
+          {/* Arc 8 — smallest, innermost */}
+          <div
+            ref={(el) => (transitionArcRefs.current[7] = el)}
+            className="absolute bg-[#fdf6e9] left-1/2"
+            style={{
+              width: "16vw", height: "15vw",
+              borderRadius: "50% 50% 0 0 / 100% 100% 0 0",
+              bottom: "-9vw", opacity: 0,
+              transform: "translateX(-50%) translateZ(0)",
+              willChange: "transform, opacity"
+            }}
+          />
 
-      {/* Content */}
-      <div
-        ref={contentRef}
-        className="relative z-10 mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-[35px]"
-        style={{ maxWidth: "1400px" }}
-      >
-        <div className="container">
-          {/* Header */}
-          <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#4B433B] mb-4 md:mb-6" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>
-              About Orello
-            </h2>
-            <p className="text-[#4B433B] text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed px-4">
-              Orello is a purpose-driven design and development partner for organisations creating impact
-              
-              across India, USA, Europe and UAE.
-            </p>
-          </div>
+        </div>
 
-          {/* Illustration */}
-          <div className="flex justify-center mb-8 md:mb-12 ">
-            <div className="relative w-full max-w-2xl px-4 ">
-              <img 
-                src={objects} 
-                alt="Team collaboration"
-                className="w-full h-auto"
-                loading="eager"
-              />
+        {/* ── Content ── */}
+        <div
+          ref={contentRef}
+          className="relative flex flex-col items-center justify-center z-10 py-8 sm:py-10 pt-16 sm:pt-24 md:pt-30"
+        >
+          <div className="container px-4 sm:px-6 lg:px-8">
+
+            {/* Header */}
+            <div className="text-center mb-6 sm:mb-8 md:mb-12">
+              <h2
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-[#4B433B] mb-3 sm:mb-4 md:mb-6"
+                style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}
+              >
+                About Orello
+              </h2>
+              <p className="text-[#4B433B] text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed px-2 sm:px-4">
+                Orello is a purpose-driven design and development partner for organisations creating impact
+                across India, USA, Europe and UAE.
+              </p>
             </div>
-          </div>
 
-          {/* Partners Logo Strip */}
-          <div className="mt-10 md:mt-14">
-            <div className="w-full bg-[#Fffdfa] py-6 md:py-8 rounded-xl overflow-hidden">
-              <div className="max-w-7xl mx-auto px-4">
-                <div className="relative overflow-hidden">
-                  <div 
-                    ref={logoScrollRef}
-                    className="flex items-center gap-x-8 md:gap-x-12"
-                    style={{ willChange: 'transform' }}
-                  >
-                    {/* Original logos */}
-                    {partners.map((partner, index) => (
-                      <div
-                        key={index}
-                        className="flex items-center justify-center h-8 sm:h-10 md:h-12 lg:h-14 flex-shrink-0"
-                      >
-                        <img
-                          src={partner.logo}
-                          alt={partner.name}
-                          className="h-full w-[130px] object-contain opacity-80"
-                          loading="lazy"
-                        />
-                      </div>
-                    ))}
-                    {/* Duplicated logos for seamless loop */}
-                    {partners.map((partner, index) => (
-                      <div
-                        key={`duplicate-${index}`}
-                        className="flex items-center justify-center h-8 sm:h-10 md:h-12 lg:h-14 flex-shrink-0"
-                      >
-                        <img
-                          src={partner.logo}
-                          alt={partner.name}
-                          className="h-full w-[130px] object-contain opacity-80"
-                          loading="lazy"
-                        />
-                      </div>
-                    ))}
+            {/* Illustration */}
+            <div className="flex justify-center mb-6 sm:mb-8 md:mb-12">
+              <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-xl lg:max-w-2xl px-2 sm:px-4">
+                <img
+                  src={objects}
+                  alt="Team collaboration"
+                  className="w-full h-auto"
+                  loading="eager"
+                />
+              </div>
+            </div>
+
+            {/* Partners Logo Strip */}
+            <div className="mt-8 sm:mt-10 md:mt-14">
+              <div className="w-full bg-[#f0e9dc] py-4 sm:py-6 md:py-8 rounded-xl overflow-hidden">
+                <div className="max-w-7xl mx-auto px-2 sm:px-4">
+                  <div className="relative overflow-hidden">
+                    <div
+                      ref={logoScrollRef}
+                      className="flex items-center gap-x-6 sm:gap-x-8 md:gap-x-12"
+                      style={{ willChange: 'transform' }}
+                    >
+                      {partners.map((partner, index) => (
+                        <div key={index} className="flex items-center justify-center h-6 sm:h-8 md:h-10 lg:h-14 flex-shrink-0">
+                          <img src={partner.logo} alt={partner.name} className="h-full w-[90px] sm:w-[110px] md:w-[130px] object-contain opacity-80" loading="lazy" />
+                        </div>
+                      ))}
+                      {partners.map((partner, index) => (
+                        <div key={`dup-${index}`} className="flex items-center justify-center h-6 sm:h-8 md:h-10 lg:h-14 flex-shrink-0">
+                          <img src={partner.logo} alt={partner.name} className="h-full w-[90px] sm:w-[110px] md:w-[130px] object-contain opacity-80" loading="lazy" />
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
+          </div>
         </div>
       </div>
     </div>

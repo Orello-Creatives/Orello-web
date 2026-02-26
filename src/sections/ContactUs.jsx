@@ -245,7 +245,7 @@ export default function ContactSection() {
               {/* Submit Button */}
               <button
                 onClick={handleSubmit}
-                className="w-full bg-black text-white font-semibold py-3.5 px-6 rounded-full hover:bg-gray-800 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
+                className="w-full bg-black text-white font-semibold cursor-pointer py-3.5 px-6 rounded-full  transition-colors duration-300 "
               >
                 Submit
               </button>

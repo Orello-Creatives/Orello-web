@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router'
 
 const ServicesSection = () => {
   const services = [
@@ -51,10 +52,11 @@ const ServicesSection = () => {
       <div className="container">
         {/* Heading */}
         <div className="mb-12 md:mb-16">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-white leading-tight">
             What
-            <br />
+            <br /><span className="font-semibold">
             We offer
+            </span>
           </h1>
         </div>
 
@@ -100,9 +102,11 @@ const ServicesSection = () => {
 
         {/* CTA Button */}
         <div className="flex justify-center mt-12 md:mt-16">
+        <Link to="/casestudy-overview">
           <button className="bg-[#F9F5ED] text-black px-10 cursor-pointer py-4 rounded-full text-base md:text-lg font-medium hover:bg-gray-100 transition-colors duration-300 shadow-lg">
             See our work
           </button>
+          </Link>
         </div>
       </div>
     </div>

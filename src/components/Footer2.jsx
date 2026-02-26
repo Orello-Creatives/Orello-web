@@ -1,5 +1,4 @@
 import React from 'react'
-import { Instagram, Linkedin, MapPin, Mail } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import orello from '../assets/logos/orello.svg'
 import orelloclip from '../assets/logos/orelloclip.svg'
@@ -14,17 +13,21 @@ const Footer = () => {
     { name: 'Home', path: '/' },
     { name: 'About Us', path: '/about' },
     { name: 'Work', path: '/casestudy-overview' },
-    { name: 'Services', path: '/services' },
-    { name: 'Resources', path: '/resources' },
     { name: 'Careers', path: '/careers' },
-    { name: 'FAQ', path: '/faq' },
     { name: 'Contact Us', path: '/contact' }
   ]
 
-  return (
-    <div className="bg-[#fcf4e9] flex flex-col relative w-full overflow-hidden ">
+  const socialLinks = [
+    { img: instagram, alt: 'Instagram', href: 'https://www.instagram.com/orello.io', external: true },
+    { img: linkedin, alt: 'LinkedIn', href: 'https://www.linkedin.com/company/orello', external: true },
+    { img: locatio, alt: 'Location', href: 'https://www.google.com/search?q=Orello+Creatives+Pvt+Ltd+Bengaluru', external: true },
+    { img: mailid, alt: 'Email', href: 'mailto:hello@orello.io', external: false },
+  ]
 
-      {/* 2. Transition & Footer Section */}
+  return (
+    <div className="bg-[#fcf4e9] flex flex-col relative w-full overflow-hidden">
+
+      {/* Transition & Footer Section */}
       <div className="relative mt-12 sm:mt-16 md:mt-20">
         
         {/* Floating Logo Badge */}
@@ -39,7 +42,7 @@ const Footer = () => {
             />
             {/* The Black Circle */}
             <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 bg-black rounded-full border-2 sm:border-4 border-[#fdf7ee] flex items-center justify-center shadow-xl">
-              <img src={orelloclip} alt="Orello mark" className="" />
+              <img src={orelloclip} alt="Orello mark" />
             </div>
           </div>
         </div>
@@ -52,11 +55,12 @@ const Footer = () => {
           }}
         />
 
-        {/* 3. Actual Footer Content */}
+        {/* Actual Footer Content */}
         <footer className="relative z-20 pt-20 sm:pt-24 md:pt-32 pb-8 sm:pb-12 px-4 sm:px-6 md:px-16 rounded-t-[30px] sm:rounded-t-[40px] md:rounded-t-[80px]">
           <div className="max-w-[1400px] mx-auto">
             
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 sm:gap-8">
+              
               {/* Logo Area */}
               <div className="w-full md:w-auto flex justify-start">
                 <Link to="/">
@@ -86,20 +90,17 @@ const Footer = () => {
                     Socials
                   </span>
                   <div className="flex gap-2">
-                                     {[
-                                       { img: instagram, alt: 'Instagram' },
-                                       { img: linkedin, alt: 'LinkedIn' },
-                                       { img: locatio, alt: 'Location' },
-                                       { img: mailid, alt: 'Email' }
-                                     ].map((social, idx) => (
-                                       <a
-                                         key={idx}
-                                         href="#"
-                                         className="w-9 h-9 sm:w-10 sm:h-10 bg-[#F9F5ED] rounded-xl flex items-center justify-center hover:bg-gray-800 transition-colors"
-                                       >
-                                         <img src={social.img} alt={social.alt} className="w-4 h-4 sm:w-5 sm:h-5" />
-                                       </a>
-                                     ))}
+                    {socialLinks.map((social) => (
+                      <a
+                        key={social.alt}
+                        href={social.href}
+                        target={social.external ? '_blank' : undefined}
+                        rel={social.external ? 'noopener noreferrer' : undefined}
+                        className="w-9 h-9 sm:w-10 sm:h-10 bg-[#F9F5ED] rounded-xl flex items-center justify-center hover:bg-[#F7AF19] transition-colors"
+                      >
+                        <img src={social.img} alt={social.alt} className="w-4 h-4 sm:w-5 sm:h-5" />
+                      </a>
+                    ))}
                   </div>
                 </div>
 

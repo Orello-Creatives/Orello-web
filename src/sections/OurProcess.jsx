@@ -106,12 +106,13 @@ const ProcessSection = () => {
   return (
     <div className="bg-[#F9F5ED]">
       {/* Process Section */}
-      <section ref={sectionRef} className="relative h-auto lg:h-screen overflow-hidden bg-[#f5f3ed] py-12 lg:py-0">
+      <section ref={sectionRef} className="relative h-auto lg:h-screen overflow-hidden bg-[#f5f3ed] pb-12 lg:py-0">
         <div className="container mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12 lg:py-16 h-full">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-10 md:mb-12 lg:mb-16 leading-tight">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-light mb-10 md:mb-12 lg:mb-16 leading-tight">
             Our
-            <br />
+            <br /><span className="font-semibold">
             Process
+            </span>
           </h2>
 
           {/* Cards Container */}

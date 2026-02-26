@@ -46,7 +46,7 @@ export default function PortfolioGrid() {
       title: "GBM Report ",
       tags: ["Climate tech", "Sustainability", "Construction"],
       defaultImage: case1,
-      hoverImage: hr1,
+      hoverImage: hr5,
       iconColor: "emerald",
       logos: [penn],
       link: "/gbm-casestudy"

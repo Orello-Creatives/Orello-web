@@ -232,7 +232,7 @@ export default function AboutOrello() {
         {/* Content */}
         <div
           ref={contentRef}
-          className="relative flex flex-col items-center justify-center z-10 py-8 sm:py-10 pt-16 sm:pt-24 md:pt-30"
+          className="relative flex flex-col items-center justify-center z-10 py-8 sm:py-10 pt-18 sm:pt-24 md:pt-30"
         >
           <div className="container px-4 sm:px-6 lg:px-8">
             {/* Header */}
