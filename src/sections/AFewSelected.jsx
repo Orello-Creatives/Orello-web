@@ -34,10 +34,58 @@ import row5logo3 from '../assets/logos/row5logo3.svg'
 import row5logo4 from '../assets/logos/row5logo4.svg'
 import row5logo5 from '../assets/logos/row5logo5.svg'
 import smile from '../assets/logos/smile.svg'
-import { Link } from 'react-router-dom' // ✅ Fixed import
+import { Link } from 'react-router-dom'
 import Readyto from '../components/Readyto'
 
 gsap.registerPlugin(ScrollTrigger);
+
+// ─── Reusable Animated Button ─────────────────────────────────────────────────
+const AnimatedButton = ({ to, label, className }) => {
+  const wrapperRef = useRef(null);
+  const btnRef = useRef(null);
+
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    const btn = btnRef.current;
+
+    // Use a larger hit area (wrapper) so the button moving away doesn't lose cursor
+    const handleMouseMove = (e) => {
+      const rect = wrapper.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) * 0.5;
+      const dy = (e.clientY - cy) * 0.5;
+      gsap.to(btn, { x: dx, y: dy, duration: 0.4, ease: 'power2.out' });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1.1, 0.4)' });
+    };
+
+    wrapper.addEventListener('mousemove', handleMouseMove);
+    wrapper.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      wrapper.removeEventListener('mousemove', handleMouseMove);
+      wrapper.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  return (
+    // Wrapper has generous padding to act as a larger hover zone
+    <div ref={wrapperRef} style={{ display: 'inline-block', padding: '16px', margin: '-16px' }}>
+      <Link to={to}>
+        <button
+          ref={btnRef}
+          className={className}
+          style={{ willChange: 'transform', display: 'block' }}
+        >
+          {label}
+        </button>
+      </Link>
+    </div>
+  );
+};
 
 const AFewSelected = () => {
   const sectionRef = useRef(null);
@@ -117,10 +165,9 @@ const AFewSelected = () => {
 
   const rowRefs = [row1Ref, row2Ref, row3Ref, row4Ref, row5Ref];
 
-  // ✅ Helper to get initial translateX for odd rows without using window in JSX
   const getInitialTransform = (rowIndex) => {
     if (rowIndex % 2 === 0) return 'translateX(0)';
-    return 'translateX(-400px)'; // GSAP will override this on scroll anyway
+    return 'translateX(-400px)';
   };
 
   return (
@@ -148,7 +195,6 @@ const AFewSelected = () => {
         </div>
 
         {/* Portfolio Grid */}
-        {/* ✅ Fixed: gap-15 → gap-16 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-16">
           {projects.map((project, index) => (
             <div key={index} className="group">
@@ -163,7 +209,6 @@ const AFewSelected = () => {
               </Link>
               <div className="flex justify-between items-center mb-2">
                 <h4 className="font-bold text-sm sm:text-base">{project.title}</h4>
-                {/* ✅ Fixed: sm:gap-1.8 → sm:gap-2 */}
                 <div className="flex gap-1.5 sm:gap-2">
                   {project.icons.map((icon, i) => (
                     <span key={i} className="flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8">
@@ -192,16 +237,16 @@ const AFewSelected = () => {
               Orello is a purpose-driven global design partner that helps impact-oriented organizations.
             </p>
             <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 md:gap-4">
-            <Link to="/contact">
-              <button className="bg-[#f7af19] cursor-pointer text-black font-bold py-2 px-4 sm:py-2.5 sm:px-5 md:py-3 md:px-6 rounded-full text-xs sm:text-sm transition w-full sm:w-auto">
-                Lets Talk
-              </button>
-              </Link>
-               <Link to="/casestudy-overview">
-              <button className="bg-white cursor-pointer text-black font-bold py-2 px-4 sm:py-2.5 sm:px-5 md:py-3 md:px-6 rounded-full text-xs sm:text-sm hover:bg-zinc-200 transition w-full sm:w-auto">
-                See all work
-              </button>
-              </Link>
+              <AnimatedButton
+                to="/contact"
+                label="Lets Talk"
+                className="bg-[#f7af19] cursor-pointer text-black font-bold py-2 px-4 sm:py-2.5 sm:px-5 md:py-3 md:px-6 rounded-full text-xs sm:text-sm transition w-full sm:w-auto"
+              />
+              <AnimatedButton
+                to="/casestudy-overview"
+                label="See all work"
+                className="bg-white cursor-pointer text-black font-bold py-2 px-4 sm:py-2.5 sm:px-5 md:py-3 md:px-6 rounded-full text-xs sm:text-sm hover:bg-zinc-200 transition w-full sm:w-auto"
+              />
             </div>
           </div>
         </div>
@@ -213,7 +258,6 @@ const AFewSelected = () => {
       {/* Trusted Section */}
       <section ref={sectionRef} className="pb-12 sm:pb-16 md:pb-24 px-3 sm:px-5 overflow-hidden relative z-10">
         {/* Title */}
-        {/* ✅ Fixed: mb-25 → mb-24 */}
         <div className="text-center mb-12 sm:mb-16 md:mb-24 relative z-30">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-light tracking-tight px-4">
             <span className="font-semibold">Trusted</span> by leading Organisations
@@ -227,7 +271,6 @@ const AFewSelected = () => {
               key={rowIndex}
               ref={rowRefs[rowIndex]}
               className="flex gap-8 sm:gap-12 md:gap-16 items-center"
-              // ✅ Fixed: removed window.innerWidth from JSX, use stable CSS value
               style={{ transform: getInitialTransform(rowIndex) }}
             >
               {logos.map((logo, logoIndex) => (
@@ -245,9 +288,9 @@ const AFewSelected = () => {
             </div>
           ))}
         </div>
-      </section> {/* ✅ Fixed: closed inner <section> */}
+      </section>
 
-    </section> // ✅ Fixed: added missing closing tag for outer <section>
+    </section>
   );
 };
 

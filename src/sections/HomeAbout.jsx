@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import HeroServices from '../sections/HeroServices'
+import OurServices from './OurServices'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -104,7 +104,7 @@ const HomeAbout = () => {
           </h2>
         </div>
       </div>
-      <HeroServices />
+      <OurServices />
     </section>
   )
 }

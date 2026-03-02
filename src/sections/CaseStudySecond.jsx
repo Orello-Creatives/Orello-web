@@ -39,7 +39,7 @@ export default function PortfolioGrid() {
   const imageRefs = useRef({});
   const customCursorRef = useRef(null);
 
-  // Replace these placeholder images with your actual project images
+ 
   const projects = [
     {
       id: 1,

@@ -126,7 +126,7 @@ export default function CaseStudySection() {
 
         {/* Headline */}
         <h1
-          className="mb-3 sm:mb-3.5 md:mb-4 lg:mb-[18px] leading-[1.3] sm:leading-[1.35] md:leading-[1.38]"
+          className="mb-3 sm:mb-3.5 md:mb-4 lg:mb-[18px] leading-[1.3] sm:leading-[1.30] md:leading-[1.25]"
           style={{
             fontSize: "clamp(1.75rem, 5.5vw, 4rem)",
             color: "#402E1D",

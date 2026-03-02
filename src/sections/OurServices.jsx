@@ -332,7 +332,87 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
   );
 };
 
-export default function heroServices() {
+// ─── Animated "Know More" Button ───────────────────────────────────────────────
+const KnowMoreButton = () => {
+  const btnRef = useRef(null);
+  const fillRef = useRef(null);
+  const textRef = useRef(null);
+
+  useEffect(() => {
+    const btn = btnRef.current;
+    const fill = fillRef.current;
+    const text = textRef.current;
+
+    gsap.set(fill, { scale: 0, transformOrigin: '50% 150%' });
+
+    const handleMouseEnter = (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const ox = (x / rect.width) * 100;
+      const oy = (y / rect.height) * 100;
+      gsap.set(fill, { transformOrigin: `${ox}% ${oy}%`, scale: 0 });
+
+      gsap.to(fill, { scale: 3, duration: 0.55, ease: 'power3.out' });
+      gsap.to(text, { color: '#000', duration: 0.3, ease: 'power2.out' });
+    };
+
+    const handleMouseMove = (e) => {
+      const rect = btn.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) * 0.28;
+      const dy = (e.clientY - cy) * 0.28;
+
+      gsap.to(btn, { x: dx, y: dy, duration: 0.5, ease: 'power2.out' });
+    };
+
+    const handleMouseLeave = (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const ox = (x / rect.width) * 100;
+      const oy = (y / rect.height) * 100;
+      gsap.set(fill, { transformOrigin: `${ox}% ${oy}%` });
+
+      gsap.to(fill, { scale: 0, duration: 0.45, ease: 'power3.in' });
+      gsap.to(text, { color: '#000', duration: 0.3, ease: 'power2.out' });
+      gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1.1, 0.4)' });
+    };
+
+    btn.addEventListener('mouseenter', handleMouseEnter);
+    btn.addEventListener('mousemove', handleMouseMove);
+    btn.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      btn.removeEventListener('mouseenter', handleMouseEnter);
+      btn.removeEventListener('mousemove', handleMouseMove);
+      btn.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  return (
+    <Link to="/services">
+      <button
+        ref={btnRef}
+        className="relative overflow-hidden cursor-pointer text-black px-8 py-3 rounded-full font-medium"
+        style={{ backgroundColor: '#F7AF19', display: 'inline-flex', alignItems: 'center', willChange: 'transform' }}
+      >
+        <span
+          ref={fillRef}
+          style={{ position: 'absolute', inset: 0, borderRadius: '9999px',  zIndex: 0, pointerEvents: 'none' }}
+        />
+        <span ref={textRef} style={{ position: 'relative', zIndex: 1, color: '#000' }}>
+          Know more
+        </span>
+      </button>
+    </Link>
+  );
+};
+
+export default function OurServices() {
   const services = [
     {
       title: 'Brand Identity',
@@ -369,11 +449,7 @@ export default function heroServices() {
             <p className="paragraph leading-relaxed mb-8 max-w-[370px]">
               Orello is a purpose-driven global design partner that helps impact-oriented organisations communicate with clarity, empathy, and intention.
             </p>
-            <Link to="/services">
-            <button className="bg-[#F7AF19] cursor-pointer text-black px-8 py-3 rounded-full font-medium hover:bg-[#fda521] transition-colors">
-              Know more
-            </button>
-            </Link>
+            <KnowMoreButton />
           </div>
 
           {/* Right side - Service Cards */}

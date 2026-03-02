@@ -1,12 +1,57 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Instagram, Linkedin, MapPin, Mail } from 'lucide-react'
+import gsap from 'gsap'
 import orello from '../assets/logos/orello.svg'
 import orelloclip from '../assets/logos/orelloclip.svg'
 import instagram from '../assets/logos/instagram.svg'
 import linkedin from '../assets/logos/linkedin.svg'
 import locatio from '../assets/logos/locatio.svg'
 import mailid from '../assets/logos/mailid.svg'
+
+const AnimatedButton = ({ to, label, className }) => {
+  const wrapperRef = useRef(null);
+  const btnRef = useRef(null);
+
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    const btn = btnRef.current;
+
+    const handleMouseMove = (e) => {
+      const rect = wrapper.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) * 0.5;
+      const dy = (e.clientY - cy) * 0.5;
+      gsap.to(btn, { x: dx, y: dy, duration: 0.4, ease: 'power2.out' });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1.1, 0.4)' });
+    };
+
+    wrapper.addEventListener('mousemove', handleMouseMove);
+    wrapper.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      wrapper.removeEventListener('mousemove', handleMouseMove);
+      wrapper.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  return (
+    <div ref={wrapperRef} style={{ display: 'inline-block', padding: '16px', margin: '-16px' }}>
+      <Link to={to}>
+        <button
+          ref={btnRef}
+          className={className}
+          style={{ willChange: 'transform', display: 'block' }}
+        >
+          {label}
+        </button>
+      </Link>
+    </div>
+  );
+};
 
 const Footer = () => {
   return (
@@ -23,16 +68,16 @@ const Footer = () => {
         </h2>
 
         <div className="flex gap-3 sm:gap-4 flex-wrap justify-center">
-          <Link to="/contact">
-            <button className="px-6 sm:px-8 md:px-10 py-3 cursor-pointer sm:py-4 bg-black text-white rounded-full font-bold text-sm sm:text-base hover:bg-gray-900 transition-all">
-              Contact Us
-            </button>
-          </Link>
-          <Link to="/contact">
-            <button className="px-6 sm:px-8 md:px-10 py-3 sm:py-4 bg-[#F7AF19] cursor-pointer text-black rounded-full font-bold text-sm sm:text-base hover:bg-[#e5a314] transition-all">
-              Book a meeting
-            </button>
-          </Link>
+          <AnimatedButton
+            to="/contact"
+            label="Contact Us"
+            className="px-6 sm:px-8 md:px-10 py-3 cursor-pointer sm:py-4 bg-black text-white rounded-full font-bold text-sm sm:text-base hover:bg-gray-900 transition-all"
+          />
+          <AnimatedButton
+            to="/contact"
+            label="Book a meeting"
+            className="px-6 sm:px-8 md:px-10 py-3 sm:py-4 bg-[#F7AF19] cursor-pointer text-black rounded-full font-bold text-sm sm:text-base hover:bg-[#e5a314] transition-all"
+          />
         </div>
       </div>
 
@@ -103,7 +148,7 @@ const Footer = () => {
                   <span className="text-black font-black text-xs uppercase tracking-widest">
                     Socials
                   </span>
-                   <div className="flex gap-2">
+                  <div className="flex gap-2">
                     <a
                       href="https://www.instagram.com/orello.io"
                       target="_blank"

@@ -4,6 +4,51 @@ import { Link, useLocation } from 'react-router-dom'
 import { gsap } from 'gsap'
 import orello from '../assets/logos/orello.svg'
 
+const AnimatedButton = ({ to, label, className }) => {
+  const wrapperRef = useRef(null);
+  const btnRef = useRef(null);
+
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    const btn = btnRef.current;
+
+    const handleMouseMove = (e) => {
+      const rect = wrapper.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) * 0.5;
+      const dy = (e.clientY - cy) * 0.5;
+      gsap.to(btn, { x: dx, y: dy, duration: 0.4, ease: 'power2.out' });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1.1, 0.4)' });
+    };
+
+    wrapper.addEventListener('mousemove', handleMouseMove);
+    wrapper.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      wrapper.removeEventListener('mousemove', handleMouseMove);
+      wrapper.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  return (
+    <div ref={wrapperRef} style={{ display: 'inline-block', padding: '16px', margin: '-16px' }}>
+      <Link to={to}>
+        <button
+          ref={btnRef}
+          className={className}
+          style={{ willChange: 'transform', display: 'block' }}
+        >
+          {label}
+        </button>
+      </Link>
+    </div>
+  );
+};
+
 const OrelloNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef(null)
@@ -84,11 +129,11 @@ const OrelloNavbar = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:block">
-            <Link to="/contact">
-              <button className="px-6 lg:px-8 py-2.5 lg:py-3 cursor-pointer bg-[#4B433B] text-white rounded-full text-sm lg:text-base font-medium hover:bg-[#2d2d2d] transition-colors">
-                Contact us
-              </button>
-            </Link>
+            <AnimatedButton
+              to="/contact"
+              label="Contact us"
+              className="px-6 lg:px-8 py-2.5 lg:py-3 cursor-pointer bg-[#4B433B] text-white rounded-full text-sm lg:text-base font-medium hover:bg-[#2d2d2d] transition-colors"
+            />
           </div>
 
           {/* Mobile Toggle */}
@@ -128,7 +173,7 @@ const OrelloNavbar = () => {
               ref={(el) => (menuItemsRef.current[navLinks.length] = el)}
             >
               <button
-                className="mx-4 mt-2 px-6 py-4 bg-[#3d3d3d]  text-white rounded-full text-base font-medium hover:bg-[#2d2d2d] transition-colors"
+                className="mx-4 mt-2 px-6 py-4 bg-[#3d3d3d] text-white rounded-full text-base font-medium hover:bg-[#2d2d2d] transition-colors"
               >
                 contact us
               </button>
