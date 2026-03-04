@@ -23,6 +23,7 @@ import YogCasestudy from './pages/YogCasestudy'
 import ExpCasestudy from './pages/ExpCasestudy'
 import AarkivaCasestudy from './pages/AarkivaCasestudy'
 import FindCasestudy from './pages/FindCasestudy'
+
 const App = () => {
   return (
     <BrowserRouter>
