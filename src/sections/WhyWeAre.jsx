@@ -5,7 +5,53 @@ import trust2 from '../assets/logos/trust2.svg'
 import trust3 from '../assets/logos/trust3.svg'
 import trust4 from '../assets/logos/trust4.svg'
 import bow from '../assets/logos/bow.svg'
-import {Link} from 'react-router'
+import { Link } from 'react-router'
+
+// ─── Animated "Join Us" Button ─────────────────────────────────────────────────
+const JoinUsButton = () => {
+  const btnRef = useRef(null);
+  const textRef = useRef(null);
+
+  useEffect(() => {
+    const btn = btnRef.current;
+
+    const handleMouseMove = (e) => {
+      const rect = btn.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) * 0.28;
+      const dy = (e.clientY - cy) * 0.28;
+
+      gsap.to(btn, { x: dx, y: dy, duration: 0.5, ease: 'power2.out' });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1.1, 0.4)' });
+    };
+
+    btn.addEventListener('mousemove', handleMouseMove);
+    btn.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      btn.removeEventListener('mousemove', handleMouseMove);
+      btn.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  return (
+    <Link to="/careers">
+      <button
+        ref={btnRef}
+        className="relative overflow-hidden cursor-pointer bg-black text-white px-5 py-2 rounded-full font-medium text-sm sm:text-base"
+        style={{ display: 'inline-flex', alignItems: 'center', willChange: 'transform' }}
+      >
+        <span ref={textRef} style={{ position: 'relative', zIndex: 1 }}>
+          Join Us
+        </span>
+      </button>
+    </Link>
+  );
+};
 
 const TrustSection = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
@@ -104,9 +150,8 @@ const TrustSection = () => {
     const banner = bannerRef.current;
     if (!banner) return;
 
-    // Wait for layout to settle before measuring
     const initBanner = () => {
-      const totalWidth = banner.scrollWidth / 4; // divided by 4 because we repeat x4
+      const totalWidth = banner.scrollWidth / 4;
 
       gsap.killTweensOf(banner);
       gsap.set(banner, { x: 0 });
@@ -119,19 +164,16 @@ const TrustSection = () => {
       });
     };
 
-    // Small delay to ensure DOM is ready
     const timer = setTimeout(initBanner, 100);
     return () => clearTimeout(timer);
   }, []);
 
-
   useEffect(() => {
-    // Only apply desktop hover effects on large screens
     if (window.innerWidth >= 1024) {
       cardRefs.current.forEach((card, index) => {
         if (card) {
           const isFeatured = index === 2;
-          
+
           if (hoveredCard === index && !isFeatured) {
             gsap.to(card, {
               flexBasis: '450px',
@@ -228,7 +270,6 @@ const TrustSection = () => {
                   </span>
                 </div>
 
-                {/* Logo — visible on hover or featured */}
                 <div className={`absolute bottom-5 lg:bottom-8 right-4 lg:right-8 transition-opacity duration-300 pointer-events-none ${
                   hoveredCard === index
                     ? 'opacity-100'
@@ -239,7 +280,6 @@ const TrustSection = () => {
                   <img src={card.logo} alt={card.title} className="w-16 h-16 md:w-20 md:h-20 lg:w-32 lg:h-32 object-contain" />
                 </div>
 
-                {/* Text content — visible on hover or featured */}
                 <div className={`flex-1 transition-opacity duration-300 pointer-events-none ${
                   hoveredCard === index
                     ? 'opacity-100'
@@ -251,7 +291,6 @@ const TrustSection = () => {
                   <p className="text-xs lg:text-sm text-gray-900 leading-relaxed">{card.description}</p>
                 </div>
 
-                {/* Arrow button */}
                 <div className={`absolute bottom-3 lg:bottom-6 left-3 lg:left-6 w-7 h-7 lg:w-10 lg:h-10 rounded-full flex items-center justify-center transition-colors duration-300 pointer-events-none ${
                   hoveredCard === index
                     ? 'bg-black'
@@ -292,18 +331,15 @@ const TrustSection = () => {
                   {card.number}
                 </span>
 
-                {/* Logo */}
                 <div className="absolute bottom-4 right-3">
                   <img src={card.logo} alt={card.title} className="w-14 h-14 object-contain" />
                 </div>
 
-                {/* Text */}
                 <div className="mt-2 mb-10 pr-14">
                   <h4 className="font-bold text-gray-900 mb-1 text-xs leading-tight">{card.title}</h4>
                   <p className="text-[11px] text-gray-900 leading-relaxed">{card.description}</p>
                 </div>
 
-                {/* Arrow button */}
                 <div className="absolute bottom-4 left-4 w-8 h-8 rounded-full bg-black flex items-center justify-center">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12" />
@@ -322,11 +358,7 @@ const TrustSection = () => {
               <h2 className="text-2xl sm:text-4xl lg:text-5xl text-[#402E1D] font-light mb-1">Who</h2>
               <h2 className="text-2xl sm:text-4xl lg:text-5xl font-semibold text-[#402E1D]">We Work with</h2>
             </div>
-            <Link to="/careers">
-              <button className="bg-black text-white px-5 py-2 cursor-pointer rounded-full font-medium transition-colors text-sm sm:text-base">
-                Join Us
-              </button>
-            </Link>
+            <JoinUsButton />
           </div>
         </div>
 

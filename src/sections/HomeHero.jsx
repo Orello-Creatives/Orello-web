@@ -23,7 +23,7 @@ export default function CreativePartnerHero() {
 
     mm.add("(max-width: 767px)", () => {
       gsap.set(videoBoxRef.current, {
-        top: "45%",
+        top: "45%",       // was 45%
         right: "15%",
         left: "auto",
         xPercent: 0,
@@ -46,7 +46,7 @@ export default function CreativePartnerHero() {
     /* ========== TABLET INITIAL STATE ========== */
     mm.add("(min-width: 768px) and (max-width: 1023px)", () => {
       gsap.set(videoBoxRef.current, {
-        top: "18%",
+        top: "18%",       // was 18%
         right: "14%",
         left: "auto",
         xPercent: 0,
@@ -62,7 +62,7 @@ export default function CreativePartnerHero() {
     /* ========== DESKTOP INITIAL STATE ========== */
     mm.add("(min-width: 1024px)", () => {
       gsap.set(videoBoxRef.current, {
-        top: "15%",
+        top: "18%",       // was 15%
         right: "24%",
         left: "auto",
         xPercent: 0,
@@ -305,8 +305,8 @@ export default function CreativePartnerHero() {
           />
         </div>
 
-        {/* Hero text — shifted up on mobile to leave room for video below */}
-        <div className="fixed inset-0 flex items-start sm:items-start lg:items-center justify-center z-10 px-4 sm:px-6 md:px-8 pointer-events-none pt-28 xs:pt-32 sm:pt-40 md:pt-52 lg:pt-0 pb-5">
+        {/* Hero text — shifted down a bit more across all breakpoints */}
+        <div className="fixed inset-0 flex items-start sm:items-start lg:items-center justify-center z-10 px-4 sm:px-6 md:px-8 pointer-events-none pt-36 xs:pt-40 sm:pt-52 md:pt-64 lg:pt-2 pb-5">
           <div className="hero-container" style={{ willChange: "transform" }}>
             <h1 className="leading-[0.9] tracking-tight text-[2.6rem] xs:text-[3rem] sm:text-[4.5rem] md:text-[6.5rem] lg:text-[10rem]">
               <div className="font-black text-[#4B433B] ml-2 sm:ml-3 md:ml-4" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>YOUR</div>
@@ -352,7 +352,7 @@ export default function CreativePartnerHero() {
         <div
           ref={videoBoxRef}
           className="fixed bg-gray-400 rounded-lg overflow-hidden shadow-2xl z-5"
-          style={{ top: "15%", right: "24%", width: "300px", height: "184px", willChange: "transform, width, height" }}
+          style={{ top: "20%", right: "24%", width: "300px", height: "184px", willChange: "transform, width, height" }}
         >
           <video
             className="w-full h-full object-cover"

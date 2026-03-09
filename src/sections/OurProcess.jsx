@@ -31,25 +31,25 @@ const ProcessSection = () => {
         },
       });
 
-      // Set initial states - first two cards visible
-      gsap.set(overlay, { width: '33%' });
+      // Set initial states - overlay starts at 0% (before first card)
+      gsap.set(overlay, { width: '0%' });
       gsap.set(cards, { opacity: 1 });
       cards.forEach((card, index) => {
-        if (index >= 2) {
+        if (index >= 1) {
           gsap.set(card, { x: 100, opacity: 0 });
         }
       });
 
-      // Animate the yellow overlay expanding
+      // Animate the yellow overlay expanding from first card
       tl.to(overlay, {
         width: '100%',
         ease: 'none',
         duration: 1,
       });
 
-      // Animate remaining cards to slide in
+      // Animate remaining cards to slide in (starting from index 1)
       cards.forEach((card, index) => {
-        if (index >= 2) {
+        if (index >= 1) {
           tl.to(
             card,
             {

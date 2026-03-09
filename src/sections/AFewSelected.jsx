@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import orellobig from '../assets/logos/orellobig.svg'
@@ -48,7 +48,6 @@ const AnimatedButton = ({ to, label, className }) => {
     const wrapper = wrapperRef.current;
     const btn = btnRef.current;
 
-    // Use a larger hit area (wrapper) so the button moving away doesn't lose cursor
     const handleMouseMove = (e) => {
       const rect = wrapper.getBoundingClientRect();
       const cx = rect.left + rect.width / 2;
@@ -72,7 +71,6 @@ const AnimatedButton = ({ to, label, className }) => {
   }, []);
 
   return (
-    // Wrapper has generous padding to act as a larger hover zone
     <div ref={wrapperRef} style={{ display: 'inline-block', padding: '16px', margin: '-16px' }}>
       <Link to={to}>
         <button
@@ -95,6 +93,10 @@ const AFewSelected = () => {
   const row4Ref = useRef(null);
   const row5Ref = useRef(null);
 
+  const [hoveredId, setHoveredId] = useState(null);
+  const [showCursor, setShowCursor] = useState(false);
+  const customCursorRef = useRef(null);
+
   const projects = [
     {
       id: 1,
@@ -103,7 +105,7 @@ const AFewSelected = () => {
       image: gbm,
       hoverLogo: gbm1,
       icons: [pen, pen, pen],
-      link: "/gbm-casestudy"
+      link: "/casestudy-overview"
     },
     {
       id: 2,
@@ -112,7 +114,7 @@ const AFewSelected = () => {
       image: findtheircare,
       hoverLogo: null,
       icons: [star, toggle, pen],
-      link: "/findtheircare-casestudy"
+      link: "/casestudy-overview"
     },
     {
       id: 3,
@@ -121,7 +123,7 @@ const AFewSelected = () => {
       image: gbm1,
       hoverLogo: gbm1,
       icons: [pen, pen, pen],
-      link: "/gbm-casestudy"
+      link: "/casestudy-overview"
     }
   ];
 
@@ -132,6 +134,53 @@ const AFewSelected = () => {
     [row4logo1, row4logo2, row4logo3, row4logo4, row4logo5, row4logo1, row4logo2, row4logo3, row4logo4, row4logo5, row4logo1, row4logo2, row4logo3, row4logo4, row4logo5, row4logo1],
     [row5logo1, row5logo2, row5logo3, row5logo4, row5logo5, row5logo1, row5logo2, row5logo3, row5logo4, row5logo5, row5logo1, row5logo2, row5logo3, row5logo4, row5logo5, row5logo1],
   ];
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (customCursorRef.current && showCursor) {
+        gsap.to(customCursorRef.current, {
+          x: e.clientX,
+          y: e.clientY,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      }
+    };
+
+    if (showCursor) {
+      window.addEventListener('mousemove', handleMouseMove);
+    }
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [showCursor]);
+
+  const handleMouseEnter = (projectId) => {
+    setHoveredId(projectId);
+    setShowCursor(true);
+
+    if (customCursorRef.current) {
+      gsap.fromTo(customCursorRef.current,
+        { scale: 0, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.7)" }
+      );
+    }
+  };
+
+  const handleMouseLeave = (projectId) => {
+    setHoveredId(null);
+    setShowCursor(false);
+
+    if (customCursorRef.current) {
+      gsap.to(customCursorRef.current, {
+        scale: 0,
+        opacity: 0,
+        duration: 0.2,
+        ease: "power2.in"
+      });
+    }
+  };
 
   useEffect(() => {
     const rows = [row1Ref, row2Ref, row3Ref, row4Ref, row5Ref];
@@ -173,6 +222,26 @@ const AFewSelected = () => {
   return (
     <section className="relative z-20 bg-[#0e1010] text-white py-16 sm:py-18 md:py-24 overflow-hidden">
 
+      {/* Custom Cursor Bubble */}
+      <div
+        ref={customCursorRef}
+        className="fixed pointer-events-none z-50"
+        style={{
+          left: 0,
+          top: 0,
+          transform: 'translate(-50%, -50%)',
+          opacity: 0,
+          display: showCursor ? 'block' : 'none'
+        }}
+      >
+        <div
+          className="w-20 h-20 rounded-full flex items-center justify-center shadow-lg"
+          style={{ backgroundColor: '#FF7B62' }}
+        >
+          <span className="text-xs font-semibold text-white uppercase">our work</span>
+        </div>
+      </div>
+
       {/* Background Large Logo/Shape Decor */}
       <div className="absolute inset-0 pointer-events-none flex items-start justify-center">
         <img
@@ -199,7 +268,11 @@ const AFewSelected = () => {
           {projects.map((project, index) => (
             <div key={index} className="group">
               <Link to={project.link}>
-                <div className="overflow-hidden rounded-2xl cursor-pointer sm:rounded-3xl aspect-[4/3] mb-3 sm:mb-4 bg-white relative">
+                <div
+                  className="overflow-hidden rounded-2xl cursor-none sm:rounded-3xl aspect-[4/3] mb-3 sm:mb-4 bg-white relative"
+                  onMouseEnter={() => handleMouseEnter(project.id)}
+                  onMouseLeave={() => handleMouseLeave(project.id)}
+                >
                   <img
                     src={project.image}
                     alt={project.title}

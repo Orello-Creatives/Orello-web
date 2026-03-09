@@ -97,70 +97,82 @@ const OrelloNavbar = () => {
   }, [isMenuOpen])
 
   return (
-    <nav className="w-full fixed z-30 bg-transparent">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 md:h-24">
+    /* Outer wrapper: sticky, full-width, transparent — provides the top offset */
+    <div className="fixed top-0 left-0 right-0 z-30 flex justify-center px-4 sm:px-6 lg:px-8 pt-4 md:pt-5">
 
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <Link to="/">
-              <img
-                src={orello}
-                alt="Orello Logo"
-                className="h-8 sm:h-10 md:h-12 w-auto"
-              />
-            </Link>
-          </div>
+      {/* Pill container */}
+      <div
+        className="w-full max-w-[1200px] rounded-full"
+        style={{ backgroundColor: '#FDF6E9' }}
+      >
+        <div className="px-5 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 md:h-[68px]">
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className={`px-4 lg:px-6 py-2 text-sm lg:text-base font-medium transition-colors capitalize hover:opacity-70 ${
-                  location.pathname === link.path ? 'text-[#D98127]' : 'text-[#4B433B]'
-                }`}
-              >
-                {link.name}
+            {/* Logo */}
+            <div className="flex-shrink-0">
+              <Link to="/">
+                <img
+                  src={orello}
+                  alt="Orello Logo"
+                  className="h-7 sm:h-8 md:h-10 w-auto"
+                />
               </Link>
-            ))}
-          </div>
+            </div>
 
-          {/* Desktop CTA */}
-          <div className="hidden md:block">
-            <AnimatedButton
-              to="/contact"
-              label="Contact us"
-              className="px-6 lg:px-8 py-2.5 lg:py-3 cursor-pointer bg-[#4B433B] text-white rounded-full text-sm lg:text-base font-medium hover:bg-[#2d2d2d] transition-colors"
-            />
-          </div>
+            {/* Desktop Nav */}
+            <div className="hidden md:flex items-center space-x-1 lg:space-x-0">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className={`px-3 lg:px-5 py-2 text-sm lg:text-[15px] font-medium transition-colors capitalize hover:opacity-70 ${
+                    location.pathname === link.path
+                      ? 'text-[#D98127]'
+                      : 'text-[#4B433B]'
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
 
-          {/* Mobile Toggle */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 text-black transition-colors"
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            {/* Desktop CTA */}
+            <div className="hidden md:block">
+              <AnimatedButton
+                to="/contact"
+                label="contact us"
+                className="px-6 lg:px-7 py-2.5 cursor-pointer bg-[#3d3d3d] text-white rounded-full text-sm lg:text-[15px] font-medium hover:bg-[#2d2d2d] transition-colors"
+              />
+            </div>
+
+            {/* Mobile Toggle */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="p-2 text-[#4B433B] transition-colors"
+              >
+                {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu — drops below the pill */}
         <div
           ref={menuRef}
-          className="md:hidden overflow-hidden"
+          className="md:hidden overflow-hidden rounded-b-3xl"
           style={{ height: 0, opacity: 0 }}
         >
-          <div className="flex flex-col space-y-3 pb-6">
+          <div className="flex flex-col space-y-1 px-5 pb-5">
             {navLinks.map((link, index) => (
               <Link
                 key={link.name}
                 ref={(el) => (menuItemsRef.current[index] = el)}
                 to={link.path}
-                className={`px-4 py-2 text-base font-medium capitalize hover:opacity-70 ${
-                  location.pathname === link.path ? 'text-[#D98127]' : 'text-black'
+                className={`px-3 py-2.5 text-base font-medium capitalize hover:opacity-70 ${
+                  location.pathname === link.path
+                    ? 'text-[#D98127]'
+                    : 'text-[#4B433B]'
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -172,16 +184,14 @@ const OrelloNavbar = () => {
               to="/contact"
               ref={(el) => (menuItemsRef.current[navLinks.length] = el)}
             >
-              <button
-                className="mx-4 mt-2 px-6 py-4 bg-[#3d3d3d] text-white rounded-full text-base font-medium hover:bg-[#2d2d2d] transition-colors"
-              >
+              <button className="mt-2 px-6 py-3 bg-[#3d3d3d] text-white rounded-full text-base font-medium hover:bg-[#2d2d2d] transition-colors">
                 contact us
               </button>
             </Link>
           </div>
         </div>
       </div>
-    </nav>
+    </div>
   )
 }
 
