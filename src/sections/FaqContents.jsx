@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 
 const FAQAccordion = () => {
-  const [expandedCard, setExpandedCard] = useState(1);
+  const [expandedCard, setExpandedCard] = useState(0);
   const [hoveredCard, setHoveredCard] = useState(null);
 
   const faqData = [

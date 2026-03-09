@@ -8,7 +8,6 @@ const BlogPage = () => {
     <div>
     <Navbar />
       <BlogHero />
-      <UpcommingReads />
       <Footer />
     </div>
   )

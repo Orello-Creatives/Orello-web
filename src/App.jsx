@@ -23,6 +23,8 @@ import YogCasestudy from './pages/YogCasestudy'
 import ExpCasestudy from './pages/ExpCasestudy'
 import AarkivaCasestudy from './pages/AarkivaCasestudy'
 import FindCasestudy from './pages/FindCasestudy'
+import BlogPage2 from './pages/BlogPage2'
+import BlogPage3 from './pages/BlogPage3'
 
 const App = () => {
   return (
@@ -52,6 +54,8 @@ const App = () => {
         <Route path="/exp-casestudy" element={<ExpCasestudy />} />
         <Route path="/aarkiva-casestudy" element={<AarkivaCasestudy />} />
         <Route path="/findtheircare-casestudy" element={<FindCasestudy />} />
+        <Route path="/blog2" element={<BlogPage2 />} />
+        <Route path="/blog3" element={<BlogPage3 />} />
       </Routes>
     </BrowserRouter>
   );

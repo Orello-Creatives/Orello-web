@@ -141,6 +141,8 @@ export default function ServicesSection() {
 
         // Phase 3: Icons land into text placeholders (1.5-3)
         serviceIcons.forEach((iconRef, i) => {
+          
+          const extraRotation = (i === 1 || i === 3) ? 90 : 0;
           masterTimeline.to(iconRef.current, {
             top: () => {
               const targetRect = textPlaceholders[i].current.getBoundingClientRect();
@@ -158,7 +160,7 @@ export default function ServicesSection() {
             scale: 1, 
             width: () => textPlaceholders[i].current.offsetWidth,
             height: () => textPlaceholders[i].current.offsetHeight,
-            rotation: 360 + (i * 90),
+            rotation: 360 + (i * 90) + extraRotation,
             duration: 1.5,
             ease: "power2.inOut",
           }, 1.5 + (i * 0.08));

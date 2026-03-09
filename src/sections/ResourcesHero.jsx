@@ -19,7 +19,6 @@ export default function ResourcesSection() {
 
     mm.add('(min-width: 768px)', () => {
       const ctx = gsap.context(() => {
-        // Animate semicircle layers
         circleRefs.current.forEach((circle) => {
           if (!circle) return;
 
@@ -39,7 +38,6 @@ export default function ResourcesSection() {
           });
         });
 
-        // Move content upward
         if (contentRef.current) {
           gsap.to(contentRef.current, {
             scrollTrigger: {
@@ -150,10 +148,15 @@ export default function ResourcesSection() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <button className="px-12 py-4 bg-[#4B433B] text-white cursor-pointer rounded-full text-lg font-semibold hover:bg-[#3a342e] transition-colors duration-300 min-w-[160px]">
+          <button
+            onClick={() => {
+              const el = document.getElementById('blogs');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="px-12 py-4 bg-[#4B433B] text-white cursor-pointer rounded-full text-lg font-semibold hover:bg-[#3a342e] transition-colors duration-300 min-w-[160px]"
+          >
             Blogs
           </button>
-
           <button className="px-12 py-4 bg-[#f7af19] text-[#4B433B] cursor-pointer rounded-full text-lg font-semibold hover:bg-[#e5a015] transition-colors duration-300 min-w-[160px]">
             Articles
           </button>

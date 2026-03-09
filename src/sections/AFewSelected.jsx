@@ -6,7 +6,7 @@ import pen from '../assets/logos/pen.svg'
 import toggle from '../assets/logos/toggle.svg'
 import star from '../assets/logos/star.svg'
 import gbm from '../assets/images/gbm.png'
-import gbm1 from '../assets/images/gbm1.png'
+import case7 from '../assets/images/case7.png'
 import findtheircare from '../assets/images/findtheircare.png'
 import row1logo1 from '../assets/logos/row1logo1.svg'
 import row1logo2 from '../assets/logos/row1logo2.svg'
@@ -36,6 +36,9 @@ import row5logo5 from '../assets/logos/row5logo5.svg'
 import smile from '../assets/logos/smile.svg'
 import { Link } from 'react-router-dom'
 import Readyto from '../components/Readyto'
+import hr7 from '../assets/images/hr7.png'
+import hr5 from '../assets/images/hr5.png'
+import hr2 from '../assets/images/hr2.png'
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -103,8 +106,8 @@ const AFewSelected = () => {
       title: "GBM Report",
       tags: ["Climate tech", "Sustainability", "Construction"],
       image: gbm,
-      hoverLogo: gbm1,
-      icons: [pen, pen, pen],
+      hoverLogo: hr5,
+      icons: [pen],
       link: "/casestudy-overview"
     },
     {
@@ -112,17 +115,17 @@ const AFewSelected = () => {
       title: "FindTheirCare",
       tags: ["UK Care", "Healthcare"],
       image: findtheircare,
-      hoverLogo: null,
+      hoverLogo: hr2,
       icons: [star, toggle, pen],
       link: "/casestudy-overview"
     },
     {
       id: 3,
-      title: "GBM Report",
+      title: "Canvasé",
       tags: ["Climate tech", "Sustainability", "Construction"],
-      image: gbm1,
-      hoverLogo: gbm1,
-      icons: [pen, pen, pen],
+      image: case7,
+      hoverLogo: hr7,
+      icons: [star, toggle, pen],
       link: "/casestudy-overview"
     }
   ];
@@ -274,9 +277,9 @@ const AFewSelected = () => {
                   onMouseLeave={() => handleMouseLeave(project.id)}
                 >
                   <img
-                    src={project.image}
+                    src={hoveredId === project.id ? project.hoverLogo : project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-all duration-300"
                   />
                 </div>
               </Link>

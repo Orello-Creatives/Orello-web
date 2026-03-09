@@ -12,6 +12,10 @@ const AnimatedButton = ({ to, label, className }) => {
     const wrapper = wrapperRef.current;
     const btn = btnRef.current;
 
+    // Only apply magnetic effect on non-touch devices
+    const isTouchDevice = window.matchMedia('(hover: none)').matches;
+    if (isTouchDevice) return;
+
     const handleMouseMove = (e) => {
       const rect = wrapper.getBoundingClientRect();
       const cx = rect.left + rect.width / 2;
@@ -53,6 +57,7 @@ const OrelloNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef(null)
   const menuItemsRef = useRef([])
+  const overlayRef = useRef(null)
   const location = useLocation()
 
   const navLinks = [
@@ -65,6 +70,26 @@ const OrelloNavbar = () => {
     { name: 'FAQ', path: '/faq' },
   ]
 
+  // Close menu on route change
+  useEffect(() => {
+    setIsMenuOpen(false)
+  }, [location.pathname])
+
+  // Close menu on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && isMenuOpen) setIsMenuOpen(false)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [isMenuOpen])
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [isMenuOpen])
+
   useEffect(() => {
     if (isMenuOpen) {
       gsap.to(menuRef.current, {
@@ -75,13 +100,13 @@ const OrelloNavbar = () => {
       })
 
       gsap.fromTo(
-        menuItemsRef.current,
-        { opacity: 0, y: -10 },
+        menuItemsRef.current.filter(Boolean),
+        { opacity: 0, y: -12 },
         {
           opacity: 1,
           y: 0,
           duration: 0.3,
-          stagger: 0.05,
+          stagger: 0.045,
           ease: 'power2.out',
           delay: 0.1
         }
@@ -97,101 +122,143 @@ const OrelloNavbar = () => {
   }, [isMenuOpen])
 
   return (
-    /* Outer wrapper: sticky, full-width, transparent — provides the top offset */
-    <div className="fixed top-0 left-0 right-0 z-30 flex justify-center px-4 sm:px-6 lg:px-8 pt-4 md:pt-5">
+    <>
+      {/* Backdrop overlay for mobile — closes menu when tapping outside */}
+      {isMenuOpen && (
+        <div
+          ref={overlayRef}
+          className="fixed inset-0 z-20 bg-black/10 backdrop-blur-[2px] md:hidden"
+          onClick={() => setIsMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
 
-      {/* Pill container */}
-      <div
-        className="w-full max-w-[1200px] rounded-full"
-        style={{ backgroundColor: '#FDF6E9' }}
-      >
-        <div className="px-5 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-[68px]">
+      {/* Outer wrapper */}
+      <div className="fixed top-0 left-0 right-0 z-30 flex justify-center px-3 sm:px-5 lg:px-8 pt-3 sm:pt-4 md:pt-5">
 
-            {/* Logo */}
-            <div className="flex-shrink-0">
-              <Link to="/">
-                <img
-                  src={orello}
-                  alt="Orello Logo"
-                  className="h-7 sm:h-8 md:h-10 w-auto"
-                />
-              </Link>
-            </div>
+        {/* Pill container */}
+        <div
+          className="w-full max-w-[1200px] rounded-[28px] shadow-sm"
+          style={{ backgroundColor: '#FDF6E9' }}
+        >
+          <div className="px-4 sm:px-5 lg:px-8">
+            <div className="flex items-center justify-between h-14 sm:h-16 md:h-[68px]">
 
-            {/* Desktop Nav */}
-            <div className="hidden md:flex items-center space-x-1 lg:space-x-0">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.path}
-                  className={`px-3 lg:px-5 py-2 text-sm lg:text-[15px] font-medium transition-colors capitalize hover:opacity-70 ${
-                    location.pathname === link.path
-                      ? 'text-[#D98127]'
-                      : 'text-[#4B433B]'
-                  }`}
-                >
-                  {link.name}
+              {/* Logo */}
+              <div className="flex-shrink-0">
+                <Link to="/" aria-label="Orello home">
+                  <img
+                    src={orello}
+                    alt="Orello Logo"
+                    className="h-6 sm:h-7 md:h-9 w-auto"
+                  />
                 </Link>
-              ))}
-            </div>
+              </div>
 
-            {/* Desktop CTA */}
-            <div className="hidden md:block">
-              <AnimatedButton
-                to="/contact"
-                label="contact us"
-                className="px-6 lg:px-7 py-2.5 cursor-pointer bg-[#3d3d3d] text-white rounded-full text-sm lg:text-[15px] font-medium hover:bg-[#2d2d2d] transition-colors"
-              />
-            </div>
+              {/* Desktop Nav — hidden below md */}
+              <nav className="hidden md:flex items-center" aria-label="Main navigation">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    to={link.path}
+                    className={`px-3 lg:px-4 xl:px-5 py-2 text-sm lg:text-[15px] font-medium transition-opacity capitalize hover:opacity-60 ${
+                      location.pathname === link.path
+                        ? 'text-[#D98127]'
+                        : 'text-[#4B433B]'
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+              </nav>
 
-            {/* Mobile Toggle */}
-            <div className="md:hidden">
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 text-[#4B433B] transition-colors"
-              >
-                {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
-              </button>
+              {/* Desktop CTA — hidden below md */}
+              <div className="hidden md:block">
+                <AnimatedButton
+                  to="/contact"
+                  label="contact us"
+                  className="px-5 lg:px-7 py-2.5 cursor-pointer bg-[#3d3d3d] text-white rounded-full text-sm lg:text-[15px] font-medium hover:bg-[#2d2d2d] transition-colors whitespace-nowrap"
+                />
+              </div>
+
+              {/* Mobile right side: CTA + Hamburger */}
+              <div className="flex md:hidden items-center gap-2 sm:gap-3">
+                {/* Small "contact" pill visible on sm+ but hidden on xs */}
+                <Link
+                  to="/contact"
+                  className="hidden sm:inline-flex items-center px-4 py-2 bg-[#3d3d3d] text-white rounded-full text-sm font-medium hover:bg-[#2d2d2d] transition-colors"
+                >
+                  contact us
+                </Link>
+
+                {/* Hamburger toggle */}
+                <button
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  className="p-2 -mr-1 text-[#4B433B] transition-colors rounded-full hover:bg-black/5 active:bg-black/10"
+                  aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+                  aria-expanded={isMenuOpen}
+                >
+                  {isMenuOpen ? <X size={20} strokeWidth={2.2} /> : <Menu size={20} strokeWidth={2.2} />}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Mobile Menu — drops below the pill */}
-        <div
-          ref={menuRef}
-          className="md:hidden overflow-hidden rounded-b-3xl"
-          style={{ height: 0, opacity: 0 }}
-        >
-          <div className="flex flex-col space-y-1 px-5 pb-5">
-            {navLinks.map((link, index) => (
-              <Link
-                key={link.name}
-                ref={(el) => (menuItemsRef.current[index] = el)}
-                to={link.path}
-                className={`px-3 py-2.5 text-base font-medium capitalize hover:opacity-70 ${
-                  location.pathname === link.path
-                    ? 'text-[#D98127]'
-                    : 'text-[#4B433B]'
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {link.name}
-              </Link>
-            ))}
+          {/* Mobile Menu — drops inside the pill */}
+          <div
+            ref={menuRef}
+            className="md:hidden overflow-hidden"
+            style={{ height: 0, opacity: 0 }}
+            aria-hidden={!isMenuOpen}
+          >
+            {/* Divider */}
+            <div className="mx-4 sm:mx-5 border-t border-[#E8DECE]" />
 
-            <Link
-              to="/contact"
-              ref={(el) => (menuItemsRef.current[navLinks.length] = el)}
+            <nav
+              className="flex flex-col px-4 sm:px-5 pb-4 pt-2"
+              aria-label="Mobile navigation"
             >
-              <button className="mt-2 px-6 py-3 bg-[#3d3d3d] text-white rounded-full text-base font-medium hover:bg-[#2d2d2d] transition-colors">
-                contact us
-              </button>
-            </Link>
+              {/* Nav links in a 2-col grid on sm, single col on xs */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
+                {navLinks.map((link, index) => (
+                  <Link
+                    key={link.name}
+                    ref={(el) => (menuItemsRef.current[index] = el)}
+                    to={link.path}
+                    className={`flex items-center px-2 py-3 text-[15px] font-medium capitalize border-b border-[#E8DECE]/60 last:border-b-0 sm:last:border-b transition-opacity hover:opacity-60 ${
+                      location.pathname === link.path
+                        ? 'text-[#D98127]'
+                        : 'text-[#4B433B]'
+                    }`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {/* Active dot indicator */}
+                    {location.pathname === link.path && (
+                      <span className="mr-2 w-1.5 h-1.5 rounded-full bg-[#D98127] flex-shrink-0" />
+                    )}
+                    {link.name}
+                  </Link>
+                ))}
+              </div>
+
+              {/* CTA — full width on xs, auto on sm */}
+              <div
+                ref={(el) => (menuItemsRef.current[navLinks.length] = el)}
+                className="mt-4"
+              >
+                <Link
+                  to="/contact"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="flex sm:inline-flex justify-center items-center px-6 py-3 bg-[#3d3d3d] text-white rounded-full text-[15px] font-medium hover:bg-[#2d2d2d] transition-colors"
+                >
+                  contact us
+                </Link>
+              </div>
+            </nav>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

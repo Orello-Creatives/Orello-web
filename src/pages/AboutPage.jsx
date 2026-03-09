@@ -7,6 +7,7 @@ import LatestReads from '../sections/LatestReads'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 
+
 const AboutPage = () => {
   return (
     <div className="w-full">
