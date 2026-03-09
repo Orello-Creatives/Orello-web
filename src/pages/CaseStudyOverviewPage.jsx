@@ -1,15 +1,14 @@
 import React from 'react'
-import CaseStudyOverview from '../sections/CaseStudyOverview'
+
 import Navbar from '../components/Navbar'
-import CaseStudySecond from '../sections/CaseStudySecond'
+import WorkPage from '../sections/WorkPage'
 import LatestReads from '../sections/LatestReads'
 import Footer from '../components/Footer'
 const CaseStudyOverviewPage = () => {
   return (
     <div>
     <Navbar />
-    <CaseStudyOverview />
-    <CaseStudySecond />
+   <WorkPage />
     <LatestReads />
     <Footer />
     </div>
