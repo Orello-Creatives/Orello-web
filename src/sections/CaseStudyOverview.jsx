@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -41,6 +41,12 @@ export const SERVICES = [
   { label: "Motion Graphics",                     logoKey: "motion",  logo: uiux    },
 ];
 
+// ── Detect touch device ───────────────────────────────────────────────────────
+function isTouchDevice() {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+}
+
 // ── DropdownPortal ────────────────────────────────────────────────────────────
 function DropdownPortal({ anchorRef, portalRef, children, align = "left", onMouseEnter, onMouseLeave }) {
   const [style, setStyle] = useState(null);
@@ -53,8 +59,19 @@ function DropdownPortal({ anchorRef, portalRef, children, align = "left", onMous
       if (!anchorRef.current) return;
       const rect = anchorRef.current.getBoundingClientRect();
       const base = { position: "fixed", top: rect.bottom + 6, zIndex: 999999 };
-      if (align === "right") base.right = window.innerWidth - rect.right;
-      else base.left = rect.left;
+
+      const viewportWidth = window.innerWidth;
+
+      if (viewportWidth < 480) {
+        // Center dropdown within viewport on mobile, leave 16px gutters
+        base.left = 16;
+        base.right = 16;
+      } else if (align === "right") {
+        base.right = window.innerWidth - rect.right;
+      } else {
+        base.left = rect.left;
+      }
+
       setStyle(base);
     }
     compute();
@@ -94,24 +111,34 @@ function RemoveButton({ onClick }) {
   );
 }
 
-// ── useHoverDropdown — shared open/close logic with delay on close ─────────
-function useHoverDropdown(key, setOpenDropdown) {
+// ── useDropdown — unified hover (desktop) + tap (touch) logic ────────────────
+function useDropdown(key, openDropdown, setOpenDropdown) {
   const closeTimer = useRef(null);
 
-  function handleEnter() {
+  // Desktop hover handlers — skipped on touch devices
+  function handleMouseEnter() {
+    if (isTouchDevice()) return;
     clearTimeout(closeTimer.current);
     setOpenDropdown(key);
   }
 
-  function handleLeave() {
+  function handleMouseLeave() {
+    if (isTouchDevice()) return;
     closeTimer.current = setTimeout(() => setOpenDropdown(null), 120);
   }
 
   function cancelClose() {
+    if (isTouchDevice()) return;
     clearTimeout(closeTimer.current);
   }
 
-  return { handleEnter, handleLeave, cancelClose };
+  // Touch / click toggle for the trigger button
+  function handleTouchToggle(e) {
+    e.stopPropagation(); // prevent document listener from closing immediately
+    setOpenDropdown(openDropdown === key ? null : key);
+  }
+
+  return { handleMouseEnter, handleMouseLeave, cancelClose, handleTouchToggle };
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
@@ -135,8 +162,35 @@ export default function ExploreWorkSection({
   const industryOpen = openDropdown === "industry";
   const servicesOpen = openDropdown === "services";
 
-  const indHover = useHoverDropdown("industry", setOpenDropdown);
-  const svcHover = useHoverDropdown("services", setOpenDropdown);
+  const indHover = useDropdown("industry", openDropdown, setOpenDropdown);
+  const svcHover = useDropdown("services", openDropdown, setOpenDropdown);
+
+  // ── Close dropdowns when tapping outside (touch devices) ──────────────────
+  useEffect(() => {
+    function handleOutsideClick(e) {
+      if (!openDropdown) return;
+
+      const industryBtn    = industryBtnRef.current;
+      const servicesBtn    = servicesBtnRef.current;
+      const industryPortal = industryPortalRef.current;
+      const servicesPortal = servicesPortalRef.current;
+
+      const clickedInside =
+        (industryBtn    && industryBtn.contains(e.target))    ||
+        (servicesBtn    && servicesBtn.contains(e.target))    ||
+        (industryPortal && industryPortal.contains(e.target)) ||
+        (servicesPortal && servicesPortal.contains(e.target));
+
+      if (!clickedInside) setOpenDropdown(null);
+    }
+
+    document.addEventListener("touchstart", handleOutsideClick, { passive: true });
+    document.addEventListener("mousedown",  handleOutsideClick);
+    return () => {
+      document.removeEventListener("touchstart", handleOutsideClick);
+      document.removeEventListener("mousedown",  handleOutsideClick);
+    };
+  }, [openDropdown]);
 
   // GSAP
   useEffect(() => {
@@ -230,10 +284,11 @@ export default function ExploreWorkSection({
 
               {/* INDUSTRY */}
               <div ref={industryBtnRef}
-                onMouseEnter={indHover.handleEnter}
-                onMouseLeave={indHover.handleLeave}
+                onMouseEnter={indHover.handleMouseEnter}
+                onMouseLeave={indHover.handleMouseLeave}
               >
                 <button
+                  onClick={indHover.handleTouchToggle}
                   style={{
                     padding: "14px 36px", borderRadius: "999px", fontSize: "18px",
                     fontWeight: "500", cursor: "pointer", border: "none",
@@ -252,7 +307,7 @@ export default function ExploreWorkSection({
                     portalRef={industryPortalRef}
                     align="left"
                     onMouseEnter={indHover.cancelClose}
-                    onMouseLeave={indHover.handleLeave}
+                    onMouseLeave={indHover.handleMouseLeave}
                   >
                     <div style={{ background: "#fff", borderRadius: "16px",
                       boxShadow: "0 8px 32px rgba(0,0,0,0.15)",
@@ -284,10 +339,11 @@ export default function ExploreWorkSection({
 
               {/* SERVICES */}
               <div ref={servicesBtnRef}
-                onMouseEnter={svcHover.handleEnter}
-                onMouseLeave={svcHover.handleLeave}
+                onMouseEnter={svcHover.handleMouseEnter}
+                onMouseLeave={svcHover.handleMouseLeave}
               >
                 <button
+                  onClick={svcHover.handleTouchToggle}
                   style={{
                     padding: "14px 36px", borderRadius: "999px", fontSize: "18px",
                     fontWeight: "500", cursor: "pointer", border: "none",
@@ -306,7 +362,7 @@ export default function ExploreWorkSection({
                     portalRef={servicesPortalRef}
                     align="right"
                     onMouseEnter={svcHover.cancelClose}
-                    onMouseLeave={svcHover.handleLeave}
+                    onMouseLeave={svcHover.handleMouseLeave}
                   >
                     <div style={{ background: "#fff", borderRadius: "16px",
                       boxShadow: "0 8px 32px rgba(0,0,0,0.15)",
