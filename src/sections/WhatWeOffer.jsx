@@ -1,5 +1,84 @@
-import React from 'react';
-import {Link} from 'react-router'
+import React, { useRef, useEffect } from 'react';
+import { Link } from 'react-router'
+import gsap from 'gsap';
+
+const AnimatedButton = ({ to, label, bgColor, textColor, arrowBgColor }) => {
+  const buttonRef = useRef(null);
+  const textRef = useRef(null);
+  const circleRightRef = useRef(null);
+  const circleLeftRef = useRef(null);
+
+  useEffect(() => {
+    const button = buttonRef.current;
+    const text = textRef.current;
+    const circleRight = circleRightRef.current;
+    const circleLeft = circleLeftRef.current;
+
+    if (!button) return;
+
+    const handleMouseEnter = () => {
+      gsap.to(button, { backgroundColor: '#FFCE69', duration: 0.3, ease: 'power2.out' });
+      gsap.to(text, { x: 40, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleRight, { scale: 0, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleLeft, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(button, { backgroundColor: bgColor, duration: 0.3, ease: 'power2.in' });
+      gsap.to(text, { x: 0, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleRight, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleLeft, { scale: 0, duration: 0.4, ease: 'power2.inOut' });
+    };
+
+    button.addEventListener('mouseenter', handleMouseEnter);
+    button.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      button.removeEventListener('mouseenter', handleMouseEnter);
+      button.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  return (
+    <Link to={to}>
+      <button
+        ref={buttonRef}
+        className="relative overflow-hidden cursor-pointer rounded-full shadow-lg flex items-center pl-6 pr-2 py-2"
+        style={{ backgroundColor: bgColor, color: textColor, willChange: 'transform' }}
+      >
+        {/* Circle left (hover) - hidden by default */}
+        <span
+          ref={circleLeftRef}
+          className="absolute left-2 w-9 h-9 text-white rounded-full flex items-center justify-center"
+          style={{ backgroundColor: arrowBgColor || '#111827', transform: 'scale(0)' }}
+        >
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
+
+        {/* Text */}
+        <span
+          ref={textRef}
+          className="text-base md:text-lg font-medium whitespace-nowrap mr-4"
+        >
+          {label}
+        </span>
+
+        {/* Circle right (initial) */}
+        <span
+          ref={circleRightRef}
+          className="w-9 h-9 flex-shrink-0 text-white rounded-full flex items-center justify-center"
+          style={{ backgroundColor: arrowBgColor || '#111827' }}
+        >
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
+      </button>
+    </Link>
+  );
+};
 
 const ServicesSection = () => {
   const services = [
@@ -102,11 +181,13 @@ const ServicesSection = () => {
 
         {/* CTA Button */}
         <div className="flex justify-center mt-12 md:mt-16">
-        <Link to="/casestudy-overview">
-          <button className="bg-[#F9F5ED] text-black px-10 cursor-pointer py-4 rounded-full text-base md:text-lg font-medium hover:bg-gray-100 transition-colors duration-300 shadow-lg">
-            See our work
-          </button>
-          </Link>
+          <AnimatedButton
+            to="/casestudy-overview"
+            label="See our work"
+            bgColor="#F9F5ED"
+            textColor="black"
+            arrowBgColor="#111827"
+          />
         </div>
       </div>
     </div>

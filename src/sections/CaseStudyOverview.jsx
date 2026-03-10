@@ -9,6 +9,24 @@ import uiux    from '../assets/logos/uiux.svg';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// ── Inject dropdown animation CSS once ───────────────────────────────────────
+const ANIM_STYLE = `
+  @keyframes dropdownOpen {
+    from { opacity: 0; transform: translateY(-10px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0px)  scale(1);    }
+  }
+  .dropdown-animate {
+    animation: dropdownOpen 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+    transform-origin: top center;
+  }
+`;
+if (typeof document !== "undefined" && !document.getElementById("dropdown-anim-style")) {
+  const tag = document.createElement("style");
+  tag.id = "dropdown-anim-style";
+  tag.textContent = ANIM_STYLE;
+  document.head.appendChild(tag);
+}
+
 // ── Constants ─────────────────────────────────────────────────────────────────
 export const INDUSTRIES = [
   "Climate Tech", "Sustainability", "Construction", "Agritech",
@@ -24,7 +42,7 @@ export const SERVICES = [
 ];
 
 // ── DropdownPortal ────────────────────────────────────────────────────────────
-function DropdownPortal({ anchorRef, portalRef, children, align = "left" }) {
+function DropdownPortal({ anchorRef, portalRef, children, align = "left", onMouseEnter, onMouseLeave }) {
   const [style, setStyle] = useState(null);
   const wrapperRef = useRef(null);
 
@@ -50,7 +68,9 @@ function DropdownPortal({ anchorRef, portalRef, children, align = "left" }) {
 
   if (!style) return null;
   return createPortal(
-    <div ref={wrapperRef} style={style}>{children}</div>,
+    <div ref={wrapperRef} style={style} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+      <div className="dropdown-animate">{children}</div>
+    </div>,
     document.body
   );
 }
@@ -74,9 +94,27 @@ function RemoveButton({ onClick }) {
   );
 }
 
+// ── useHoverDropdown — shared open/close logic with delay on close ─────────
+function useHoverDropdown(key, setOpenDropdown) {
+  const closeTimer = useRef(null);
+
+  function handleEnter() {
+    clearTimeout(closeTimer.current);
+    setOpenDropdown(key);
+  }
+
+  function handleLeave() {
+    closeTimer.current = setTimeout(() => setOpenDropdown(null), 120);
+  }
+
+  function cancelClose() {
+    clearTimeout(closeTimer.current);
+  }
+
+  return { handleEnter, handleLeave, cancelClose };
+}
+
 // ── Component ─────────────────────────────────────────────────────────────────
-// All filter state (selIndustries, selServices, setSelIndustries, setSelServices)
-// is owned by WorkPage and passed down — no local filter state here.
 export default function ExploreWorkSection({
   selIndustries,
   selServices,
@@ -97,18 +135,8 @@ export default function ExploreWorkSection({
   const industryOpen = openDropdown === "industry";
   const servicesOpen = openDropdown === "services";
 
-  // Outside click closes dropdowns
-  useEffect(() => {
-    function onDown(e) {
-      const inInd  = industryBtnRef.current?.contains(e.target);
-      const inSvc  = servicesBtnRef.current?.contains(e.target);
-      const inIndP = industryPortalRef.current?.contains(e.target);
-      const inSvcP = servicesPortalRef.current?.contains(e.target);
-      if (!inInd && !inSvc && !inIndP && !inSvcP) setOpenDropdown(null);
-    }
-    document.addEventListener("mousedown", onDown);
-    return () => document.removeEventListener("mousedown", onDown);
-  }, []);
+  const indHover = useHoverDropdown("industry", setOpenDropdown);
+  const svcHover = useHoverDropdown("services", setOpenDropdown);
 
   // GSAP
   useEffect(() => {
@@ -136,7 +164,6 @@ export default function ExploreWorkSection({
     return () => ScrollTrigger.getAll().forEach((t) => t.kill());
   }, []);
 
-  // Toggle handlers — update parent state directly
   function toggleIndustry(item) {
     const has = selIndustries.includes(item);
     if (!has && totalSel >= 2) return;
@@ -148,11 +175,7 @@ export default function ExploreWorkSection({
 
   function toggleService(key) {
     const has = selServices.includes(key);
-    if (!has && totalSel >= 2) return;
-    setSelServices(has
-      ? selServices.filter((x) => x !== key)
-      : [...selServices, key]
-    );
+    setSelServices(has ? [] : [key]);
   }
 
   function removeIndustry(item) {
@@ -188,7 +211,8 @@ export default function ExploreWorkSection({
       <div className="relative z-10">
         {/* Heading */}
         <div className="text-center mb-12 sm:mb-16 lg:mb-20 max-w-4xl mx-auto">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-[#402E1D] mb-6 sm:mb-8 leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#4B433B] mb-3 sm:mb-4 md:mb-6"
+                style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>
             Explore Our Work
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl text-black leading-relaxed">
@@ -205,9 +229,11 @@ export default function ExploreWorkSection({
             <div className="flex flex-wrap items-start justify-center gap-3 sm:gap-4">
 
               {/* INDUSTRY */}
-              <div ref={industryBtnRef}>
+              <div ref={industryBtnRef}
+                onMouseEnter={indHover.handleEnter}
+                onMouseLeave={indHover.handleLeave}
+              >
                 <button
-                  onClick={() => setOpenDropdown(industryOpen ? null : "industry")}
                   style={{
                     padding: "14px 36px", borderRadius: "999px", fontSize: "18px",
                     fontWeight: "500", cursor: "pointer", border: "none",
@@ -217,11 +243,17 @@ export default function ExploreWorkSection({
                     transition: "background 0.2s",
                   }}
                 >
-                  Industry <span style={{ fontSize: "12px" }}>{industryOpen ? "▼" : "▲"}</span>
+                  Industry <span style={{ fontSize: "12px" }}>{industryOpen ? "▲" : "▼"}</span>
                 </button>
 
                 {industryOpen && (
-                  <DropdownPortal anchorRef={industryBtnRef} portalRef={industryPortalRef} align="left">
+                  <DropdownPortal
+                    anchorRef={industryBtnRef}
+                    portalRef={industryPortalRef}
+                    align="left"
+                    onMouseEnter={indHover.cancelClose}
+                    onMouseLeave={indHover.handleLeave}
+                  >
                     <div style={{ background: "#fff", borderRadius: "16px",
                       boxShadow: "0 8px 32px rgba(0,0,0,0.15)",
                       border: "1px solid #f0ece6", width: "220px", overflow: "hidden" }}>
@@ -251,29 +283,37 @@ export default function ExploreWorkSection({
               </div>
 
               {/* SERVICES */}
-              <div ref={servicesBtnRef}>
+              <div ref={servicesBtnRef}
+                onMouseEnter={svcHover.handleEnter}
+                onMouseLeave={svcHover.handleLeave}
+              >
                 <button
-                  onClick={() => setOpenDropdown(servicesOpen ? null : "services")}
                   style={{
                     padding: "14px 36px", borderRadius: "999px", fontSize: "18px",
                     fontWeight: "500", cursor: "pointer", border: "none",
                     display: "flex", alignItems: "center", gap: "8px",
-                    background: servicesOpen ? "#4b433b" : "#F7AF19",
-                    color:      servicesOpen ? "#fff"    : "#0A0A0A",
+                    background: servicesOpen ? "#F7AF19" : "#4b433b",
+                    color:      servicesOpen ? "#0A0A0A" : "#fff",
                     transition: "background 0.2s",
                   }}
                 >
-                  Services <span style={{ fontSize: "12px" }}>{servicesOpen ? "▼" : "▲"}</span>
+                  Services <span style={{ fontSize: "12px" }}>{servicesOpen ? "▲" : "▼"}</span>
                 </button>
 
                 {servicesOpen && (
-                  <DropdownPortal anchorRef={servicesBtnRef} portalRef={servicesPortalRef} align="right">
+                  <DropdownPortal
+                    anchorRef={servicesBtnRef}
+                    portalRef={servicesPortalRef}
+                    align="right"
+                    onMouseEnter={svcHover.cancelClose}
+                    onMouseLeave={svcHover.handleLeave}
+                  >
                     <div style={{ background: "#fff", borderRadius: "16px",
                       boxShadow: "0 8px 32px rgba(0,0,0,0.15)",
                       border: "1px solid #f0ece6", width: "320px", overflow: "hidden", padding: "8px 0" }}>
                       {SERVICES.map((svc) => {
                         const sel = selServices.includes(svc.logoKey);
-                        const dis = !sel && totalSel >= 2;
+                        const dis = !sel && selServices.length >= 1;
                         return (
                           <button key={svc.logoKey} onClick={() => toggleService(svc.logoKey)}
                             style={{

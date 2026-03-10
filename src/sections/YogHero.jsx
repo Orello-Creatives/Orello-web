@@ -135,7 +135,7 @@ export default function CaseStudySection() {
             fontWeight: 400,
           }}
         >
-          <strong className="font-light text-[#402E1D]" style={{ fontFamily: "sans-serif" }}>
+          <strong className="font-light text-[#402E1D]" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>
             Let’s Yog with Shai: A Seamless Digital 
 
           </strong>{" "}

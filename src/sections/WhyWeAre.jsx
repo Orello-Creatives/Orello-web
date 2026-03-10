@@ -6,6 +6,11 @@ import trust3 from '../assets/logos/trust3.svg'
 import trust4 from '../assets/logos/trust4.svg'
 import bow from '../assets/logos/bow.svg'
 import { Link } from 'react-router'
+import oteam1 from '../assets/logos/oteam1.svg'
+import oteam2 from '../assets/logos/oteam2.svg'
+import oteam3 from '../assets/logos/oteam3.svg'
+import oteam4 from '../assets/logos/oteam4.svg'
+
 
 // ─── Animated "Join Us" Button ─────────────────────────────────────────────────
 const JoinUsButton = () => {
@@ -127,22 +132,22 @@ const TrustSection = () => {
     {
       title: 'Founders driven by impact',
       description: 'Inspire lifelong investment with positive scale, and long-term impact over just quick growth.',
-      icon: bow
+      icon: oteam1
     },
     {
       title: 'Mission-led organisations',
       description: 'NGOs, social enterprises, and purpose-driven teams focused on meaningful outcomes.',
-      icon: bow
+      icon: oteam2
     },
     {
       title: 'Teams working across contexts',
       description: 'Organizations navigating different audiences, cultures, and ways of working.',
-      icon: bow
+      icon: oteam3
     },
     {
       title: 'Brands growing beyond borders',
       description: 'Teams staging identities and digital platforms for diverse and evolving audiences.',
-      icon: bow
+      icon: oteam4
     }
   ];
 

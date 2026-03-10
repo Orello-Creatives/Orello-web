@@ -134,7 +134,7 @@ export default function CaseStudySection() {
             fontWeight: 400,
           }}
         >
-          <strong className="font-black text-[#402E1D]" style={{ fontFamily: "sans-serif" }}>
+          <strong className="font-black text-[#402E1D]" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>
            Canvasé:
           </strong>{" "}
           <span> Defining a Contemporary Lifestyle Brand</span>

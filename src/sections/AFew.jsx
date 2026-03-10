@@ -13,48 +13,84 @@ import smile from '../assets/logos/smile.svg'
 import { Link } from 'react-router-dom'
 
 // ─── Reusable Animated Button ─────────────────────────────────────────────────
-const AnimatedButton = ({ to, label, className }) => {
-  const wrapperRef = useRef(null);
-  const btnRef = useRef(null);
+const AnimatedButton = ({ to, label, className, bgColor, arrowBgColor }) => {
+  const buttonRef = useRef(null);
+  const textRef = useRef(null);
+  const circleRightRef = useRef(null);
+  const circleLeftRef = useRef(null);
 
   useEffect(() => {
-    const wrapper = wrapperRef.current;
-    const btn = btnRef.current;
+    const button = buttonRef.current;
+    const text = textRef.current;
+    const circleRight = circleRightRef.current;
+    const circleLeft = circleLeftRef.current;
 
-    const handleMouseMove = (e) => {
-      const rect = wrapper.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      const dx = (e.clientX - cx) * 0.5;
-      const dy = (e.clientY - cy) * 0.5;
-      gsap.to(btn, { x: dx, y: dy, duration: 0.4, ease: 'power2.out' });
+    if (!button) return;
+
+    const handleMouseEnter = () => {
+      gsap.to(text, { x: 40, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleRight, { scale: 0, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleLeft, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
     };
 
     const handleMouseLeave = () => {
-      gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1.1, 0.4)' });
+      gsap.to(text, { x: 0, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleRight, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleLeft, { scale: 0, duration: 0.4, ease: 'power2.inOut' });
     };
 
-    wrapper.addEventListener('mousemove', handleMouseMove);
-    wrapper.addEventListener('mouseleave', handleMouseLeave);
+    button.addEventListener('mouseenter', handleMouseEnter);
+    button.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
-      wrapper.removeEventListener('mousemove', handleMouseMove);
-      wrapper.removeEventListener('mouseleave', handleMouseLeave);
+      button.removeEventListener('mouseenter', handleMouseEnter);
+      button.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
 
+  const resolvedArrowBg = arrowBgColor || '#111827';
+
   return (
-    <div ref={wrapperRef} style={{ display: 'inline-block', padding: '16px', margin: '-16px' }}>
-      <Link to={to}>
-        <button
-          ref={btnRef}
-          className={className}
-          style={{ willChange: 'transform', display: 'block' }}
+    <Link to={to}>
+      <button
+        ref={buttonRef}
+        className={`relative overflow-hidden cursor-pointer rounded-full font-bold w-full sm:w-auto ${className}`}
+        style={{ backgroundColor: bgColor, willChange: 'transform', display: 'block' }}
+      >
+        {/* Text */}
+        <span
+          ref={textRef}
+          className="absolute left-4 md:left-5 top-1/2 -translate-y-1/2 text-sm md:text-base font-bold z-[2]"
         >
           {label}
-        </button>
-      </Link>
-    </div>
+        </span>
+
+        {/* Circle right (initial) */}
+        <span
+          ref={circleRightRef}
+          className="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 w-7 h-7 md:w-8 md:h-8 text-white rounded-full flex items-center justify-center z-[2]"
+          style={{ backgroundColor: resolvedArrowBg }}
+        >
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
+
+        {/* Circle left (hover) */}
+        <span
+          ref={circleLeftRef}
+          className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 w-7 h-7 md:w-8 md:h-8 text-white rounded-full flex items-center justify-center scale-0 z-[2]"
+          style={{ backgroundColor: resolvedArrowBg }}
+        >
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
+
+        {/* Spacer to lock width */}
+        <span className="opacity-0 px-8 md:px-10 text-sm md:text-base">{label}</span>
+      </button>
+    </Link>
   );
 };
 
@@ -214,12 +250,16 @@ const PortfolioSection = () => {
               <AnimatedButton
                 to="/contact"
                 label="Lets Talk"
-                className="bg-[#f7af19] cursor-pointer text-black font-bold py-2 px-4 sm:py-2.5 sm:px-5 md:py-3 md:px-6 rounded-full text-xs sm:text-sm transition w-full sm:w-auto"
+                bgColor="#f7af19"
+                arrowBgColor="#111827"
+                className="text-black py-2 sm:py-2.5 md:py-3"
               />
               <AnimatedButton
                 to="/casestudy-overview"
                 label="See all work"
-                className="bg-white cursor-pointer text-black font-bold py-2 px-4 sm:py-2.5 sm:px-5 md:py-3 md:px-6 rounded-full text-xs sm:text-sm hover:bg-zinc-200 transition w-full sm:w-auto"
+                bgColor="white"
+                arrowBgColor="#111827"
+                className="text-black py-2 sm:py-2.5 md:py-3"
               />
             </div>
           </div>

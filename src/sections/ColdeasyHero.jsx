@@ -135,7 +135,7 @@ export default function CaseStudySection() {
             fontWeight: 400,
           }}
         >
-          <strong className="font-black text-[#402E1D]" style={{ fontFamily: "sans-serif" }}>
+          <strong className="font-black text-[#402E1D]" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>
             coldeasy:<br />
           </strong>{" "}
           <span className="font-light">Rebranding a coldstorage pioneer </span>

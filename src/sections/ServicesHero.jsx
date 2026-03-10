@@ -233,7 +233,8 @@ export default function ServicesSection() {
           
           {/* Initial Header - Shows on mobile/tablet, hidden during animation on desktop */}
           <div ref={headerTextRef} className="static lg:absolute inset-0 flex flex-col items-center pt-8 md:pt-12 lg:pt-[15vh] text-center mb-8 lg:mb-0">
-            <h2 className="text-[#402E1D] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 md:mb-6 font-mona">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#4B433B] mb-3 sm:mb-4 md:mb-6"
+                style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>
               Our Services
             </h2>
             <p ref={descriptionRef} className="text-[#402E1D] text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed px-4">
@@ -249,11 +250,11 @@ export default function ServicesSection() {
             className="h-full flex items-center justify-center max-w-7xl  text-center relative z-20 opacity-100 visible lg:opacity-0 lg:invisible"
           >
             <h2 className="text-black text-xl sm:text-2xl md:text-4xl lg:text-7xl font-black leading-tight px-4" style={{ fontFamily: 'Satoshi, sans-serif' }}>
-              <span className="text-line inline opacity-100 lg:opacity-0">We help brands </span>
+              <span className="text-line inline opacity-100 lg:opacity-0">We help brands</span>
               <span ref={textPlaceholders[0]} className="inline-flex w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 lg:w-20 lg:h-20 mx-1 md:mx-2 align-middle">
                 <img src={herologo1} alt="" className="w-full h-full object-contain lg:hidden" />
               </span>
-              <span className="text-line inline opacity-100 lg:opacity-0">build identities and communicate clearly with </span>
+              <span className="text-line inline opacity-100 lg:opacity-0"> build identities and communicate clearly with </span>
               <span ref={textPlaceholders[1]} className="inline-flex w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 lg:w-20 lg:h-20 mx-1 md:mx-2 align-middle">
                 <img src={herologo2} alt="" className="w-full h-full object-contain lg:hidden" />
               </span>

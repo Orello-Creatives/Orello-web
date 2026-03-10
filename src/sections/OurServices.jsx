@@ -2,6 +2,10 @@ import React, { useRef, useEffect } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import gsap from 'gsap';
 import {Link} from 'react-router'
+import digital from '../assets/images/digital.png'
+import motion from '../assets/images/motion.png'
+import branding from '../assets/images/branding.png'
+import uiuxx from '../assets/images/uiuxx.png'
 
 const ServiceCard = ({ title, description, bgImage, index }) => {
   const cardRef = useRef(null);
@@ -19,7 +23,6 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
     let lastMouseY = 0;
     let rafId = null;
 
-    // Set initial GSAP config for smoother animations
     gsap.config({ force3D: true });
     gsap.set(reveal, { force3D: true });
     gsap.set(image, { force3D: true });
@@ -34,17 +37,12 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
 
       if (!isHovered) return;
 
-      // Cancel previous animation frame
-      if (rafId) {
-        cancelAnimationFrame(rafId);
-      }
+      if (rafId) cancelAnimationFrame(rafId);
 
-      // Use RAF for smoother updates
       rafId = requestAnimationFrame(() => {
-        const size = 200; // Square size
+        const size = 200;
         const half = size / 2;
 
-        // Calculate inset values to maintain square size
         const left = Math.max(0, Math.min(x - half, rect.width - size));
         const top = Math.max(0, Math.min(y - half, rect.height - size));
         const right = Math.max(0, rect.width - left - size);
@@ -57,14 +55,12 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
           overwrite: 'auto'
         });
 
-        // Check if cursor square intersects with arrow
         const arrowRect = arrow.getBoundingClientRect();
         const arrowX = arrowRect.left - rect.left;
         const arrowY = arrowRect.top - rect.top;
         const arrowWidth = arrowRect.width;
         const arrowHeight = arrowRect.height;
 
-        // Check if the square overlaps with the arrow
         const squareLeft = left;
         const squareTop = top;
         const squareRight = left + size;
@@ -77,14 +73,12 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
           squareTop > arrowY + arrowHeight
         );
 
-        // Change arrow color based on overlap
         if (isOverlapping) {
           arrow.style.color = '#fff';
         } else {
           arrow.style.color = '#000';
         }
 
-        // Parallax effect on image based on mouse position
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
         const moveX = (x - centerX) / 20;
@@ -101,58 +95,48 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
     };
 
     const handleMouseEnter = (e) => {
-      // Start with the square closed at current mouse position
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       
-      // Update last position immediately
       lastMouseX = x;
       lastMouseY = y;
       
       const size = 200;
       const half = size / 2;
       
-      // Get initial mouse position relative to card
       const initialLeft = Math.max(0, Math.min(x - half, rect.width - size));
       const initialTop = Math.max(0, Math.min(y - half, rect.height - size));
       const initialRight = Math.max(0, rect.width - initialLeft - size);
       const initialBottom = Math.max(0, rect.height - initialTop - size);
       
-      // Determine which zone the cursor is in
       const cursorX = x;
-      const edgeThreshold = 150; // pixels from edge to consider as "edge zone"
+      const edgeThreshold = 150;
       
       let startClipPath;
       
       if (cursorX < edgeThreshold) {
-        // Left edge - start from left edge, expand to right only
         startClipPath = `inset(${initialTop}px ${rect.width - initialLeft}px ${initialBottom}px ${initialLeft}px)`;
       } else if (cursorX > rect.width - edgeThreshold) {
-        // Right edge - start from right edge, expand to left only
         const rightEdge = initialLeft + size;
         startClipPath = `inset(${initialTop}px ${initialRight}px ${initialBottom}px ${rightEdge}px)`;
       } else {
-        // Middle - expand from center to both sides
         const centerLeft = initialLeft + size / 2;
         startClipPath = `inset(${initialTop}px ${rect.width - centerLeft}px ${initialBottom}px ${centerLeft}px)`;
       }
       
-      // Set initial state immediately
       gsap.set(reveal, {
         clipPath: startClipPath,
         opacity: 1,
         force3D: true
       });
       
-      // Use requestAnimationFrame to ensure the initial state is rendered before animating
       requestAnimationFrame(() => {
         isHovered = true;
         
-        // Animate to open 
         gsap.to(reveal, {
           clipPath: `inset(${initialTop}px ${initialRight}px ${initialBottom}px ${initialLeft}px)`,
-          duration: 1, // Open animation duration
+          duration: 1,
           ease: 'power2.out',
           overwrite: true
         });
@@ -170,43 +154,35 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
     const handleMouseLeave = () => {
       isHovered = false;
       
-      // Cancel any pending RAF
       if (rafId) {
         cancelAnimationFrame(rafId);
         rafId = null;
       }
       
-      // Get the card's bounding rect
       const rect = card.getBoundingClientRect();
       const size = 200;
       const half = size / 2;
       
-      // Calculate the final position where the square should close to (last cursor position)
       const left = Math.max(0, Math.min(lastMouseX - half, rect.width - size));
       const top = Math.max(0, Math.min(lastMouseY - half, rect.height - size));
       const right = Math.max(0, rect.width - left - size);
       const bottom = Math.max(0, rect.height - top - size);
       
-      // Determine which zone the cursor is in
       const cursorX = lastMouseX;
-      const edgeThreshold = 150; // pixels from edge to consider as "edge zone"
+      const edgeThreshold = 150;
       
       let endClipPath;
       
       if (cursorX < edgeThreshold) {
-        // Left edge - close to left edge only
         endClipPath = `inset(${top}px ${rect.width - left}px ${bottom}px ${left}px)`;
       } else if (cursorX > rect.width - edgeThreshold) {
-        // Right edge - close to right edge only
         const rightEdge = left + size;
         endClipPath = `inset(${top}px ${right}px ${bottom}px ${rightEdge}px)`;
       } else {
-        // Middle - close to center from both sides
         const centerLeft = left + size / 2;
         endClipPath = `inset(${top}px ${rect.width - centerLeft}px ${bottom}px ${centerLeft}px)`;
       }
       
-      // Animate to close
       gsap.to(reveal, {
         clipPath: endClipPath,
         duration: 0.6,
@@ -228,7 +204,6 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
         ease: 'power2.out',
         overwrite: true
       });
-      // Reset arrow color
       arrow.style.color = '#000';
     };
 
@@ -237,9 +212,7 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
     card.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
-      if (rafId) {
-        cancelAnimationFrame(rafId);
-      }
+      if (rafId) cancelAnimationFrame(rafId);
       card.removeEventListener('mousemove', handleMouseMove);
       card.removeEventListener('mouseenter', handleMouseEnter);
       card.removeEventListener('mouseleave', handleMouseLeave);
@@ -251,16 +224,10 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
       ref={cardRef}
       className="relative cursor-pointer overflow-hidden group border-b border-gray-700"
     >
-   
-      {/* Content - Default solid text */}
       <div className="relative z-20 flex items-start justify-between p-5 py-7 sm:p-6 sm:py-8 lg:p-8 lg:py-10">
         <div className="flex-1">
-          <h3 className="font-light mb-2 text-black">
-            {title}
-          </h3>
-          <p className="paragraph text-black">
-            {description}
-          </p>
+          <h3 className="font-light mb-2 text-black">{title}</h3>
+          <p className="paragraph text-black">{description}</p>
         </div>
         <ArrowUpRight 
           ref={arrowRef}
@@ -269,15 +236,11 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
         />
       </div>
 
-      {/* Reveal layer with background image AND text stroke overlay combined */}
       <div
         ref={revealRef}
         className="absolute inset-0 opacity-0 pointer-events-none z-30 overflow-hidden"
-        style={{
-          clipPath: 'inset(50% 50% 50% 50%)'
-        }}
+        style={{ clipPath: 'inset(50% 50% 50% 50%)' }}
       >
-        {/* Background image with parallax */}
         <div
           ref={imageRef}
           className="absolute inset-0 w-full h-full"
@@ -288,34 +251,18 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
             transform: 'scale(1)'
           }}
         />
-        
-        {/* Text stroke overlay - only visible within the clipped area */}
-        <div
-          className="absolute inset-0"
-        >
+        <div className="absolute inset-0">
           <div className="relative flex items-start justify-between p-5 py-7 sm:p-6 sm:py-8 lg:p-8 lg:py-10 h-full">
             <div className="flex-1">
               <h3
                 className="font-light mb-2" 
-                style={{
-                  WebkitTextStroke: '1px #000',
-                  color: 'transparent',
-                  paintOrder: 'stroke fill'
-                  
-                }}
+                style={{ WebkitTextStroke: '1px #000', color: 'transparent', paintOrder: 'stroke fill' }}
               >
                 {title}
               </h3>
-              
               <p 
                 className="paragraph" 
-                style={{
-                  WebkitTextStroke: '1px #000',
-                  color: 'transparent',
-                  paintOrder: 'stroke fill',
-                  fontFamily: 'Satoshi, sans-serif', 
-                  fontWeight: 900
-                }}
+                style={{ WebkitTextStroke: '1px #000', color: 'transparent', paintOrder: 'stroke fill', fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}
               >
                 {description}
               </p>
@@ -332,80 +279,79 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
   );
 };
 
-// ─── Animated "Know More" Button ───────────────────────────────────────────────
+// ─── Know More Button (arrow slide animation) ──────────────────────────────────
 const KnowMoreButton = () => {
-  const btnRef = useRef(null);
-  const fillRef = useRef(null);
+  const buttonRef = useRef(null);
   const textRef = useRef(null);
+  const circleRightRef = useRef(null);
+  const circleLeftRef = useRef(null);
 
   useEffect(() => {
-    const btn = btnRef.current;
-    const fill = fillRef.current;
+    const button = buttonRef.current;
     const text = textRef.current;
+    const circleRight = circleRightRef.current;
+    const circleLeft = circleLeftRef.current;
 
-    gsap.set(fill, { scale: 0, transformOrigin: '50% 150%' });
+    if (!button) return;
 
-    const handleMouseEnter = (e) => {
-      const rect = btn.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      const ox = (x / rect.width) * 100;
-      const oy = (y / rect.height) * 100;
-      gsap.set(fill, { transformOrigin: `${ox}% ${oy}%`, scale: 0 });
-
-      gsap.to(fill, { scale: 3, duration: 0.55, ease: 'power3.out' });
-      gsap.to(text, { color: '#000', duration: 0.3, ease: 'power2.out' });
+    const handleMouseEnter = () => {
+      gsap.to(button, { backgroundColor: '#F7AF19', duration: 0.3, ease: 'power2.out' });
+      gsap.to(text, { x: 40, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleRight, { scale: 0, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleLeft, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
     };
 
-    const handleMouseMove = (e) => {
-      const rect = btn.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      const dx = (e.clientX - cx) * 0.28;
-      const dy = (e.clientY - cy) * 0.28;
-
-      gsap.to(btn, { x: dx, y: dy, duration: 0.5, ease: 'power2.out' });
+    const handleMouseLeave = () => {
+      gsap.to(button, { backgroundColor: '#F7AF19', duration: 0.3, ease: 'power2.in' });
+      gsap.to(text, { x: 0, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleRight, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleLeft, { scale: 0, duration: 0.4, ease: 'power2.inOut' });
     };
 
-    const handleMouseLeave = (e) => {
-      const rect = btn.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      const ox = (x / rect.width) * 100;
-      const oy = (y / rect.height) * 100;
-      gsap.set(fill, { transformOrigin: `${ox}% ${oy}%` });
-
-      gsap.to(fill, { scale: 0, duration: 0.45, ease: 'power3.in' });
-      gsap.to(text, { color: '#000', duration: 0.3, ease: 'power2.out' });
-      gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1.1, 0.4)' });
-    };
-
-    btn.addEventListener('mouseenter', handleMouseEnter);
-    btn.addEventListener('mousemove', handleMouseMove);
-    btn.addEventListener('mouseleave', handleMouseLeave);
+    button.addEventListener('mouseenter', handleMouseEnter);
+    button.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
-      btn.removeEventListener('mouseenter', handleMouseEnter);
-      btn.removeEventListener('mousemove', handleMouseMove);
-      btn.removeEventListener('mouseleave', handleMouseLeave);
+      button.removeEventListener('mouseenter', handleMouseEnter);
+      button.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
 
   return (
     <Link to="/services">
       <button
-        ref={btnRef}
-        className="relative overflow-hidden cursor-pointer text-black px-8 py-3 rounded-full font-medium"
-        style={{ backgroundColor: '#F7AF19', display: 'inline-flex', alignItems: 'center', willChange: 'transform' }}
+        ref={buttonRef}
+        className="relative overflow-hidden cursor-pointer rounded-full shadow-lg flex items-center pl-6 pr-2 py-2"
+        style={{ backgroundColor: '#F7AF19', color: 'black', willChange: 'transform' }}
       >
+        {/* Circle left (hover) - hidden by default */}
         <span
-          ref={fillRef}
-          style={{ position: 'absolute', inset: 0, borderRadius: '9999px',  zIndex: 0, pointerEvents: 'none' }}
-        />
-        <span ref={textRef} style={{ position: 'relative', zIndex: 1, color: '#000' }}>
+          ref={circleLeftRef}
+          className="absolute left-2 w-9 h-9 text-white rounded-full flex items-center justify-center"
+          style={{ backgroundColor: '#111827', transform: 'scale(0)' }}
+        >
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
+
+        {/* Text */}
+        <span
+          ref={textRef}
+          className="text-base md:text-lg font-medium whitespace-nowrap mr-4"
+        >
           Know more
+        </span>
+
+        {/* Circle right (initial) */}
+        <span
+          ref={circleRightRef}
+          className="w-9 h-9 flex-shrink-0 text-white rounded-full flex items-center justify-center"
+          style={{ backgroundColor: '#111827' }}
+        >
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
         </span>
       </button>
     </Link>
@@ -417,22 +363,22 @@ export default function OurServices() {
     {
       title: 'Brand Identity',
       description: 'Orello is a purpose-driven global design partner',
-      bgImage: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80'
-    },
+      bgImage: branding
+        },
     {
       title: 'UI/UX & Web Development',
       description: 'Orello is a purpose-driven global design partner',
-      bgImage: 'https://images.unsplash.com/photo-1559028012-481c04fa702d?w=800&q=80'
+      bgImage: uiuxx
     },
     {
       title: 'Motion Graphics',
       description: 'Orello is a purpose-driven global design partner',
-      bgImage: 'https://images.unsplash.com/photo-1626785774625-ddcddc3445e9?w=800&q=80'
+      bgImage: motion
     },
     {
       title: 'Digital Marketing & SEO',
       description: 'Orello is a purpose-driven global design partner',
-      bgImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80'
+      bgImage: digital
     }
   ];
 

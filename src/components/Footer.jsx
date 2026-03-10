@@ -8,48 +8,81 @@ import linkedin from '../assets/logos/linkedin.svg'
 import locatio from '../assets/logos/locatio.svg'
 import mailid from '../assets/logos/mailid.svg'
 
-const AnimatedButton = ({ to, label, className }) => {
-  const wrapperRef = useRef(null);
-  const btnRef = useRef(null);
+const AnimatedButton = ({ to, label, bgColor, textColor, arrowBgColor }) => {
+  const buttonRef = useRef(null);
+  const textRef = useRef(null);
+  const circleRightRef = useRef(null);
+  const circleLeftRef = useRef(null);
 
   useEffect(() => {
-    const wrapper = wrapperRef.current;
-    const btn = btnRef.current;
+    const button = buttonRef.current;
+    const text = textRef.current;
+    const circleRight = circleRightRef.current;
+    const circleLeft = circleLeftRef.current;
 
-    const handleMouseMove = (e) => {
-      const rect = wrapper.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      const dx = (e.clientX - cx) * 0.5;
-      const dy = (e.clientY - cy) * 0.5;
-      gsap.to(btn, { x: dx, y: dy, duration: 0.4, ease: 'power2.out' });
+    if (!button) return;
+
+    const handleMouseEnter = () => {
+      gsap.to(button, { backgroundColor: '#FFCE69', duration: 0.3, ease: 'power2.out' });
+      gsap.to(text, { x: 40, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleRight, { scale: 0, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleLeft, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
     };
 
     const handleMouseLeave = () => {
-      gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1.1, 0.4)' });
+      gsap.to(button, { backgroundColor: bgColor, duration: 0.3, ease: 'power2.in' });
+      gsap.to(text, { x: 0, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleRight, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleLeft, { scale: 0, duration: 0.4, ease: 'power2.inOut' });
     };
 
-    wrapper.addEventListener('mousemove', handleMouseMove);
-    wrapper.addEventListener('mouseleave', handleMouseLeave);
+    button.addEventListener('mouseenter', handleMouseEnter);
+    button.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
-      wrapper.removeEventListener('mousemove', handleMouseMove);
-      wrapper.removeEventListener('mouseleave', handleMouseLeave);
+      button.removeEventListener('mouseenter', handleMouseEnter);
+      button.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
 
   return (
-    <div ref={wrapperRef} style={{ display: 'inline-block', padding: '16px', margin: '-16px' }}>
-      <Link to={to}>
-        <button
-          ref={btnRef}
-          className={className}
-          style={{ willChange: 'transform', display: 'block' }}
+    <Link to={to}>
+      <button
+        ref={buttonRef}
+        className="relative overflow-hidden cursor-pointer rounded-full shadow-lg flex items-center pl-6 pr-2 py-2"
+        style={{ backgroundColor: bgColor, color: textColor, willChange: 'transform' }}
+      >
+        {/* Circle left (hover) - hidden by default */}
+        <span
+          ref={circleLeftRef}
+          className="absolute left-2 w-9 h-9 text-white rounded-full flex items-center justify-center"
+          style={{ backgroundColor: arrowBgColor || '#111827', transform: 'scale(0)' }}
+        >
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
+
+        {/* Text */}
+        <span
+          ref={textRef}
+          className="text-sm sm:text-base font-bold whitespace-nowrap mr-4"
         >
           {label}
-        </button>
-      </Link>
-    </div>
+        </span>
+
+        {/* Circle right (initial) */}
+        <span
+          ref={circleRightRef}
+          className="w-9 h-9 flex-shrink-0 text-white rounded-full flex items-center justify-center"
+          style={{ backgroundColor: arrowBgColor || '#111827' }}
+        >
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
+      </button>
+    </Link>
   );
 };
 
@@ -71,12 +104,9 @@ const Footer = () => {
           <AnimatedButton
             to="/contact"
             label="Contact Us"
-            className="px-6 sm:px-8 md:px-10 py-3 cursor-pointer sm:py-4 bg-black text-white rounded-full font-bold text-sm sm:text-base hover:bg-gray-900 transition-all"
-          />
-          <AnimatedButton
-            to="/contact"
-            label="Book a meeting"
-            className="px-6 sm:px-8 md:px-10 py-3 sm:py-4 bg-[#F7AF19] cursor-pointer text-black rounded-full font-bold text-sm sm:text-base hover:bg-[#e5a314] transition-all"
+            bgColor="#000000"
+            textColor="white"
+            arrowBgColor="#333333"
           />
         </div>
       </div>
@@ -87,14 +117,12 @@ const Footer = () => {
         {/* Floating Logo Badge */}
         <div className="hidden md:block absolute right-[5%] sm:right-[6%] md:right-[8%] -top-10 sm:-top-12 md:-top-16 z-30">
           <div className="relative flex items-center justify-center">
-            {/* The Yellow Arc */}
             <div 
               className="absolute w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-36 lg:h-36 rounded-full"
               style={{
                 background: 'conic-gradient(from 252deg, #F7AF19 207deg, transparent 0deg)'
               }}
             />
-            {/* The Black Circle */}
             <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 bg-black rounded-full border-2 sm:border-4 border-[#fdf7ee] flex items-center justify-center shadow-xl">
               <img src={orelloclip} alt="Orello mark" className="" />
             </div>

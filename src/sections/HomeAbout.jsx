@@ -1,16 +1,26 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useLayoutEffect, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import OurServices from './OurServices'
+
 
 gsap.registerPlugin(ScrollTrigger)
 
 const HomeAbout = () => {
   const bannerRef = useRef(null)
   const textRef = useRef(null)
+  const containerRef = useRef(null)
+  const [wordElements, setWordElements] = useState([])
+  const rafRef = useRef(null)
+
+  const textContent =
+    'Orello is a purpose-driven global design partner that helps impact-oriented organisations communicate with clarity, empathy, and intention.'
+
+  useLayoutEffect(() => {
+    setWordElements(textContent.split(' '))
+  }, [])
 
   useEffect(() => {
-   
     const banner = bannerRef.current
     const bannerWidth = banner.scrollWidth / 2
 
@@ -20,31 +30,43 @@ const HomeAbout = () => {
       ease: 'none',
       repeat: -1,
     })
-
-   
-    const words = textRef.current.querySelectorAll('.word')
-
-    gsap.set(words, { opacity: 1, color: '#999999', y: 20 })
-
-    const masterTimeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: textRef.current,
-        start: 'top 75%',
-        end: 'bottom 25%',
-        scrub: 1,
-      }
-    })
-
-    words.forEach((word, index) => {
-      masterTimeline.to(word, {
-        opacity: 1,
-        color: '#000000',
-        y: 0,
-        duration: 0.3,
-        ease: 'none'
-      }, index * 0.4)
-    })
   }, [])
+
+  useEffect(() => {
+    if (wordElements.length === 0 || !textRef.current) return
+
+    const handleScroll = () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+
+      rafRef.current = requestAnimationFrame(() => {
+        if (!textRef.current) return
+
+        const words = textRef.current.querySelectorAll('.word')
+        const rect = textRef.current.getBoundingClientRect()
+        const viewportHeight = window.innerHeight
+
+        const scrollProgress = Math.max(
+          0,
+          Math.min(1, (viewportHeight - rect.top) / viewportHeight)
+        )
+
+        words.forEach((word, index) => {
+          const wordProgress = (scrollProgress * words.length - index) * 3
+          word.style.opacity = Math.max(0.2, Math.min(1, wordProgress))
+        })
+      })
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('resize', handleScroll)
+    handleScroll()
+
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleScroll)
+    }
+  }, [wordElements])
 
   const industries = [
     'Real estate',
@@ -55,11 +77,6 @@ const HomeAbout = () => {
     'Healthcare',
     'Dairy',
   ]
-
-  const textContent =
-    'Orello is a purpose-driven global design partner that helps impact-oriented organisations communicate with clarity, empathy, and intention.'
-
-  const words = textContent.split(' ')
 
   return (
     <section className="relative z-20 -mt-16 sm:-mt-24 md:-mt-32">
@@ -84,11 +101,14 @@ const HomeAbout = () => {
         </div>
 
         {/* Main content with text reveal */}
-        <div className="container mx-auto px-4 sm:px-6 md:px-8 py-16 sm:py-24 md:py-32 items-center justify-center">
+        <div
+          ref={containerRef}
+          className="container mx-auto px-4 sm:px-6 md:px-8 py-16 sm:py-24 md:py-32 items-center justify-center"
+        >
           <h2
             ref={textRef}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold items-center justify-center"
-            style={{ 
+            style={{
               fontFamily: 'Satoshi, sans-serif',
               lineHeight: '1.2',
               display: 'flex',
@@ -96,8 +116,16 @@ const HomeAbout = () => {
               gap: '0.4rem',
             }}
           >
-            {words.map((word, index) => (
-              <span key={index} className="word inline-block">
+            {wordElements.map((word, index) => (
+              <span
+                key={index}
+                className="word inline-block"
+                style={{
+                  opacity: 0.2,
+                  willChange: 'opacity',
+                  transition: 'opacity 0.1s ease-out',
+                }}
+              >
                 {word}
               </span>
             ))}

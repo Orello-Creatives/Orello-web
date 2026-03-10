@@ -238,7 +238,7 @@ export default function AboutOrello() {
             {/* Header */}
             <div className="text-center mb-6 sm:mb-8 md:mb-12">
               <h2
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-[#4B433B] mb-3 sm:mb-4 md:mb-6"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#4B433B] mb-3 sm:mb-4 md:mb-6"
                 style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}
               >
                 About Orello

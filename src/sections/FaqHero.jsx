@@ -40,8 +40,8 @@ export default function FAQHero() {
       {/* Content */}
       <div className="relative z-10 max-w-6xl mx-auto px-4 text-center">
         <h2
-          className="font-black text-[#402E1D] leading-tight"
-          style={{ fontFamily: "Satoshi, sans-serif" }}
+         className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#4B433B] mb-3 sm:mb-4 md:mb-6"
+                style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}
         >
           Frequently Asked Questions
         </h2>

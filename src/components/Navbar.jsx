@@ -4,52 +4,84 @@ import { Link, useLocation } from 'react-router-dom'
 import { gsap } from 'gsap'
 import orello from '../assets/logos/orello.svg'
 
-const AnimatedButton = ({ to, label, className }) => {
-  const wrapperRef = useRef(null);
-  const btnRef = useRef(null);
+const AnimatedButton = ({ to, label, bgColor, textColor, arrowBgColor }) => {
+  const buttonRef = useRef(null);
+  const textRef = useRef(null);
+  const circleRightRef = useRef(null);
+  const circleLeftRef = useRef(null);
 
   useEffect(() => {
-    const wrapper = wrapperRef.current;
-    const btn = btnRef.current;
+    const button = buttonRef.current;
+    const text = textRef.current;
+    const circleRight = circleRightRef.current;
+    const circleLeft = circleLeftRef.current;
 
-    // Only apply magnetic effect on non-touch devices
+    if (!button) return;
+
     const isTouchDevice = window.matchMedia('(hover: none)').matches;
     if (isTouchDevice) return;
 
-    const handleMouseMove = (e) => {
-      const rect = wrapper.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      const dx = (e.clientX - cx) * 0.5;
-      const dy = (e.clientY - cy) * 0.5;
-      gsap.to(btn, { x: dx, y: dy, duration: 0.4, ease: 'power2.out' });
+    const handleMouseEnter = () => {
+      gsap.to(button, { backgroundColor: '#FFCE69', duration: 0.3, ease: 'power2.out' });
+      gsap.to(text, { x: 30, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleRight, { scale: 0, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleLeft, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
     };
 
     const handleMouseLeave = () => {
-      gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1.1, 0.4)' });
+      gsap.to(button, { backgroundColor: bgColor, duration: 0.3, ease: 'power2.in' });
+      gsap.to(text, { x: 0, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleRight, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleLeft, { scale: 0, duration: 0.4, ease: 'power2.inOut' });
     };
 
-    wrapper.addEventListener('mousemove', handleMouseMove);
-    wrapper.addEventListener('mouseleave', handleMouseLeave);
+    button.addEventListener('mouseenter', handleMouseEnter);
+    button.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
-      wrapper.removeEventListener('mousemove', handleMouseMove);
-      wrapper.removeEventListener('mouseleave', handleMouseLeave);
+      button.removeEventListener('mouseenter', handleMouseEnter);
+      button.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
 
   return (
-    <div ref={wrapperRef} style={{ display: 'inline-block', padding: '16px', margin: '-16px' }}>
-      <Link to={to}>
-        <button
-          ref={btnRef}
-          className={className}
-          style={{ willChange: 'transform', display: 'block' }}
+    <Link to={to}>
+      <button
+        ref={buttonRef}
+        className="relative overflow-hidden cursor-pointer rounded-full flex items-center pl-4 pr-2 py-1.5"
+        style={{ backgroundColor: bgColor, color: textColor, willChange: 'transform' }}
+      >
+        {/* Circle left (hover) - hidden by default */}
+        <span
+          ref={circleLeftRef}
+          className="absolute left-1.5 w-7 h-7 text-white rounded-full flex items-center justify-center"
+          style={{ backgroundColor: arrowBgColor || '#fff', transform: 'scale(0)' }}
+        >
+          <svg width="11" height="11" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
+
+        {/* Text */}
+        <span
+          ref={textRef}
+          className="text-sm lg:text-[15px] font-medium whitespace-nowrap mr-3"
         >
           {label}
-        </button>
-      </Link>
-    </div>
+        </span>
+
+        {/* Circle right (initial) */}
+        <span
+          ref={circleRightRef}
+          className="w-7 h-7 flex-shrink-0 text-white rounded-full flex items-center justify-center"
+          style={{ backgroundColor: arrowBgColor || '#fff' }}
+        >
+          <svg width="11" height="11" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
+      </button>
+    </Link>
   );
 };
 
@@ -70,12 +102,10 @@ const OrelloNavbar = () => {
     { name: 'FAQ', path: '/faq' },
   ]
 
-  // Close menu on route change
   useEffect(() => {
     setIsMenuOpen(false)
   }, [location.pathname])
 
-  // Close menu on Escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape' && isMenuOpen) setIsMenuOpen(false)
@@ -84,7 +114,6 @@ const OrelloNavbar = () => {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [isMenuOpen])
 
-  // Prevent body scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
@@ -123,7 +152,6 @@ const OrelloNavbar = () => {
 
   return (
     <>
-      {/* Backdrop overlay for mobile — closes menu when tapping outside */}
       {isMenuOpen && (
         <div
           ref={overlayRef}
@@ -133,10 +161,8 @@ const OrelloNavbar = () => {
         />
       )}
 
-      {/* Outer wrapper */}
       <div className="fixed top-0 left-0 right-0 z-30 flex justify-center px-3 sm:px-5 lg:px-8 pt-3 sm:pt-4 md:pt-5">
 
-        {/* Pill container */}
         <div
           className="w-full max-w-[1200px] rounded-[28px] shadow-sm"
           style={{ backgroundColor: '#FDF6E9' }}
@@ -155,7 +181,7 @@ const OrelloNavbar = () => {
                 </Link>
               </div>
 
-              {/* Desktop Nav — hidden below md */}
+              {/* Desktop Nav */}
               <nav className="hidden md:flex items-center" aria-label="Main navigation">
                 {navLinks.map((link) => (
                   <Link
@@ -172,18 +198,19 @@ const OrelloNavbar = () => {
                 ))}
               </nav>
 
-              {/* Desktop CTA — hidden below md */}
+              {/* Desktop CTA */}
               <div className="hidden md:block">
                 <AnimatedButton
                   to="/contact"
                   label="contact us"
-                  className="px-5 lg:px-7 py-2.5 cursor-pointer bg-[#3d3d3d] text-white rounded-full text-sm lg:text-[15px] font-medium hover:bg-[#2d2d2d] transition-colors whitespace-nowrap"
+                  bgColor="#3d3d3d"
+                  textColor="white"
+                  arrowBgColor="#ffffff30"
                 />
               </div>
 
-              {/* Mobile right side: CTA + Hamburger */}
+              {/* Mobile right side */}
               <div className="flex md:hidden items-center gap-2 sm:gap-3">
-                {/* Small "contact" pill visible on sm+ but hidden on xs */}
                 <Link
                   to="/contact"
                   className="hidden sm:inline-flex items-center px-4 py-2 bg-[#3d3d3d] text-white rounded-full text-sm font-medium hover:bg-[#2d2d2d] transition-colors"
@@ -191,7 +218,6 @@ const OrelloNavbar = () => {
                   contact us
                 </Link>
 
-                {/* Hamburger toggle */}
                 <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                   className="p-2 -mr-1 text-[#4B433B] transition-colors rounded-full hover:bg-black/5 active:bg-black/10"
@@ -204,21 +230,19 @@ const OrelloNavbar = () => {
             </div>
           </div>
 
-          {/* Mobile Menu — drops inside the pill */}
+          {/* Mobile Menu */}
           <div
             ref={menuRef}
             className="md:hidden overflow-hidden"
             style={{ height: 0, opacity: 0 }}
             aria-hidden={!isMenuOpen}
           >
-            {/* Divider */}
             <div className="mx-4 sm:mx-5 border-t border-[#E8DECE]" />
 
             <nav
               className="flex flex-col px-4 sm:px-5 pb-4 pt-2"
               aria-label="Mobile navigation"
             >
-              {/* Nav links in a 2-col grid on sm, single col on xs */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
                 {navLinks.map((link, index) => (
                   <Link
@@ -232,7 +256,6 @@ const OrelloNavbar = () => {
                     }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    {/* Active dot indicator */}
                     {location.pathname === link.path && (
                       <span className="mr-2 w-1.5 h-1.5 rounded-full bg-[#D98127] flex-shrink-0" />
                     )}
@@ -241,7 +264,6 @@ const OrelloNavbar = () => {
                 ))}
               </div>
 
-              {/* CTA — full width on xs, auto on sm */}
               <div
                 ref={(el) => (menuItemsRef.current[navLinks.length] = el)}
                 className="mt-4"

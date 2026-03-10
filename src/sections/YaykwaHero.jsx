@@ -135,7 +135,7 @@ export default function CaseStudySection() {
             fontWeight: 400,
           }}
         >
-          <strong className="font-light text-[#402E1D]" style={{ fontFamily: "sans-serif" }}>
+          <strong className="font-light text-[#402E1D]" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>
             Establishing a Clear Brand and Digital Presence 
           </strong>{" "}
           <span className="font-black">for a Mining Organisation </span>
