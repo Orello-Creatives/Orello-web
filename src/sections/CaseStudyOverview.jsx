@@ -243,7 +243,7 @@ export default function ExploreWorkSection({
   return (
     <section
       ref={containerRef}
-      className="relative bg-[#eadecf] py-20 sm:py-28 md:py-32 lg:py-40"
+      className="relative bg-[#eadecf] pt-30 sm:pt-0 py-20 sm:py-28 md:py-32 lg:py-40"
       style={{ overflow: "visible" }}
     >
       {/* Semicircle bg */}

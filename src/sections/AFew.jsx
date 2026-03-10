@@ -224,7 +224,7 @@ const PortfolioSection = () => {
                 <div className="flex gap-1.5 sm:gap-2">
                   {project.icons.map((icon, i) => (
                     <span key={i} className="flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8">
-                      <img src={icon} alt="icon" className="w-3 h-3 sm:w-8 sm:h-8" />
+                      <img src={icon} alt="icon" className="w-6 h-6 sm:w-8 sm:h-8" />
                     </span>
                   ))}
                 </div>

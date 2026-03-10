@@ -234,7 +234,7 @@ const TrustSection = () => {
 
   return (
     <div className="relative bg-black z-20 overflow-x-hidden">
-      <div className="bg-[#FDF6E9] py-10 sm:py-14 lg:py-24 px-4 sm:px-6 lg:px-4 rounded-t-[40px] sm:rounded-t-[60px] lg:rounded-t-[100px] w-full overflow-x-hidden">
+      <div className="bg-[#FDF6E9] py-10 sm:py-14 lg:py-24  sm:px-6 lg:px-4 rounded-t-[40px] sm:rounded-t-[60px] lg:rounded-t-[100px] w-full overflow-x-hidden">
 
         {/* ── Why We Are Trusted ── */}
         <div className="container mx-auto mb-10 sm:mb-14 lg:mb-20">
@@ -388,7 +388,7 @@ const TrustSection = () => {
         </div>
 
         {/* ── Bottom Cards ── */}
-        <div className="container mx-auto">
+        <div className="container ">
           <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
             {workWithCards.map((card, index) => (
               <div

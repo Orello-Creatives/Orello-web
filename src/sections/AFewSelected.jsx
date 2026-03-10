@@ -348,7 +348,7 @@ const AFewSelected = () => {
                 <div className="flex gap-1.5 sm:gap-2">
                   {project.icons.map((icon, i) => (
                     <span key={i} className="flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8">
-                      <img src={icon} alt="icon" className="w-3 h-3 sm:w-8 sm:h-8" />
+                      <img src={icon} alt="icon" className="w-6 h-6 sm:w-8 sm:h-8" />
                     </span>
                   ))}
                 </div>
@@ -364,7 +364,7 @@ const AFewSelected = () => {
           ))}
 
           {/* CTA Card */}
-          <div className="bg-[#1a1a1a] rounded-2xl sm:rounded-3xl aspect-[4/3] flex flex-col justify-center px-5 py-6 sm:px-6 sm:py-8 md:px-8 md:py-10 lg:px-10 lg:py-12 relative overflow-hidden">
+          <div className="bg-[#1a1a1a] rounded-2xl sm:rounded-3xl aspect-[4/3] flex flex-col justify-center px-5 py-10 sm:px-6 sm:py-8 md:px-8 md:py-10 lg:px-10 lg:py-12 relative overflow-hidden">
             <h3 className="font-bold mb-3 sm:mb-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl flex items-end">
               Like what <br /> you see?
               <img src={smile} className="w-8 mr-2" alt="smile" />

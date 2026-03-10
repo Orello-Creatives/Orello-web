@@ -91,7 +91,7 @@ export default function JoinTeamSection() {
   return (
     <section
       ref={containerRef}
-      className="relative overflow-hidden bg-[#eadecf] py-20 sm:py-28 md:py-32 lg:py-40"
+      className="relative overflow-hidden bg-[#eadecf]  py-20 sm:py-28 md:py-32 lg:py-40"
     >
       {/* SEMICIRCLE BACKGROUND (HERO STYLE) */}
       <div className="fixed inset-0 flex items-end justify-center pointer-events-none overflow-hidden z-0">

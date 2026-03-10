@@ -127,7 +127,7 @@ const ServicesSection = () => {
   ];
 
   return (
-    <div className="bg-black py-16 md:py-24 px-4 sm:px-6 lg:px-8">
+    <div className="bg-black py-16 md:py-24  sm:px-6 lg:px-8">
       <div className="container">
         {/* Heading */}
         <div className="mb-12 md:mb-16">

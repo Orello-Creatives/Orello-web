@@ -232,7 +232,7 @@ export default function ServicesSection() {
         <div className="relative z-10 h-full flex flex-col items-center px-4">
           
           {/* Initial Header - Shows on mobile/tablet, hidden during animation on desktop */}
-          <div ref={headerTextRef} className="static lg:absolute inset-0 flex flex-col items-center pt-8 md:pt-12 lg:pt-[15vh] text-center mb-8 lg:mb-0">
+          <div ref={headerTextRef} className="static lg:absolute inset-0 flex flex-col items-center pt-14 md:pt-12 lg:pt-[15vh] text-center mb-8 lg:mb-0">
             <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#4B433B] mb-3 sm:mb-4 md:mb-6"
                 style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>
               Our Services
