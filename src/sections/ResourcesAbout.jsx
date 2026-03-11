@@ -45,7 +45,7 @@ export default function BlogGridSection() {
             className={`px-12 py-4 rounded-full text-lg font-semibold transition-colors duration-300 min-w-[160px] cursor-pointer ${
               activeTab === 'blogs'
                 ? 'bg-[#4B433B] text-white'
-                : 'bg-[#4B433B] text-white opacity-70 hover:opacity-100'
+                : 'bg-[#f7af19] text-[#4B433B] '
             }`}
           >
             Blogs
@@ -54,8 +54,8 @@ export default function BlogGridSection() {
             onClick={() => setActiveTab('articles')}
             className={`px-12 py-4 rounded-full text-lg font-semibold transition-colors duration-300 min-w-[160px] cursor-pointer ${
               activeTab === 'articles'
-                ? 'bg-[#f7af19] text-[#4B433B]'
-                : 'bg-[#f7af19] text-[#4B433B] opacity-70 hover:opacity-100'
+                ? 'bg-[#4B433B] text-white'
+                : 'bg-[#f7af19] text-[#4B433B]  '
             }`}
           >
             Articles
