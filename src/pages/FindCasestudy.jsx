@@ -1,6 +1,6 @@
 import React from 'react'
 import FindHero from '../sections/FindHero'
-import MoreCaseStudy from '../sections/MoreCaseStudy'
+import MoreCaseStudy2 from '../sections/MoreCaseStudy2'
 import Footer from '../components/Footer'
 import FindSecond from '../sections/FindSecond'
 import FindThird from '../sections/FindThird'
@@ -12,7 +12,7 @@ const FindCasestudyPage = () => {
       <FindHero />
       <FindSecond />
       <FindThird />
-       <MoreCaseStudy />
+       <MoreCaseStudy2 />
       <Footer />
     </div>
   )

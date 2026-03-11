@@ -1,6 +1,6 @@
 import React from 'react'
 import AarkivaHero from '../sections/AarkivaHero'
-import MoreCaseStudy from '../sections/MoreCaseStudy'
+import MoreCaseStudy1 from '../sections/MoreCaseStudy1'
 import Footer from '../components/Footer'
 import AarkivaSecond from '../sections/AarkivaSecond'
 import AarkivaThird from '../sections/AarkivaThird'
@@ -12,7 +12,7 @@ const AarkivaCasestudyPage = () => {
       <AarkivaHero />
       <AarkivaSecond />
       <AarkivaThird />
-       <MoreCaseStudy />
+       <MoreCaseStudy1 />
       <Footer />
     </div>
   )

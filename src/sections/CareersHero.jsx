@@ -10,35 +10,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function JoinTeamSection() {
   const containerRef = useRef(null);
-  const circleRefs = useRef([]);
 
   useEffect(() => {
-    gsap.config({
-      force3D: true,
-      nullTargetWarn: false,
-    });
-
-    // === SAME SEMICIRCLE GSAP AS HERO ===
-    circleRefs.current.forEach((circle) => {
-      if (!circle) return;
-
-      gsap.to(circle, {
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "40% top",
-          scrub: 2,
-          anticipatePin: 1,
-        },
-        scale: 8,
-        keyframes: [
-          { opacity: 0.6, duration: 0.3, ease: "power2.in" },
-          { opacity: 0, duration: 0.7, ease: "power2.out" },
-        ],
-        ease: "power2.inOut",
-      });
-    });
-
     // Content animation (unchanged)
     gsap.fromTo(
       ".team-content",
@@ -91,73 +64,34 @@ export default function JoinTeamSection() {
   return (
     <section
       ref={containerRef}
-      className="relative overflow-hidden bg-[#eadecf]  py-20 sm:py-28 md:py-32 lg:py-40"
+      className="relative overflow-hidden bg-[#eadecf] py-20 sm:py-28 md:py-32 lg:py-40"
     >
-      {/* SEMICIRCLE BACKGROUND (HERO STYLE) */}
-      <div className="fixed inset-0 flex items-end justify-center pointer-events-none overflow-hidden z-0">
+      {/* STATIC SEMICIRCLE BACKGROUND */}
+      <div className="absolute inset-0 flex items-end justify-center pointer-events-none z-0 overflow-hidden">
         <div
-          ref={(el) => (circleRefs.current[0] = el)}
           className="absolute w-[120vw] h-[110vw] bg-[#fdf6e9] left-1/2"
-          style={{
-            borderRadius: "50%",
-            bottom: "-60vw",
-            opacity: 0.6,
-            transform: "translateX(-50%)",
-            willChange: "transform, opacity",
-          }}
+          style={{ borderRadius: "50%", bottom: "-60vw", opacity: 0.6, transform: "translateX(-50%)" }}
         />
         <div
-          ref={(el) => (circleRefs.current[1] = el)}
           className="absolute w-[95vw] h-[85vw] bg-[#eadecf] left-1/2"
-          style={{
-            borderRadius: "50%",
-            bottom: "-50vw",
-            opacity: 0.6,
-            transform: "translateX(-50%)",
-            willChange: "transform, opacity",
-          }}
+          style={{ borderRadius: "50%", bottom: "-50vw", opacity: 0.6, transform: "translateX(-50%)" }}
         />
         <div
-          ref={(el) => (circleRefs.current[2] = el)}
           className="absolute w-[70vw] h-[65vw] bg-[#fdf6e9] left-1/2"
-          style={{
-            borderRadius: "50%",
-            bottom: "-40vw",
-            opacity: 0.6,
-            transform: "translateX(-50%)",
-            willChange: "transform, opacity",
-          }}
+          style={{ borderRadius: "50%", bottom: "-40vw", opacity: 0.6, transform: "translateX(-50%)" }}
         />
         <div
-          ref={(el) => (circleRefs.current[3] = el)}
           className="absolute w-[45vw] h-[45vw] bg-[#eadecf] left-1/2"
-          style={{
-            borderRadius: "50%",
-            bottom: "-30vw",
-            opacity: 0.6,
-            transform: "translateX(-50%)",
-            willChange: "transform, opacity",
-          }}
-        />
-        <div
-          ref={(el) => (circleRefs.current[4] = el)}
-          className="absolute w-[30vw] h-[30vw] bg-[#fdf6e9] left-1/2"
-          style={{
-            borderRadius: "50%",
-            bottom: "-20vw",
-            opacity: 0.6,
-            transform: "translateX(-50%)",
-            willChange: "transform, opacity",
-          }}
+          style={{ borderRadius: "50%", bottom: "-30vw", opacity: 0.6, transform: "translateX(-50%)" }}
         />
       </div>
 
       {/* CONTENT */}
       <div className="team-content relative z-10 container">
-        <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+        <div className="text-center mb-12 mt-16 sm:mt-0 sm:mb-16 lg:mb-20">
           <h2
-           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#4B433B] mb-3 sm:mb-4 md:mb-6"
-                style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#4B433B] mb-3 sm:mb-4 md:mb-6"
+            style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}
           >
             Join Our Team
           </h2>
@@ -172,7 +106,6 @@ export default function JoinTeamSection() {
               key={index}
               className="bg-[#F4EDE2] backdrop-blur-sm rounded-2xl p-6 sm:p-8 hover:bg-white/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
             >
-              {/* Yellow circle with SVG icon centered inside */}
               <div className="w-10 h-10 rounded-full bg-[#F7AF19] mb-4 flex items-center justify-center">
                 <img
                   src={benefit.icon}
@@ -180,11 +113,9 @@ export default function JoinTeamSection() {
                   className="w-6 h-6 object-contain"
                 />
               </div>
-
               <h4 className="font-bold text-[#0A0A0A] mb-3">
                 {benefit.title}
               </h4>
-
               <p className="text-md text-[#4b433b]">
                 {benefit.description}
               </p>

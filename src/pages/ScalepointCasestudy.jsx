@@ -1,6 +1,6 @@
 import React from 'react'
 import ScaleHero from '../sections/ScaleHero'
-import MoreCaseStudy from '../sections/MoreCaseStudy'
+import MoreCaseStudy6 from '../sections/MoreCaseStudy6'
 import Footer from '../components/Footer'
 import ScaleSecond from '../sections/ScaleSecond'
 import ScaleThird from '../sections/ScaleThird'
@@ -12,7 +12,7 @@ const ScalepointPage = () => {
       <ScaleHero />
       <ScaleSecond />
       <ScaleThird />
-       <MoreCaseStudy />
+       <MoreCaseStudy6 />
       <Footer />
     </div>
   )

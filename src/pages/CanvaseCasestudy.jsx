@@ -1,6 +1,6 @@
 import React from 'react'
 import CanvaseHero from '../sections/CanvaseHero'
-import MoreCaseStudy from '../sections/MoreCaseStudy'
+import MoreCaseStudy6 from '../sections/MoreCaseStudy6'
 import Footer from '../components/Footer'
 import CanvaseSecond from '../sections/CanvaseSecond'
 import CanvaseThird from '../sections/CanvaseThird'
@@ -14,7 +14,7 @@ const CanvasePage = () => {
       <CanvaseSecond />
       <CanvaseThird />
       <CanvaseFourth />
-       <MoreCaseStudy />
+       <MoreCaseStudy6 />
       <Footer />
     </div>
   )

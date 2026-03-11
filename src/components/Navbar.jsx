@@ -22,18 +22,18 @@ const AnimatedButton = ({ to, label, bgColor, textColor, arrowBgColor }) => {
     if (isTouchDevice) return;
 
     const handleMouseEnter = () => {
-      gsap.to(button, { backgroundColor: '#FFCE69', duration: 0.3, ease: 'power2.out' });
-      gsap.to(text, { x: 30, duration: 0.4, ease: 'power2.inOut' });
-      gsap.to(circleRight, { scale: 0, duration: 0.4, ease: 'power2.inOut' });
-      gsap.to(circleLeft, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
-    };
+  gsap.to(button, { backgroundColor: '#f7af19', duration: 0.3, ease: 'power2.out' });
+  gsap.to(text, { color: '#000000', x: 30, duration: 0.4, ease: 'power2.inOut' });
+  gsap.to(circleRight, { scale: 0, duration: 0.4, ease: 'power2.inOut' });
+  gsap.to(circleLeft, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
+};
 
-    const handleMouseLeave = () => {
-      gsap.to(button, { backgroundColor: bgColor, duration: 0.3, ease: 'power2.in' });
-      gsap.to(text, { x: 0, duration: 0.4, ease: 'power2.inOut' });
-      gsap.to(circleRight, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
-      gsap.to(circleLeft, { scale: 0, duration: 0.4, ease: 'power2.inOut' });
-    };
+const handleMouseLeave = () => {
+  gsap.to(button, { backgroundColor: bgColor, duration: 0.3, ease: 'power2.in' });
+  gsap.to(text, { color: textColor, x: 0, duration: 0.4, ease: 'power2.inOut' });
+  gsap.to(circleRight, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
+  gsap.to(circleLeft, { scale: 0, duration: 0.4, ease: 'power2.inOut' });
+};
 
     button.addEventListener('mouseenter', handleMouseEnter);
     button.addEventListener('mouseleave', handleMouseLeave);

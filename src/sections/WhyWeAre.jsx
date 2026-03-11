@@ -14,44 +14,81 @@ import oteam4 from '../assets/logos/oteam4.svg'
 
 // ─── Animated "Join Us" Button ─────────────────────────────────────────────────
 const JoinUsButton = () => {
-  const btnRef = useRef(null);
+  const buttonRef = useRef(null);
   const textRef = useRef(null);
+  const circleRightRef = useRef(null);
+  const circleLeftRef = useRef(null);
 
   useEffect(() => {
-    const btn = btnRef.current;
+    const button = buttonRef.current;
+    const text = textRef.current;
+    const circleRight = circleRightRef.current;
+    const circleLeft = circleLeftRef.current;
 
-    const handleMouseMove = (e) => {
-      const rect = btn.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      const dx = (e.clientX - cx) * 0.28;
-      const dy = (e.clientY - cy) * 0.28;
+    if (!button) return;
 
-      gsap.to(btn, { x: dx, y: dy, duration: 0.5, ease: 'power2.out' });
+    const isTouchDevice = window.matchMedia('(hover: none)').matches;
+    if (isTouchDevice) return;
+
+    const handleMouseEnter = () => {
+      gsap.to(button, { backgroundColor: '#f7af19', duration: 0.3, ease: 'power2.out' });
+      gsap.to(text, { color: '#000000', x: 30, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleRight, { scale: 0, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleLeft, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
     };
 
     const handleMouseLeave = () => {
-      gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1.1, 0.4)' });
+      gsap.to(button, { backgroundColor: '#000000', duration: 0.3, ease: 'power2.in' });
+      gsap.to(text, { color: '#ffffff', x: 0, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleRight, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleLeft, { scale: 0, duration: 0.4, ease: 'power2.inOut' });
     };
 
-    btn.addEventListener('mousemove', handleMouseMove);
-    btn.addEventListener('mouseleave', handleMouseLeave);
+    button.addEventListener('mouseenter', handleMouseEnter);
+    button.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
-      btn.removeEventListener('mousemove', handleMouseMove);
-      btn.removeEventListener('mouseleave', handleMouseLeave);
+      button.removeEventListener('mouseenter', handleMouseEnter);
+      button.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
 
   return (
     <Link to="/careers">
       <button
-        ref={btnRef}
-        className="relative overflow-hidden cursor-pointer bg-black text-white px-5 py-2 rounded-full font-medium text-sm sm:text-base"
-        style={{ display: 'inline-flex', alignItems: 'center', willChange: 'transform' }}
+        ref={buttonRef}
+        className="relative overflow-hidden cursor-pointer rounded-full flex items-center pl-4 pr-2 py-1.5"
+        style={{ backgroundColor: '#000000', color: '#ffffff', willChange: 'transform' }}
       >
-        <span ref={textRef} style={{ position: 'relative', zIndex: 1 }}>
+        {/* Circle left (hover state) - hidden by default */}
+        <span
+          ref={circleLeftRef}
+          className="absolute left-1.5 w-7 h-7 rounded-full flex items-center justify-center text-white"
+          style={{ backgroundColor: '#ffffff30', transform: 'scale(0)' }}
+        >
+          <svg width="11" height="11" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
+
+        {/* Text */}
+        <span
+          ref={textRef}
+          className="text-sm font-medium whitespace-nowrap mr-3"
+          style={{ color: '#ffffff' }}
+        >
           Join Us
+        </span>
+
+        {/* Circle right (initial state) */}
+        <span
+          ref={circleRightRef}
+          className="w-7 h-7 flex-shrink-0 rounded-full flex items-center justify-center text-white"
+          style={{ backgroundColor: '#ffffff30' }}
+        >
+          <svg width="11" height="11" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
         </span>
       </button>
     </Link>

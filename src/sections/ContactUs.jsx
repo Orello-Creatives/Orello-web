@@ -12,16 +12,86 @@ export default function ContactSection() {
     message: ''
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+    } else if (formData.name.trim().length < 2) {
+      newErrors.name = "Name must be at least 2 characters";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email";
+    }
+
+    if (!formData.purpose) {
+      newErrors.purpose = "Please select a purpose";
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
+    } else if (formData.message.trim().length < 5) {
+      newErrors.message = "Message must be at least 5 characters";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async () => {
+    setSubmitStatus(null);
+
+    if (!validateForm()) return;
+
+    setIsSubmitting(true);
+
+    try {
+    const response = await fetch('http://localhost:5000/api/contact/orello/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({
+          type: 'success',
+          message: 'Thank you! Your message has been sent successfully.',
+        });
+        setFormData({ name: '', email: '', purpose: '', message: '' });
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: data.message || 'Something went wrong. Please try again.',
+        });
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitStatus({
+        type: 'error',
+        message: 'Network error. Please check your connection and try again.',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: null }));
+    }
   };
 
   return (
@@ -31,39 +101,19 @@ export default function ContactSection() {
       <div className="absolute inset-0 flex items-end justify-center pointer-events-none overflow-hidden ">
         <div
           className="absolute w-[120vw] h-[110vw] bg-[#F4EDE2] left-1/2"
-          style={{ 
-            borderRadius: "50%", 
-            bottom: "-60vw", 
-           
-            transform: "translateX(-50%)" 
-          }}
+          style={{ borderRadius: "50%", bottom: "-60vw", transform: "translateX(-50%)" }}
         />
         <div
           className="absolute w-[95vw] h-[85vw] bg-[#FCF4E9] left-1/2"
-          style={{ 
-            borderRadius: "50%", 
-            bottom: "-50vw", 
-          
-            transform: "translateX(-50%)" 
-          }}
+          style={{ borderRadius: "50%", bottom: "-50vw", transform: "translateX(-50%)" }}
         />
         <div
           className="absolute w-[70vw] h-[65vw] bg-[#F4EDE2] left-1/2"
-          style={{ 
-            borderRadius: "50%", 
-            bottom: "-40vw", 
-       
-            transform: "translateX(-50%)" 
-          }}
+          style={{ borderRadius: "50%", bottom: "-40vw", transform: "translateX(-50%)" }}
         />
         <div
           className="absolute w-[45vw] h-[45vw] bg-[#FCF4E9] left-1/2"
-          style={{ 
-            borderRadius: "50%", 
-            bottom: "-30vw", 
-           
-            transform: "translateX(-50%)" 
-          }}
+          style={{ borderRadius: "50%", bottom: "-30vw", transform: "translateX(-50%)" }}
         />
       </div>
 
@@ -85,17 +135,14 @@ export default function ContactSection() {
 
             <div className="space-y-6">
               {/* Email Card */}
-              <div className="bg-[#FFFBF3]  cursor-pointer rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="bg-[#FFFBF3] cursor-pointer rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                   <img src={msg}></img>
+                    <img src={msg} />
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-gray-700 mb-1">You can email us at</p>
-                    <a 
-                      href="mailto:hello@orello.io" 
-                      className="text-lg font-semibold text-gray-900 hover:text-purple-600 transition-colors"
-                    >
+                    <a href="mailto:hello@orello.io" className="text-lg font-semibold text-gray-900 hover:text-purple-600 transition-colors">
                       hello@orello.io
                     </a>
                   </div>
@@ -106,67 +153,58 @@ export default function ContactSection() {
               <div className="bg-[#FFFBF3] cursor-pointer rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-                   <img src={loc}></img>
+                    <img src={loc} />
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-gray-700 mb-1">Location</p>
-                   <button
-  onClick={() =>
-    window.open(
-      'https://www.google.com/search?q=Orello+Creatives+Pvt+Ltd+Bengaluru',
-      '_blank'
-    )
-  }
-  className="text-lg font-semibold text-gray-900 hover:text-orange-600 transition-colors"
->
-  Get direction
-</button>
-
+                    <button
+                      onClick={() => window.open('https://www.google.com/search?q=Orello+Creatives+Pvt+Ltd+Bengaluru', '_blank')}
+                      className="text-lg cursor-pointer font-semibold text-gray-900 hover:text-orange-600 transition-colors"
+                    >
+                      Get direction
+                    </button>
                   </div>
                 </div>
               </div>
 
               {/* Phone Card */}
-             <div className="bg-[#FFFBF3]  cursor-pointer rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
-  <div className="flex items-start gap-4">
-    
-    {/* Icon */}
-    <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0">
-     <img src={call}></img>
-    </div>
-
-    {/* Content */}
-    <div>
-      <p className="text-sm font-semibold text-gray-700 mb-1">Give us a call</p>
-
-      <div className="flex flex-wrap items-center gap-3">
-        <a
-          href="tel:+919538601012"
-          className="text-lg font-semibold text-gray-900 hover:text-teal-600 transition-colors"
-        >
-          +91 9538601012
-        </a>
-
-        <span className="text-gray-400">|</span>
-
-        <a
-          href="tel:+918848385154"
-          className="text-lg font-semibold text-gray-900 hover:text-teal-600 transition-colors"
-        >
-          +91 8848385154
-        </a>
-      </div>
-    </div>
-
-  </div>
-</div>
-
+              <div className="bg-[#FFFBF3] cursor-pointer rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <img src={call} />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-700 mb-1">Give us a call</p>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <a href="tel:+919538601012" className="text-lg font-semibold text-gray-900 hover:text-teal-600 transition-colors">
+                        +91 9538601012
+                      </a>
+                      <span className="text-gray-400">|</span>
+                      <a href="tel:+918848385154" className="text-lg font-semibold text-gray-900 hover:text-teal-600 transition-colors">
+                        +91 8848385154
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Right Side - Contact Form */}
-          <div className="bg-[#FFFBF3] rounded-3xl p-6 sm:p-8 lg:p-10 ">
+          <div className="bg-[#FFFBF3] rounded-3xl p-6 sm:p-8 lg:p-10">
             <div className="space-y-6">
+
+              {/* Success/Error Message */}
+              {submitStatus && (
+                <div className={`p-3 rounded-lg border ${
+                  submitStatus.type === 'success'
+                    ? 'bg-green-50 border-green-500 text-green-800'
+                    : 'bg-red-50 border-red-500 text-red-800'
+                }`}>
+                  <p className="text-sm">{submitStatus.message}</p>
+                </div>
+              )}
+
               {/* Name Field */}
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
@@ -179,8 +217,9 @@ export default function ContactSection() {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Type your name"
-                  className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent transition-all"
+                  className={`w-full px-4 py-3 bg-white border ${errors.name ? 'border-red-500' : 'border-gray-200'} rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent transition-all`}
                 />
+                {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
               </div>
 
               {/* Email Field */}
@@ -195,8 +234,9 @@ export default function ContactSection() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="example@email.com"
-                  className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent transition-all"
+                  className={`w-full px-4 py-3 bg-white border ${errors.email ? 'border-red-500' : 'border-gray-200'} rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent transition-all`}
                 />
+                {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
               </div>
 
               {/* Purpose Field */}
@@ -209,7 +249,7 @@ export default function ContactSection() {
                   name="purpose"
                   value={formData.purpose}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent transition-all appearance-none cursor-pointer"
+                  className={`w-full px-4 py-3 bg-white border ${errors.purpose ? 'border-red-500' : 'border-gray-200'} rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent transition-all appearance-none cursor-pointer`}
                   style={{
                     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E")`,
                     backgroundPosition: 'right 0.5rem center',
@@ -224,6 +264,7 @@ export default function ContactSection() {
                   <option value="partnership">Partnership</option>
                   <option value="other">Other</option>
                 </select>
+                {errors.purpose && <p className="text-red-500 text-xs mt-1">{errors.purpose}</p>}
               </div>
 
               {/* Message Field */}
@@ -238,16 +279,18 @@ export default function ContactSection() {
                   onChange={handleChange}
                   placeholder="Type your message here..."
                   rows={5}
-                  className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent transition-all resize-none"
+                  className={`w-full px-4 py-3 bg-white border ${errors.message ? 'border-red-500' : 'border-gray-200'} rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent transition-all resize-none`}
                 />
+                {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
               </div>
 
               {/* Submit Button */}
               <button
                 onClick={handleSubmit}
-                className="w-full bg-black text-white font-semibold cursor-pointer py-3.5 px-6 rounded-full  transition-colors duration-300 "
+                disabled={isSubmitting}
+                className={`w-full bg-black text-white font-semibold cursor-pointer py-3.5 px-6 rounded-full transition-colors duration-300 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
-                Submit
+                {isSubmitting ? 'Submitting...' : 'Submit'}
               </button>
             </div>
           </div>

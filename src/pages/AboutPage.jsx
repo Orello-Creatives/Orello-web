@@ -10,7 +10,7 @@ import Navbar from '../components/Navbar'
 
 const AboutPage = () => {
   return (
-    <div className="w-full">
+    <div>
     <Navbar />
       <AboutHero />
       <OrelloIsa />

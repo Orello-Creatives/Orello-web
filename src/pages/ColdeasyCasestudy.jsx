@@ -3,7 +3,7 @@ import ColdeasyHero from '../sections/ColdeasyHero'
 import WhatWeDeliveredColdeasy from '../sections/WhatWeDeliveredColdeasy'
 import ColdeasyGallery from '../sections/ColdeasyGallery'
 import ColdeasyReview from '../sections/ColdeasyReview'
-import MoreCaseStudy from '../sections/MoreCaseStudy'
+import MoreCaseStudy3 from '../sections/MoreCaseStudy3'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 
@@ -15,7 +15,7 @@ const ColdeasyCasestudy = () => {
       <WhatWeDeliveredColdeasy />
       <ColdeasyGallery />
       <ColdeasyReview />
-      <MoreCaseStudy />
+      <MoreCaseStudy3 />
       <Footer />
      
     </div>

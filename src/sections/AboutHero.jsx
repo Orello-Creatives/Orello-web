@@ -14,104 +14,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function AboutOrello() {
   const containerRef = useRef(null);
-  const circleRefs = useRef([]);
-  const transitionArcRefs = useRef([]);
   const contentRef = useRef(null);
   const logoScrollRef = useRef(null);
-  const bgRef = useRef(null);
 
   useEffect(() => {
     gsap.config({
       force3D: true,
       nullTargetWarn: false,
-    });
-
-    const mm = gsap.matchMedia();
-
-    mm.add("(min-width: 768px)", () => {
-      const ctx = gsap.context(() => {
-
-        // Make background fixed only on desktop
-        if (bgRef.current) {
-          gsap.set(bgRef.current, { position: 'fixed' });
-        }
-
-        // === HERO STYLE CIRCLE ANIMATION ===
-        circleRefs.current.forEach((circle) => {
-          if (!circle) return;
-
-          gsap.to(circle, {
-            scrollTrigger: {
-              trigger: containerRef.current,
-              start: "top top",
-              end: "40% top",
-              scrub: 2,
-              anticipatePin: 1,
-              invalidateOnRefresh: true,
-            },
-            scale: 8,
-            keyframes: [
-              { opacity: 0.6, duration: 0.3, ease: "power2.in" },
-              { opacity: 0, duration: 0.7, ease: "power2.out" },
-            ],
-            ease: "power2.inOut",
-            force3D: true,
-          });
-        });
-
-        // === HERO STYLE TRANSITION ARCS ===
-        transitionArcRefs.current.forEach((arc) => {
-          if (!arc) return;
-
-          gsap.fromTo(
-            arc,
-            {
-              scale: 1,
-              opacity: 0,
-              force3D: true,
-            },
-            {
-              scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top top",
-                end: "40% top",
-                scrub: 2,
-                anticipatePin: 1,
-                invalidateOnRefresh: true,
-              },
-              scale: 8,
-              opacity: 0.7,
-              ease: "power2.inOut",
-              force3D: true,
-            }
-          );
-        });
-
-        if (contentRef.current) {
-          gsap.to(contentRef.current, {
-            scrollTrigger: {
-              trigger: containerRef.current,
-              start: "top top",
-              end: "40% top",
-              scrub: 1,
-              anticipatePin: 1,
-              invalidateOnRefresh: true,
-            },
-            y: "-10vh",
-            ease: "none",
-            force3D: true,
-          });
-        }
-
-      }, containerRef);
-
-      return () => {
-        // Reset bg position back to absolute when leaving desktop breakpoint
-        if (bgRef.current) {
-          gsap.set(bgRef.current, { position: 'absolute' });
-        }
-        ctx.revert();
-      };
     });
 
     // === INFINITE LOGO SCROLL ANIMATION ===
@@ -130,10 +39,12 @@ export default function AboutOrello() {
       });
     }
 
-    setTimeout(() => ScrollTrigger.refresh(), 100);
+    const rafId = requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
 
     return () => {
-      mm.revert();
+      cancelAnimationFrame(rafId);
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
@@ -151,80 +62,46 @@ export default function AboutOrello() {
 
   return (
     <div className="bg-[#eadecf]">
-      <div ref={containerRef} className="relative overflow-hidden isolate">
+      <div ref={containerRef} className="relative isolate">
 
-        {/* Background Circles — absolute by default (mobile), GSAP switches to fixed on desktop */}
+        {/* Static Background Circles */}
         <div
-          ref={bgRef}
           className="absolute inset-0 flex items-end justify-center pointer-events-none z-0 overflow-hidden"
-          style={{ willChange: 'transform' }}
         >
           <div
-            ref={(el) => (circleRefs.current[0] = el)}
             className="absolute w-[120vw] h-[110vw] bg-[#fdf6e9] left-1/2"
             style={{
               borderRadius: "50%",
               bottom: "-60vw",
               opacity: 0.6,
-              transform: "translateX(-50%) translateZ(0)",
-              willChange: "transform, opacity"
+              transform: "translateX(-50%)",
             }}
           />
           <div
-            ref={(el) => (circleRefs.current[1] = el)}
             className="absolute w-[95vw] h-[85vw] bg-[#eadecf] left-1/2"
             style={{
               borderRadius: "50%",
               bottom: "-50vw",
               opacity: 0.6,
-              transform: "translateX(-50%) translateZ(0)",
-              willChange: "transform, opacity"
+              transform: "translateX(-50%)",
             }}
           />
           <div
-            ref={(el) => (circleRefs.current[2] = el)}
             className="absolute w-[70vw] h-[65vw] bg-[#fdf6e9] left-1/2"
             style={{
               borderRadius: "50%",
               bottom: "-40vw",
               opacity: 0.6,
-              transform: "translateX(-50%) translateZ(0)",
-              willChange: "transform, opacity"
+              transform: "translateX(-50%)",
             }}
           />
           <div
-            ref={(el) => (circleRefs.current[3] = el)}
             className="absolute w-[45vw] h-[45vw] bg-[#eadecf] left-1/2"
             style={{
               borderRadius: "50%",
               bottom: "-30vw",
               opacity: 0.6,
-              transform: "translateX(-50%) translateZ(0)",
-              willChange: "transform, opacity"
-            }}
-          />
-
-          {/* Transition Arcs */}
-          <div
-            ref={(el) => (transitionArcRefs.current[0] = el)}
-            className="absolute w-[40vw] h-[40vw] bg-[#F4EDE2] left-1/2"
-            style={{
-              borderRadius: "50%",
-              bottom: "-40vw",
-              opacity: 0,
-              transform: "translateX(-50%) translateZ(0)",
-              willChange: "transform, opacity"
-            }}
-          />
-          <div
-            ref={(el) => (transitionArcRefs.current[1] = el)}
-            className="absolute w-[15vw] h-[60vw] bg-[#f4ede2] left-1/2"
-            style={{
-              borderRadius: "50%",
-              bottom: "-40vw",
-              opacity: 0,
-              transform: "translateX(-50%) translateZ(0)",
-              willChange: "transform, opacity"
+              transform: "translateX(-50%)",
             }}
           />
         </div>
@@ -236,9 +113,9 @@ export default function AboutOrello() {
         >
           <div className="container px-4 sm:px-6 lg:px-8">
             {/* Header */}
-            <div className="text-center mb-6 sm:mb-8 md:mb-12">
+            <div className="text-center mb-6 sm:mb-8 md:mb-12 ">
               <h2
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#4B433B] mb-3 sm:mb-4 md:mb-6"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl pt-6 font-black text-[#4B433B] mb-3 sm:mb-4 md:mb-6"
                 style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}
               >
                 About Orello

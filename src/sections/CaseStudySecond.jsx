@@ -209,8 +209,8 @@ export default function PortfolioGrid({ selIndustries, selServices, gridRef }) {
       {/* Custom cursor */}
       <div ref={customCursorRef} className="fixed pointer-events-none z-50"
         style={{ left: 0, top: 0, transform: "translate(-50%,-50%)", opacity: 0, display: showCursor ? "block" : "none" }}>
-        <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-gray-200">
-          <span className="text-xs font-semibold text-gray-800 uppercase">our work</span>
+        <div className="w-20 h-20 bg-[#FF7B62] rounded-full flex items-center justify-center shadow-lg ">
+          <span className="text-xs font-semibold text-white uppercase">our work</span>
         </div>
       </div>
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import GangpurHero from '../sections/GangpurHero'
-import MoreCaseStudy from '../sections/MoreCaseStudy'
+import MoreCaseStudy2 from '../sections/MoreCaseStudy2'
 import Footer from '../components/Footer'
 import GangpurSecond from '../sections/GangpurSecond'
 import GangpurThird from '../sections/GangpurThird'
@@ -14,7 +14,7 @@ const CanvasePage = () => {
       <GangpurSecond />
       <GangpurThird />
       <GangpurFourth />
-       <MoreCaseStudy />
+       <MoreCaseStudy2 />
       <Footer />
     </div>
   )

@@ -1,6 +1,6 @@
 import React from 'react'
 import TmtHero from '../sections/TmtHero'
-import MoreCaseStudy from '../sections/MoreCaseStudy'
+import MoreCaseStudy2 from '../sections/MoreCaseStudy2'
 import Footer from '../components/Footer'
 import TmtSecond from '../sections/TmtSecond'
 import TmtThird from '../sections/TmtThird'
@@ -12,7 +12,7 @@ const TmtCasestudyPage = () => {
       <TmtHero />
       <TmtSecond />
       <TmtThird />
-       <MoreCaseStudy />
+       <MoreCaseStudy2 />
       <Footer />
     </div>
   )

@@ -1,6 +1,6 @@
 import React from 'react'
 import OceanHero from '../sections/OceanHero'
-import MoreCaseStudy from '../sections/MoreCaseStudy'
+import MoreCaseStudy5 from '../sections/MoreCaseStudy5'
 import Footer from '../components/Footer'
 import OceanSecond from '../sections/OceanSecond'
 import OceanThird from '../sections/OceanThird'
@@ -14,7 +14,7 @@ const OceanPage = () => {
       <OceanSecond />
       <OceanThird />
       <OceanFourth />
-       <MoreCaseStudy />
+       <MoreCaseStudy5 />
       <Footer />
     </div>
   )

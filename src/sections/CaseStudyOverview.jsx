@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -63,7 +63,6 @@ function DropdownPortal({ anchorRef, portalRef, children, align = "left", onMous
       const viewportWidth = window.innerWidth;
 
       if (viewportWidth < 480) {
-        // Center dropdown within viewport on mobile, leave 16px gutters
         base.left = 16;
         base.right = 16;
       } else if (align === "right") {
@@ -115,7 +114,6 @@ function RemoveButton({ onClick }) {
 function useDropdown(key, openDropdown, setOpenDropdown) {
   const closeTimer = useRef(null);
 
-  // Desktop hover handlers — skipped on touch devices
   function handleMouseEnter() {
     if (isTouchDevice()) return;
     clearTimeout(closeTimer.current);
@@ -132,9 +130,8 @@ function useDropdown(key, openDropdown, setOpenDropdown) {
     clearTimeout(closeTimer.current);
   }
 
-  // Touch / click toggle for the trigger button
   function handleTouchToggle(e) {
-    e.stopPropagation(); // prevent document listener from closing immediately
+    e.stopPropagation();
     setOpenDropdown(openDropdown === key ? null : key);
   }
 
@@ -150,7 +147,6 @@ export default function ExploreWorkSection({
   portfolioRef,
 }) {
   const containerRef      = useRef(null);
-  const circleRefs        = useRef([]);
   const industryBtnRef    = useRef(null);
   const servicesBtnRef    = useRef(null);
   const industryPortalRef = useRef(null);
@@ -165,7 +161,7 @@ export default function ExploreWorkSection({
   const indHover = useDropdown("industry", openDropdown, setOpenDropdown);
   const svcHover = useDropdown("services", openDropdown, setOpenDropdown);
 
-  // ── Close dropdowns when tapping outside (touch devices) ──────────────────
+  // ── Close dropdowns when tapping outside ──────────────────────────────────
   useEffect(() => {
     function handleOutsideClick(e) {
       if (!openDropdown) return;
@@ -192,24 +188,9 @@ export default function ExploreWorkSection({
     };
   }, [openDropdown]);
 
-  // GSAP
+  // GSAP — content fade-in only
   useEffect(() => {
     gsap.config({ force3D: true, nullTargetWarn: false });
-    circleRefs.current.forEach((el) => {
-      if (!el) return;
-      gsap.to(el, {
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top", end: "40% top", scrub: 2, anticipatePin: 1,
-        },
-        scale: 8,
-        keyframes: [
-          { opacity: 0.6, duration: 0.3, ease: "power2.in" },
-          { opacity: 0,   duration: 0.7, ease: "power2.out" },
-        ],
-        ease: "power2.inOut",
-      });
-    });
     gsap.fromTo(".work-content",
       { y: 60, opacity: 0 },
       { scrollTrigger: { trigger: containerRef.current, start: "top 70%", end: "top 40%", scrub: 1 },
@@ -244,10 +225,10 @@ export default function ExploreWorkSection({
     <section
       ref={containerRef}
       className="relative bg-[#eadecf] pt-30 sm:pt-0 py-20 sm:py-28 md:py-32 lg:py-40"
-      style={{ overflow: "visible" }}
+      style={{ overflow: "hidden" }}
     >
-      {/* Semicircle bg */}
-      <div className="fixed inset-0 flex items-end justify-center pointer-events-none overflow-hidden z-0">
+      {/* Semicircle bg — absolute, clipped within section */}
+      <div className="absolute inset-0 flex items-end justify-center pointer-events-none z-0">
         {[
           { w: "120vw", h: "110vw", bg: "#fdf6e9", bottom: "-60vw" },
           { w: "95vw",  h: "85vw",  bg: "#eadecf", bottom: "-50vw" },
@@ -255,9 +236,9 @@ export default function ExploreWorkSection({
           { w: "45vw",  h: "45vw",  bg: "#eadecf", bottom: "-30vw" },
           { w: "30vw",  h: "25vw",  bg: "#fdf6e9", bottom: "-20vw" },
         ].map((c, i) => (
-          <div key={i} ref={(el) => (circleRefs.current[i] = el)} className="absolute left-1/2"
+          <div key={i} className="absolute left-1/2"
             style={{ width: c.w, height: c.h, background: c.bg, borderRadius: "50%",
-              bottom: c.bottom, opacity: 0.6, transform: "translateX(-50%)", willChange: "transform,opacity" }}
+              bottom: c.bottom, opacity: 0.6, transform: "translateX(-50%)" }}
           />
         ))}
       </div>

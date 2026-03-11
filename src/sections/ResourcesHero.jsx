@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function ResourcesSection() {
   return (
-    <div className="relative bg-[#eadecf] py-42 overflow-hidden">
+    <div className="relative bg-[#eadecf] pb-24 pt-36 overflow-hidden">
       {/* Semicircle Arc Backgrounds */}
       <div className="absolute inset-0 flex items-end justify-center pointer-events-none overflow-hidden">
         {[

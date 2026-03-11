@@ -5,48 +5,83 @@ import read3 from '../assets/images/read3.png'
 import { Link } from 'react-router'
 import gsap from 'gsap'
 
-const AnimatedButton = ({ to, label, className }) => {
-  const wrapperRef = useRef(null);
-  const btnRef = useRef(null);
+const AnimatedButton = ({ to, label }) => {
+  const buttonRef = useRef(null);
+  const textRef = useRef(null);
+  const circleRightRef = useRef(null);
+  const circleLeftRef = useRef(null);
 
   useEffect(() => {
-    const wrapper = wrapperRef.current;
-    const btn = btnRef.current;
+    const button = buttonRef.current;
+    const text = textRef.current;
+    const circleRight = circleRightRef.current;
+    const circleLeft = circleLeftRef.current;
 
-    const handleMouseMove = (e) => {
-      const rect = wrapper.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      const dx = (e.clientX - cx) * 0.5;
-      const dy = (e.clientY - cy) * 0.5;
-      gsap.to(btn, { x: dx, y: dy, duration: 0.4, ease: 'power2.out' });
+    if (!button) return;
+
+    const isTouchDevice = window.matchMedia('(hover: none)').matches;
+    if (isTouchDevice) return;
+
+    const handleMouseEnter = () => {
+      gsap.to(text, { x: 30, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleRight, { scale: 0, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleLeft, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
     };
 
     const handleMouseLeave = () => {
-      gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1.1, 0.4)' });
+      gsap.to(text, { x: 0, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleRight, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleLeft, { scale: 0, duration: 0.4, ease: 'power2.inOut' });
     };
 
-    wrapper.addEventListener('mousemove', handleMouseMove);
-    wrapper.addEventListener('mouseleave', handleMouseLeave);
+    button.addEventListener('mouseenter', handleMouseEnter);
+    button.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
-      wrapper.removeEventListener('mousemove', handleMouseMove);
-      wrapper.removeEventListener('mouseleave', handleMouseLeave);
+      button.removeEventListener('mouseenter', handleMouseEnter);
+      button.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
 
   return (
-    <div ref={wrapperRef} style={{ display: 'inline-block', padding: '16px', margin: '-16px' }}>
-      <Link to={to}>
-        <button
-          ref={btnRef}
-          className={className}
-          style={{ willChange: 'transform', display: 'block' }}
+    <Link to={to}>
+      <button
+        ref={buttonRef}
+        className="relative overflow-hidden cursor-pointer rounded-full flex items-center pl-4 pr-2 py-1.5"
+        style={{ backgroundColor: '#f7af19', color: '#000000', willChange: 'transform' }}
+      >
+        {/* Circle left (hover state) - hidden by default */}
+        <span
+          ref={circleLeftRef}
+          className="absolute left-1.5 w-7 h-7 rounded-full flex items-center justify-center text-black"
+          style={{ backgroundColor: '#ffffff', transform: 'scale(0)' }}
+        >
+          <svg width="11" height="11" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
+
+        {/* Text */}
+        <span
+          ref={textRef}
+          className="text-sm font-medium whitespace-nowrap mr-3"
+          style={{ color: '#000000' }}
         >
           {label}
-        </button>
-      </Link>
-    </div>
+        </span>
+
+        {/* Circle right (initial state) */}
+        <span
+          ref={circleRightRef}
+          className="w-7 h-7 flex-shrink-0 rounded-full flex items-center justify-center text-black"
+          style={{ backgroundColor: '#ffffff' }}
+        >
+          <svg width="11" height="11" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
+      </button>
+    </Link>
   );
 };
 
@@ -55,23 +90,26 @@ export default function LatestReads() {
     {
       id: 1,
       image: read1,
-      title: "Why Logos are for Screenshots, not Billboard",
+      title: "Why Motion Graphics Will Lead Marketing in 2025",
       tag: "BLOGS",
-      tagColor: "bg-orange-500"
+      tagColor: "bg-orange-500",
+      link: "/blogs"
     },
     {
       id: 2,
       image: read2,
-      title: "Why Logos are for Screenshots, not Billboard",
+      title: "Mastering the Art of Attention",
       tag: "BLOGS",
-      tagColor: "bg-orange-500"
+      tagColor: "bg-orange-500",
+      link: "/blog3"
     },
     {
       id: 3,
       image: read3,
       title: "Why Logos are for Screenshots, not Billboard",
-      tag: "ARTICLE",
-      tagColor: "bg-purple-400"
+      tag: "BLOGS",
+      tagColor: "bg-purple-400",
+      link: "/blog2"
     }
   ]
 
@@ -84,9 +122,8 @@ export default function LatestReads() {
             Latest<span className="font-semibold"> Reads</span>
           </h2>
           <AnimatedButton
-            to="/blogs"
+            to="/resources"
             label="Explore all resources"
-            className="bg-[#F7AF19] cursor-pointer text-black px-4 py-2 rounded-full font-medium hover:bg-yellow-400 transition-colors w-fit"
           />
         </div>
 
@@ -95,7 +132,7 @@ export default function LatestReads() {
           {articles.map((article) => (
             <div key={article.id} className="group cursor-pointer">
               {/* Image */}
-              <Link to="/blogs">
+              <Link to={article.link}>
                 <div className="relative overflow-hidden rounded-2xl mb-4 aspect-video">
                   <img
                     src={article.image}

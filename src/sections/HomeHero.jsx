@@ -14,23 +14,33 @@ export default function CreativePartnerHero() {
   const cursorRef = useRef(null);
 
   useEffect(() => {
+    // Kill all existing ScrollTriggers and clear GSAP state on mount.
+    // This prevents stale rotation/transform state when navigating back to this page.
+    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    gsap.killTweensOf(videoBoxRef.current);
+    gsap.set(videoBoxRef.current, { clearProps: "all" });
+
     gsap.config({ 
       force3D: true,
       nullTargetWarn: false
     });
 
+    const isMobile = window.innerWidth < 768;
+    const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+    const targetRotation = isMobile ? 4 : 10;
+
     const mm = gsap.matchMedia();
 
     mm.add("(max-width: 767px)", () => {
       gsap.set(videoBoxRef.current, {
-        top: "45%",       // was 45%
-        right: "15%",
-        left: "auto",
-        xPercent: 0,
+        top: "42%",
+        left: "50%",
+        right: "auto",
+        xPercent: -50,
         yPercent: 0,
         rotation: 4,
-        width: "260px",
-        height: "150px",
+        width: "88vw",
+        height: "50vw",
         borderRadius: "0.5rem",
         scale: 1,
       });
@@ -93,18 +103,19 @@ export default function CreativePartnerHero() {
       }
     );
 
-    gsap.fromTo(
-      videoBoxRef.current,
-      { scale: 0, rotation: 0, opacity: 0 },
-      {
-        scale: 1,
-        rotation: window.innerWidth < 768 ? 4 : 10,
-        opacity: 1,
-        duration: 1.4,
-        delay: 0.8,
-        ease: "elastic.out(1, 0.6)",
-      }
-    );
+    // FIX: Use gsap.set to establish starting state first, then gsap.to animate to final state.
+    // The original gsap.fromTo started rotation at 0 every time the component mounted,
+    // which caused a visible rotation snap when navigating back to this page because
+    // the matchMedia had already set the correct rotation (4 or 10) but fromTo overrode it.
+    gsap.set(videoBoxRef.current, { scale: 0, opacity: 0 });
+    gsap.to(videoBoxRef.current, {
+      scale: 1,
+      rotation: targetRotation,
+      opacity: 1,
+      duration: 1.4,
+      delay: 0.8,
+      ease: "elastic.out(1, 0.6)",
+    });
 
     circleRefs.current.forEach((circle) => {
       if (circle) {
@@ -150,9 +161,6 @@ export default function CreativePartnerHero() {
       }
     });
 
-    const isMobile = window.innerWidth < 768;
-    const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
-
     gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
@@ -173,13 +181,13 @@ export default function CreativePartnerHero() {
       ease: "power2.inOut",
       duration: 0.4,
     })
-    .to(videoBoxRef.current, {
-      width: isMobile ? "92vw" : isTablet ? "80vw" : "70vw",
-      height: isMobile ? "55vh" : isTablet ? "75vh" : "80vh",
-      borderRadius: "1rem",
-      ease: "power2.inOut",
-      duration: 0.6,
-    }, "-=0.1");
+   .to(videoBoxRef.current, {
+  width: isMobile ? "92vw" : isTablet ? "80vw" : "70vw",
+  height: isMobile ? "55vh" : isTablet ? "75vh" : "80vh",
+  borderRadius: "1rem",
+  ease: "power2.inOut",
+  duration: 0.6,
+}, "-=0.1");
      
     gsap.fromTo(
       ".arrow-down",
@@ -308,7 +316,8 @@ export default function CreativePartnerHero() {
         {/* Hero text — shifted down a bit more across all breakpoints */}
         <div className="fixed inset-0 flex items-start sm:items-start lg:items-center justify-center z-10 px-4 sm:px-6 md:px-8 pointer-events-none pt-36 xs:pt-40 sm:pt-52 md:pt-64 lg:pt-2 pb-5">
           <div className="hero-container" style={{ willChange: "transform" }}>
-            <h1 className="leading-[0.9] tracking-tight text-[2.6rem] xs:text-[3rem] sm:text-[4.5rem] md:text-[6.5rem] lg:text-[10rem]">
+            {/* ↓ MOBILE CHANGE: tighter line-height on xs, bump base size from 2.6rem→3rem, add tracking-[-0.02em] on small for density */}
+            <h1 className="leading-[0.9] tracking-tight text-[3.8rem] xs:text-[4.4rem] sm:text-[4.5rem] md:text-[6.5rem] lg:text-[10rem]">
               <div className="font-black text-[#4B433B] ml-2 sm:ml-3 md:ml-4" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>YOUR</div>
 
               <div className="relative inline-block my-1 sm:my-1.5 md:my-2" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>
@@ -351,7 +360,7 @@ export default function CreativePartnerHero() {
         {/* Video box — initial inline style is overridden by gsap matchMedia */}
         <div
           ref={videoBoxRef}
-          className="fixed bg-gray-400 rounded-lg overflow-hidden shadow-2xl z-5"
+          className="fixed  rounded-lg overflow-hidden shadow-2xl z-5"
           style={{ top: "20%", right: "24%", width: "300px", height: "184px", willChange: "transform, width, height" }}
         >
           <video
