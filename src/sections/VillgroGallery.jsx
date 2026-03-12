@@ -22,54 +22,55 @@ export default function PhotoGridSection() {
   return (
     <section
       style={{ fontFamily: "sans-serif" }}
-      className="bg-[#F4EDE2] flex items-center justify-center py-16 sm:py-24 px-4"
+      className="bg-[#F4EDE2] flex items-center justify-center py-10 sm:py-16 lg:py-24 "
     >
-      <div className="container flex flex-col gap-3">
+      <div className="container flex flex-col gap-2 sm:gap-3">
 
         {/* Row 1–2 Combined: Two stacked squares on left, one tall image on right */}
-        <div className="grid grid-cols-2 gap-3">
-          {/* Left column: two stacked square images */}
-          <div className="flex flex-col gap-3">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3">
+
+          {/* Left column: two stacked images */}
+          <div className="flex flex-col gap-2 sm:gap-3">
             {/* Top Left */}
             <div
-              className="relative overflow-hidden rounded-2xl aspect-square"
+              className="relative overflow-hidden rounded-xl sm:rounded-2xl h-[140px] sm:h-[180px] md:h-[220px] lg:h-[360px]"
               onMouseEnter={() => setHovered("topLeft")}
               onMouseLeave={() => setHovered(null)}
             >
               <img
                 src={images.topLeft}
                 alt="Green building material"
-                className="w-full h-full object-contain"
+                className="w-full h-full object-cover"
               />
               <div
-                className={`absolute inset-0  transition-opacity duration-300 ${
+                className={`absolute inset-0 transition-opacity duration-300 ${
                   hovered === "topLeft" ? "opacity-0" : "opacity-100"
                 }`}
               />
             </div>
 
-            {/* Mid Left — VIDEO */}
+            {/* Mid Left */}
             <div
-              className="relative overflow-hidden rounded-2xl aspect-square"
+              className="relative overflow-hidden rounded-xl sm:rounded-2xl h-[140px] sm:h-[180px] md:h-[220px] lg:h-[400px]"
               onMouseEnter={() => setHovered("midLeft")}
               onMouseLeave={() => setHovered(null)}
             >
               <img
-              src={images.midLeft}
-              alt="Report launch and panel"
-              className="w-full h-full object-contain"
-            />
+                src={images.midLeft}
+                alt="Report on tablet"
+                className="w-full h-full object-cover"
+              />
               <div
-                className={`absolute inset-0  transition-opacity duration-300 ${
+                className={`absolute inset-0 transition-opacity duration-300 ${
                   hovered === "midLeft" ? "opacity-0" : "opacity-100"
                 }`}
               />
             </div>
           </div>
 
-          {/* Right column: one tall portrait image spanning full height */}
+          {/* Right column: one tall portrait image */}
           <div
-            className="relative overflow-hidden rounded-2xl"
+            className="relative overflow-hidden rounded-xl sm:rounded-2xl h-[288px] sm:h-[368px] md:h-[448px] lg:h-[768px]"
             onMouseEnter={() => setHovered("topRight")}
             onMouseLeave={() => setHovered(null)}
           >
@@ -79,7 +80,7 @@ export default function PhotoGridSection() {
               className="w-full h-full object-cover"
             />
             <div
-              className={`absolute inset-0  transition-opacity duration-300 ${
+              className={`absolute inset-0 transition-opacity duration-300 ${
                 hovered === "topRight" ? "opacity-0" : "opacity-100"
               }`}
             />
@@ -87,9 +88,9 @@ export default function PhotoGridSection() {
         </div>
 
         {/* Row 3: Two equal columns */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
           <div
-            className="relative overflow-hidden rounded-2xl aspect-[4/3]"
+            className="relative overflow-hidden rounded-xl sm:rounded-2xl h-[220px] sm:h-[200px] md:h-[240px] lg:h-[380px]"
             onMouseEnter={() => setHovered("innerLeft")}
             onMouseLeave={() => setHovered(null)}
           >
@@ -106,7 +107,7 @@ export default function PhotoGridSection() {
           </div>
 
           <div
-            className="relative overflow-hidden rounded-2xl aspect-[4/3]"
+            className="relative overflow-hidden rounded-xl sm:rounded-2xl h-[220px] sm:h-[200px] md:h-[240px] lg:h-[380px]"
             onMouseEnter={() => setHovered("innerRight")}
             onMouseLeave={() => setHovered(null)}
           >
@@ -123,18 +124,24 @@ export default function PhotoGridSection() {
           </div>
         </div>
 
-        {/* Row 4: Full-width bottom banner image */}
+        {/* Row 4: Full-width bottom banner */}
         <div
-          className="relative overflow-hidden rounded-2xl"
+          className="relative overflow-hidden rounded-xl sm:rounded-2xl h-[200px] sm:h-[260px] md:h-[320px] lg:h-[480px]"
           onMouseEnter={() => setHovered("bottom")}
           onMouseLeave={() => setHovered(null)}
         >
           <img
             src={images.bottom}
             alt="Report launch group photo"
-            className="w-full h-full object-contain"
+            className="w-full h-full object-cover"
+          />
+          <div
+            className={`absolute inset-0 transition-opacity duration-300 ${
+              hovered === "bottom" ? "opacity-0" : "opacity-100"
+            }`}
           />
         </div>
+
       </div>
     </section>
   );

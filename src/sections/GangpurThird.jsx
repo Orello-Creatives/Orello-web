@@ -19,14 +19,14 @@ export default function PhotoGridSection() {
   return (
     <section
       style={{ fontFamily: "sans-serif" }}
-      className="bg-[#F4EDE2]  flex items-center justify-center py-16 sm:py-24 px-4"
+      className="bg-[#F4EDE2] flex items-center justify-center py-10 sm:py-16 lg:py-24 px-3 sm:px-4"
     >
-      <div className="container flex flex-col gap-3">
+      <div className="container flex flex-col gap-2 sm:gap-3">
 
-        {/* Row 1: Two equal square images */}
-        <div className="grid grid-cols-2 gap-3">
+        {/* Row 1 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
           <div
-            className="relative overflow-hidden rounded-2xl aspect-square"
+            className="relative overflow-hidden rounded-xl sm:rounded-2xl h-[220px] sm:h-[280px] md:h-[340px] lg:h-[400px]"
             onMouseEnter={() => setHovered("topLeft")}
             onMouseLeave={() => setHovered(null)}
           >
@@ -43,7 +43,7 @@ export default function PhotoGridSection() {
           </div>
 
           <div
-            className="relative overflow-hidden rounded-2xl aspect-square"
+            className="relative overflow-hidden rounded-xl sm:rounded-2xl h-[220px] sm:h-[280px] md:h-[340px] lg:h-[400px]"
             onMouseEnter={() => setHovered("topRight")}
             onMouseLeave={() => setHovered(null)}
           >
@@ -60,10 +60,10 @@ export default function PhotoGridSection() {
           </div>
         </div>
 
-        {/* Row 2: Two equal square images */}
-        <div className="grid grid-cols-2 gap-3">
+        {/* Row 2 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
           <div
-            className="relative overflow-hidden rounded-2xl aspect-square"
+            className="relative overflow-hidden rounded-xl sm:rounded-2xl h-[220px] sm:h-[280px] md:h-[340px] lg:h-[400px]"
             onMouseEnter={() => setHovered("midLeft")}
             onMouseLeave={() => setHovered(null)}
           >
@@ -80,7 +80,7 @@ export default function PhotoGridSection() {
           </div>
 
           <div
-            className="relative overflow-hidden rounded-2xl aspect-square"
+            className="relative overflow-hidden rounded-xl sm:rounded-2xl h-[220px] sm:h-[280px] md:h-[340px] lg:h-[400px]"
             onMouseEnter={() => setHovered("midRight")}
             onMouseLeave={() => setHovered(null)}
           >
@@ -97,9 +97,9 @@ export default function PhotoGridSection() {
           </div>
         </div>
 
-        {/* Row 3: Full-width bottom banner image */}
+        {/* Row 3: Full-width bottom banner */}
         <div
-          className="relative overflow-hidden rounded-2xl "
+          className="relative overflow-hidden rounded-xl sm:rounded-2xl h-[200px] sm:h-[260px] md:h-[320px] lg:h-[480px]"
           onMouseEnter={() => setHovered("bottom")}
           onMouseLeave={() => setHovered(null)}
         >
@@ -114,6 +114,7 @@ export default function PhotoGridSection() {
             }`}
           />
         </div>
+
       </div>
     </section>
   );
