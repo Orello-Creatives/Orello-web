@@ -89,6 +89,26 @@ const handleMouseLeave = () => {
 const Footer = () => {
   return (
     <div className="bg-[#fdf7ee] flex flex-col relative w-full overflow-hidden relative z-20">
+
+      {/* Mobile-only semicircle background */}
+      <div className="md:hidden absolute inset-0 flex items-end justify-center pointer-events-none z-0 overflow-hidden">
+        <div
+          className="absolute w-[120vw] h-[110vw] bg-[#f0e8d8] left-1/2"
+          style={{ borderRadius: '50%', bottom: '-60vw', opacity: 1, transform: 'translateX(-50%)' }}
+        />
+        <div
+          className="absolute w-[95vw] h-[85vw] bg-[#fdf7ee] left-1/2"
+          style={{ borderRadius: '50%', bottom: '-50vw', opacity: 1, transform: 'translateX(-50%)' }}
+        />
+        <div
+          className="absolute w-[70vw] h-[65vw] bg-[#f0e8d8] left-1/2"
+          style={{ borderRadius: '50%', bottom: '-40vw', opacity: 1, transform: 'translateX(-50%)' }}
+        />
+        <div
+          className="absolute w-[45vw] h-[45vw] bg-[#fdf7ee] left-1/2"
+          style={{ borderRadius: '50%', bottom: '-30vw', opacity: 1, transform: 'translateX(-50%)' }}
+        />
+      </div>
       
       {/* 1. Hero / CTA Section */}
       <div className="flex flex-col items-center justify-center px-4 sm:px-6 pt-8 sm:pt-12 text-center">
