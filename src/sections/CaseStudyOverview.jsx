@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLocation } from 'react-router';
 import starr   from '../assets/logos/starr.svg';
 import togglee from '../assets/logos/togglee.svg';
 import penn    from '../assets/logos/penn.svg';
@@ -9,7 +10,6 @@ import uiux    from '../assets/logos/uiux.svg';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ── Inject dropdown animation CSS once ───────────────────────────────────────
 const ANIM_STYLE = `
   @keyframes dropdownOpen {
     from { opacity: 0; transform: translateY(-10px) scale(0.97); }
@@ -27,7 +27,6 @@ if (typeof document !== "undefined" && !document.getElementById("dropdown-anim-s
   document.head.appendChild(tag);
 }
 
-// ── Constants ─────────────────────────────────────────────────────────────────
 export const INDUSTRIES = [
   "Climate Tech", "Sustainability", "Construction", "Agritech",
   "Fashion", "Lifestyle", "Dairy", "Events", "Social Organisation",
@@ -41,13 +40,11 @@ export const SERVICES = [
   { label: "Motion Graphics",                     logoKey: "motion",  logo: uiux    },
 ];
 
-// ── Detect touch device ───────────────────────────────────────────────────────
 function isTouchDevice() {
   if (typeof window === "undefined") return false;
   return window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 }
 
-// ── DropdownPortal ────────────────────────────────────────────────────────────
 function DropdownPortal({ anchorRef, portalRef, children, align = "left", onMouseEnter, onMouseLeave }) {
   const [style, setStyle] = useState(null);
   const wrapperRef = useRef(null);
@@ -59,7 +56,6 @@ function DropdownPortal({ anchorRef, portalRef, children, align = "left", onMous
       if (!anchorRef.current) return;
       const rect = anchorRef.current.getBoundingClientRect();
       const base = { position: "fixed", top: rect.bottom + 6, zIndex: 999999 };
-
       const viewportWidth = window.innerWidth;
 
       if (viewportWidth < 480) {
@@ -91,7 +87,6 @@ function DropdownPortal({ anchorRef, portalRef, children, align = "left", onMous
   );
 }
 
-// ── RemoveButton ──────────────────────────────────────────────────────────────
 function RemoveButton({ onClick }) {
   return (
     <button
@@ -110,7 +105,6 @@ function RemoveButton({ onClick }) {
   );
 }
 
-// ── useDropdown — unified hover (desktop) + tap (touch) logic ────────────────
 function useDropdown(key, openDropdown, setOpenDropdown) {
   const closeTimer = useRef(null);
 
@@ -138,7 +132,6 @@ function useDropdown(key, openDropdown, setOpenDropdown) {
   return { handleMouseEnter, handleMouseLeave, cancelClose, handleTouchToggle };
 }
 
-// ── Component ─────────────────────────────────────────────────────────────────
 export default function ExploreWorkSection({
   selIndustries,
   selServices,
@@ -146,6 +139,7 @@ export default function ExploreWorkSection({
   setSelServices,
   portfolioRef,
 }) {
+  const location          = useLocation();
   const containerRef      = useRef(null);
   const industryBtnRef    = useRef(null);
   const servicesBtnRef    = useRef(null);
@@ -161,7 +155,18 @@ export default function ExploreWorkSection({
   const indHover = useDropdown("industry", openDropdown, setOpenDropdown);
   const svcHover = useDropdown("services", openDropdown, setOpenDropdown);
 
-  // ── Close dropdowns when tapping outside ──────────────────────────────────
+  // ── Auto-apply service filter from navigation state ──────────────────────
+  useEffect(() => {
+    const serviceFilter = location.state?.serviceFilter;
+    if (serviceFilter) {
+      const match = SERVICES.find((s) => s.logoKey === serviceFilter);
+      if (match) {
+        setSelServices([serviceFilter]);
+      }
+    }
+  }, []); // runs once on mount
+
+  // ── Close dropdowns on outside click ────────────────────────────────────
   useEffect(() => {
     function handleOutsideClick(e) {
       if (!openDropdown) return;
@@ -188,7 +193,7 @@ export default function ExploreWorkSection({
     };
   }, [openDropdown]);
 
-  // GSAP — content fade-in only
+  // ── GSAP scroll animation ────────────────────────────────────────────────
   useEffect(() => {
     gsap.config({ force3D: true, nullTargetWarn: false });
     gsap.fromTo(".work-content",
@@ -224,10 +229,10 @@ export default function ExploreWorkSection({
   return (
     <section
       ref={containerRef}
-      className="relative bg-[#eadecf] pt-30 sm:pt-0 py-20 sm:py-28 md:py-32 lg:py-40"
+      className="relative bg-[#eadecf] pt-30 sm:pt-40 pb-12"
       style={{ overflow: "hidden" }}
     >
-      {/* Semicircle bg — absolute, clipped within section */}
+      {/* Semicircle bg */}
       <div className="absolute inset-0 flex items-end justify-center pointer-events-none z-0">
         {[
           { w: "120vw", h: "110vw", bg: "#fdf6e9", bottom: "-60vw" },
@@ -259,7 +264,7 @@ export default function ExploreWorkSection({
         {/* Filter controls */}
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-            <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#0A0A0A]">Filter by</span>
+            <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#4B433B]">Filter by</span>
 
             <div className="flex flex-wrap items-start justify-center gap-3 sm:gap-4">
 

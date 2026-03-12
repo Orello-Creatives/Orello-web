@@ -14,8 +14,6 @@ export default function CreativePartnerHero() {
   const cursorRef = useRef(null);
 
   useEffect(() => {
-    // Kill all existing ScrollTriggers and clear GSAP state on mount.
-    // This prevents stale rotation/transform state when navigating back to this page.
     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     gsap.killTweensOf(videoBoxRef.current);
     gsap.set(videoBoxRef.current, { clearProps: "all" });
@@ -33,7 +31,7 @@ export default function CreativePartnerHero() {
 
     mm.add("(max-width: 767px)", () => {
       gsap.set(videoBoxRef.current, {
-        top: "42%",
+        top: "52%",
         left: "50%",
         right: "auto",
         xPercent: -50,
@@ -56,7 +54,7 @@ export default function CreativePartnerHero() {
     /* ========== TABLET INITIAL STATE ========== */
     mm.add("(min-width: 768px) and (max-width: 1023px)", () => {
       gsap.set(videoBoxRef.current, {
-        top: "18%",       // was 18%
+        top: "26%",
         right: "14%",
         left: "auto",
         xPercent: 0,
@@ -72,7 +70,7 @@ export default function CreativePartnerHero() {
     /* ========== DESKTOP INITIAL STATE ========== */
     mm.add("(min-width: 1024px)", () => {
       gsap.set(videoBoxRef.current, {
-        top: "18%",       // was 15%
+        top: "21%",
         right: "24%",
         left: "auto",
         xPercent: 0,
@@ -103,10 +101,7 @@ export default function CreativePartnerHero() {
       }
     );
 
-    // FIX: Use gsap.set to establish starting state first, then gsap.to animate to final state.
-    // The original gsap.fromTo started rotation at 0 every time the component mounted,
-    // which caused a visible rotation snap when navigating back to this page because
-    // the matchMedia had already set the correct rotation (4 or 10) but fromTo overrode it.
+   
     gsap.set(videoBoxRef.current, { scale: 0, opacity: 0 });
     gsap.to(videoBoxRef.current, {
       scale: 1,
@@ -210,7 +205,8 @@ export default function CreativePartnerHero() {
         anticipatePin: 1,
         invalidateOnRefresh: true,
       },
-      y: "-80vh",
+      y: "-120vh",
+      opacity: 0,
       ease: "power2.inOut",
     });
 
@@ -313,8 +309,8 @@ export default function CreativePartnerHero() {
           />
         </div>
 
-        {/* Hero text — shifted down a bit more across all breakpoints */}
-        <div className="fixed inset-0 flex items-start sm:items-start lg:items-center justify-center z-10 px-4 sm:px-6 md:px-8 pointer-events-none pt-36 xs:pt-40 sm:pt-52 md:pt-64 lg:pt-2 pb-5">
+        {/* Hero text — shifted down */}
+        <div className="fixed inset-0 flex items-start sm:items-start lg:items-center justify-center z-10 px-4 sm:px-6 md:px-8 pointer-events-none pt-48 xs:pt-56 sm:pt-64 md:pt-80 lg:pt-20 pb-5 overflow-hidden">
           <div className="hero-container" style={{ willChange: "transform" }}>
             {/* ↓ MOBILE CHANGE: tighter line-height on xs, bump base size from 2.6rem→3rem, add tracking-[-0.02em] on small for density */}
             <h1 className="leading-[0.9] tracking-tight text-[3.8rem] xs:text-[4.4rem] sm:text-[4.5rem] md:text-[6.5rem] lg:text-[10rem]">
@@ -361,7 +357,7 @@ export default function CreativePartnerHero() {
         <div
           ref={videoBoxRef}
           className="fixed  rounded-lg overflow-hidden shadow-2xl z-5"
-          style={{ top: "20%", right: "24%", width: "300px", height: "184px", willChange: "transform, width, height" }}
+          style={{ top: "28%", right: "24%", width: "300px", height: "184px", willChange: "transform, width, height" }}
         >
           <video
             className="w-full h-full object-cover"

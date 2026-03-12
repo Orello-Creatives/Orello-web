@@ -66,7 +66,8 @@ export default function CaseStudySection() {
           <strong className="font-black text-[#402E1D]" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>
             Gangpur Silage: Building Trust Through <br />
           </strong>{" "}
-          <span className="font-light">Farmer-Centric Design</span>
+          <span  className="font-light"
+  style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 400 }}>Farmer-Centric Design</span>
         </h1>
 
         {/* Body */}

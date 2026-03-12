@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef, useState, useEffect } from 'react';
 
-// ── Count-up hook ──────────────────────────────────────────────────────────────
+
 function useCountUp(target, duration = 1800, start = false) {
   const [value, setValue] = useState(0);
 
@@ -24,7 +24,7 @@ function useCountUp(target, duration = 1800, start = false) {
   return value;
 }
 
-// ── Animated number ────────────────────────────────────────────────────────────
+
 function AnimatedNumber({ target, suffix = '+', delay = 0, triggerCount, className, style }) {
   const [started, setStarted] = useState(false);
   const count = useCountUp(target, 1800, started);
@@ -37,12 +37,12 @@ function AnimatedNumber({ target, suffix = '+', delay = 0, triggerCount, classNa
 
   return (
     <div className={className} style={style}>
-      {count}{suffix}
+      {String(count).padStart(2, '0')}{suffix}
     </div>
   );
 }
 
-// ── Main component ─────────────────────────────────────────────────────────────
+
 const OrelloHero = () => {
   const containerRef = useRef(null);
   const sectionRef = useRef(null);
@@ -60,7 +60,7 @@ const OrelloHero = () => {
     }
   }, []);
 
-  // IntersectionObserver: trigger count-up when cards enter viewport
+  
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {

@@ -66,7 +66,8 @@ export default function CaseStudySection() {
           <strong className="font-black text-[#402E1D]" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>
             Entrepreneurs' Organization: Exploration
           </strong>{" "}
-          <span>– Peru Edition</span>
+          <span  className="font-light"
+  style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 400 }}>– Peru Edition</span>
         </h1>
 
         {/* Body */}

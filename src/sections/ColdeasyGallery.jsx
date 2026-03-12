@@ -6,8 +6,6 @@ import cold4 from '../assets/images/cold4.png'
 import cold5 from '../assets/images/cold5.png'
 
 
-
-
 const images = {
   topLeft: cold1,      
   topRight: cold2,     
@@ -121,10 +119,10 @@ export default function PhotoGridSection() {
         {/* CTA Button */}
         <div className="mt-2">
           <a
-            href="#"
+            href="https://www.coldeasy.in/"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border  text-sm font-medium text-gray-700 bg-[#4B433B]  hover:border-gray-600 transition-all duration-200 shadow-sm"
           >
-            <span className="text-[#F4EDE2]">View Report</span>
+            <span className="text-[#F4EDE2]">View Site</span>
         
           </a>
         </div>

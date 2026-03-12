@@ -1,17 +1,22 @@
 import React, { useRef, useEffect } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import gsap from 'gsap';
-import {Link} from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import digital from '../assets/images/digital.png'
 import motion from '../assets/images/motion.png'
 import branding from '../assets/images/branding.png'
 import uiuxx from '../assets/images/uiuxx.png'
 
-const ServiceCard = ({ title, description, bgImage, index }) => {
+const ServiceCard = ({ title, description, bgImage, logoKey, index }) => {
+  const navigate = useNavigate();
   const cardRef = useRef(null);
   const revealRef = useRef(null);
   const imageRef = useRef(null);
   const arrowRef = useRef(null);
+
+  const handleCardClick = () => {
+    navigate('/casestudy-overview', { state: { serviceFilter: logoKey } });
+  };
 
   useEffect(() => {
     const card = cardRef.current;
@@ -222,6 +227,7 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
   return (
     <div
       ref={cardRef}
+      onClick={handleCardClick}
       className="relative cursor-pointer overflow-hidden group border-b border-gray-700"
     >
       <div className="relative z-20 flex items-start justify-between p-5 py-7 sm:p-6 sm:py-8 lg:p-8 lg:py-10">
@@ -279,7 +285,7 @@ const ServiceCard = ({ title, description, bgImage, index }) => {
   );
 };
 
-// ─── Know More Button (arrow slide animation) ──────────────────────────────────
+// ─── Know More Button ──────────────────────────────────
 const KnowMoreButton = () => {
   const buttonRef = useRef(null);
   const textRef = useRef(null);
@@ -324,7 +330,6 @@ const KnowMoreButton = () => {
         className="relative overflow-hidden cursor-pointer rounded-full shadow-lg flex items-center pl-6 pr-2 py-2"
         style={{ backgroundColor: '#F7AF19', color: 'black', willChange: 'transform' }}
       >
-        {/* Circle left (hover) - hidden by default */}
         <span
           ref={circleLeftRef}
           className="absolute left-2 w-9 h-9 text-white rounded-full flex items-center justify-center"
@@ -335,15 +340,10 @@ const KnowMoreButton = () => {
           </svg>
         </span>
 
-        {/* Text */}
-        <span
-          ref={textRef}
-          className="text-base md:text-lg font-medium whitespace-nowrap mr-4"
-        >
+        <span ref={textRef} className="text-base md:text-lg font-medium whitespace-nowrap mr-4">
           Know more
         </span>
 
-        {/* Circle right (initial) */}
         <span
           ref={circleRightRef}
           className="w-9 h-9 flex-shrink-0 text-white rounded-full flex items-center justify-center"
@@ -362,24 +362,28 @@ export default function OurServices() {
   const services = [
     {
       title: 'Brand Identity',
+      logoKey: 'starr',
       description: 'Orello is a purpose-driven global design partner',
-      bgImage: branding
-        },
+      bgImage: branding,
+    },
     {
       title: 'UI/UX & Web Development',
+      logoKey: 'togglee',
       description: 'Orello is a purpose-driven global design partner',
-      bgImage: uiuxx
+      bgImage: uiuxx,
     },
     {
       title: 'Motion Graphics',
+      logoKey: 'motion',
       description: 'Orello is a purpose-driven global design partner',
-      bgImage: motion
+      bgImage: motion,
     },
     {
       title: 'Digital Marketing & SEO',
+      logoKey: 'penn',
       description: 'Orello is a purpose-driven global design partner',
-      bgImage: digital
-    }
+      bgImage: digital,
+    },
   ];
 
   return (
@@ -406,6 +410,7 @@ export default function OurServices() {
                 title={service.title}
                 description={service.description}
                 bgImage={service.bgImage}
+                logoKey={service.logoKey}
                 index={index}
               />
             ))}

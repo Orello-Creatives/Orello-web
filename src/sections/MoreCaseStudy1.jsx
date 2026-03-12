@@ -31,6 +31,86 @@ const projects = [
   },
 ];
 
+// ─── Animated Arrow Button (liquid fill animation) ────────────────────────────
+const AnimatedButton = ({ to, label, className, bgColor, textColor, arrowBgColor }) => {
+  const buttonRef      = useRef(null);
+  const textRef        = useRef(null);
+  const circleRightRef = useRef(null);
+  const circleLeftRef  = useRef(null);
+
+  useEffect(() => {
+    const button      = buttonRef.current;
+    const text        = textRef.current;
+    const circleRight = circleRightRef.current;
+    const circleLeft  = circleLeftRef.current;
+    if (!button) return;
+
+    const handleMouseEnter = () => {
+      gsap.to(text,        { x: 40, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleRight, { scale: 0, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleLeft,  { scale: 1, duration: 0.4, ease: 'power2.inOut' });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(text,        { x: 0, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleRight, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(circleLeft,  { scale: 0, duration: 0.4, ease: 'power2.inOut' });
+    };
+
+    button.addEventListener('mouseenter', handleMouseEnter);
+    button.addEventListener('mouseleave', handleMouseLeave);
+    return () => {
+      button.removeEventListener('mouseenter', handleMouseEnter);
+      button.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  const resolvedArrowBg = arrowBgColor || '#111827';
+
+  return (
+    <Link to={to}>
+      <button
+        ref={buttonRef}
+        className={`relative overflow-hidden cursor-pointer py-2 sm:py-2.5 md:py-3 rounded-full font-bold w-full sm:w-auto ${className}`}
+        style={{ backgroundColor: bgColor, color: textColor, willChange: 'transform', display: 'block' }}
+      >
+        {/* Label */}
+        <span
+          ref={textRef}
+          className="absolute left-4 md:left-5 top-1/2 -translate-y-1/2 text-sm md:text-base font-semibold z-[2]"
+        >
+          {label}
+        </span>
+
+        {/* Arrow circle — right (default) */}
+        <span
+          ref={circleRightRef}
+          className="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white rounded-full flex items-center justify-center z-[2]"
+          style={{ backgroundColor: resolvedArrowBg }}
+        >
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
+
+        {/* Arrow circle — left (hover) */}
+        <span
+          ref={circleLeftRef}
+          className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white rounded-full flex items-center justify-center scale-0 z-[2]"
+          style={{ backgroundColor: resolvedArrowBg }}
+        >
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
+
+        {/* Invisible spacer to lock button width */}
+        <span className="opacity-0 px-8 md:px-10 text-sm md:text-base">{label}</span>
+      </button>
+    </Link>
+  );
+};
+
 export default function MoreCasestudy1() {
   const [showCursor, setShowCursor] = useState(false);
   const imageRefs       = useRef({});
@@ -81,6 +161,26 @@ export default function MoreCasestudy1() {
       </div>
 
       <div className="container">
+
+        {/* Heading Section */}
+        <div className="flex items-end ">
+          <div className="mb-6 sm:mb-10 lg:mb-16">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl text-[#402E1D] font-light mb-1">More</h2>
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#402E1D]">Case Studies</h2>
+          </div>
+
+          {/* ── Animated "See all work" button ── */}
+          <div className="ml-4 mb-6 sm:mb-10 lg:mb-16">
+            <AnimatedButton
+              to="/casestudy-overview"
+              label="See all work"
+              bgColor="#F0A500"
+              textColor="#2C1F14"
+              arrowBgColor="#2C1F14"
+            />
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {projects.map((project) => {
             const card = (

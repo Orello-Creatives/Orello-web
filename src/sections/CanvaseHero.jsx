@@ -66,7 +66,8 @@ export default function CaseStudySection() {
           <strong className="font-black text-[#402E1D]" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>
             Canvasé:
           </strong>{" "}
-          <span>Defining a Contemporary Lifestyle Brand</span>
+          <span  className="font-light"
+  style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 400 }}>Defining a Contemporary Lifestyle Brand</span>
         </h1>
 
         {/* Body */}

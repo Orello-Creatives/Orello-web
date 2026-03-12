@@ -1,7 +1,7 @@
 import { useState } from "react";
 import vimg1 from '../assets/images/vimg1.png'
 import vimg2 from '../assets/images/vimg2.png'
-import vimg3 from '../assets/videos/vimg3.mp4'
+import vimg3 from '../assets/images/vimg3.png'
 import vimg4 from '../assets/images/vimg4.png'
 import vimg5 from '../assets/images/vimg5.png'
 import vimg6 from '../assets/images/vimg6.png'
@@ -54,14 +54,11 @@ export default function PhotoGridSection() {
               onMouseEnter={() => setHovered("midLeft")}
               onMouseLeave={() => setHovered(null)}
             >
-              <video
-                src={images.midLeft}
-                className="w-full h-full object-cover"
-                autoPlay
-                loop
-                muted
-                playsInline
-              />
+              <img
+              src={images.midLeft}
+              alt="Report launch and panel"
+              className="w-full h-full object-cover"
+            />
               <div
                 className={`absolute inset-0 bg-black/10 transition-opacity duration-300 ${
                   hovered === "midLeft" ? "opacity-0" : "opacity-100"
@@ -137,16 +134,6 @@ export default function PhotoGridSection() {
             alt="Report launch group photo"
             className="w-full h-full object-contain"
           />
-        </div>
-
-        {/* CTA Button */}
-        <div className="mt-2">
-          <a
-            href="#"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border text-sm font-medium text-gray-700 bg-[#4B433B] hover:border-gray-600 transition-all duration-200 shadow-sm"
-          >
-            <span className="text-[#F4EDE2]">View Report</span>
-          </a>
         </div>
       </div>
     </section>

@@ -66,7 +66,8 @@ export default function CaseStudySection() {
           <strong className="font-black text-[#402E1D]" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>
             A Digital Platform to Support Access, <br />
           </strong>{" "}
-          <span className="font-light">Awareness, and Giving</span>
+          <span  className="font-light"
+  style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 400 }}>Awareness, and Giving</span>
         </h1>
 
         {/* Body */}

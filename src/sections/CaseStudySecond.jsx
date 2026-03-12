@@ -32,6 +32,7 @@ import starr   from '../assets/logos/starr.svg';
 import togglee from '../assets/logos/togglee.svg';
 import penn    from '../assets/logos/penn.svg';
 import Readyto from '../components/Readyto.jsx'
+import vimg3 from '../assets/videos/vimg3.mp4'
 
 const ALL_PROJECTS = [
   {
@@ -71,7 +72,7 @@ const ALL_PROJECTS = [
     tags: ["Climate Tech", "Sustainability"],
     logoKeys: ["penn"],
     logos: [penn],
-    defaultImage: case5,  hoverImage: hr5,
+    defaultImage: vimg3,  hoverImage: hr5,
     link: "/villgro-casestudy",
   },
   {
@@ -159,6 +160,43 @@ function getFiltered(selIndustries, selServices) {
   });
 }
 
+// Helper: detect if a src string is a video file
+function isVideo(src) {
+  if (!src) return false;
+  if (typeof src === 'string') {
+    return /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(src);
+  }
+  // For bundled imports, check if the resolved URL contains a video extension
+  return /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(String(src));
+}
+
+// Renders either a <video> or <img> with the same absolute-fill styling
+function MediaElement({ src, alt, elRef, style, className }) {
+  if (isVideo(src)) {
+    return (
+      <video
+        ref={elRef}
+        src={src}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className={className}
+        style={style}
+      />
+    );
+  }
+  return (
+    <img
+      ref={elRef}
+      src={src}
+      alt={alt}
+      className={className}
+      style={style}
+    />
+  );
+}
+
 export default function PortfolioGrid({ selIndustries, selServices, gridRef }) {
   // Always derive fresh — no local copy, no stale state
   const industries = Array.isArray(selIndustries) ? selIndustries : [];
@@ -230,12 +268,22 @@ export default function PortfolioGrid({ selIndustries, selServices, gridRef }) {
                   onMouseEnter={() => onEnter(project.id)}
                   onMouseLeave={() => onLeave(project.id)}
                 >
-                  <img ref={(el) => (imageRefs.current[`d-${project.id}`] = el)}
-                    src={project.defaultImage} alt={project.title}
-                    className="absolute inset-0 w-full h-full object-cover" style={{ opacity: 1 }} />
-                  <img ref={(el) => (imageRefs.current[`h-${project.id}`] = el)}
-                    src={project.hoverImage} alt={`${project.title} hover`}
-                    className="absolute inset-0 w-full h-full object-cover" style={{ opacity: 0 }} />
+                  {/* Default media (image or video) */}
+                  <MediaElement
+                    src={project.defaultImage}
+                    alt={project.title}
+                    elRef={(el) => (imageRefs.current[`d-${project.id}`] = el)}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    style={{ opacity: 1 }}
+                  />
+                  {/* Hover media (image or video) */}
+                  <MediaElement
+                    src={project.hoverImage}
+                    alt={`${project.title} hover`}
+                    elRef={(el) => (imageRefs.current[`h-${project.id}`] = el)}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    style={{ opacity: 0 }}
+                  />
                 </div>
 
                 <div className="pt-2 pb-6 bg-[#F4EDE2]">

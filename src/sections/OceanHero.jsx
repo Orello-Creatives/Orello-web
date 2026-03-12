@@ -66,7 +66,8 @@ export default function CaseStudySection() {
           <strong className="font-light text-[#402E1D]" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>
             Building Ocean's <br />
           </strong>{" "}
-          <span className="font-black">First Impression for Stakeholders</span>
+          <span className="font-light"
+  style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 400 }}>First Impression for Stakeholders</span>
         </h1>
 
         {/* Body */}

@@ -31,17 +31,17 @@ const JoinUsButton = () => {
     if (isTouchDevice) return;
 
     const handleMouseEnter = () => {
-      gsap.to(button, { backgroundColor: '#f7af19', duration: 0.3, ease: 'power2.out' });
-      gsap.to(text, { color: '#000000', x: 30, duration: 0.4, ease: 'power2.inOut' });
-      gsap.to(circleRight, { scale: 0, duration: 0.4, ease: 'power2.inOut' });
-      gsap.to(circleLeft, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(button, { backgroundColor: '#f7af19', duration: 0.3, ease: 'power2.out', overwrite: true });
+      gsap.to(text, { color: '#000000', x: 30, duration: 0.4, ease: 'power2.inOut', overwrite: true });
+      gsap.to(circleRight, { scale: 0, duration: 0.4, ease: 'power2.inOut', overwrite: true, force3D: true });
+      gsap.to(circleLeft, { scale: 1, duration: 0.4, ease: 'power2.inOut', overwrite: true, force3D: true });
     };
 
     const handleMouseLeave = () => {
-      gsap.to(button, { backgroundColor: '#000000', duration: 0.3, ease: 'power2.in' });
-      gsap.to(text, { color: '#ffffff', x: 0, duration: 0.4, ease: 'power2.inOut' });
-      gsap.to(circleRight, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
-      gsap.to(circleLeft, { scale: 0, duration: 0.4, ease: 'power2.inOut' });
+      gsap.to(button, { backgroundColor: '#000000', duration: 0.3, ease: 'power2.in', overwrite: true });
+      gsap.to(text, { color: '#ffffff', x: 0, duration: 0.4, ease: 'power2.inOut', overwrite: true });
+      gsap.to(circleRight, { scale: 1, duration: 0.4, ease: 'power2.inOut', overwrite: true, force3D: true });
+      gsap.to(circleLeft, { scale: 0, duration: 0.4, ease: 'power2.inOut', overwrite: true, force3D: true });
     };
 
     button.addEventListener('mouseenter', handleMouseEnter);
@@ -192,22 +192,18 @@ const TrustSection = () => {
     const banner = bannerRef.current;
     if (!banner) return;
 
-    const initBanner = () => {
-      const totalWidth = banner.scrollWidth / 4;
+    gsap.killTweensOf(banner);
+    gsap.set(banner, { x: 0, force3D: true });
 
-      gsap.killTweensOf(banner);
-      gsap.set(banner, { x: 0 });
+    const totalWidth = banner.scrollWidth / 4;
 
-      gsap.to(banner, {
-        x: -totalWidth,
-        duration: 20,
-        ease: 'none',
-        repeat: -1
-      });
-    };
-
-    const timer = setTimeout(initBanner, 100);
-    return () => clearTimeout(timer);
+    gsap.to(banner, {
+      x: -totalWidth,
+      duration: 20,
+      ease: 'none',
+      repeat: -1,
+      force3D: true
+    });
   }, []);
 
   useEffect(() => {
@@ -222,7 +218,9 @@ const TrustSection = () => {
               flexGrow: 0,
               flexShrink: 0,
               duration: 0.3,
-              ease: 'power3.out'
+              ease: 'power3.out',
+              overwrite: true,
+              force3D: true
             });
             cardRefs.current.forEach((otherCard, otherIndex) => {
               if (otherIndex !== index && otherCard) {
@@ -231,7 +229,9 @@ const TrustSection = () => {
                   flexGrow: 0,
                   flexShrink: 0,
                   duration: 0.3,
-                  ease: 'power3.out'
+                  ease: 'power3.out',
+                  overwrite: true,
+                  force3D: true
                 });
               }
             });
@@ -242,7 +242,9 @@ const TrustSection = () => {
                 flexGrow: 0,
                 flexShrink: 0,
                 duration: 0.5,
-                ease: 'power3.out'
+                ease: 'power3.out',
+                overwrite: true,
+                force3D: true
               });
             }
           } else {
@@ -251,7 +253,9 @@ const TrustSection = () => {
               flexGrow: 0,
               flexShrink: 0,
               duration: 0.5,
-              ease: 'power3.out'
+              ease: 'power3.out',
+              overwrite: true,
+              force3D: true
             });
           }
         }

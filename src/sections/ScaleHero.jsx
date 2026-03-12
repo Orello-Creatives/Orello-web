@@ -66,7 +66,8 @@ export default function CaseStudySection() {
           <strong className="font-black text-[#402E1D]" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>
             Scalepoint: A Unified Identity x <br />
           </strong>{" "}
-          <span className="font-light">font-black</span>
+          <span  className="font-light"
+  style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 400 }}>font-black</span>
         </h1>
 
         {/* Body */}

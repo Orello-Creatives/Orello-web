@@ -66,7 +66,8 @@ export default function CaseStudySection() {
           <strong className="font-black text-[#402E1D]" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>
             Building a refined identity for <br />
           </strong>{" "}
-          <span className="font-light">a modern real estate brand</span>
+          <span  className="font-light"
+  style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 400 }}>a modern real estate brand</span>
         </h1>
 
         {/* Body */}
