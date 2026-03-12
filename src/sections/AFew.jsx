@@ -208,7 +208,7 @@ const PortfolioSection = () => {
             <div key={index} className="group">
               <Link to={project.link}>
                 <div
-                  className="overflow-hidden rounded-2xl cursor-none sm:rounded-3xl aspect-[4/3] mb-3 sm:mb-4 bg-white relative"
+                  className="overflow-hidden rounded-2xl cursor-none sm:rounded-3xl aspect-[4/3] mb-3 sm:mb-4 bg-black relative"
                   onMouseEnter={() => handleMouseEnter(project.id)}
                   onMouseLeave={handleMouseLeave}
                 >
