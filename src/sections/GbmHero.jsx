@@ -21,7 +21,7 @@ export default function CaseStudySection() {
   return (
     <div
       ref={containerRef}
-      className="relative overflow-hidden lg:min-h-screen flex flex-col justify-center py-6 sm:py-8 md:py-12 lg:py-14"
+      className="relative overflow-hidden  flex flex-col justify-end pt-6 sm:pt-8 md:pt-12 lg:pt-14"
       style={{ backgroundColor: "#faf5eb", paddingTop: "clamp(150px, 8vw, 600px)" }}
     >
       {/* Semicircle Arcs */}

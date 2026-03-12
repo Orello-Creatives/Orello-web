@@ -266,7 +266,7 @@ const Footer = () => {
                       <img src={instagram} alt="Instagram" className="w-4 h-4 sm:w-5 sm:h-5" />
                     </a>
                     <a
-                      href="https://www.linkedin.com/company/orello"
+                      href="https://www.linkedin.com/company/orello-creatives/?originalSubdomain=in"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-9 h-9 sm:w-10 sm:h-10 bg-[#F9F5ED] rounded-xl flex items-center justify-center hover:bg-[#F7AF19] transition-colors"

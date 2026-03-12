@@ -163,7 +163,7 @@ export default function MoreCasestudy2() {
       <div className="container">
 
         {/* Heading Section */}
-        <div className="flex items-end mb-10">
+        <div className="flex items-end ">
           <div className="mb-6 sm:mb-10 lg:mb-16">
             <h2 className="text-2xl sm:text-4xl lg:text-5xl text-[#402E1D] font-light mb-1">More</h2>
             <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#402E1D]">Case Studies</h2>

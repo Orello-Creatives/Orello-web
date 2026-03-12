@@ -108,7 +108,7 @@ const PortfolioSection = () => {
       image: gbm,
       hoverLogo: hr5,
       icons: [pen],
-      link: "/casestudy-overview"
+      link: "/gbm-casestudy"
     },
     {
       id: 2,
@@ -117,7 +117,7 @@ const PortfolioSection = () => {
       image: findtheircare,
       hoverLogo: hr2,
       icons: [star, toggle, pen],
-      link: "/casestudy-overview"
+      link: "/findtheircare-casestudy"
     },
     {
       id: 3,
@@ -126,7 +126,7 @@ const PortfolioSection = () => {
       image: case7,
       hoverLogo: hr7,
       icons: [star, toggle, pen],
-      link: "/casestudy-overview"
+      link: "/canvase-casestudy"
     }
   ];
 

@@ -19,7 +19,7 @@ const Footer = () => {
 
   const socialLinks = [
     { img: instagram, alt: 'Instagram', href: 'https://www.instagram.com/orello.io', external: true },
-    { img: linkedin, alt: 'LinkedIn', href: 'https://www.linkedin.com/company/orello', external: true },
+    { img: linkedin, alt: 'LinkedIn', href: 'https://www.linkedin.com/company/orello-creatives/?originalSubdomain=in', external: true },
     { img: locatio, alt: 'Location', href: 'https://www.google.com/search?q=Orello+Creatives+Pvt+Ltd+Bengaluru', external: true },
     { img: mailid, alt: 'Email', href: 'mailto:hello@orello.io', external: false },
   ]

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import coldeasy from '../assets/logos/coldeasy.svg'
 import ocean from '../assets/logos/ocean.svg'
 import villgro from '../assets/logos/villgro.svg'
@@ -11,8 +11,13 @@ import khaleel from '../assets/logos/khaleel.svg'
 import shaili from '../assets/logos/shaili.svg'
 import bimal from '../assets/logos/bimal.svg'
 import Readyto from '../components/Readyto'
+
 export default function TestimonialsSection() {
   const scrollContainerRef = useRef(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const rafRef = useRef(null)
+  const positionRef = useRef(0)
+  const isHoveredRef = useRef(false)
 
   const testimonials = [
     {
@@ -99,34 +104,54 @@ export default function TestimonialsSection() {
     const cardWidth = firstCard.offsetWidth + gap
     const totalWidth = cardWidth * testimonials.length
 
-    let position = 0
-    let raf
+    const NORMAL_SPEED = 1.5
+    const HOVER_SPEED = 0.3
 
     const animate = () => {
-      position -= 0.5
-      if (Math.abs(position) >= totalWidth) position = 0
-      container.style.transform = `translateX(${position}px)`
-      raf = requestAnimationFrame(animate)
+      const speed = isHoveredRef.current ? HOVER_SPEED : NORMAL_SPEED
+      positionRef.current -= speed
+      if (Math.abs(positionRef.current) >= totalWidth) positionRef.current = 0
+      container.style.transform = `translateX(${positionRef.current}px)`
+
+      const currentIndex = Math.floor(Math.abs(positionRef.current) / cardWidth) % testimonials.length
+      setActiveIndex(currentIndex)
+
+      rafRef.current = requestAnimationFrame(animate)
     }
 
     animate()
 
     const handleResize = () => {
-      if (raf) cancelAnimationFrame(raf)
-      position = 0
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+      positionRef.current = 0
       animate()
     }
 
     window.addEventListener('resize', handleResize)
 
     return () => {
-      cancelAnimationFrame(raf)
+      cancelAnimationFrame(rafRef.current)
       window.removeEventListener('resize', handleResize)
     }
   }, [testimonials.length])
 
+  const handleRadioClick = (index) => {
+    const container = scrollContainerRef.current
+    if (!container) return
+
+    const firstCard = container.querySelector('.testimonial-card')
+    if (!firstCard) return
+
+    const computedStyle = window.getComputedStyle(container)
+    const gap = parseInt(computedStyle.gap) || 24
+    const cardWidth = firstCard.offsetWidth + gap
+
+    positionRef.current = -(cardWidth * index)
+    setActiveIndex(index)
+  }
+
   return (
-    <div className="bg-[#fcf4e9]  py-10 sm:py-12 md:py-16 lg:py-24 overflow-hidden relative z-50">
+    <div className="bg-[#fcf4e9] py-10 sm:py-12 md:py-16 lg:py-24 overflow-hidden relative z-50">
       <div className="container px-4 sm:px-6 md:px-8 mx-auto">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-center mb-8 md:mb-12 lg:mb-16">
           Heres what our <span className="font-semibold">clients</span>
@@ -136,12 +161,14 @@ export default function TestimonialsSection() {
       </div>
 
       {/* Testimonials */}
-      <div className="relative mb-10 sm:mb-12 md:mb-16 lg:mb-20 overflow-hidden">
+      <div className="relative mb-6 sm:mb-8 md:mb-10 overflow-hidden">
         <div ref={scrollContainerRef} className="flex gap-3 sm:gap-4 md:gap-6">
           {duplicatedTestimonials.map((t, i) => (
             <div
               key={i}
               className="testimonial-card bg-[#fffcf7] rounded-2xl p-4 sm:p-6 md:p-8 w-[240px] sm:w-[300px] md:w-[360px] lg:w-[400px] flex-shrink-0 shadow-sm flex flex-col"
+              onMouseEnter={() => { isHoveredRef.current = true }}
+              onMouseLeave={() => { isHoveredRef.current = false }}
             >
               {(t.logoIcon || t.logo) && (
                 <img
@@ -170,6 +197,23 @@ export default function TestimonialsSection() {
           ))}
         </div>
       </div>
+
+      {/* Radio Buttons */}
+      <div className="flex justify-center items-center gap-2 sm:gap-3 mb-10 sm:mb-12 md:mb-16 lg:mb-20">
+        {testimonials.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => handleRadioClick(index)}
+            className={`rounded-full transition-all duration-300 ${
+              activeIndex === index
+                ? 'w-6 h-3 bg-[#D98127]'
+                : 'w-3 h-3 bg-[#D98127] opacity-30'
+            }`}
+            aria-label={`Go to testimonial ${index + 1}`}
+          />
+        ))}
+      </div>
+
       <Readyto />
     </div>
   )
