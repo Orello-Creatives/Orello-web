@@ -33,6 +33,7 @@ import togglee from '../assets/logos/togglee.svg';
 import penn    from '../assets/logos/penn.svg';
 import Readyto from '../components/Readyto.jsx'
 import vimg3 from '../assets/videos/vimg3.mp4'
+import tryy from '../assets/logos/tryy.svg'
 
 const ALL_PROJECTS = [
   {
@@ -54,24 +55,24 @@ const ALL_PROJECTS = [
   {
     id: 3,  title: "EO Exploration",
     tags: ["Events", "Social Organisation"],
-    logoKeys: ["starr", "togglee", "penn"],
-    logos: [starr, togglee, penn],
+    logoKeys: ["starr", "motion", "togglee", "penn"],
+    logos: [starr, tryy, togglee, penn],
     defaultImage: case3,  hoverImage: hr3,
     link: "/exp-casestudy",
   },
   {
     id: 4,  title: "Coldeasy",
     tags: ["Sustainability", "Construction", "Climate Tech"],
-    logoKeys: ["starr", "togglee", "penn"],
-    logos: [starr, togglee, penn],
+    logoKeys: ["starr", "motion", "togglee", "penn"],
+    logos: [starr, tryy, togglee, penn],
     defaultImage: case4,  hoverImage: hr4,
     link: "/coldeasy-casestudy",
   },
   {
     id: 5,  title: "Villgro",
     tags: ["Climate Tech", "Sustainability"],
-    logoKeys: ["penn"],
-    logos: [penn],
+    logoKeys: ["motion", "penn"],
+    logos: [tryy, penn],
     defaultImage: vimg3,  hoverImage: hr5,
     link: "/villgro-casestudy",
   },
@@ -86,8 +87,8 @@ const ALL_PROJECTS = [
   {
     id: 7,  title: "Canvase",
     tags: ["Climate Tech", "Sustainability", "Construction"],
-    logoKeys: ["starr", "togglee", "penn"],
-    logos: [starr, togglee, penn],
+    logoKeys: ["starr", "motion", "togglee", "penn"],
+    logos: [starr, tryy, togglee, penn],
     defaultImage: case7,  hoverImage: hr7,
     link: "/canvase-casestudy",
   },
@@ -110,8 +111,8 @@ const ALL_PROJECTS = [
   {
     id: 10, title: "G3",
     tags: ["Events"],
-    logoKeys: ["starr", "togglee", "penn"],
-    logos: [starr, togglee, penn],
+    logoKeys: ["starr", "motion", "togglee", "penn"],
+    logos: [starr, tryy, togglee, penn],
     defaultImage: case10, hoverImage: case10,
     link: "/g3-casestudy",
   },

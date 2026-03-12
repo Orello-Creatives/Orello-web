@@ -6,7 +6,7 @@ import { useLocation } from 'react-router';
 import starr   from '../assets/logos/starr.svg';
 import togglee from '../assets/logos/togglee.svg';
 import penn    from '../assets/logos/penn.svg';
-import uiux    from '../assets/logos/uiux.svg';
+import tryy    from '../assets/logos/tryy.svg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,13 +37,16 @@ export const SERVICES = [
   { label: "Branding / Identity Design",          logoKey: "starr",   logo: starr   },
   { label: "Digital Marketing / Content / Print", logoKey: "penn",    logo: penn    },
   { label: "UI-UX / Development",                 logoKey: "togglee", logo: togglee },
-  { label: "Motion Graphics",                     logoKey: "motion",  logo: uiux    },
+  { label: "Motion Graphics",                     logoKey: "motion",  logo: tryy    },
 ];
 
 function isTouchDevice() {
   if (typeof window === "undefined") return false;
   return window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 }
+
+// ── Bridge gap constant (keep in sync with portal top offset) ──────────────
+const DROPDOWN_OFFSET = 6; // px gap between button bottom and dropdown top
 
 function DropdownPortal({ anchorRef, portalRef, children, align = "left", onMouseEnter, onMouseLeave }) {
   const [style, setStyle] = useState(null);
@@ -55,7 +58,8 @@ function DropdownPortal({ anchorRef, portalRef, children, align = "left", onMous
     function compute() {
       if (!anchorRef.current) return;
       const rect = anchorRef.current.getBoundingClientRect();
-      const base = { position: "fixed", top: rect.bottom + 6, zIndex: 999999 };
+      // Use top: rect.bottom so the bridge (paddingTop) is inside the portal wrapper
+      const base = { position: "fixed", top: rect.bottom, zIndex: 999999 };
       const viewportWidth = window.innerWidth;
 
       if (viewportWidth < 480) {
@@ -80,7 +84,8 @@ function DropdownPortal({ anchorRef, portalRef, children, align = "left", onMous
 
   if (!style) return null;
   return createPortal(
-    <div ref={wrapperRef} style={style} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+    // paddingTop creates an invisible bridge so cursor doesn't leave the hover zone
+    <div ref={wrapperRef} style={{ ...style, paddingTop: DROPDOWN_OFFSET }} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className="dropdown-animate">{children}</div>
     </div>,
     document.body
@@ -116,7 +121,8 @@ function useDropdown(key, openDropdown, setOpenDropdown) {
 
   function handleMouseLeave() {
     if (isTouchDevice()) return;
-    closeTimer.current = setTimeout(() => setOpenDropdown(null), 120);
+    // Increased delay so cursor has time to travel into the dropdown portal
+    closeTimer.current = setTimeout(() => setOpenDropdown(null), 180);
   }
 
   function cancelClose() {

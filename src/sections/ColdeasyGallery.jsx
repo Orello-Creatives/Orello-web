@@ -51,10 +51,10 @@ export default function PhotoGridSection() {
             <img
               src={images.topRight}
               alt="Report launch and panel"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
             />
             <div
-              className={`absolute inset-0 bg-black/10 transition-opacity duration-300 ${
+              className={`absolute inset-0  transition-opacity duration-300 ${
                 hovered === "topRight" ? "opacity-0" : "opacity-100"
               }`}
             />
