@@ -155,7 +155,7 @@ const OrelloNavbar = () => {
       {isMenuOpen && (
         <div
           ref={overlayRef}
-          className="fixed inset-0 z-20 bg-black/10 backdrop-blur-[2px] md:hidden"
+          className="fixed inset-0 z-50 bg-black/10 backdrop-blur-[2px] md:hidden"
           onClick={() => setIsMenuOpen(false)}
           aria-hidden="true"
         />

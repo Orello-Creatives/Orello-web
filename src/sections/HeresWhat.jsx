@@ -92,6 +92,10 @@ export default function TestimonialsSection() {
     ...testimonials,
   ]
 
+  // Group 8 testimonials into 3 radio button segments
+  const RADIO_COUNT = 3
+  const groupSize = Math.ceil(testimonials.length / RADIO_COUNT)
+
   useEffect(() => {
     const container = scrollContainerRef.current
     if (!container) return
@@ -113,8 +117,9 @@ export default function TestimonialsSection() {
       if (Math.abs(positionRef.current) >= totalWidth) positionRef.current = 0
       container.style.transform = `translateX(${positionRef.current}px)`
 
-      const currentIndex = Math.floor(Math.abs(positionRef.current) / cardWidth) % testimonials.length
-      setActiveIndex(currentIndex)
+      const currentCardIndex = Math.floor(Math.abs(positionRef.current) / cardWidth) % testimonials.length
+      const currentRadioIndex = Math.min(Math.floor(currentCardIndex / groupSize), RADIO_COUNT - 1)
+      setActiveIndex(currentRadioIndex)
 
       rafRef.current = requestAnimationFrame(animate)
     }
@@ -135,7 +140,7 @@ export default function TestimonialsSection() {
     }
   }, [testimonials.length])
 
-  const handleRadioClick = (index) => {
+  const handleRadioClick = (radioIndex) => {
     const container = scrollContainerRef.current
     if (!container) return
 
@@ -146,8 +151,9 @@ export default function TestimonialsSection() {
     const gap = parseInt(computedStyle.gap) || 24
     const cardWidth = firstCard.offsetWidth + gap
 
-    positionRef.current = -(cardWidth * index)
-    setActiveIndex(index)
+    const cardIndex = radioIndex * groupSize
+    positionRef.current = -(cardWidth * cardIndex)
+    setActiveIndex(radioIndex)
   }
 
   return (
@@ -200,7 +206,7 @@ export default function TestimonialsSection() {
 
       {/* Radio Buttons */}
       <div className="flex justify-center items-center gap-2 sm:gap-3 mb-10 sm:mb-12 md:mb-16 lg:mb-20">
-        {testimonials.map((_, index) => (
+        {Array.from({ length: RADIO_COUNT }).map((_, index) => (
           <button
             key={index}
             onClick={() => handleRadioClick(index)}
@@ -209,7 +215,7 @@ export default function TestimonialsSection() {
                 ? 'w-6 h-3 bg-[#D98127]'
                 : 'w-3 h-3 bg-[#D98127] opacity-30'
             }`}
-            aria-label={`Go to testimonial ${index + 1}`}
+            aria-label={`Go to testimonial group ${index + 1}`}
           />
         ))}
       </div>

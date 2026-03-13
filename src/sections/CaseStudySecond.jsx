@@ -46,7 +46,7 @@ const ALL_PROJECTS = [
   },
   {
     id: 2,  title: "FindTheirCare",
-    tags: ["Health"],
+    tags: ["Health", "AI"],
     logoKeys: ["starr", "togglee", "penn"],
     logos: [starr, togglee, penn],
     defaultImage: case2,  hoverImage: hr2,
@@ -54,7 +54,7 @@ const ALL_PROJECTS = [
   },
   {
     id: 3,  title: "EO Exploration",
-    tags: ["Events", "Social Organisation"],
+    tags: ["Events", "Travel"],
     logoKeys: ["starr", "motion", "togglee", "penn"],
     logos: [starr, tryy, togglee, penn],
     defaultImage: case3,  hoverImage: hr3,
@@ -62,7 +62,7 @@ const ALL_PROJECTS = [
   },
   {
     id: 4,  title: "Coldeasy",
-    tags: ["Sustainability", "Construction", "Climate Tech"],
+    tags: ["Climate Tech", "Sustainability", "Agritech"],
     logoKeys: ["starr", "motion", "togglee", "penn"],
     logos: [starr, tryy, togglee, penn],
     defaultImage: case4,  hoverImage: hr4,
@@ -70,7 +70,7 @@ const ALL_PROJECTS = [
   },
   {
     id: 5,  title: "Villgro",
-    tags: ["Climate Tech", "Sustainability"],
+    tags: ["Climate Tech", "Sustainability", "Agritech"],
     logoKeys: ["motion", "penn"],
     logos: [tryy, penn],
     defaultImage: vimg3,  hoverImage: hr5,
@@ -78,7 +78,7 @@ const ALL_PROJECTS = [
   },
   {
     id: 6,  title: "Ocean",
-    tags: ["Construction", "Sustainability"],
+    tags: ["Climate Tech", "Sustainability", "Construction", "Agritech"],
     logoKeys: ["togglee"],
     logos: [togglee],
     defaultImage: case6,  hoverImage: hr6,
@@ -86,7 +86,7 @@ const ALL_PROJECTS = [
   },
   {
     id: 7,  title: "Canvase",
-    tags: ["Climate Tech", "Sustainability", "Construction"],
+    tags: ["Fashion", "Lifestyle"],
     logoKeys: ["starr", "motion", "togglee", "penn"],
     logos: [starr, tryy, togglee, penn],
     defaultImage: case7,  hoverImage: hr7,
@@ -102,7 +102,7 @@ const ALL_PROJECTS = [
   },
   {
     id: 9,  title: "Gangpur Silage",
-    tags: ["Climate Tech", "Sustainability", "Dairy", "Agritech"],
+    tags: ["Dairy", "Agritech"],
     logoKeys: ["starr", "penn"],
     logos: [starr, penn],
     defaultImage: case9,  hoverImage: hr9,
@@ -110,7 +110,7 @@ const ALL_PROJECTS = [
   },
   {
     id: 10, title: "G3",
-    tags: ["Events"],
+    tags: ["Events", "Social Organisation"],
     logoKeys: ["starr", "motion", "togglee", "penn"],
     logos: [starr, tryy, togglee, penn],
     defaultImage: case10, hoverImage: case10,
@@ -118,7 +118,7 @@ const ALL_PROJECTS = [
   },
   {
     id: 11, title: "Scalepoint",
-    tags: ["Climate Tech", "Sustainability", "Construction"],
+    tags: ["Corporate"],
     logoKeys: ["starr", "togglee", "penn"],
     logos: [starr, togglee, penn],
     defaultImage: case11, hoverImage: hr11,
@@ -134,7 +134,7 @@ const ALL_PROJECTS = [
   },
   {
     id: 13, title: "Yaykwa",
-    tags: ["Climate Tech", "Sustainability", "Construction"],
+    tags: ["Construction", "Mining"],
     logoKeys: ["starr", "togglee", "penn"],
     logos: [starr, togglee, penn],
     defaultImage: case13, hoverImage: hr13,
@@ -142,7 +142,7 @@ const ALL_PROJECTS = [
   },
   {
     id: 14, title: "TMT",
-    tags: ["Climate Tech", "Sustainability", "Construction"],
+    tags: ["NGO"],
     logoKeys: ["penn", "togglee"],
     logos: [penn, togglee],
     defaultImage: case14, hoverImage: hr14,
