@@ -140,6 +140,8 @@ export default function PhotoGridSection() {
         {/* CTA Button */}
         <div className="mt-2">
           <a
+           target="_blank"
+           rel="noopener noreferrer"
             href="https://villgro.org/storage/2025/07/GBM-Market-Study-Report-2025.pdf"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border  text-sm font-medium text-gray-700 bg-[#4B433B]  hover:border-gray-600 transition-all duration-200 shadow-sm"
           >
