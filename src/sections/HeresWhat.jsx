@@ -158,7 +158,7 @@ export default function TestimonialsSection() {
 
   return (
     <div className="bg-[#fcf4e9] py-10 sm:py-12 md:py-16 lg:py-24 overflow-hidden relative z-50">
-      <div className="container px-4 sm:px-6 md:px-8 mx-auto">
+      <div className="container ">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-center mb-8 md:mb-12 lg:mb-16">
           Heres what our <span className="font-semibold">clients</span>
           <br />

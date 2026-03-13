@@ -194,8 +194,8 @@ export default function ServicesSection() {
     <div ref={containerRef} className="bg-[#eadecf] relative">
       <div ref={stickyContainerRef} className="h-auto lg:h-screen w-full overflow-hidden relative py-12 lg:py-0">
         
-        {/* Background Decorative Circles - Hidden on mobile/tablet */}
-        <div className="absolute inset-0 items-end justify-center pointer-events-none z-0 overflow-hidden hidden lg:flex">
+        {/* Background Decorative Circles - Visible on all devices, animated only on desktop */}
+        <div className="absolute inset-0 items-end justify-center pointer-events-none z-0 overflow-hidden flex">
           <div
             ref={(el) => (circleRefs.current[1] = el)}
             className="absolute w-[120vw] h-[110vw] bg-[#fdf6e9] left-1/2"
@@ -220,12 +220,12 @@ export default function ServicesSection() {
           <div
             ref={(el) => (transitionArcRefs.current[0] = el)}
             className="absolute w-[40vw] h-[40vw] bg-[#F4EDE2] left-1/2"
-            style={{ borderRadius: "50%", bottom: "-40vw", opacity: 0, transform: "translateX(-50%)", willChange: "transform, opacity" }}
+            style={{ borderRadius: "50%", bottom: "-40vw", opacity: 0.6, transform: "translateX(-50%)", willChange: "transform, opacity" }}
           />
           <div
             ref={(el) => (transitionArcRefs.current[1] = el)}
             className="absolute w-[15vw] h-[0vw] bg-[#f4ede2] left-1/2"
-            style={{ borderRadius: "50%", bottom: "-40vw", opacity: 0, transform: "translateX(-50%)", willChange: "transform, opacity" }}
+            style={{ borderRadius: "50%", bottom: "-40vw", opacity: 0.6, transform: "translateX(-50%)", willChange: "transform, opacity" }}
           />
         </div>
 

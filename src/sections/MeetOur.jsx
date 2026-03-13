@@ -139,7 +139,7 @@ export default function MeetOurTeam() {
 
   return (
     <div className="bg-[#F4EDE2] py-12 sm:py-16 md:py-20 lg:py-24 relative z-20">
-      <div className="container px-4 sm:px-6 lg:px-4">
+      <div className="container">
         {/* Header */}
         <div className="mb-8 sm:mb-10 lg:mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-3 sm:mb-4 leading-tight text-[#402E1D]">

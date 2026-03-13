@@ -2,8 +2,8 @@ import { Link } from "react-router";
 
 export default function ReadyToMakeCTA() {
   return (
-    <div className="px-4">
-      <div className="bg-[#FFB721] container mx-auto px-5 sm:px-8 md:px-10 lg:px-14 rounded-2xl sm:rounded-3xl py-8 sm:py-10 md:py-14 lg:py-16 relative overflow-hidden mt-12 sm:mt-16 md:mt-20 lg:mt-24">
+    <div className="container">
+      <div className="bg-[#FFB721]  mx-auto px-5 sm:px-8 md:px-10 lg:px-14 rounded-2xl sm:rounded-3xl py-8 sm:py-10 md:py-14 lg:py-16 relative overflow-hidden mt-12 sm:mt-16 md:mt-20 lg:mt-24">
 
         {/* Background Circles */}
         <div className="absolute inset-0 flex items-end justify-center pointer-events-none z-0 overflow-hidden">
