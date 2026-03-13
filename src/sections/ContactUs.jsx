@@ -53,7 +53,7 @@ export default function ContactSection() {
     setIsSubmitting(true);
 
     try {
-    const response = await fetch('http://localhost:5000/api/contact/orello/submit', {
+    const response = await fetch('https://multi-mail-server-ml0m.onrender.com/api/contact/orello/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
