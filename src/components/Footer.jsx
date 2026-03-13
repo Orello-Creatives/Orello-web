@@ -54,7 +54,7 @@ const RotatingBadge = ({ size = 144 }) => {
             fontWeight="900"
             fill="#f2ece0"
             letterSpacing="1.4"
-            fontFamily="'Georgia', 'Times New Roman', serif"
+            fontFamily="'Satoshi', 'Times New Roman', serif"
           >
             <textPath href="#badgeCircle" startOffset="0%">
             Your • Creative • Partner •
@@ -182,12 +182,12 @@ const Footer = () => {
             {/* Conic ring accent — mobile only (adjust 'from' and spread degrees here independently) */}
             <div
               className="block sm:hidden absolute w-28 h-28 rounded-full"
-              style={{ background: 'conic-gradient(from 226deg, #F7AF19 215deg, transparent 0deg)' }}
+              style={{ background: 'conic-gradient(from 245deg, #F7AF19 192deg, transparent 0deg)' }}
             />
             {/* Conic ring accent — sm and above (desktop degrees) */}
             <div
               className="hidden sm:block absolute sm:w-24 sm:h-24 md:w-36 md:h-36 lg:w-40 lg:h-40 rounded-full"
-              style={{ background: 'conic-gradient(from 252deg, #F7AF19 205deg, transparent 0deg)' }}
+              style={{ background: 'conic-gradient(from 262deg, #F7AF19 190deg, transparent 0deg)' }}
             />
             {/* Badge with orelloclip at center */}
             <div className="relative border-4 border-[#fdf7ee] rounded-full shadow-xl">
@@ -204,7 +204,7 @@ const Footer = () => {
         {/* Diagonal Background Shape — visible on all screen sizes */}
         <div
           className="absolute inset-0 bg-[#e7e1d5] z-10"
-          style={{ clipPath: 'polygon(0 100%, 0 45%, 100% 0, 100% 100%)' }}
+          style={{ clipPath: 'polygon(0 100%, 0 30%, 100% 0, 100% 100%)' }}
         />
 
         {/* 3. Footer Content */}
