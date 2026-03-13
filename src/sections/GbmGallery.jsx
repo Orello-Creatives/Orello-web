@@ -41,7 +41,7 @@ export default function PhotoGridSection() {
               <img
                 src={images.topLeft}
                 alt="Green building material"
-                className="w-full h-full object-cover"
+                className={`w-full h-full object-cover transition-transform duration-300 ease-in-out ${hovered === "topLeft" ? "scale-110" : "scale-100"}`}
               />
               <div
                 className={`absolute inset-0 bg-black/10 transition-opacity duration-300 ${
@@ -59,7 +59,7 @@ export default function PhotoGridSection() {
               <img
                 src={images.midLeft}
                 alt="Report on tablet"
-                className="w-full h-full object-cover"
+                className={`w-full h-full object-cover transition-transform duration-300 ease-in-out ${hovered === "midLeft" ? "scale-110" : "scale-100"}`}
               />
               <div
                 className={`absolute inset-0 bg-black/10 transition-opacity duration-300 ${
@@ -78,7 +78,7 @@ export default function PhotoGridSection() {
             <img
               src={images.topRight}
               alt="Report launch and panel"
-              className="w-full h-full object-cover"
+              className={`w-full h-full object-cover transition-transform duration-300 ease-in-out ${hovered === "topRight" ? "scale-110" : "scale-100"}`}
             />
             <div
               className={`absolute inset-0 bg-black/10 transition-opacity duration-300 ${
@@ -98,8 +98,7 @@ export default function PhotoGridSection() {
             <img
               src={images.innerLeft}
               alt="Report spread left"
-              className={`w-full h-full object-cover "
-              }`}
+              className={`w-full h-full object-cover transition-transform duration-300 ease-in-out ${hovered === "innerLeft" ? "scale-110" : "scale-100"}`}
             />
             <div
               className={`absolute inset-0 bg-black/10 "
@@ -115,8 +114,7 @@ export default function PhotoGridSection() {
             <img
               src={images.innerRight}
               alt="Report spread right — materials"
-              className={`w-full h-full object-cover "
-              }`}
+              className={`w-full h-full object-cover transition-transform duration-300 ease-in-out ${hovered === "innerRight" ? "scale-110" : "scale-100"}`}
             />
             <div
               className={`absolute inset-0 bg-black/10 "
@@ -134,8 +132,7 @@ export default function PhotoGridSection() {
           <img
             src={images.bottom}
             alt="Report launch group photo"
-            className={`w-full h-full object-contain "
-            }`}
+            className={`w-full h-full object-contain transition-transform duration-300 ease-in-out ${hovered === "bottom" ? "scale-110" : "scale-100"}`}
           />
           
         </div>

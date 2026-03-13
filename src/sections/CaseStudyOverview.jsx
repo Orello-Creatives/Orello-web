@@ -46,7 +46,7 @@ function isTouchDevice() {
 }
 
 // ── Bridge gap constant (keep in sync with portal top offset) ──────────────
-const DROPDOWN_OFFSET = 6; // px gap between button bottom and dropdown top
+const DROPDOWN_OFFSET = 12; // px gap between button bottom and dropdown top
 
 function DropdownPortal({ anchorRef, portalRef, children, align = "left", onMouseEnter, onMouseLeave }) {
   const [style, setStyle] = useState(null);
@@ -122,7 +122,7 @@ function useDropdown(key, openDropdown, setOpenDropdown) {
   function handleMouseLeave() {
     if (isTouchDevice()) return;
     // Increased delay so cursor has time to travel into the dropdown portal
-    closeTimer.current = setTimeout(() => setOpenDropdown(null), 180);
+    closeTimer.current = setTimeout(() => setOpenDropdown(null), 300);
   }
 
   function cancelClose() {

@@ -14,6 +14,8 @@ const media = {
 };
 
 function MediaItem({ id, src, type, alt, hovered, onMouseEnter, onMouseLeave, className = "" }) {
+  const isHovered = hovered === id;
+
   return (
     <div
       className={`relative overflow-hidden rounded-2xl ${className}`}
@@ -27,18 +29,18 @@ function MediaItem({ id, src, type, alt, hovered, onMouseEnter, onMouseLeave, cl
           loop
           muted
           playsInline
-          className="w-full h-full object-cover"
+          className={`w-full h-full object-cover transition-transform duration-300 ease-in-out ${isHovered ? "scale-110" : "scale-100"}`}
         />
       ) : (
         <img
           src={src}
           alt={alt}
-          className="w-full h-full object-cover"
+          className={`w-full h-full object-cover transition-transform duration-300 ease-in-out ${isHovered ? "scale-110" : "scale-100"}`}
         />
       )}
       <div
         className={`absolute inset-0 bg-black/10 transition-opacity duration-300 ${
-          hovered === id ? "opacity-0" : "opacity-100"
+          isHovered ? "opacity-0" : "opacity-100"
         }`}
       />
     </div>
