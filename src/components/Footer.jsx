@@ -25,7 +25,7 @@ const RotatingBadge = ({ size = 144 }) => {
 
   const cx = 50
   const cy = 50
-  const r = 36
+  const r = 32
 
   return (
     <div style={{ position: 'relative', width: size, height: size }}>
@@ -48,22 +48,22 @@ const RotatingBadge = ({ size = 144 }) => {
         <circle cx={cx} cy={cy} r={49} fill="#1c1c1c" />
 
         {/* Rotating text ring */}
-        <g ref={ringRef} style={{ transformOrigin: `${cx}px ${cy}px` }}>
-          <text
-            fontSize="13.2"
-            fontWeight="900"
-            fill="#f2ece0"
-            letterSpacing="1.4"
-            fontFamily="'Satoshi', 'Times New Roman', serif"
-          >
-            <textPath href="#badgeCircle" startOffset="0%">
-            Your • Creative • Partner •
-            </textPath>
-          </text>
-        </g>
+       <g ref={ringRef} style={{ transformOrigin: `${cx}px ${cy}px` }}>
+  <text
+    fontSize="14.2"
+    fontWeight="700"
+    fill="#f2ece0"
+    letterSpacing="0.8"
+    fontFamily="'Satoshi', 'Times New Roman', serif"
+  >
+    <textPath href="#badgeCircle" startOffset="0%">
+      Your • Creative • Partner •
+    </textPath>
+  </text>
+</g>
       </svg>
 
-      {/* orelloclip — centered over the SVG */}
+      
       <img
         src={orelloclip}
         alt="Orello mark"

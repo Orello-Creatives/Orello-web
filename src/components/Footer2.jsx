@@ -156,25 +156,17 @@ const Footer = () => {
 
       {/* 1. Hero / CTA Section */}
       <div className="flex flex-col items-center justify-center px-4 sm:px-6 pt-8 sm:pt-22 text-center">
-        <p className="text-xs sm:text-sm font-medium text-paragraph text-black mb-3 sm:mb-4">
+        <p className="text-xs sm:text-sm font-medium text-paragraph text-black mb-3 sm:mb-0">
           Kickstart your brand's journey
         </p>
         <h2 className="font-bold text-black font-body mb-6 sm:mb-10 max-w-4xl text-2xl sm:text-3xl md:text-4xl lg:text-6xl tracking-tight px-2">
           Free Hosting for a Year on Us!
         </h2>
-        <div className="flex gap-3 sm:gap-4 flex-wrap justify-center">
-          <AnimatedButton
-            to="/contact"
-            label="Contact Us"
-            bgColor="#000000"
-            textColor="white"
-            arrowBgColor="#333333"
-          />
-        </div>
+       
       </div>
 
       {/* 2. Transition & Footer Section */}
-      <div className="relative mt-20 sm:mt-16 md:mt-20">
+      <div className="relative mt-20 sm:mt-16 md:mt-10">
 
         {/* ── Floating Rotating Badge (visible on all screen sizes) ── */}
         <div className="absolute right-[5%] sm:right-[6%] md:right-[8%] -top-8 sm:-top-12 md:-top-16 z-30">
