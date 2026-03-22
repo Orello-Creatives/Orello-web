@@ -14,7 +14,7 @@ const projects = [
   {
     id: 7,
     title: "Canvase",
-    tags: ["Climate Tech", "Sustainability", "Construction"],
+    tags: ["Fashion", "Lifestyle", "Sustainability"],
     logos: [starr, togglee, penn],
     defaultImage: case7,
     hoverImage: hr7,

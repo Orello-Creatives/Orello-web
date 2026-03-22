@@ -22,7 +22,7 @@ const projects = [
   },
   {
     id: 14,
-    title: "TMT",
+    title: "Dr. Tarannum Memorial Trust",
     tags: ["Climate Tech", "Sustainability", "Construction"],
     logos: [penn, togglee],
     defaultImage: case14,

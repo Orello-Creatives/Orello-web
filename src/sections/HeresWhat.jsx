@@ -11,6 +11,11 @@ import khaleel from '../assets/logos/khaleel.svg'
 import shaili from '../assets/logos/shaili.svg'
 import bimal from '../assets/logos/bimal.svg'
 import Readyto from '../components/Readyto'
+import har from '../assets/logos/har.svg'
+import canvase3 from '../assets/logos/canvase3.svg'
+import silage from '../assets/logos/silage.svg'
+import yaykwa3 from '../assets/logos/yaykwa3.svg'
+import shai from '../assets/logos/shai.svg'
 
 export default function TestimonialsSection() {
   const scrollContainerRef = useRef(null)
@@ -23,7 +28,7 @@ export default function TestimonialsSection() {
     {
       logoIcon: coldeasy,
       text:
-        "Orello helped us revamp our brand identity with a clear understanding of both our needs and vision. From the logo and cohesive identity to the complete website build, design, development, and content, everything was handled end to end with care and precision.\n\nThey also redesigned our collaterals, including flyers, standees, and social media templates, all delivered at a consistently high quality. The process was smooth, collaborative, and well-managed, with great attention to detail and patience through every iteration. We would highly recommend Orello as a dependable, full-service design partner.",
+        "Orello helped us revamp our brand identity with a clear understanding of both our needs and vision. From the logo and cohesive identity to the complete website build — design, development, and content — everything was handled end to end with care and precision. They also redesigned our collaterals, including flyers, standees, and social media templates, all delivered at a consistently high quality. The process was smooth, collaborative, and well‑managed, with great attention to detail and patience through every iteration. We would highly recommend Orello as a dependable, full‑service design partner.",
       avatar: vishal,
       name: 'Vishal Singhal',
       title: 'Founder, Coldeasy',
@@ -31,7 +36,7 @@ export default function TestimonialsSection() {
     {
       logo: ocean,
       text:
-        "Orello Creatives transformed Ocean's website on WordPress, bringing our vision to life with a sleek, polished design. Orello's team was attentive to our needs and delivered on a tight deadline. Their professionalism and quality work exceeded our expectations.",
+        "Orello Creatives transformed Ocean’s website on WordPress, bringing our vision to life with a sleek, polished design. Orello’s team was attentive to our needs and delivered on a tight deadline. Their professionalism and quality work exceeded our expectations, highly recommended for anyone seeking reliable web development that combines aesthetics with functionality!",
       avatar: alex,
       name: 'Alexa Bednarz',
       title: 'Founder, Ocean',
@@ -39,37 +44,37 @@ export default function TestimonialsSection() {
     {
       logo: villgro,
       text:
-        "Our experience with Orello Creatives has been outstanding! They consistently manage Villgro's marketing collateral with creativity and professionalism.",
+        "Our experience with Orello Creatives has been outstanding! They  consistently manage Villgro’s marketing collateral with creativity and  professionalism. Haamid and Razeena’s designs capture our brand’s  essence beautifully every time. Highly recommend their services for  anyone in need of fresh, high-quality materials!",
       avatar: sanam,
       name: 'Sanam Jain',
       title: 'Manager Ecosystem Development',
     },
     {
-      logoIcon: coldeasy,
+      logoIcon: villgro,
       text:
-        "Orello Creatives designed impactful, visually stunning collateral for Villgro's GBM event. From Reports to brochures to standees, every item was crafted with detail and attention. The team's design expertise helped us leave a lasting impression on our audience and incredible experience!",
+        "Orello Creatives designed impactful, visually stunning collateral for Villgro’s GBM event. From Reports to brochures to standees, every item was crafted with detail and attention. The team’s design expertise helped us leave a lasting impression on our audience and incredible experience!",
       avatar: roshni,
       name: 'Roshini Muthukumar ',
       title: 'Manager Ecosystem Development',
     },
     {
-      logo: ocean,
+      logo: canvase3,
       text:
         "Working with Orello was such an intuitive experience. They understood my vision for Canvasé and built a brand identity that feels authentic, modern, and scalable. From design details to the bigger picture, everything was thoughtfully crafted. I truly felt supported throughout the journey, and the outcome reflects exactly what I had hoped for",
-      avatar: harshita,
+      avatar: har,
       name: 'Harshitha',
       title: 'Founder & CEO, Canvasé',
     },
     {
-      logo: villgro,
+      logo: silage,
       text:
-        "Working with Orello has been a turning point for Gangpur Silage. They understood our mission to make silage accessible for farmers and translated it into designs that actually work on the ground. From our brand identity to farmer-facing collaterals like flipcharts and booklets, everything was made simple, practical, and effective. Their team didn't feel like an outside agency — they felt like part of our own, committed to helping us grow and reach more farmers with clarity and trust.",
+        "Working with Orello has been a turning point for Gangpur Silage. They understood our mission to make silage accessible for farmers and translated it into designs that actually work on the ground. From our brand identity to farmer-facing collaterals like flipcharts and booklets, everything was made simple, practical, and effective. Their team didn’t feel like an outside agency — they felt like part of our own, committed to helping us grow and reach more farmers with clarity and trust.",
       avatar: bimal,
       name: 'Bimal Lakra',
       title: 'Founder/CEO, Gangpur Ventures',
     },
     {
-      logo: ocean,
+      logo: yaykwa3,
       text:
         "Orello helped us revamp our brand identity with a clear understanding of both our needs and vision. From the logo and cohesive identity to the complete website build — design, development, and content — everything was handled end to end with care and precision. They also redesigned our collaterals, including flyers, standees, and social media templates, all delivered at a consistently high quality. The process was smooth, collaborative, and well‑managed, with great attention to detail and patience through every iteration. We would highly recommend Orello as a dependable, full‑service design partner.",
       avatar: khaleel,
@@ -77,7 +82,7 @@ export default function TestimonialsSection() {
       title: 'Founder, Yaykwa',
     },
     {
-      logo: villgro,
+      logo: shai,
       text:
         "Orello Creatives transformed my online presence into something seamless and professional. The new website booking system and integrated platform makes it so much easier for my students across the world to connect with me",
       avatar: shaili,

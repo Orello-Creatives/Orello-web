@@ -142,7 +142,7 @@ const ALL_PROJECTS = [
     link: "/yaykwa-casestudy",
   },
   {
-    id: 14, title: "TMT",
+    id: 14, title: "Dr. Tarannum Memorial Trust",
     tags: ["NGO"],
     logos: [penn, togglee],
     logoKeys: ["penn", "togglee"],

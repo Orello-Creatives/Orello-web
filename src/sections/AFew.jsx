@@ -122,7 +122,7 @@ const PortfolioSection = () => {
     {
       id: 3,
       title: "Canvasé",
-      tags: ["Climate tech", "Sustainability", "Construction"],
+      tags: ["Fashion", "Lifestyle", "Sustainability"],
       image: case7,
       hoverLogo: hr7,
       icons: [star, toggle, pen],
