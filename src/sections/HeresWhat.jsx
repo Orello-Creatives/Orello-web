@@ -47,7 +47,7 @@ export default function TestimonialsSection() {
         "Our experience with Orello Creatives has been outstanding! They  consistently manage Villgro’s marketing collateral with creativity and  professionalism. Haamid and Razeena’s designs capture our brand’s  essence beautifully every time. Highly recommend their services for  anyone in need of fresh, high-quality materials!",
       avatar: sanam,
       name: 'Sanam Jain',
-      title: 'Manager - Ecosystem Development, Villgro',
+      title: 'Manager, Climate Action, Villgro Innovations',
     },
     {
       logoIcon: villgro,
