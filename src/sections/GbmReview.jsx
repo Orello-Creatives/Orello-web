@@ -6,8 +6,8 @@ const testimonials = [
     id: 1,
     quote:
       "Our experience with Orello Creatives has been outstanding! They  consistently manage Villgro’s marketing collateral with creativity and  professionalism. Haamid and Razeena’s designs capture our brand’s  essence beautifully every time. Highly recommend their services for  anyone in need of fresh, high-quality materials!",
-    name: "Roshini Muthukumar",
-    role: "Manager - Ecosystem Development, Villgro",
+    name: "Sanam Jain",
+    role: "Manager, Climate Action, Villgro Innovations",
     avatar: roshini2, 
   },
   
