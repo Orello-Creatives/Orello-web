@@ -47,7 +47,7 @@ export default function TestimonialsSection() {
         "Our experience with Orello Creatives has been outstanding! They  consistently manage Villgro’s marketing collateral with creativity and  professionalism. Haamid and Razeena’s designs capture our brand’s  essence beautifully every time. Highly recommend their services for  anyone in need of fresh, high-quality materials!",
       avatar: sanam,
       name: 'Sanam Jain',
-      title: 'Manager Ecosystem Development',
+      title: 'Manager - Ecosystem Development, Villgro',
     },
     {
       logoIcon: villgro,
@@ -55,7 +55,7 @@ export default function TestimonialsSection() {
         "Orello Creatives designed impactful, visually stunning collateral for Villgro’s GBM event. From Reports to brochures to standees, every item was crafted with detail and attention. The team’s design expertise helped us leave a lasting impression on our audience and incredible experience!",
       avatar: roshni,
       name: 'Roshini Muthukumar ',
-      title: 'Manager Ecosystem Development',
+      title: 'Manager - Ecosystem Development, Villgro',
     },
     {
       logo: canvase3,

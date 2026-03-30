@@ -7,7 +7,7 @@ const testimonials = [
     quote:
       "Orello helped us revamp our brand identity with a clear understanding of both our needs and vision. From the logo and cohesive identity to the complete website build — design, development, and content — everything was handled end to end with care and precision.They also redesigned our collaterals, including flyers, standees, and social media templates, all delivered at a consistently high quality. The process was smooth, collaborative, and well‑managed, with great attention to detail and patience through every iteration. We would highly recommend Orello as a dependable, full‑service design partner.",
     name: "Khaleel Pathummathada",
-    role: "Founder Yaykwa",
+    role: "Founder, Yaykwa",
     avatar: yaykwa2, 
   },
   

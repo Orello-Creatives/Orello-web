@@ -1,13 +1,13 @@
 import { useState } from "react";
 import comma from '../assets/logos/comma.svg'
-import roshini2 from '../assets/logos/roshini2.svg'
+import roshini2 from '../assets/logos/sanam.svg'
 const testimonials = [
   {
     id: 1,
     quote:
-      "Orello Creatives designed impactful, visually stunning collateral for Villgro's GBM event. From Reports to brochures to standees, every item was crafted with detail and attention. The team's design expertise helped us leave a lasting impression on our audience and incredible experience!",
+      "Our experience with Orello Creatives has been outstanding! They  consistently manage Villgro’s marketing collateral with creativity and  professionalism. Haamid and Razeena’s designs capture our brand’s  essence beautifully every time. Highly recommend their services for  anyone in need of fresh, high-quality materials!",
     name: "Roshini Muthukumar",
-    role: "Manager Ecosystem Development",
+    role: "Manager - Ecosystem Development, Villgro",
     avatar: roshini2, 
   },
   
