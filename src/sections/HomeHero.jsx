@@ -101,7 +101,6 @@ export default function CreativePartnerHero() {
       }
     );
 
-   
     gsap.set(videoBoxRef.current, { scale: 0, opacity: 0 });
     gsap.to(videoBoxRef.current, {
       scale: 1,
@@ -176,13 +175,13 @@ export default function CreativePartnerHero() {
       ease: "power2.inOut",
       duration: 0.4,
     })
-   .to(videoBoxRef.current, {
-  width: isMobile ? "92vw" : isTablet ? "80vw" : "70vw",
-  height: isMobile ? "55vh" : isTablet ? "75vh" : "80vh",
-  borderRadius: "1rem",
-  ease: "power2.inOut",
-  duration: 0.6,
-}, "-=0.1");
+    .to(videoBoxRef.current, {
+      width: isMobile ? "92vw" : isTablet ? "80vw" : "65vw",
+      height: isMobile ? "25vh" : isTablet ? "75vh" : "80vh",
+      borderRadius: "1rem",
+      ease: "power2.inOut",
+      duration: 0.6,
+    }, "-=0.1");
      
     gsap.fromTo(
       ".arrow-down",
@@ -210,10 +209,8 @@ export default function CreativePartnerHero() {
       ease: "power2.inOut",
     });
 
-    // Force scroll to top on mount and refresh
     window.scrollTo(0, 0);
     
-    // Refresh ScrollTrigger after a brief delay to ensure proper positioning
     setTimeout(() => {
       ScrollTrigger.refresh();
     }, 100);
@@ -309,10 +306,9 @@ export default function CreativePartnerHero() {
           />
         </div>
 
-        {/* Hero text — shifted down */}
+        {/* Hero text */}
         <div className="fixed inset-0 flex items-start sm:items-start lg:items-center justify-center z-10 px-4 sm:px-6 md:px-8 pointer-events-none pt-48 xs:pt-56 sm:pt-64 md:pt-80 lg:pt-20 pb-5 overflow-hidden">
           <div className="hero-container" style={{ willChange: "transform" }}>
-            {/* ↓ MOBILE CHANGE: tighter line-height on xs, bump base size from 2.6rem→3rem, add tracking-[-0.02em] on small for density */}
             <h1 className="leading-[0.9] tracking-tight text-[3.8rem] xs:text-[4.4rem] sm:text-[4.5rem] md:text-[6.5rem] lg:text-[10rem]">
               <div className="font-black text-[#4B433B] ml-2 sm:ml-3 md:ml-4" style={{ fontFamily: 'Satoshi, sans-serif', fontWeight: 900 }}>YOUR</div>
 
@@ -353,11 +349,11 @@ export default function CreativePartnerHero() {
           </div>
         </div>
 
-        {/* Video box — initial inline style is overridden by gsap matchMedia */}
+        {/* Video box — object-cover restored, no bg-black */}
         <div
           ref={videoBoxRef}
-          className="fixed  rounded-lg overflow-hidden shadow-2xl z-5"
-          style={{ top: "28%", right: "24%", width: "300px", height: "184px", willChange: "transform, width, height" }}
+          className="fixed rounded-lg overflow-hidden shadow-2xl z-5"
+          style={{ top: "58%", right: "24%", width: "300px", height: "184px", willChange: "transform, width, height" }}
         >
           <video
             className="w-full h-full object-cover"
