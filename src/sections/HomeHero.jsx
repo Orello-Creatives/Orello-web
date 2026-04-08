@@ -13,6 +13,13 @@ export default function CreativePartnerHero() {
   const videoBoxRef = useRef(null);
   const cursorRef = useRef(null);
 
+  const isMobile = window.innerWidth < 768;
+  const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+  const isSmallDesktop = window.innerWidth >= 1024 && window.innerWidth < 1280;
+  const isMediumDesktop = window.innerWidth >= 1280 && window.innerWidth < 1536;
+  const isLargeDesktop = window.innerWidth >= 1536;
+
+
   useEffect(() => {
     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     gsap.killTweensOf(videoBoxRef.current);
@@ -176,12 +183,30 @@ export default function CreativePartnerHero() {
       duration: 0.4,
     })
     .to(videoBoxRef.current, {
-      width: isMobile ? "92vw" : isTablet ? "80vw" : "65vw",
-      height: isMobile ? "25vh" : isTablet ? "75vh" : "80vh",
-      borderRadius: "1rem",
-      ease: "power2.inOut",
-      duration: 0.6,
-    }, "-=0.1");
+  width: isMobile
+    ? "92vw"
+    : isTablet
+    ? "80vw"
+    : isSmallDesktop
+    ? "40vw"
+    : isMediumDesktop
+    ? "78vw"
+    : "58vw",
+
+  height: isMobile
+    ? "52vw"
+    : isTablet
+    ? "45vw"
+    : isSmallDesktop
+    ? "45vw"
+    : isMediumDesktop
+    ? "45vw"
+    : "32vw",
+
+  borderRadius: "1rem",
+  ease: "power2.inOut",
+  duration: 0.6,
+}, "-=0.1");
      
     gsap.fromTo(
       ".arrow-down",
