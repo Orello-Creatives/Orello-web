@@ -267,7 +267,7 @@ style={{ left: 0, top: 0, transform: "translate(-50%,-50%)", opacity: 0 }}
                 {/* Image container with responsive heights */}
                 <div
                   className="relative overflow-hidden rounded-xl sm:rounded-[24px] cursor-none
-                    h-[220px] sm:h-[280px] md:h-[320px] lg:h-[380px]"
+                    h-[200px] sm:h-[260px] md:h-[320px] lg:h-[350px]"
                   onMouseEnter={() => onEnter(project.id)}
                   onMouseLeave={() => onLeave(project.id)}
                 >
