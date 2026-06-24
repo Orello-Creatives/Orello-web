@@ -134,7 +134,7 @@ export default function PortfolioGrid({ selIndustries, selServices, gridRef }) {
   return (
     <div ref={gridRef} className="bg-[#F4EDE2] py-10 sm:py-16 lg:py-20">
 
-      {/* Custom cursor â€” hidden on touch devices */}
+      {/* Custom cursor - hidden on touch devices */}
       <div
         ref={customCursorRef}
         className="fixed pointer-events-none z-50 hidden md:block"

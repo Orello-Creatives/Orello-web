@@ -187,7 +187,7 @@ const PortfolioSection = () => {
       {/* Container wrapping everything */}
       <div className="container mx-auto px-4 sm:px-5 md:px-6 relative z-10">
 
-        {/* â”€â”€ Header â”€â”€ */}
+        {/* -- Header -- */}
         <div className="text-center mb-8 sm:mb-12 md:mb-16">
           <h2 className="text-white font-light mb-3 sm:mb-4 md:mb-6 text-2xl sm:text-3xl md:text-5xl">
             A few Selected <span className="font-semibold">Work</span>
@@ -198,7 +198,7 @@ const PortfolioSection = () => {
           </p>
         </div>
 
-        {/* â”€â”€ Cards Grid â”€â”€ */}
+        {/* -- Cards Grid -- */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-16">
 
           {/* Project Cards */}

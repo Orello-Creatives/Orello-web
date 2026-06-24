@@ -143,7 +143,7 @@ export default function BlogForm() {
           disabled={saving}
           className="px-8 py-3 rounded-full bg-[#f7af19] text-[#0A0A0A] font-semibold cursor-pointer hover:bg-[#d98127] transition-colors duration-200 disabled:opacity-50"
         >
-          {saving ? "Savingâ€¦" : "Save Blog Post"}
+          {saving ? "Saving..." : "Save Blog Post"}
         </button>
       </form>
       </div>

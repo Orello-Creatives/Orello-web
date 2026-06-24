@@ -42,7 +42,7 @@ import hr2 from '../assets/images/hr2.png'
 
 gsap.registerPlugin(ScrollTrigger);
 
-// â”€â”€â”€ Animated Arrow Button (liquid fill animation) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// --- Animated Arrow Button (liquid fill animation) ----------------------------
 const AnimatedButton = ({ to, label, className, bgColor, textColor, arrowBgColor }) => {
   const buttonRef = useRef(null);
   const textRef = useRef(null);
@@ -181,7 +181,7 @@ const AFewSelected = () => {
     },
     {
       id: 3,
-      title: "CanvasÃ©",
+      title: "Canvasé",
       tags: [ "Fashion", "Lifestyle", "Sustainability"],
       image: case7,
       hoverLogo: hr7,

@@ -125,8 +125,8 @@ export default function CaseStudyForm() {
           <div className="grid sm:grid-cols-2 gap-5">
             <Field label="Title (short name, shown on listing cards)" required value={form.title} onChange={set("title")} placeholder="e.g. Green Building Materials" />
             <Field label="Slug (URL)" value={form.slug} onChange={set("slug")} placeholder="auto-generated from title" />
-            <Field label="Headline â€” bold part" value={form.titleHighlight} onChange={set("titleHighlight")} placeholder="e.g. Green Building Materials:" />
-            <Field label="Headline â€” light part" value={form.subtitle} onChange={set("subtitle")} placeholder="e.g. Collaterals that Convened a Movement" />
+            <Field label="Headline - bold part" value={form.titleHighlight} onChange={set("titleHighlight")} placeholder="e.g. Green Building Materials:" />
+            <Field label="Headline - light part" value={form.subtitle} onChange={set("subtitle")} placeholder="e.g. Collaterals that Convened a Movement" />
           </div>
           <Field label="Description (hero paragraph)" type="textarea" rows={4} value={form.description} onChange={set("description")} />
           <Select
@@ -259,7 +259,7 @@ export default function CaseStudyForm() {
           disabled={saving}
           className="px-8 py-3 rounded-full bg-[#f7af19] text-[#0A0A0A] font-semibold cursor-pointer hover:bg-[#d98127] transition-colors duration-200 disabled:opacity-50"
         >
-          {saving ? "Savingâ€¦" : "Save Case Study"}
+          {saving ? "Saving..." : "Save Case Study"}
         </button>
       </form>
       </div>

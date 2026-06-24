@@ -49,7 +49,7 @@ export default function BlogDetailPage() {
       <div className="bg-[#FDF6E9] pt-24 pb-16 min-h-screen">
         <div className="container">
           {status === 'loading' && (
-            <p className="pt-12 text-sm text-gray-500">Loadingâ€¦</p>
+            <p className="pt-12 text-sm text-gray-500">Loading...</p>
           )}
 
           {status === 'error' && (
