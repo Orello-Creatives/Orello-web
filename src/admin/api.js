@@ -1,6 +1,6 @@
 import { getToken, clearToken } from "./auth";
 
-const BASE = "http://localhost:3000";
+const BASE = "https://letsyogwithshai-backend.onrender.com";
 
 export async function api(path, { method = "GET", body, isForm = false } = {}) {
   const headers = {};
