@@ -14,7 +14,6 @@ export default function WorkPage() {
         selServices={selServices}
         setSelIndustries={setSelIndustries}
         setSelServices={setSelServices}
-        portfolioRef={portfolioRef}
       />
       <PortfolioGrid
         selIndustries={selIndustries}

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router'
 import { gsap } from 'gsap'
 import orello from '../assets/logos/orello.svg'
 

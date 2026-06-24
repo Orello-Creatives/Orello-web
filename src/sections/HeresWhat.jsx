@@ -5,7 +5,6 @@ import villgro from '../assets/logos/villgro.svg'
 import vishal from '../assets/logos/vishal.svg'
 import alex from '../assets/logos/alex.svg'
 import sanam from '../assets/logos/sanam.svg'
-import harshita from '../assets/logos/harshita.svg'
 import roshni from '../assets/logos/roshni.svg'
 import khaleel from '../assets/logos/khaleel.svg'
 import shaili from '../assets/logos/shaili.svg'
@@ -16,15 +15,14 @@ import canvase3 from '../assets/logos/canvase3.svg'
 import silage from '../assets/logos/silage.svg'
 import yaykwa3 from '../assets/logos/yaykwa3.svg'
 import shai from '../assets/logos/shai.svg'
+import { useCmsContent } from '../hooks/useCmsContent'
 
-export default function TestimonialsSection() {
-  const scrollContainerRef = useRef(null)
-  const [activeIndex, setActiveIndex] = useState(0)
-  const rafRef = useRef(null)
-  const positionRef = useRef(0)
-  const isHoveredRef = useRef(false)
+// Neutral placeholder so a CMS testimonial saved without an avatar never renders a broken <img>
+const PLACEHOLDER =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect width='1' height='1' fill='%23d1d5db'/%3E%3C/svg%3E";
 
-  const testimonials = [
+// Hardcoded fallback (used until CMS data arrives, mirroring the other sections).
+const FALLBACK_TESTIMONIALS = [
     {
       logoIcon: coldeasy,
       text:
@@ -89,7 +87,26 @@ export default function TestimonialsSection() {
       name: 'Shailee Raja',
       title: 'Founder, Letsyogwithshai',
     },
-  ]
+]
+
+export default function TestimonialsSection() {
+  const scrollContainerRef = useRef(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const rafRef = useRef(null)
+  const positionRef = useRef(0)
+  const isHoveredRef = useRef(false)
+
+  // CMS-first: map CMS docs to the card shape; fall back to the hardcoded list.
+  const cms = useCmsContent('/testimonials', null)
+  const testimonials = cms && cms.length
+    ? cms.map((m) => ({
+        logo: m.companyLogo,
+        text: m.quote,
+        avatar: m.avatar || PLACEHOLDER,
+        name: m.name,
+        title: m.title,
+      }))
+    : FALLBACK_TESTIMONIALS
 
   const duplicatedTestimonials = [
     ...testimonials,

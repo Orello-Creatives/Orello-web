@@ -10,9 +10,8 @@ import hr7 from '../assets/images/hr7.png'
 import hr5 from '../assets/images/hr5.png'
 import hr2 from '../assets/images/hr2.png'
 import smile from '../assets/logos/smile.svg'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 
-// ─── Reusable Animated Button ─────────────────────────────────────────────────
 const AnimatedButton = ({ to, label, className, bgColor, arrowBgColor }) => {
   const buttonRef = useRef(null);
   const textRef = useRef(null);
@@ -94,7 +93,6 @@ const AnimatedButton = ({ to, label, className, bgColor, arrowBgColor }) => {
   );
 };
 
-// ─── Portfolio Header + Cards Section ────────────────────────────────────────
 const PortfolioSection = () => {
   const [hoveredId, setHoveredId] = useState(null);
   const [showCursor, setShowCursor] = useState(false);
@@ -108,7 +106,7 @@ const PortfolioSection = () => {
       image: gbm,
       hoverLogo: hr5,
       icons: [pen],
-      link: "/gbm-casestudy"
+      link: "/case-study/gbm"
     },
     {
       id: 2,
@@ -117,7 +115,7 @@ const PortfolioSection = () => {
       image: findtheircare,
       hoverLogo: hr2,
       icons: [star, toggle, pen],
-      link: "/findtheircare-casestudy"
+      link: "/case-study/findtheircare"
     },
     {
       id: 3,
@@ -126,7 +124,7 @@ const PortfolioSection = () => {
       image: case7,
       hoverLogo: hr7,
       icons: [star, toggle, pen],
-      link: "/canvase-casestudy"
+      link: "/case-study/canvase"
     }
   ];
 
@@ -189,7 +187,7 @@ const PortfolioSection = () => {
       {/* Container wrapping everything */}
       <div className="container mx-auto px-4 sm:px-5 md:px-6 relative z-10">
 
-        {/* ── Header ── */}
+        {/* â”€â”€ Header â”€â”€ */}
         <div className="text-center mb-8 sm:mb-12 md:mb-16">
           <h2 className="text-white font-light mb-3 sm:mb-4 md:mb-6 text-2xl sm:text-3xl md:text-5xl">
             A few Selected <span className="font-semibold">Work</span>
@@ -200,7 +198,7 @@ const PortfolioSection = () => {
           </p>
         </div>
 
-        {/* ── Cards Grid ── */}
+        {/* â”€â”€ Cards Grid â”€â”€ */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-16">
 
           {/* Project Cards */}

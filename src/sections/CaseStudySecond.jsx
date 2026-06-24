@@ -1,159 +1,49 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
-import { Link } from 'react-router-dom';
-import { SERVICES } from './CaseStudyOverview';
-import case1  from '../assets/images/case1.png';
-import case2  from '../assets/images/case2.png';
-import case3  from '../assets/images/case3.png';
-import case4  from '../assets/images/case4.png';
-import case5  from '../assets/images/case5.png';
-import case6  from '../assets/images/case6.png';
-import case7  from '../assets/images/case7.png';
-import case8  from '../assets/images/case8.png';
-import case9  from '../assets/images/case9.png';
-import case10 from '../assets/images/case10.png';
-import case11 from '../assets/images/case11.png';
-import case12 from '../assets/images/case12.png';
-import case13 from '../assets/images/case13.png';
-import case14 from '../assets/images/case14.png';
-import hr2  from '../assets/images/hr2.png';
-import hr3  from '../assets/images/hr3.png';
-import hr4  from '../assets/images/hr4.png';
-import hr5  from '../assets/images/hr5.png';
-import hr6  from '../assets/images/hr6.png';
-import hr7  from '../assets/images/hr7.png';
-import hr8  from '../assets/images/hr8.png';
-import hr9  from '../assets/images/hr9.png';
-import hr11 from '../assets/images/hr11.png';
-import hr12 from '../assets/images/hr12.png';
-import hr13 from '../assets/images/hr13.png';
-import hr14 from '../assets/images/hr14.png';
+import { Link } from 'react-router';
 import starr   from '../assets/logos/starr.svg';
 import togglee from '../assets/logos/togglee.svg';
 import penn    from '../assets/logos/penn.svg';
-import Readyto from '../components/Readyto.jsx'
-import vimg3 from '../assets/videos/vimg3.mp4'
 import tryy from '../assets/logos/tryy.svg'
-import gehover from '../assets/images/gehover.png'
+import Readyto from '../components/Readyto.jsx'
+import { useCmsContent } from '../hooks/useCmsContent'
+import { CASE_STUDIES } from '../data/caseStudies'
 
-const ALL_PROJECTS = [
-  {
-    id: 1,  title: "GBM Report",
-    tags: ["Climate Tech", "Sustainability", "Construction"],
-    logoKeys: ["penn"],
-    logos: [penn],
-    defaultImage: case1,  hoverImage: hr5,
-    link: "/gbm-casestudy",
-  },
-  {
-    id: 2,  title: "FindTheirCare",
-    tags: ["Health", "AI"],
-    logoKeys: ["starr", "togglee", "penn"],
-    logos: [starr, togglee, penn],
-    defaultImage: case2,  hoverImage: hr2,
-    link: "/findtheircare-casestudy",
-  },
-  {
-    id: 3,  title: "EO Exploration",
-    tags: ["Events", "Travel"],
-    logoKeys: ["starr", "motion", "togglee", "penn"],
-    logos: [starr, tryy, togglee, penn],
-    defaultImage: case3,  hoverImage: hr3,
-    link: "/exp-casestudy",
-  },
-  {
-    id: 4,  title: "Coldeasy",
-    tags: ["Climate Tech", "Sustainability", "Agritech"],
-    logoKeys: ["starr", "motion", "togglee", "penn"],
-    logos: [starr, tryy, togglee, penn],
-    defaultImage: case4,  hoverImage: hr4,
-    link: "/coldeasy-casestudy",
-  },
-  {
-    id: 5,  title: "Villgro",
-    tags: ["Climate Tech", "Sustainability", "Agritech"],
-    logoKeys: ["motion", "penn"],
-    logos: [tryy, penn],
-    defaultImage: vimg3,  hoverImage: hr5,
-    link: "/villgro-casestudy",
-  },
-  {
-    id: 6,  title: "Ocean",
-    tags: ["Climate Tech", "Sustainability", "Construction", "Agritech"],
-    logoKeys: ["togglee"],
-    logos: [togglee],
-    defaultImage: case6,  hoverImage: hr6,
-    link: "/ocean-casestudy",
-  },
-  {
-    id: 7,  title: "Canvase",
-    tags: ["Fashion", "Lifestyle", "Sustainability"],
-    logoKeys: ["starr", "motion", "togglee", "penn"],
-    logos: [starr, tryy, togglee, penn],
-    defaultImage: case7,  hoverImage: hr7,
-    link: "/canvase-casestudy",
-  },
-  {
-    id: 8,  title: "Aarkiva",
-    tags: ["Real-estate"],
-    logoKeys: ["starr", "togglee", "penn"],
-    logos: [starr, togglee, penn],
-    defaultImage: case8,  hoverImage: hr8,
-    link: "/aarkiva-casestudy",
-  },
-  {
-    id: 9,  title: "Gangpur Silage",
-    tags: ["Dairy", "Agritech", "Sustainability"],
-    logoKeys: ["starr", "penn"],
-    logos: [starr, penn],
-    defaultImage: case9,  hoverImage: hr9,
-    link: "/gangpur-casestudy",
-  },
-  {
-    id: 10, title: "G3",
-    tags: ["Events", "Social Organisation"],
-    logoKeys: ["starr", "motion", "togglee", "penn"],
-    logos: [starr, tryy, togglee, penn],
-    defaultImage: case10, hoverImage: gehover,
-    link: "/g3-casestudy",
-  },
-  {
-    id: 11, title: "Scalepoint",
-    tags: ["Corporate"],
-    logoKeys: ["starr", "togglee", "penn"],
-    logos: [starr, togglee, penn],
-    defaultImage: case11, hoverImage: hr11,
-    link: "/scalepoint-casestudy",
-  },
-  {
-    id: 12, title: "Letsyogwithshai",
-    tags: ["Health", "Lifestyle"],
-    logoKeys: ["togglee"],
-    logos: [togglee],
-    defaultImage: case12, hoverImage: hr12,
-    link: "/yog-casestudy",
-  },
-  {
-    id: 13, title: "Yaykwa",
-    tags: ["Construction", "Mining", "Sustainability"],
-    logoKeys: ["starr", "togglee", "penn"],
-    logos: [starr, togglee, penn],
-    defaultImage: case13, hoverImage: hr13,
-    link: "/yaykwa-casestudy",
-  },
-  {
-    id: 14, title: "Dr. Tarannum Memorial Trust",
-    tags: ["NGO"],
-    logos: [penn, togglee],
-    logoKeys: ["penn", "togglee"],
-    defaultImage: case14, hoverImage: hr14,
-    link: "/tmt-casestudy",
-  },
-];
+// Service logo SVGs stay local; case studies reference them by key
+const LOGO_BY_KEY = { starr, togglee, penn, motion: tryy };
 
-function getFiltered(selIndustries, selServices) {
-  if (selIndustries.length === 0 && selServices.length === 0) return ALL_PROJECTS;
-  return ALL_PROJECTS.filter((p) => {
+// Local fallback cards (the 14 studies) from the data folder — used until
+// CMS data arrives, mirroring the blog pattern.
+const FALLBACK_PROJECTS = CASE_STUDIES.map((cs) => ({
+  id: `local-${cs.slug}`,
+  title: cs.title,
+  tags: cs.industries || [],
+  logos: (cs.serviceKeys || []).map((k) => LOGO_BY_KEY[k]).filter(Boolean),
+  logoKeys: cs.serviceKeys || [],
+  defaultImage: cs.card?.defaultImage,
+  hoverImage: cs.card?.hoverImage || cs.card?.defaultImage,
+  link: `/case-study/${cs.slug}`,
+}));
+
+// Maps a CMS case study to the local card shape; cards without a
+// default image are skipped so the grid never shows empty tiles.
+function toCard(doc) {
+  if (!doc.cardDefaultImage) return null;
+  return {
+    id: `cms-${doc._id}`,
+    title: doc.title,
+    tags: doc.industries || [],
+    logos: (doc.serviceKeys || []).map((k) => LOGO_BY_KEY[k]).filter(Boolean),
+    logoKeys: doc.serviceKeys || [],
+    defaultImage: doc.cardDefaultImage,
+    hoverImage: doc.cardHoverImage || doc.cardDefaultImage,
+    link: `/case-study/${doc.slug}`,
+  };
+}
+
+function getFiltered(selIndustries, selServices, allProjects) {
+  if (selIndustries.length === 0 && selServices.length === 0) return allProjects;
+  return allProjects.filter((p) => {
     const indOk = selIndustries.length === 0 ||
       selIndustries.some((ind) => p.tags.some((t) => t.toLowerCase() === ind.toLowerCase()));
     const svcOk = selServices.length === 0 ||
@@ -200,7 +90,9 @@ export default function PortfolioGrid({ selIndustries, selServices, gridRef }) {
   const industries  = Array.isArray(selIndustries) ? selIndustries : [];
   const services    = Array.isArray(selServices)   ? selServices   : [];
   const isFiltering = industries.length > 0 || services.length > 0;
-  const projects    = getFiltered(industries, services);
+  const cmsDocs     = useCmsContent('/case-studies', null);
+  const allProjects = cmsDocs ? cmsDocs.map(toCard).filter(Boolean) : FALLBACK_PROJECTS;
+  const projects    = getFiltered(industries, services, allProjects);
 
   const [showCursor, setShowCursor] = useState(false);
   const imageRefs       = useRef({});
@@ -242,7 +134,7 @@ export default function PortfolioGrid({ selIndustries, selServices, gridRef }) {
   return (
     <div ref={gridRef} className="bg-[#F4EDE2] py-10 sm:py-16 lg:py-20">
 
-      {/* Custom cursor — hidden on touch devices */}
+      {/* Custom cursor â€” hidden on touch devices */}
       <div
         ref={customCursorRef}
         className="fixed pointer-events-none z-50 hidden md:block"

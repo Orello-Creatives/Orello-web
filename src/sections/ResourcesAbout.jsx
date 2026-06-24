@@ -1,35 +1,24 @@
 import React, { useState } from 'react';
-import read1 from '../assets/images/read1.png';
-import read2 from '../assets/images/read2.png';
-import read3 from '../assets/images/read3.png';
 import { Link } from 'react-router';
+import { useCmsContent } from '../hooks/useCmsContent';
+import { BLOGS } from '../data/blogs';
+
+// Local card image by slug, used when a CMS post has no cardImage yet
+const LOCAL_CARD_IMAGE = Object.fromEntries(BLOGS.map((b) => [b.slug, b.cardImage]));
+
+const toCard = (b) => ({
+  id: b._id || b.slug,
+  image: b.cardImage || LOCAL_CARD_IMAGE[b.slug],
+  title: b.title,
+  bgColor: '#fdf6e9',
+  link: `/blogs/${b.slug}`,
+});
 
 export default function BlogGridSection() {
   const [activeTab, setActiveTab] = useState('all');
 
-  const blogPosts = [
-    {
-      id: 1,
-      image: read1,
-      title: "Why Motion Graphics Will Lead Marketing in 2025",
-      bgColor: "#2a1f5c",
-      link: "/blogs",
-    },
-    {
-      id: 2,
-      image: read2,
-      title: "Mastering the Art of Attention",
-      bgColor: "#fdf6e9",
-      link: "/blog3",
-    },
-    {
-      id: 3,
-      image: read3,
-      title: "Why Logos are for Screenshots, not Billboard",
-      bgColor: "#fdf6e9",
-      link: "/blog2",
-    },
-  ];
+  const cmsBlogs = useCmsContent('/blogs', null);
+  const blogPosts = (cmsBlogs || BLOGS).map(toCard);
 
   const showBlogs = activeTab === 'all' || activeTab === 'blogs';
   const showArticles = activeTab === 'articles';

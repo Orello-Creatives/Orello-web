@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import gsap from 'gsap'
 import orello from '../assets/logos/orello.svg'
 import orelloclip from '../assets/logos/orelloclip.svg'

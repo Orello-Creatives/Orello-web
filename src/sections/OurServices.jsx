@@ -7,6 +7,33 @@ import motion from '../assets/images/motion.png'
 import branding from '../assets/images/branding.png'
 import uiuxx from '../assets/images/uiuxx.png'
 
+const services = [
+  {
+    title: 'Brand Identity',
+    logoKey: 'starr',
+    description: 'Orello is a purpose-driven global design partner',
+    bgImage: branding,
+  },
+  {
+    title: 'UI/UX & Web Development',
+    logoKey: 'togglee',
+    description: 'Orello is a purpose-driven global design partner',
+    bgImage: uiuxx,
+  },
+  {
+    title: 'Motion Graphics',
+    logoKey: 'motion',
+    description: 'Orello is a purpose-driven global design partner',
+    bgImage: motion,
+  },
+  {
+    title: 'Digital Marketing & SEO',
+    logoKey: 'penn',
+    description: 'Orello is a purpose-driven global design partner',
+    bgImage: digital,
+  },
+];
+
 const ServiceCard = ({ title, description, bgImage, logoKey, index }) => {
   const navigate = useNavigate();
   const cardRef = useRef(null);
@@ -359,33 +386,6 @@ const KnowMoreButton = () => {
 };
 
 export default function OurServices() {
-  const services = [
-    {
-      title: 'Brand Identity',
-      logoKey: 'starr',
-      description: 'Orello is a purpose-driven global design partner',
-      bgImage: branding,
-    },
-    {
-      title: 'UI/UX & Web Development',
-      logoKey: 'togglee',
-      description: 'Orello is a purpose-driven global design partner',
-      bgImage: uiuxx,
-    },
-    {
-      title: 'Motion Graphics',
-      logoKey: 'motion',
-      description: 'Orello is a purpose-driven global design partner',
-      bgImage: motion,
-    },
-    {
-      title: 'Digital Marketing & SEO',
-      logoKey: 'penn',
-      description: 'Orello is a purpose-driven global design partner',
-      bgImage: digital,
-    },
-  ];
-
   return (
     <div className="bg-[#F9F5ED] py-16 sm:py-20 lg:py-28">
       <div className="container mx-auto px-4 sm:px-6 lg:px-0">

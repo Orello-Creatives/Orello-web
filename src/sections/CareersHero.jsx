@@ -8,6 +8,33 @@ import join4 from '../assets/logos/join4.svg'
 
 gsap.registerPlugin(ScrollTrigger);
 
+const benefits = [
+  {
+    icon: join1,
+    title: "Real-world work",
+    description:
+      "You'll work on projects connected to real organisations and real communities, supporting work that has meaning beyond deliverables.",
+  },
+  {
+    icon: join2,
+    title: "Completely remote",
+    description:
+      "Work from wherever you're based. We're fully remote, with flexibility built into how we collaborate, communicate, and structure our time.",
+  },
+  {
+    icon: join3,
+    title: "Thoughtful collaborations",
+    description:
+      "You'll work closely with designers, developers, and strategists, sharing context and shaping work together rather than working in silos.",
+  },
+  {
+    icon: join4,
+    title: "Hands on experience",
+    description:
+      "You'll be involved across projects from early thinking to final delivery, gaining practical experience and a deeper understanding of how work comes together.",
+  },
+];
+
 export default function JoinTeamSection() {
   const containerRef = useRef(null);
 
@@ -33,33 +60,6 @@ export default function JoinTeamSection() {
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
-
-  const benefits = [
-    {
-      icon: join1,
-      title: "Real-world work",
-      description:
-        "You'll work on projects connected to real organisations and real communities, supporting work that has meaning beyond deliverables.",
-    },
-    {
-      icon: join2,
-      title: "Completely remote",
-      description:
-        "Work from wherever you're based. We're fully remote, with flexibility built into how we collaborate, communicate, and structure our time.",
-    },
-    {
-      icon: join3,
-      title: "Thoughtful collaborations",
-      description:
-        "You'll work closely with designers, developers, and strategists, sharing context and shaping work together rather than working in silos.",
-    },
-    {
-      icon: join4,
-      title: "Hands on experience",
-      description:
-        "You'll be involved across projects from early thinking to final delivery, gaining practical experience and a deeper understanding of how work comes together.",
-    },
-  ];
 
   return (
     <section

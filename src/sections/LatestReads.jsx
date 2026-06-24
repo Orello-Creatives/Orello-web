@@ -1,9 +1,24 @@
 import { useRef, useEffect } from 'react'
-import read1 from '../assets/images/read1.png'
-import read2 from '../assets/images/read2.png'
-import read3 from '../assets/images/read3.png'
 import { Link } from 'react-router'
 import gsap from 'gsap'
+import { useCmsContent } from '../hooks/useCmsContent'
+import { BLOGS } from '../data/blogs'
+
+// Local card image by slug, used when a CMS post has no cardImage yet
+const LOCAL_CARD_IMAGE = Object.fromEntries(BLOGS.map((b) => [b.slug, b.cardImage]))
+
+// Card shape consumed by this section, derived from any blog record
+const toCard = (b) => ({
+  id: b._id || b.slug,
+  image: b.cardImage || LOCAL_CARD_IMAGE[b.slug],
+  title: b.title,
+  tag: b.tag,
+  tagColor: b.tagColor,
+  link: `/blogs/${b.slug}`,
+})
+
+// Local fallback list (the 3 original posts) until CMS data arrives
+const FALLBACK_ARTICLES = BLOGS.map(toCard)
 
 const AnimatedButton = ({ to, label }) => {
   const buttonRef = useRef(null);
@@ -86,32 +101,8 @@ const AnimatedButton = ({ to, label }) => {
 };
 
 export default function LatestReads() {
-  const articles = [
-    {
-      id: 1,
-      image: read1,
-      title: "Why Motion Graphics Will Lead Marketing in 2025",
-      tag: "BLOGS",
-      tagColor: "bg-orange-500",
-      link: "/blogs"
-    },
-    {
-      id: 2,
-      image: read2,
-      title: "Mastering the Art of Attention",
-      tag: "BLOGS",
-      tagColor: "bg-orange-500",
-      link: "/blog3"
-    },
-    {
-      id: 3,
-      image: read3,
-      title: "Why Logos are for Screenshots, not Billboard",
-      tag: "BLOGS",
-      tagColor: "bg-purple-400",
-      link: "/blog2"
-    }
-  ]
+  const cmsBlogs = useCmsContent('/blogs', null);
+  const articles = cmsBlogs ? cmsBlogs.slice(0, 3).map(toCard) : FALLBACK_ARTICLES;
 
   return (
     <div className="bg-black text-white py-16 sm:py-20 md:py-24 relative z-20">

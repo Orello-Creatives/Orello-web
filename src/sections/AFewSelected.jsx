@@ -34,7 +34,7 @@ import row5logo3 from '../assets/logos/row5logo3.svg'
 import row5logo4 from '../assets/logos/row5logo4.svg'
 import row5logo5 from '../assets/logos/row5logo5.svg'
 import smile from '../assets/logos/smile.svg'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import Readyto from '../components/Readyto'
 import hr7 from '../assets/images/hr7.png'
 import hr5 from '../assets/images/hr5.png'
@@ -42,7 +42,7 @@ import hr2 from '../assets/images/hr2.png'
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ─── Animated Arrow Button (liquid fill animation) ────────────────────────────
+// â”€â”€â”€ Animated Arrow Button (liquid fill animation) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const AnimatedButton = ({ to, label, className, bgColor, textColor, arrowBgColor }) => {
   const buttonRef = useRef(null);
   const textRef = useRef(null);
@@ -168,7 +168,7 @@ const AFewSelected = () => {
       image: gbm,
       hoverLogo: hr5,
       icons: [pen],
-      link: "/gbm-casestudy"
+      link: "/case-study/gbm"
     },
     {
       id: 2,
@@ -177,16 +177,16 @@ const AFewSelected = () => {
       image: findtheircare,
       hoverLogo: hr2,
       icons: [star, toggle, pen],
-      link: "/findtheircare-casestudy"
+      link: "/case-study/findtheircare"
     },
     {
       id: 3,
-      title: "Canvasé",
+      title: "CanvasÃ©",
       tags: [ "Fashion", "Lifestyle", "Sustainability"],
       image: case7,
       hoverLogo: hr7,
       icons: [star, toggle, pen],
-      link: "/canvase-casestudy"
+      link: "/case-study/canvase"
     }
   ];
 

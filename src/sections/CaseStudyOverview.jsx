@@ -7,6 +7,7 @@ import starr   from '../assets/logos/starr.svg';
 import togglee from '../assets/logos/togglee.svg';
 import penn    from '../assets/logos/penn.svg';
 import tryy    from '../assets/logos/tryy.svg';
+import { INDUSTRIES, SERVICE_OPTIONS } from '../constants/caseStudyFilters';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,18 +28,14 @@ if (typeof document !== "undefined" && !document.getElementById("dropdown-anim-s
   document.head.appendChild(tag);
 }
 
-export const INDUSTRIES = [
-  "Climate Tech", "Sustainability", "Construction", "Agritech",
-  "Fashion", "Lifestyle", "Dairy", "Events", "Social Organisation",
-  "Corporate", "NGO", "Mining", "Health", "Travel", "Real-estate", "AI",
-];
+const SERVICE_LOGOS = { starr, penn, togglee, motion: tryy };
 
-export const SERVICES = [
-  { label: "Branding / Identity Design",          logoKey: "starr",   logo: starr   },
-  { label: "Digital Marketing / Content / Print", logoKey: "penn",    logo: penn    },
-  { label: "UI-UX / Development",                 logoKey: "togglee", logo: togglee },
-  { label: "Motion Graphics",                     logoKey: "motion",  logo: tryy    },
-];
+export { INDUSTRIES };
+export const SERVICES = SERVICE_OPTIONS.map(({ value, label }) => ({
+  label,
+  logoKey: value,
+  logo: SERVICE_LOGOS[value],
+}));
 
 function isTouchDevice() {
   if (typeof window === "undefined") return false;
@@ -143,7 +140,6 @@ export default function ExploreWorkSection({
   selServices,
   setSelIndustries,
   setSelServices,
-  portfolioRef,
 }) {
   const location          = useLocation();
   const containerRef      = useRef(null);

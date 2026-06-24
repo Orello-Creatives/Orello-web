@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
+import { useCmsContent } from '../hooks/useCmsContent';
 
-const FAQAccordion = () => {
-  const [expandedCard, setExpandedCard] = useState(0);
-  const [hoveredCard, setHoveredCard] = useState(null);
-
-  const faqData = [
+const FALLBACK_FAQS = [
     {
       id: 0,
       question: "What does Orello do?",
@@ -88,7 +85,16 @@ const FAQAccordion = () => {
       question: "How can I contact Orello?",
       answer: "You can contact Orello by emailing us at hello@orello.io. You can also reach us through the contact numbers listed on our website."
     }
-  ];
+];
+
+const FAQAccordion = () => {
+  const [expandedCard, setExpandedCard] = useState(0);
+  const [hoveredCard, setHoveredCard] = useState(null);
+
+  const cmsFaqs = useCmsContent('/faqs', null);
+  const faqData = cmsFaqs
+    ? cmsFaqs.map((f, idx) => ({ id: idx, question: f.question, answer: f.answer }))
+    : FALLBACK_FAQS;
 
   const handleCardClick = (faqId) => {
     setExpandedCard(expandedCard === faqId ? null : faqId);
@@ -112,7 +118,7 @@ const FAQAccordion = () => {
                 className="flex items-center justify-between p-6 sm:p-8 cursor-pointer"
                 onClick={() => handleCardClick(faq.id)}
               >
-                <div className="flex-1 text-[#0A0A0A">
+                <div className="flex-1 text-[#0A0A0A]">
                   <h4 className="text-[20px] font-semibold text-black pr-4">
                     {faq.question}
                   </h4>
