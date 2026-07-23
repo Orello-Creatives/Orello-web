@@ -268,7 +268,11 @@ export default function DynamicCaseStudyPage() {
           <CaseStudyGallery layout={cs.gallery.layout} items={cs.gallery.items} cta={cs.gallery.cta} />
           <Review review={cs.review} />
           <MoreCaseStudies currentSlug={slug} />
-          <div className="bg-[#F4EDE2] overflow-hidden">
+          {/* CTA card straddles two sections: cream (#F4EDE2) behind its top
+              half, footer colour (#fdf7ee) behind its bottom half. The bottom
+              padding matches Readyto's top margin so the card is centered and
+              the hard 50% gradient split lands on the card's midline. */}
+          <div className="bg-linear-to-b from-[#F4EDE2] from-50% to-[#fdf7ee] to-50% overflow-hidden pb-12 sm:pb-16 md:pb-20 lg:pb-24">
             <Readyto />
           </div>
         </>
