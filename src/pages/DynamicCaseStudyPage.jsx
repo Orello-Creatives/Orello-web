@@ -7,7 +7,7 @@ import comma from '../assets/logos/comma.svg';
 import { getCaseStudyBySlug } from '../data/caseStudies';
 import CaseStudyGallery, { Media } from '../components/CaseStudyGallery.jsx';
 
-const BASE = import.meta.env.VITE_API_URL || '';
+const BASE = 'https://letsyogwithshai-backend.onrender.com';
 
 // Normalise either a CMS document or a local data-file record into one
 // view-model with gallery items as { src, type }.

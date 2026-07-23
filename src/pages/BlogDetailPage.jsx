@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import { getBlogBySlug } from '../data/blogs';
 
-const BASE = import.meta.env.VITE_API_URL || '';
+const BASE = 'https://letsyogwithshai-backend.onrender.com';
 
 function formatDate(iso) {
   if (!iso) return '';

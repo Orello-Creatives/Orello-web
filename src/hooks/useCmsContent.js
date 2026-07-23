@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-const BASE = import.meta.env.VITE_API_URL || "";
+const BASE = "https://letsyogwithshai-backend.onrender.com";
 
 // Fetches CMS content with a hardcoded fallback. react-query caches per
 // endpoint (staleTime in queryClient), so navigating between pages reuses
