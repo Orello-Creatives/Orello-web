@@ -268,7 +268,7 @@ export default function DynamicCaseStudyPage() {
           <CaseStudyGallery layout={cs.gallery.layout} items={cs.gallery.items} cta={cs.gallery.cta} />
           <Review review={cs.review} />
           <MoreCaseStudies currentSlug={slug} />
-          <div className="bg-[#F4EDE2]">
+          <div className="bg-[#F4EDE2] overflow-hidden">
             <Readyto />
           </div>
         </>

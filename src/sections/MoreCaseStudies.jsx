@@ -87,7 +87,7 @@ export default function MoreCaseStudies({ currentSlug }) {
   };
 
   return (
-    <div className="bg-[#F4EDE2] py-16 sm:py-20">
+    <div className="bg-[#F4EDE2] pt-16 sm:pt-20">
       {/* Custom cursor — hidden on touch devices */}
       <div
         ref={cursorRef}
