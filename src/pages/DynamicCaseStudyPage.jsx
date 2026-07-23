@@ -6,6 +6,7 @@ import Readyto from '../components/Readyto.jsx';
 import comma from '../assets/logos/comma.svg';
 import { getCaseStudyBySlug } from '../data/caseStudies';
 import CaseStudyGallery, { Media } from '../components/CaseStudyGallery.jsx';
+import MoreCaseStudies from '../sections/MoreCaseStudies.jsx';
 
 const BASE = 'https://letsyogwithshai-backend.onrender.com';
 
@@ -266,6 +267,7 @@ export default function DynamicCaseStudyPage() {
           <Delivered cs={cs} />
           <CaseStudyGallery layout={cs.gallery.layout} items={cs.gallery.items} cta={cs.gallery.cta} />
           <Review review={cs.review} />
+          <MoreCaseStudies currentSlug={slug} />
           <div className="bg-[#F4EDE2]">
             <Readyto />
           </div>
