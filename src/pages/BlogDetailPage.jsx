@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams, Link } from 'react-router';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
-import { getBlogBySlug } from '../data/blogs';
 
 const BASE = 'https://letsyogwithshai-backend.onrender.com';
 
@@ -11,23 +10,9 @@ function formatDate(iso) {
   return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
-// Merge a CMS post with the local fallback: prefer CMS content, but fill
-// empty image fields from the local data (the 3 legacy posts were seeded
-// without image URLs).
-function mergeWithLocal(cmsPost, local) {
-  if (!local) return cmsPost;
-  return {
-    ...cmsPost,
-    featuredImage: cmsPost.featuredImage || local.featuredImage,
-    cardImage: cmsPost.cardImage || local.cardImage,
-  };
-}
-
-// Renders a blog post (CMS-first, local data fallback) using the
-// shared Orello article markup/classes.
+// Renders a blog post using the shared Orello article markup/classes.
 export default function BlogDetailPage() {
   const { slug } = useParams();
-  const local = getBlogBySlug(slug);
 
   const { data: cmsPost, isError } = useQuery({
     queryKey: ['cms', `/blogs/${slug}`],
@@ -40,7 +25,7 @@ export default function BlogDetailPage() {
     retry: false,
   });
 
-  const post = cmsPost ? mergeWithLocal(cmsPost, local) : local || null;
+  const post = cmsPost || null;
   const status = post ? 'ready' : BASE && !isError ? 'loading' : 'error';
 
   return (

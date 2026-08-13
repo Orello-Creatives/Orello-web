@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router';
 import { useCmsContent } from '../hooks/useCmsContent';
-import { BLOGS } from '../data/blogs';
-
-// Local card image by slug, used when a CMS post has no cardImage yet
-const LOCAL_CARD_IMAGE = Object.fromEntries(BLOGS.map((b) => [b.slug, b.cardImage]));
 
 const toCard = (b) => ({
   id: b._id || b.slug,
-  image: b.cardImage || LOCAL_CARD_IMAGE[b.slug],
+  image: b.cardImage,
   title: b.title,
   bgColor: '#fdf6e9',
   link: `/blogs/${b.slug}`,
@@ -18,7 +14,7 @@ export default function BlogGridSection() {
   const [activeTab, setActiveTab] = useState('all');
 
   const cmsBlogs = useCmsContent('/blogs', null);
-  const blogPosts = (cmsBlogs || BLOGS).map(toCard);
+  const blogPosts = (cmsBlogs || []).map(toCard);
 
   const showBlogs = activeTab === 'all' || activeTab === 'blogs';
   const showArticles = activeTab === 'articles';
@@ -51,8 +47,17 @@ export default function BlogGridSection() {
           </button>
         </div>
 
+        {/* No Blogs State */}
+        {showBlogs && blogPosts.length === 0 && (
+          <div className="flex flex-col items-center justify-center py-20 text-center">
+            <p className="text-[#4B433B] text-2xl font-semibold opacity-60">
+              No blogs present
+            </p>
+          </div>
+        )}
+
         {/* Blog Cards */}
-        {showBlogs && (
+        {showBlogs && blogPosts.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogPosts.map((post) => (
               <Link to={post.link} key={post.id}>

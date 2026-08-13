@@ -13,11 +13,8 @@ export default function CreativePartnerHero() {
   const videoBoxRef = useRef(null);
   const cursorRef = useRef(null);
 
-  const isMobile = window.innerWidth < 768;
-  const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
   const isSmallDesktop = window.innerWidth >= 1024 && window.innerWidth < 1280;
   const isMediumDesktop = window.innerWidth >= 1280 && window.innerWidth < 1536;
-  const isLargeDesktop = window.innerWidth >= 1536;
 
 
   useEffect(() => {

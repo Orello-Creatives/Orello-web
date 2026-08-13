@@ -1,8 +1,3 @@
-import team1 from '../assets/logos/team1.svg'
-import team2 from '../assets/logos/team2.svg'
-import team3 from '../assets/logos/team3.svg'
-import team4 from '../assets/logos/team4.svg'
-import team5 from '../assets/logos/team5.svg'
 import LinkedInLink from '../assets/logos/LinkedInLink.svg'
 import { useRef, useEffect } from 'react'
 import { Link } from 'react-router'
@@ -125,31 +120,19 @@ const JoinUsButton = () => {
   );
 };
 
-// Fallback (CMS empty/down). The team*.svg files are the clean headshots, so
-// they render through the same coded MemberTile as CMS members.
-const FALLBACK_TEAM = [
-  { id: 1, image: team1, name: "Haamid Khan", role: "Co-Founder | CEO", linkedin: "https://www.linkedin.com/in/haamid-khan" },
-  { id: 2, image: team2, name: "Razeena Ibrahim", role: "Co-Founder | Creative Director", linkedin: "https://www.linkedin.com/in/razeena-ibrahim" },
-  { id: 3, image: team3, name: "Naveen T Naik", role: "Sr. Developer", linkedin: "https://www.linkedin.com/in/naveentnaik" },
-  { id: 4, image: team4, name: "Debosrita Pattanayak", role: "Visual Designer", linkedin: "https://www.linkedin.com/in/debosrita-pattanayak-037b3a1b4" },
-  { id: 5, image: team5, name: "Prasanna Naik", role: "Developer", linkedin: "https://www.linkedin.com/in/prasanna-naik-4994b7289" },
-];
-
 const renderTile = (member, className) => (
   <MemberTile key={member.id} member={member} className={className} />
 );
 
 export default function MeetOurTeam() {
   const cmsTeam = useCmsContent('/team', null);
-  const teamMembers = cmsTeam && cmsTeam.length
-    ? cmsTeam.map((m, idx) => ({
-        id: m._id || idx + 1,
-        image: m.personImage || PLACEHOLDER, // clean headshot
-        name: m.name,
-        role: m.role,
-        linkedin: m.linkedin,
-      }))
-    : FALLBACK_TEAM;
+  const teamMembers = (cmsTeam || []).map((m, idx) => ({
+    id: m._id || idx + 1,
+    image: m.personImage || PLACEHOLDER, // clean headshot
+    name: m.name,
+    role: m.role,
+    linkedin: m.linkedin,
+  }));
 
   return (
     <div className="bg-[#F4EDE2] py-12 sm:py-16 md:py-20 lg:py-24 relative z-20">
@@ -169,15 +152,19 @@ export default function MeetOurTeam() {
           </div>
         </div>
 
-        {/* First Row - Responsive Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 md:gap-12 lg:gap-16 mb-8 sm:mb-12 lg:mb-16">
-          {teamMembers.slice(0, 3).map((member) => renderTile(member))}
-        </div>
+        {teamMembers.length > 0 && (
+          <>
+            {/* First Row - Responsive Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 md:gap-12 lg:gap-16 mb-8 sm:mb-12 lg:mb-16">
+              {teamMembers.slice(0, 3).map((member) => renderTile(member))}
+            </div>
 
-        {/* Second Row (Centered) - Responsive */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:justify-center gap-4 sm:gap-8 md:gap-12 lg:gap-16">
-          {teamMembers.slice(3).map((member) => renderTile(member, "lg:w-[calc(33.333%-0.5rem)]"))}
-        </div>
+            {/* Second Row (Centered) - Responsive */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:justify-center gap-4 sm:gap-8 md:gap-12 lg:gap-16">
+              {teamMembers.slice(3).map((member) => renderTile(member, "lg:w-[calc(33.333%-0.5rem)]"))}
+            </div>
+          </>
+        )}
         <Readyto />
       </div>
     </div>

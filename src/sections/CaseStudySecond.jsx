@@ -7,23 +7,9 @@ import penn    from '../assets/logos/penn.svg';
 import tryy from '../assets/logos/tryy.svg'
 import Readyto from '../components/Readyto.jsx'
 import { useCmsContent } from '../hooks/useCmsContent'
-import { CASE_STUDIES } from '../data/caseStudies'
 
 // Service logo SVGs stay local; case studies reference them by key
 const LOGO_BY_KEY = { starr, togglee, penn, motion: tryy };
-
-// Local fallback cards (the 14 studies) from the data folder — used until
-// CMS data arrives, mirroring the blog pattern.
-const FALLBACK_PROJECTS = CASE_STUDIES.map((cs) => ({
-  id: `local-${cs.slug}`,
-  title: cs.title,
-  tags: cs.industries || [],
-  logos: (cs.serviceKeys || []).map((k) => LOGO_BY_KEY[k]).filter(Boolean),
-  logoKeys: cs.serviceKeys || [],
-  defaultImage: cs.card?.defaultImage,
-  hoverImage: cs.card?.hoverImage || cs.card?.defaultImage,
-  link: `/case-study/${cs.slug}`,
-}));
 
 // Maps a CMS case study to the local card shape; cards without a
 // default image are skipped so the grid never shows empty tiles.
@@ -91,7 +77,7 @@ export default function PortfolioGrid({ selIndustries, selServices, gridRef }) {
   const services    = Array.isArray(selServices)   ? selServices   : [];
   const isFiltering = industries.length > 0 || services.length > 0;
   const cmsDocs     = useCmsContent('/case-studies', null);
-  const allProjects = cmsDocs ? cmsDocs.map(toCard).filter(Boolean) : FALLBACK_PROJECTS;
+  const allProjects = cmsDocs ? cmsDocs.map(toCard).filter(Boolean) : [];
   const projects    = getFiltered(industries, services, allProjects);
 
   const [showCursor, setShowCursor] = useState(false);
@@ -146,9 +132,9 @@ style={{ left: 0, top: 0, transform: "translate(-50%,-50%)", opacity: 0 }}
       </div>
 
       <div className="container px-3 sm:px-4">
-        {isFiltering && projects.length === 0 && (
+        {projects.length === 0 && (
           <div style={{ textAlign: "center", padding: "60px 0", color: "#4b433b", fontSize: "18px", fontWeight: "500" }}>
-            No projects found for the selected filters.
+            {isFiltering ? "No projects found for the selected filters." : "No case studies to display yet."}
           </div>
         )}
 

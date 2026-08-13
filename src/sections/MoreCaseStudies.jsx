@@ -6,7 +6,6 @@ import togglee from '../assets/logos/togglee.svg';
 import penn from '../assets/logos/penn.svg';
 import tryy from '../assets/logos/tryy.svg';
 import { useCmsContent } from '../hooks/useCmsContent';
-import { CASE_STUDIES } from '../data/caseStudies';
 
 // Service logo SVGs stay local; case studies reference them by key
 const LOGO_BY_KEY = { starr, togglee, penn, motion: tryy };
@@ -27,18 +26,6 @@ const toCard = (doc) => {
   };
 };
 
-// Local fallback until CMS data arrives, mirroring the other sections.
-const FALLBACK = CASE_STUDIES.map((cs) => ({
-  id: `local-${cs.slug}`,
-  slug: cs.slug,
-  title: cs.title,
-  tags: cs.industries || [],
-  logos: (cs.serviceKeys || []).map((k) => LOGO_BY_KEY[k]).filter(Boolean),
-  defaultImage: cs.card?.defaultImage,
-  hoverImage: cs.card?.hoverImage || cs.card?.defaultImage,
-  link: `/case-study/${cs.slug}`,
-}));
-
 // "More Case Studies" — shows a few OTHER case studies at the bottom of a
 // case-study page (CMS-first, excludes the current slug). Restores the old
 // per-page MoreCaseStudy sections as one data-driven block.
@@ -48,7 +35,7 @@ export default function MoreCaseStudies({ currentSlug }) {
   const cursorRef = useRef(null);
 
   const cmsDocs = useCmsContent('/case-studies', null);
-  const all = cmsDocs ? cmsDocs.map(toCard).filter(Boolean) : FALLBACK;
+  const all = cmsDocs ? cmsDocs.map(toCard).filter(Boolean) : [];
   const projects = all.filter((p) => p.slug !== currentSlug).slice(0, 3);
 
   useEffect(() => {

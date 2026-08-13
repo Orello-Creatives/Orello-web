@@ -1,93 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
-import coldeasy from '../assets/logos/coldeasy.svg'
-import ocean from '../assets/logos/ocean.svg'
-import villgro from '../assets/logos/villgro.svg'
-import vishal from '../assets/logos/vishal.svg'
-import alex from '../assets/logos/alex.svg'
-import sanam from '../assets/logos/sanam.svg'
-import roshni from '../assets/logos/roshni.svg'
-import khaleel from '../assets/logos/khaleel.svg'
-import shaili from '../assets/logos/shaili.svg'
-import bimal from '../assets/logos/bimal.svg'
 import Readyto from '../components/Readyto'
-import har from '../assets/logos/har.svg'
-import canvase3 from '../assets/logos/canvase3.svg'
-import silage from '../assets/logos/silage.svg'
-import yaykwa3 from '../assets/logos/yaykwa3.svg'
-import shai from '../assets/logos/shai.svg'
 import { useCmsContent } from '../hooks/useCmsContent'
 
 // Neutral placeholder so a CMS testimonial saved without an avatar never renders a broken <img>
 const PLACEHOLDER =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect width='1' height='1' fill='%23d1d5db'/%3E%3C/svg%3E";
-
-// Hardcoded fallback (used until CMS data arrives, mirroring the other sections).
-const FALLBACK_TESTIMONIALS = [
-    {
-      logoIcon: coldeasy,
-      text:
-        "Orello helped us revamp our brand identity with a clear understanding of both our needs and vision. From the logo and cohesive identity to the complete website build — design, development, and content — everything was handled end to end with care and precision. They also redesigned our collaterals, including flyers, standees, and social media templates, all delivered at a consistently high quality. The process was smooth, collaborative, and well‑managed, with great attention to detail and patience through every iteration. We would highly recommend Orello as a dependable, full‑service design partner.",
-      avatar: vishal,
-      name: 'Vishal Singhal',
-      title: 'Founder, Coldeasy',
-    },
-    {
-      logo: ocean,
-      text:
-        "Orello Creatives transformed Ocean’s website on WordPress, bringing our vision to life with a sleek, polished design. Orello’s team was attentive to our needs and delivered on a tight deadline. Their professionalism and quality work exceeded our expectations, highly recommended for anyone seeking reliable web development that combines aesthetics with functionality!",
-      avatar: alex,
-      name: 'Alexa Bednarz',
-      title: 'Founder, Ocean',
-    },
-    {
-      logo: villgro,
-      text:
-        "Our experience with Orello Creatives has been outstanding! They  consistently manage Villgro’s marketing collateral with creativity and  professionalism. Haamid and Razeena’s designs capture our brand’s  essence beautifully every time. Highly recommend their services for  anyone in need of fresh, high-quality materials!",
-      avatar: sanam,
-      name: 'Sanam Jain',
-      title: 'Manager, Climate Action, Villgro Innovations',
-    },
-    {
-      logoIcon: villgro,
-      text:
-        "Orello Creatives designed impactful, visually stunning collateral for Villgro’s GBM event. From Reports to brochures to standees, every item was crafted with detail and attention. The team’s design expertise helped us leave a lasting impression on our audience and incredible experience!",
-      avatar: roshni,
-      name: 'Roshini Muthukumar ',
-      title: 'Manager - Ecosystem Development, Villgro',
-    },
-    {
-      logo: canvase3,
-      text:
-        "Working with Orello was such an intuitive experience. They understood my vision for Canvasé and built a brand identity that feels authentic, modern, and scalable. From design details to the bigger picture, everything was thoughtfully crafted. I truly felt supported throughout the journey, and the outcome reflects exactly what I had hoped for",
-      avatar: har,
-      name: 'Harshitha',
-      title: 'Founder & CEO, Canvasé',
-    },
-    {
-      logo: silage,
-      text:
-        "Working with Orello has been a turning point for Gangpur Silage. They understood our mission to make silage accessible for farmers and translated it into designs that actually work on the ground. From our brand identity to farmer-facing collaterals like flipcharts and booklets, everything was made simple, practical, and effective. Their team didn’t feel like an outside agency — they felt like part of our own, committed to helping us grow and reach more farmers with clarity and trust.",
-      avatar: bimal,
-      name: 'Bimal Lakra',
-      title: 'Founder/CEO, Gangpur Ventures',
-    },
-    {
-      logo: yaykwa3,
-      text:
-        "Orello helped us revamp our brand identity with a clear understanding of both our needs and vision. From the logo and cohesive identity to the complete website build — design, development, and content — everything was handled end to end with care and precision. They also redesigned our collaterals, including flyers, standees, and social media templates, all delivered at a consistently high quality. The process was smooth, collaborative, and well‑managed, with great attention to detail and patience through every iteration. We would highly recommend Orello as a dependable, full‑service design partner.",
-      avatar: khaleel,
-      name: 'Khaleel Pathummathada',
-      title: 'Founder, Yaykwa',
-    },
-    {
-      logo: shai,
-      text:
-        "Orello Creatives transformed my online presence into something seamless and professional. The new website booking system and integrated platform makes it so much easier for my students across the world to connect with me",
-      avatar: shaili,
-      name: 'Shailee Raja',
-      title: 'Founder, Letsyogwithshai',
-    },
-]
 
 export default function TestimonialsSection() {
   const scrollContainerRef = useRef(null)
@@ -96,17 +13,14 @@ export default function TestimonialsSection() {
   const positionRef = useRef(0)
   const isHoveredRef = useRef(false)
 
-  // CMS-first: map CMS docs to the card shape; fall back to the hardcoded list.
   const cms = useCmsContent('/testimonials', null)
-  const testimonials = cms && cms.length
-    ? cms.map((m) => ({
-        logo: m.companyLogo,
-        text: m.quote,
-        avatar: m.avatar || PLACEHOLDER,
-        name: m.name,
-        title: m.title,
-      }))
-    : FALLBACK_TESTIMONIALS
+  const testimonials = (cms || []).map((m) => ({
+    logo: m.companyLogo,
+    text: m.quote,
+    avatar: m.avatar || PLACEHOLDER,
+    name: m.name,
+    title: m.title,
+  }))
 
   const duplicatedTestimonials = [
     ...testimonials,
@@ -180,6 +94,8 @@ export default function TestimonialsSection() {
 
   return (
     <div className="bg-[#fcf4e9] py-10 sm:py-12 md:py-16 lg:py-24 overflow-hidden relative z-50">
+      {testimonials.length > 0 && (
+      <>
       <div className="container ">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-center mb-8 md:mb-12 lg:mb-16">
           Heres what our <span className="font-semibold">clients</span>
@@ -241,6 +157,8 @@ export default function TestimonialsSection() {
           />
         ))}
       </div>
+      </>
+      )}
 
       <Readyto />
     </div>

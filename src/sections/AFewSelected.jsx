@@ -2,12 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import orellobig from '../assets/logos/orellobig.svg'
-import pen from '../assets/logos/pen.svg'
-import toggle from '../assets/logos/toggle.svg'
-import star from '../assets/logos/star.svg'
-import gbm from '../assets/images/gbm.png'
-import case7 from '../assets/images/case7.png'
-import findtheircare from '../assets/images/findtheircare.png'
 import row1logo1 from '../assets/logos/row1logo1.svg'
 import row1logo2 from '../assets/logos/row1logo2.svg'
 import row1logo3 from '../assets/logos/row1logo3.svg'
@@ -36,9 +30,6 @@ import row5logo5 from '../assets/logos/row5logo5.svg'
 import smile from '../assets/logos/smile.svg'
 import { Link } from 'react-router'
 import Readyto from '../components/Readyto'
-import hr7 from '../assets/images/hr7.png'
-import hr5 from '../assets/images/hr5.png'
-import hr2 from '../assets/images/hr2.png'
 import { useCmsContent } from '../hooks/useCmsContent'
 import starr from '../assets/logos/starr.svg'
 import togglee from '../assets/logos/togglee.svg'
@@ -63,37 +54,6 @@ const toCard = (doc) => {
     link: `/case-study/${doc.slug}`,
   };
 };
-
-// Local fallback shown until an admin flags case studies as "featured on home".
-const FALLBACK_PROJECTS = [
-  {
-    id: 1,
-    title: "GBM Report",
-    tags: ["Climate tech", "Sustainability", "Construction"],
-    image: gbm,
-    hoverLogo: hr5,
-    icons: [pen],
-    link: "/case-study/gbm"
-  },
-  {
-    id: 2,
-    title: "FindTheirCare",
-    tags: ["UK Care", "Healthcare"],
-    image: findtheircare,
-    hoverLogo: hr2,
-    icons: [star, toggle, pen],
-    link: "/case-study/findtheircare"
-  },
-  {
-    id: 3,
-    title: "Canvasé",
-    tags: [ "Fashion", "Lifestyle", "Sustainability"],
-    image: case7,
-    hoverLogo: hr7,
-    icons: [star, toggle, pen],
-    link: "/case-study/canvase"
-  }
-];
 
 // --- Animated Arrow Button (liquid fill animation) ----------------------------
 const AnimatedButton = ({ to, label, className, bgColor, textColor, arrowBgColor }) => {
@@ -214,14 +174,11 @@ const AFewSelected = () => {
   const customCursorRef = useRef(null);
 
   const cmsDocs = useCmsContent('/case-studies', null);
-  const featured = cmsDocs
-    ? cmsDocs
-        .filter((d) => d.featuredOnHome)
-        .sort((a, b) => (a.homeOrder || 0) - (b.homeOrder || 0))
-        .map(toCard)
-        .filter(Boolean)
-    : [];
-  const projects = featured.length > 0 ? featured : FALLBACK_PROJECTS;
+  const projects = (cmsDocs || [])
+    .filter((d) => d.featuredOnHome)
+    .sort((a, b) => (a.homeOrder || 0) - (b.homeOrder || 0))
+    .map(toCard)
+    .filter(Boolean);
 
   const logoRows = [
     [row1logo1, row1logo2, row1logo3, row1logo4, row1logo5, row1logo1, row1logo2, row1logo3, row1logo4, row1logo5, row1logo1, row1logo2, row1logo3, row1logo4, row1logo5, row1logo1],
@@ -264,7 +221,7 @@ const AFewSelected = () => {
     }
   };
 
-  const handleMouseLeave = (projectId) => {
+  const handleMouseLeave = () => {
     setHoveredId(null);
     setShowCursor(false);
 

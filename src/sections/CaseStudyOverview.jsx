@@ -30,8 +30,7 @@ if (typeof document !== "undefined" && !document.getElementById("dropdown-anim-s
 
 const SERVICE_LOGOS = { starr, penn, togglee, motion: tryy };
 
-export { INDUSTRIES };
-export const SERVICES = SERVICE_OPTIONS.map(({ value, label }) => ({
+const SERVICES = SERVICE_OPTIONS.map(({ value, label }) => ({
   label,
   logoKey: value,
   logo: SERVICE_LOGOS[value],

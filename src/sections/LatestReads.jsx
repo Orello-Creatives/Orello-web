@@ -2,23 +2,16 @@ import { useRef, useEffect } from 'react'
 import { Link } from 'react-router'
 import gsap from 'gsap'
 import { useCmsContent } from '../hooks/useCmsContent'
-import { BLOGS } from '../data/blogs'
-
-// Local card image by slug, used when a CMS post has no cardImage yet
-const LOCAL_CARD_IMAGE = Object.fromEntries(BLOGS.map((b) => [b.slug, b.cardImage]))
 
 // Card shape consumed by this section, derived from any blog record
 const toCard = (b) => ({
   id: b._id || b.slug,
-  image: b.cardImage || LOCAL_CARD_IMAGE[b.slug],
+  image: b.cardImage,
   title: b.title,
   tag: b.tag,
   tagColor: b.tagColor,
   link: `/blogs/${b.slug}`,
 })
-
-// Local fallback list (the 3 original posts) until CMS data arrives
-const FALLBACK_ARTICLES = BLOGS.map(toCard)
 
 const AnimatedButton = ({ to, label }) => {
   const buttonRef = useRef(null);
@@ -102,7 +95,9 @@ const AnimatedButton = ({ to, label }) => {
 
 export default function LatestReads() {
   const cmsBlogs = useCmsContent('/blogs', null);
-  const articles = cmsBlogs ? cmsBlogs.slice(0, 3).map(toCard) : FALLBACK_ARTICLES;
+  const articles = cmsBlogs ? cmsBlogs.slice(0, 3).map(toCard) : [];
+
+  if (articles.length === 0) return null;
 
   return (
     <div className="bg-black text-white py-16 sm:py-20 md:py-24 relative z-20">

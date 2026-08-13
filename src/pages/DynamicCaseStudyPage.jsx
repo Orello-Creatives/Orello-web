@@ -4,7 +4,6 @@ import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import Readyto from '../components/Readyto.jsx';
 import comma from '../assets/logos/comma.svg';
-import { getCaseStudyBySlug } from '../data/caseStudies';
 import CaseStudyGallery, { Media } from '../components/CaseStudyGallery.jsx';
 import MoreCaseStudies from '../sections/MoreCaseStudies.jsx';
 
@@ -228,7 +227,6 @@ function Review({ review }) {
 
 export default function DynamicCaseStudyPage() {
   const { slug } = useParams();
-  const fallback = getCaseStudyBySlug(slug);
 
   const { data: cmsDoc, isError } = useQuery({
     queryKey: ['cms', `/case-studies/${slug}`],
@@ -241,7 +239,7 @@ export default function DynamicCaseStudyPage() {
     retry: false,
   });
 
-  const cs = normalize(cmsDoc || fallback);
+  const cs = cmsDoc ? normalize(cmsDoc) : null;
   const status = cs ? 'ready' : BASE && !isError ? 'loading' : 'error';
 
   return (

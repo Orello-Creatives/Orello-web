@@ -34,7 +34,7 @@ const services = [
   },
 ];
 
-const ServiceCard = ({ title, description, bgImage, logoKey, index }) => {
+const ServiceCard = ({ title, description, bgImage, logoKey }) => {
   const navigate = useNavigate();
   const cardRef = useRef(null);
   const revealRef = useRef(null);
