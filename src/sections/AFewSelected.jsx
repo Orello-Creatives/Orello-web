@@ -39,8 +39,61 @@ import Readyto from '../components/Readyto'
 import hr7 from '../assets/images/hr7.png'
 import hr5 from '../assets/images/hr5.png'
 import hr2 from '../assets/images/hr2.png'
+import { useCmsContent } from '../hooks/useCmsContent'
+import starr from '../assets/logos/starr.svg'
+import togglee from '../assets/logos/togglee.svg'
+import penn from '../assets/logos/penn.svg'
+import tryy from '../assets/logos/tryy.svg'
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Service logo SVGs stay local; case studies reference them by key (matches MoreCaseStudies.jsx)
+const LOGO_BY_KEY = { starr, togglee, penn, motion: tryy };
+
+// Map a CMS case study to the card shape this section renders.
+const toCard = (doc) => {
+  if (!doc.cardDefaultImage) return null;
+  return {
+    id: doc._id,
+    title: doc.title,
+    tags: doc.industries || [],
+    image: doc.cardDefaultImage,
+    hoverLogo: doc.cardHoverImage || doc.cardDefaultImage,
+    icons: (doc.serviceKeys || []).map((k) => LOGO_BY_KEY[k]).filter(Boolean),
+    link: `/case-study/${doc.slug}`,
+  };
+};
+
+// Local fallback shown until an admin flags case studies as "featured on home".
+const FALLBACK_PROJECTS = [
+  {
+    id: 1,
+    title: "GBM Report",
+    tags: ["Climate tech", "Sustainability", "Construction"],
+    image: gbm,
+    hoverLogo: hr5,
+    icons: [pen],
+    link: "/case-study/gbm"
+  },
+  {
+    id: 2,
+    title: "FindTheirCare",
+    tags: ["UK Care", "Healthcare"],
+    image: findtheircare,
+    hoverLogo: hr2,
+    icons: [star, toggle, pen],
+    link: "/case-study/findtheircare"
+  },
+  {
+    id: 3,
+    title: "Canvasé",
+    tags: [ "Fashion", "Lifestyle", "Sustainability"],
+    image: case7,
+    hoverLogo: hr7,
+    icons: [star, toggle, pen],
+    link: "/case-study/canvase"
+  }
+];
 
 // --- Animated Arrow Button (liquid fill animation) ----------------------------
 const AnimatedButton = ({ to, label, className, bgColor, textColor, arrowBgColor }) => {
@@ -160,35 +213,15 @@ const AFewSelected = () => {
   const [showCursor, setShowCursor] = useState(false);
   const customCursorRef = useRef(null);
 
-  const projects = [
-    {
-      id: 1,
-      title: "GBM Report",
-      tags: ["Climate tech", "Sustainability", "Construction"],
-      image: gbm,
-      hoverLogo: hr5,
-      icons: [pen],
-      link: "/case-study/gbm"
-    },
-    {
-      id: 2,
-      title: "FindTheirCare",
-      tags: ["UK Care", "Healthcare"],
-      image: findtheircare,
-      hoverLogo: hr2,
-      icons: [star, toggle, pen],
-      link: "/case-study/findtheircare"
-    },
-    {
-      id: 3,
-      title: "Canvasé",
-      tags: [ "Fashion", "Lifestyle", "Sustainability"],
-      image: case7,
-      hoverLogo: hr7,
-      icons: [star, toggle, pen],
-      link: "/case-study/canvase"
-    }
-  ];
+  const cmsDocs = useCmsContent('/case-studies', null);
+  const featured = cmsDocs
+    ? cmsDocs
+        .filter((d) => d.featuredOnHome)
+        .sort((a, b) => (a.homeOrder || 0) - (b.homeOrder || 0))
+        .map(toCard)
+        .filter(Boolean)
+    : [];
+  const projects = featured.length > 0 ? featured : FALLBACK_PROJECTS;
 
   const logoRows = [
     [row1logo1, row1logo2, row1logo3, row1logo4, row1logo5, row1logo1, row1logo2, row1logo3, row1logo4, row1logo5, row1logo1, row1logo2, row1logo3, row1logo4, row1logo5, row1logo1],

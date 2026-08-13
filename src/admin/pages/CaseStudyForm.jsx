@@ -37,6 +37,7 @@ const DEFAULTS = {
   metrics: [],
   review: { quote: "", authorName: "", authorRole: "", authorImage: "" },
   published: true,
+  featuredOnHome: false,
 };
 
 
@@ -70,6 +71,11 @@ export default function CaseStudyForm() {
   const setNested = (name, key) => (value) =>
     setForm((f) => ({ ...f, [name]: { ...f[name], [key]: value } }));
 
+  // Unpublishing also un-features it from the homepage — a case study that
+  // isn't published never appears in the public API regardless, so leaving
+  // featuredOnHome checked would just be a stale, confusing flag.
+  const setPublished = (value) => setForm((f) => ({ ...f, published: value, featuredOnHome: value ? f.featuredOnHome : false }));
+
   const saveMutation = useMutation({
     mutationFn: () => {
       const payload = {
@@ -81,6 +87,7 @@ export default function CaseStudyForm() {
         }),
       };
       delete payload.order; // order is managed by drag on the listing page, not here
+      delete payload.homeOrder; // homeOrder is managed by drag on the Homepage admin tab, not here
       return id
         ? api(`/admin/case-studies/${id}`, { method: "PUT", body: payload })
         : api(`/admin/case-studies`, { method: "POST", body: payload });
@@ -145,7 +152,20 @@ export default function CaseStudyForm() {
             onChange={set("serviceKeys")}
             placeholder="Select services…"
           />
-          <Field label="Published" type="checkbox" value={form.published} onChange={set("published")} />
+          <Field label="Published" type="checkbox" value={form.published} onChange={setPublished} />
+          <Field
+            label="Feature on homepage 'Selected Work' section"
+            type="checkbox"
+            value={form.featuredOnHome}
+            onChange={set("featuredOnHome")}
+            checkboxLabel="Shown in the homepage grid"
+            disabled={!form.published}
+          />
+          <p className="text-xs text-[#4B433B]/60 sm:col-span-2 -mt-2">
+            {form.published
+              ? "Go to the Homepage tab to set the display order of featured case studies."
+              : "Publish this case study first to make it available for the homepage."}
+          </p>
         </div>
 
         {/* Listing card */}

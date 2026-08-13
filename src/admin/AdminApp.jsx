@@ -7,6 +7,7 @@ import ContentList from "./pages/ContentList";
 import SimpleForm from "./pages/SimpleForm";
 import BlogForm from "./pages/BlogForm";
 import CaseStudyForm from "./pages/CaseStudyForm";
+import HomepageOrder from "./pages/HomepageOrder";
 import { CONTENT_TYPES } from "./contentTypes";
 
 function formElement(type, config) {
@@ -29,6 +30,7 @@ export default function AdminApp() {
         }
       >
         <Route index element={<Dashboard />} />
+        <Route path="homepage" element={<HomepageOrder />} />
         {Object.entries(CONTENT_TYPES).map(([type, config]) => (
           <Route key={type} path={type}>
             <Route index element={<ContentList type={type} />} />

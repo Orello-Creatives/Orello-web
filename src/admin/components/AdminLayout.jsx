@@ -1,11 +1,12 @@
 import { NavLink, useNavigate } from "react-router";
-import { LogOut, LayoutDashboard, FileText, Briefcase, HelpCircle, Users, Quote } from "lucide-react";
+import { LogOut, LayoutDashboard, FileText, Briefcase, Home, HelpCircle, Users, Quote } from "lucide-react";
 import { clearToken } from "../auth";
 
 const NAV_ITEMS = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
   { to: "/admin/blogs", label: "Blog Posts", icon: FileText },
   { to: "/admin/case-studies", label: "Case Studies", icon: Briefcase },
+  { to: "/admin/homepage", label: "Homepage", icon: Home },
   { to: "/admin/faqs", label: "FAQs", icon: HelpCircle },
   { to: "/admin/team", label: "Team Members", icon: Users },
   { to: "/admin/testimonials", label: "Testimonials", icon: Quote },
