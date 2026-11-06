@@ -17,7 +17,7 @@ export const STATIC_CASE_STUDIES = [
     description:
       "Rudra Solar Energy builds high-efficiency, hybrid solar dryers that help farmers and food businesses across India process and preserve produce sustainably. Orello partnered with the brand to tell that story: a product flyer built for clarity, and a multilingual video campaign that takes the technology straight to the people who use it.",
     industries: ["Agritech", "Sustainability"],
-    serviceKeys: ["motion", "videography", "penn"],
+    serviceKeys: ["motion", "penn"],
     cardDefaultImage: "/case-studies/rudra/card-default.png",
     cardHoverImage: "/case-studies/rudra/card-hover-logo.mp4",
     clientLogos: ["/case-studies/rudra/logo.png"],

@@ -14,6 +14,5 @@ export const SERVICE_OPTIONS = [
   { value: "starr", label: "Branding / Identity Design" },
   { value: "penn", label: "Digital Marketing / Content / Print" },
   { value: "togglee", label: "UI-UX / Development" },
-  { value: "motion", label: "Motion Graphics" },
-  { value: "videography", label: "Videography" },
+  { value: "motion", label: "Video Production" },
 ];
