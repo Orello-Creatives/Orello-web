@@ -1,0 +1,65 @@
+// Case studies shipped directly in the codebase instead of the CMS.
+// Used as a fallback/addition while the CMS admin login is down, or for
+// any case study you'd rather not manage through the admin panel.
+//
+// Each entry uses the exact same shape as a CMS case-study document, so it
+// flows through the same normalize()/render pipeline as CMS content
+// (see DynamicCaseStudyPage.jsx, CaseStudySecond.jsx, MoreCaseStudies.jsx).
+// Media lives in /public/case-studies/<slug>/ and is referenced by path.
+
+export const STATIC_CASE_STUDIES = [
+  {
+    _id: "static-rudra-solar-energy",
+    slug: "rudra-solar-energy",
+    title: "Rudra Solar Energy",
+    titleHighlight: "Rudra Solar Energy:",
+    subtitle: "Bringing Solar Innovation to Every Farm",
+    description:
+      "Rudra Solar Energy builds high-efficiency, hybrid solar dryers that help farmers and food businesses across India process and preserve produce sustainably. Orello partnered with the brand to tell that story: a product flyer built for clarity, and a multilingual video campaign that takes the technology straight to the people who use it.",
+    industries: ["Agritech", "Sustainability"],
+    serviceKeys: ["motion", "videography", "penn"],
+    cardDefaultImage: "/case-studies/rudra/card-default.png",
+    cardHoverImage: "/case-studies/rudra/card-hover.png",
+    clientLogos: ["/case-studies/rudra/logo.png"],
+    heroMedia: { url: "/case-studies/rudra/hero.mp4", type: "video" },
+    galleryLayout: "grid",
+    gallery: [
+      { url: "/case-studies/rudra/gallery-farmer.png", type: "image" },
+      { url: "/case-studies/rudra/gallery-installer.png", type: "image" },
+      { url: "/case-studies/rudra/gallery-dryer.png", type: "image" },
+    ],
+    galleryCta: null,
+    deliverables: [
+      {
+        title: "Brand Flyer Design",
+        description:
+          "A bold, high-impact product flyer communicating Rudra Solar Energy's features, product range, and certifications clearly.",
+      },
+      {
+        title: "Multilingual Video Campaign",
+        description:
+          "Product demonstration videos produced and edited in multiple regional languages to reach farmers and food businesses nationwide.",
+      },
+      {
+        title: "Motion Graphics",
+        description:
+          "Animated overlays and graphics highlighting product USPs, technical specs, and calls-to-action throughout the videos.",
+      },
+      {
+        title: "On-Ground Photography Curation",
+        description:
+          "Selected and refined real installation and product imagery for use across the flyer and digital assets.",
+      },
+    ],
+    metrics: [
+      { value: "5", label: "Regional Language Videos" },
+      { value: "100kg", label: "Max Drying Capacity Featured" },
+      { value: "50-70°C", label: "Optimal Drying Range Highlighted" },
+      { value: "2.5-100kg", label: "Full Product Range Covered" },
+    ],
+    review: null,
+    published: true,
+    featuredOnHome: false,
+    order: 99,
+  },
+];

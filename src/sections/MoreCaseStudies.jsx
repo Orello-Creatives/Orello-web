@@ -5,10 +5,10 @@ import starr from '../assets/logos/starr.svg';
 import togglee from '../assets/logos/togglee.svg';
 import penn from '../assets/logos/penn.svg';
 import tryy from '../assets/logos/tryy.svg';
-import { useCmsContent } from '../hooks/useCmsContent';
+import { useCaseStudies } from '../hooks/useCaseStudies';
 
 // Service logo SVGs stay local; case studies reference them by key
-const LOGO_BY_KEY = { starr, togglee, penn, motion: tryy };
+const LOGO_BY_KEY = { starr, togglee, penn, motion: tryy, videography: tryy };
 
 // Map a CMS case study to the card shape (cards without a default image are
 // skipped so the grid never shows empty tiles).
@@ -34,8 +34,8 @@ export default function MoreCaseStudies({ currentSlug }) {
   const imageRefs = useRef({});
   const cursorRef = useRef(null);
 
-  const cmsDocs = useCmsContent('/case-studies', null);
-  const all = cmsDocs ? cmsDocs.map(toCard).filter(Boolean) : [];
+  const allCaseStudies = useCaseStudies();
+  const all = allCaseStudies.map(toCard).filter(Boolean);
   const projects = all.filter((p) => p.slug !== currentSlug).slice(0, 3);
 
   useEffect(() => {

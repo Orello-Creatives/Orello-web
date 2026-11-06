@@ -6,6 +6,7 @@ import Readyto from '../components/Readyto.jsx';
 import comma from '../assets/logos/comma.svg';
 import CaseStudyGallery, { Media } from '../components/CaseStudyGallery.jsx';
 import MoreCaseStudies from '../sections/MoreCaseStudies.jsx';
+import { useCaseStudyBySlug } from '../hooks/useCaseStudies.js';
 
 const BASE = 'https://letsyogwithshai-backend.onrender.com';
 
@@ -228,6 +229,11 @@ function Review({ review }) {
 export default function DynamicCaseStudyPage() {
   const { slug } = useParams();
 
+  // Static case studies (src/data/staticCaseStudies.js) render straight from
+  // the codebase and skip the CMS fetch entirely, so they work even if the
+  // CMS backend or admin login is down.
+  const staticDoc = useCaseStudyBySlug(slug);
+
   const { data: cmsDoc, isError } = useQuery({
     queryKey: ['cms', `/case-studies/${slug}`],
     queryFn: () =>
@@ -235,11 +241,12 @@ export default function DynamicCaseStudyPage() {
         if (!res.ok) throw new Error('Not found');
         return res.json();
       }),
-    enabled: Boolean(BASE),
+    enabled: Boolean(BASE) && !staticDoc,
     retry: false,
   });
 
-  const cs = cmsDoc ? normalize(cmsDoc) : null;
+  const rawDoc = staticDoc || cmsDoc;
+  const cs = rawDoc ? normalize(rawDoc) : null;
   const status = cs ? 'ready' : BASE && !isError ? 'loading' : 'error';
 
   return (

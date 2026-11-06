@@ -6,7 +6,7 @@ import togglee from '../assets/logos/togglee.svg';
 import penn    from '../assets/logos/penn.svg';
 import tryy from '../assets/logos/tryy.svg'
 import Readyto from '../components/Readyto.jsx'
-import { useCmsContent } from '../hooks/useCmsContent'
+import { useCaseStudies } from '../hooks/useCaseStudies'
 
 // Service logo SVGs stay local; case studies reference them by key
 const LOGO_BY_KEY = { starr, togglee, penn, motion: tryy, videography: tryy };
@@ -76,8 +76,8 @@ export default function PortfolioGrid({ selIndustries, selServices, gridRef }) {
   const industries  = Array.isArray(selIndustries) ? selIndustries : [];
   const services    = Array.isArray(selServices)   ? selServices   : [];
   const isFiltering = industries.length > 0 || services.length > 0;
-  const cmsDocs     = useCmsContent('/case-studies', null);
-  const allProjects = cmsDocs ? cmsDocs.map(toCard).filter(Boolean) : [];
+  const allCaseStudies = useCaseStudies();
+  const allProjects = allCaseStudies.map(toCard).filter(Boolean);
   const projects    = getFiltered(industries, services, allProjects);
 
   const [showCursor, setShowCursor] = useState(false);
