@@ -49,7 +49,7 @@ function normalize(cs) {
     metrics: cs.metrics || [],
     gallery: {
       layout: cs.galleryLayout || 'grid',
-      items: (cs.gallery || []).filter((g) => g.url).map((g) => ({ src: g.url, type: g.type })),
+      items: (cs.gallery || []).filter((g) => g.url).map((g) => ({ src: g.url, type: g.type, fit: g.fit })),
       cta: cs.galleryCta && cs.galleryCta.href ? cs.galleryCta : null,
     },
     review: cs.review && cs.review.quote ? cs.review : null,

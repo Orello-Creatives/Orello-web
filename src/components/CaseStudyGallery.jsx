@@ -19,6 +19,11 @@ export function Media({ item, className }) {
   );
 }
 
+// Items can opt into object-contain (e.g. a clip with on-screen text that
+// must never be cropped) via item.fit === 'contain'; everything else keeps
+// the default object-cover fill.
+const fitClass = (item) => (item?.fit === 'contain' ? 'object-contain' : 'object-cover');
+
 function GalleryCta({ cta }) {
   if (!cta?.href) return null;
   return (
@@ -114,15 +119,15 @@ export default function CaseStudyGallery({ layout = 'grid', items = [], cta, Til
           <div key={i} className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
             {row.map((item) => (
               <Cell key={item._key ?? item.src} id={item._key} className={`${tile} ${h.gridTile}`}>
-                <Media item={item} className={mediaCls('object-cover')} />
+                <Media item={item} className={mediaCls(fitClass(item))} />
                 {overlay}
               </Cell>
             ))}
           </div>
         ))}
         {banner && (
-          <Cell id={banner._key} className={`${tile} ${h.gridBanner}`}>
-            <Media item={banner} className={mediaCls('object-cover')} />
+          <Cell id={banner._key} className={`${tile} ${h.gridBanner} ${banner.fit === 'contain' ? 'bg-[#F4EDE2]' : ''}`}>
+            <Media item={banner} className={mediaCls(fitClass(banner))} />
             {overlay}
           </Cell>
         )}
