@@ -27,6 +27,7 @@ export const STATIC_CASE_STUDIES = [
       { url: "/case-studies/rudra/gallery-rooftop.mp4", type: "video" },
       { url: "/case-studies/rudra/gallery-prep.mp4", type: "video" },
       { url: "/case-studies/rudra/gallery-drying.mp4", type: "video" },
+      { url: "/case-studies/rudra/gallery-multilingual.mp4", type: "video" },
     ],
     galleryCta: null,
     deliverables: [
