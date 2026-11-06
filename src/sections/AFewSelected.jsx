@@ -30,7 +30,7 @@ import row5logo5 from '../assets/logos/row5logo5.svg'
 import smile from '../assets/logos/smile.svg'
 import { Link } from 'react-router'
 import Readyto from '../components/Readyto'
-import { useCmsContent } from '../hooks/useCmsContent'
+import { useCaseStudies } from '../hooks/useCaseStudies'
 import starr from '../assets/logos/starr.svg'
 import togglee from '../assets/logos/togglee.svg'
 import penn from '../assets/logos/penn.svg'
@@ -173,7 +173,7 @@ const AFewSelected = () => {
   const [showCursor, setShowCursor] = useState(false);
   const customCursorRef = useRef(null);
 
-  const cmsDocs = useCmsContent('/case-studies', null);
+  const cmsDocs = useCaseStudies();
   const projects = (cmsDocs || [])
     .filter((d) => d.featuredOnHome)
     .sort((a, b) => (a.homeOrder || 0) - (b.homeOrder || 0))
