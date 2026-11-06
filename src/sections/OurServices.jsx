@@ -10,7 +10,7 @@ import uiuxx from '../assets/images/uiuxx.png'
 const services = [
   {
     title: 'Production',
-    logoKey: 'motion',
+    logoKey: ['motion', 'videography'],
     description: 'Motion graphics and videography that turn brand stories into content people remember.',
     bgImage: motion,
   },

@@ -160,9 +160,10 @@ export default function ExploreWorkSection({
   useEffect(() => {
     const serviceFilter = location.state?.serviceFilter;
     if (serviceFilter) {
-      const match = SERVICES.find((s) => s.logoKey === serviceFilter);
-      if (match) {
-        setSelServices([serviceFilter]);
+      const requested = Array.isArray(serviceFilter) ? serviceFilter : [serviceFilter];
+      const matched = requested.filter((key) => SERVICES.some((s) => s.logoKey === key));
+      if (matched.length) {
+        setSelServices(matched);
       }
     }
   }, []); // runs once on mount
