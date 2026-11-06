@@ -102,7 +102,7 @@ function CaseHero({ cs }) {
                 className="bg-white border border-black/[0.07] rounded-[4px] px-2 sm:px-2.5 md:px-3 lg:px-[14px] py-1.5 lg:py-2 flex items-center justify-center w-auto min-w-[70px] sm:min-w-[80px] md:min-w-[100px] lg:min-w-[120px] min-h-[36px] sm:min-h-[40px] md:min-h-[44px] lg:min-h-[48px]"
                 style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}
               >
-                <img src={logo} alt={`Logo ${i + 1}`} className="max-h-4 sm:max-h-5 md:max-h-6 lg:max-h-8 w-auto object-contain" />
+                <img src={logo} alt={`Logo ${i + 1}`} className="max-h-6 sm:max-h-7 md:max-h-9 lg:max-h-11 w-auto object-contain" />
               </div>
             ))}
           </div>
