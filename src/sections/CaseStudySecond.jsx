@@ -9,7 +9,7 @@ import Readyto from '../components/Readyto.jsx'
 import { useCmsContent } from '../hooks/useCmsContent'
 
 // Service logo SVGs stay local; case studies reference them by key
-const LOGO_BY_KEY = { starr, togglee, penn, motion: tryy };
+const LOGO_BY_KEY = { starr, togglee, penn, motion: tryy, videography: tryy };
 
 // Maps a CMS case study to the local card shape; cards without a
 // default image are skipped so the grid never shows empty tiles.

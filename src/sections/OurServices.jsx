@@ -9,27 +9,27 @@ import uiuxx from '../assets/images/uiuxx.png'
 
 const services = [
   {
+    title: 'Production',
+    logoKey: 'motion',
+    description: 'Motion graphics and videography that turn brand stories into content people remember.',
+    bgImage: motion,
+  },
+  {
     title: 'Brand Identity',
     logoKey: 'starr',
-    description: 'Orello is a purpose-driven global design partner',
+    description: 'Brand identity design that gives purpose-driven organisations a clear, memorable visual voice.',
     bgImage: branding,
   },
   {
     title: 'UI/UX & Web Development',
     logoKey: 'togglee',
-    description: 'Orello is a purpose-driven global design partner',
+    description: 'User-centred UI/UX design and web development built for clarity, speed, and conversions.',
     bgImage: uiuxx,
-  },
-  {
-    title: 'Motion Graphics',
-    logoKey: 'motion',
-    description: 'Orello is a purpose-driven global design partner',
-    bgImage: motion,
   },
   {
     title: 'Digital Marketing & SEO',
     logoKey: 'penn',
-    description: 'Orello is a purpose-driven global design partner',
+    description: 'Digital marketing and SEO strategy that helps mission-led brands grow their reach and visibility.',
     bgImage: digital,
   },
 ];

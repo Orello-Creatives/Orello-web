@@ -28,7 +28,7 @@ if (typeof document !== "undefined" && !document.getElementById("dropdown-anim-s
   document.head.appendChild(tag);
 }
 
-const SERVICE_LOGOS = { starr, penn, togglee, motion: tryy };
+const SERVICE_LOGOS = { starr, penn, togglee, motion: tryy, videography: tryy };
 
 const SERVICES = SERVICE_OPTIONS.map(({ value, label }) => ({
   label,
