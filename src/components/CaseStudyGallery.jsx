@@ -40,7 +40,7 @@ function GalleryCta({ cta }) {
   );
 }
 
-const DefaultTile = ({ className, children }) => <div className={className}>{children}</div>;
+const DefaultTile = ({ className, style, children }) => <div className={className} style={style}>{children}</div>;
 
 const HEIGHTS = {
   full: {
@@ -95,7 +95,8 @@ export default function CaseStudyGallery({ layout = 'grid', items = [], cta, Til
               <Cell
                 key={item._key ?? item.src}
                 id={item._key}
-                className={`${tile} ${tileWidth} aspect-[9/16]`}
+                className={`${tile} ${tileWidth}`}
+                style={{ aspectRatio: item.aspect || '9 / 16' }}
               >
                 <Media item={item} className={mediaCls(fitClass(item))} />
                 {overlay}

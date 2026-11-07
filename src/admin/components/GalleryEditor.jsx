@@ -75,9 +75,10 @@ function SortableCard({ item, index, total, layout, onUpdate, onRemove }) {
 }
 
 // ── Preview tile (the whole tile is the drag handle) ──
-function SortableTile({ id, className, children }) {
+function SortableTile({ id, className, style: tileStyle, children }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
   const style = {
+    ...tileStyle,
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
