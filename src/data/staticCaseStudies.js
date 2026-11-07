@@ -1756,4 +1756,57 @@ export const STATIC_CASE_STUDIES = [
     featuredOnHome: false,
     order: 99,
   },
+  {
+    _id: "static-kissan-dharambir",
+    slug: "kissan-dharambir",
+    title: "Kissan Dharambir",
+    titleHighlight: "Kissan Dharambir:",
+    subtitle: "Taking MultiPro to Farmers in Their Own Language",
+    description:
+      "Kissan Dharambir's MultiPro machine, under GreenHub LLP's Gram Sootra brand, helps smallholder farmers pulp, juice, and process their own produce instead of selling it raw. Orello built the brand's multilingual video campaign and product catalogue, carrying the same message across five regional languages so farmers anywhere in India could see the machine explained in their own tongue.",
+    industries: ["Agritech", "FMCG"],
+    serviceKeys: ["motion", "penn"],
+    cardDefaultImage: "/case-studies/kissan-dharambir/card-default.jpg",
+    cardHoverImage: "/case-studies/kissan-dharambir/card-hover.mp4",
+    clientLogos: [],
+    heroMedia: { url: "/case-studies/kissan-dharambir/hero-loop.mp4", type: "video" },
+    galleryLayout: "grid",
+    gallery: [
+      { url: "/case-studies/kissan-dharambir/gallery-farmer.mp4", type: "video" },
+      { url: "/case-studies/kissan-dharambir/catalogue-english-1.jpg", type: "image", fit: "contain" },
+      { url: "/case-studies/kissan-dharambir/catalogue-assamese-1.jpg", type: "image", fit: "contain" },
+      { url: "/case-studies/kissan-dharambir/gallery-tamil.mp4", type: "video", fit: "contain" },
+      { url: "/case-studies/kissan-dharambir/gallery-gujarati.mp4", type: "video", fit: "contain" },
+      { url: "/case-studies/kissan-dharambir/gallery-product.mp4", type: "video" },
+      { url: "/case-studies/kissan-dharambir/gallery-selling.mp4", type: "video" },
+    ],
+    galleryCta: null,
+    deliverables: [
+      {
+        title: "Multilingual Video Campaign",
+        description:
+          "An animated explainer video produced in five regional languages (Hindi, Gujarati, Kannada, Tamil, Telugu) walking farmers through the MultiPro machine and how it helps them earn more from their produce.",
+      },
+      {
+        title: "Product Catalogue Design",
+        description:
+          "A two-page MultiPro product catalogue covering specs, pricing tiers, and a customer testimonial, localised into English and regional languages for distribution alongside the videos.",
+      },
+      {
+        title: "Motion Graphics",
+        description:
+          "Animated product shots, spec call-outs, and on-screen text treatments carried consistently across every language version.",
+      },
+    ],
+    metrics: [
+      { value: "5", label: "Regional Language Videos" },
+      { value: "2", label: "Catalogue Languages Delivered" },
+      { value: "600+", label: "MultiPro Machines Installed" },
+      { value: "5000+", label: "Livelihoods Supported" },
+    ],
+    review: null,
+    published: true,
+    featuredOnHome: false,
+    order: 100,
+  },
 ];
