@@ -1821,7 +1821,7 @@ export const STATIC_CASE_STUDIES = [
     serviceKeys: ["motion", "videography"],
     cardDefaultImage: "/case-studies/truva/card-default.jpg",
     cardHoverImage: "/case-studies/truva/card-hover.mp4",
-    clientLogos: [],
+    clientLogos: ["/case-studies/truva/logo.png"],
     heroMedia: { url: "/case-studies/truva/hero-loop.mp4", type: "video" },
     galleryLayout: "portrait",
     gallery: [
