@@ -1773,8 +1773,8 @@ export const STATIC_CASE_STUDIES = [
     galleryLayout: "grid",
     gallery: [
       { url: "/case-studies/kissan-dharambir/gallery-farmer.mp4", type: "video" },
-      { url: "/case-studies/kissan-dharambir/catalogue-english-1.jpg", type: "image", fit: "contain" },
-      { url: "/case-studies/kissan-dharambir/catalogue-assamese-1.jpg", type: "image", fit: "contain" },
+      { url: "/case-studies/kissan-dharambir/catalogue-english-mockup.jpg", type: "image" },
+      { url: "/case-studies/kissan-dharambir/catalogue-assamese-mockup.jpg", type: "image" },
       { url: "/case-studies/kissan-dharambir/gallery-tamil.mp4", type: "video", fit: "contain" },
       { url: "/case-studies/kissan-dharambir/gallery-gujarati.mp4", type: "video", fit: "contain" },
       { url: "/case-studies/kissan-dharambir/gallery-product.mp4", type: "video" },
