@@ -29,6 +29,7 @@ function slotRole(layout, index, total) {
   if (layout === "asymmetric" && total >= 5) {
     return ASYMMETRIC_ROLES[index] || "Unused";
   }
+  if (layout === "portrait") return `Video ${index + 1}`;
   if (index === total - 1) return "Banner";
   return `Image ${index + 1}`;
 }

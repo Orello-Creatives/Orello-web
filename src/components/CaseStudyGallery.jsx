@@ -79,6 +79,35 @@ export default function CaseStudyGallery({ layout = 'grid', items = [], cta, Til
     <span className="absolute inset-0 bg-black/10 opacity-100 group-hover:opacity-0 transition-opacity duration-300 pointer-events-none" />
   );
 
+  // portrait: for vertical (9:16 / 4:5) social/ad video — side-by-side phone-style
+  // tiles at a fixed portrait aspect ratio, instead of forcing tall footage into
+  // the landscape-shaped grid/asymmetric cells (which either crops it to nothing
+  // or pillarboxes it badly).
+  if (layout === 'portrait') {
+    const tileWidth = compact
+      ? 'w-[110px]'
+      : 'w-[200px] sm:w-[240px] md:w-[270px] lg:w-[300px]';
+    return (
+      <section className="bg-[#F4EDE2] flex items-center justify-center py-10 sm:py-16 lg:py-24 px-3 sm:px-4">
+        <div className="container flex flex-col items-center gap-6 sm:gap-8">
+          <div className="flex flex-wrap items-start justify-center gap-4 sm:gap-6">
+            {media.map((item) => (
+              <Cell
+                key={item._key ?? item.src}
+                id={item._key}
+                className={`${tile} ${tileWidth} aspect-[9/16]`}
+              >
+                <Media item={item} className={mediaCls(fitClass(item))} />
+                {overlay}
+              </Cell>
+            ))}
+          </div>
+          <GalleryCta cta={cta} />
+        </div>
+      </section>
+    );
+  }
+
   if (layout === 'asymmetric' && media.length >= 5) {
     const [a, b, tall, c, d, banner] = media;
     return (

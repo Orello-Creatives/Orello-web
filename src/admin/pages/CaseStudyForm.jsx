@@ -16,6 +16,7 @@ const INDUSTRY_OPTIONS = INDUSTRIES.map((i) => ({ value: i, label: i }));
 const GALLERY_LAYOUT_OPTIONS = [
   { value: "grid", label: "Grid (rows of 2 + full-width banner)" },
   { value: "asymmetric", label: "Asymmetric (stacked left + tall right)" },
+  { value: "portrait", label: "Portrait (side-by-side vertical video)" },
 ];
 
 const DEFAULTS = {

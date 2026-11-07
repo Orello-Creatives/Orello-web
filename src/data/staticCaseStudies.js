@@ -1809,4 +1809,54 @@ export const STATIC_CASE_STUDIES = [
     featuredOnHome: false,
     order: 100,
   },
+  {
+    _id: "static-truva",
+    slug: "truva",
+    title: "Truva",
+    titleHighlight: "Truva:",
+    subtitle: "Selling Homes Without the Endless Calls",
+    description:
+      "Truva is a proptech platform, built by alumni of IIT and Stanford, that helps homeowners sell with real transaction data instead of guesswork, and gets listings sold in an average of 44 days. Orello edits Truva's Meta ads campaign: a brand explainer that reframes the pain of selling a home, and property-specific reels like the Godrej Park Retreat walkthrough that convert that trust into booked viewings.",
+    industries: ["PropTech", "Real Estate"],
+    serviceKeys: ["motion", "videography"],
+    cardDefaultImage: "/case-studies/truva/card-default.jpg",
+    cardHoverImage: "/case-studies/truva/card-hover.mp4",
+    clientLogos: [],
+    heroMedia: { url: "/case-studies/truva/hero-loop.mp4", type: "video" },
+    galleryLayout: "portrait",
+    gallery: [
+      { url: "/case-studies/truva/gallery-aerial.mp4", type: "video", fit: "contain" },
+      { url: "/case-studies/truva/gallery-intro.mp4", type: "video", fit: "contain" },
+      { url: "/case-studies/truva/gallery-painpoint.mp4", type: "video", fit: "contain" },
+      { url: "/case-studies/truva/gallery-app.mp4", type: "video", fit: "contain" },
+      { url: "/case-studies/truva/gallery-stat.mp4", type: "video", fit: "contain" },
+    ],
+    galleryCta: null,
+    deliverables: [
+      {
+        title: "Brand Explainer Edit (9:16)",
+        description:
+          "A vertical Meta ads edit walking a seller from the pain of endless calls and uncertain pricing to Truva's data-backed valuation, loan and registration support, and 44-day average selling time.",
+      },
+      {
+        title: "Property Reel Edit (4:5)",
+        description:
+          "A listing-specific walkthrough edit for Godrej Park Retreat, built from on-ground footage into a fast-paced reel with location, amenities, and move-in-ready call-outs.",
+      },
+      {
+        title: "Motion Graphics & Captioning",
+        description:
+          "On-brand animated captions, stat call-outs, and app-screen overlays carried consistently across every edit.",
+      },
+    ],
+    metrics: [
+      { value: "2", label: "Ad Formats Edited (9:16, 4:5)" },
+      { value: "44 Days", label: "Truva's Average Selling Time" },
+      { value: "2 Weeks", label: "Trial-to-Delivery Turnaround" },
+    ],
+    review: null,
+    published: true,
+    featuredOnHome: false,
+    order: 101,
+  },
 ];
