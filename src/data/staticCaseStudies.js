@@ -1850,9 +1850,10 @@ export const STATIC_CASE_STUDIES = [
       },
     ],
     metrics: [
-      { value: "2", label: "Ad Formats Edited (9:16, 4:5)" },
-      { value: "44 Days", label: "Truva's Average Selling Time" },
-      { value: "2 Weeks", label: "Trial-to-Delivery Turnaround" },
+      { value: "2 Hrs", label: "Average Turnaround Time" },
+      { value: "7+", label: "Videos Delivered Per Day" },
+      { value: "50+", label: "Videos Delivered This Month" },
+      { value: "10+", label: "AI-Generated Concepts" },
     ],
     review: null,
     published: true,
