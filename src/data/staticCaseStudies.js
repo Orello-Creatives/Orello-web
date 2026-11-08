@@ -622,7 +622,7 @@ export const STATIC_CASE_STUDIES = [
     title: "Villgro",
     titleHighlight: "Empowering Social Enterpreneurs with",
     subtitle: "Multilingual communication",
-    description: "Villgro, one of India's leading social enterprise incubators, partnered with us to create communication tools that help their incubated enterprises connect with grassroots communities. Through multilingual flyers and motion graphics videos, we simplified complex innovations into engaging, accessible formats that built trust and drove adoption.",
+    description: "Villgro, one of India's leading social enterprise incubators, partnered with us across multiple social initiatives to help their incubated enterprises connect with grassroots communities. Through multilingual flyers, motion graphics videos, event collateral, and workshop recap videos, we simplified complex innovations into engaging, accessible formats that built trust and drove adoption.",
     industries: [
       "Climate Tech",
       "Sustainability",
@@ -670,6 +670,30 @@ export const STATIC_CASE_STUDIES = [
       {
         url: "/case-studies/villgro/ebike-event-video.mp4",
         type: "video"
+      },
+      {
+        url: "/case-studies/villgro/event-01.jpg",
+        type: "image"
+      },
+      {
+        url: "/case-studies/villgro/event-02.jpg",
+        type: "image"
+      },
+      {
+        url: "/case-studies/villgro/event-03.jpg",
+        type: "image"
+      },
+      {
+        url: "/case-studies/villgro/event-04.jpg",
+        type: "image"
+      },
+      {
+        url: "/case-studies/villgro/event-05.jpg",
+        type: "image"
+      },
+      {
+        url: "/case-studies/villgro/event-06.jpg",
+        type: "image"
       }
     ],
     galleryCta: {
@@ -687,7 +711,11 @@ export const STATIC_CASE_STUDIES = [
       },
       {
         title: "E-Bike Event Video",
-        description: "An AI-produced video for Villgro's Charging Rural Deliveries policymaker workshop, covering e-bikes for rural e-commerce delivery agents"
+        description: "An edited recap video from Villgro's Charging Rural Deliveries policymaker workshop on e-bikes for rural e-commerce delivery agents"
+      },
+      {
+        title: "Event Collaterals",
+        description: "Standees, digital displays, and print materials designed for Villgro's policymaker workshops and field events"
       },
       {
         title: "Localized Content",
@@ -700,20 +728,20 @@ export const STATIC_CASE_STUDIES = [
     ],
     metrics: [
       {
-        value: "20+",
-        label: "Enterprises supported with tailored communication tools"
-      },
-      {
-        value: "08+",
-        label: "Enterprises supported with tailored communication tools"
-      },
-      {
-        value: "10,000+",
-        label: "Enterprises supported with tailored communication tools"
+        value: "10+",
+        label: "Social initiatives supported"
       },
       {
         value: "20+",
-        label: "Enterprises supported with tailored communication tools"
+        label: "Videos delivered"
+      },
+      {
+        value: "150+",
+        label: "Creatives delivered"
+      },
+      {
+        value: "09+",
+        label: "Verticals worked across"
       }
     ],
     review: {
