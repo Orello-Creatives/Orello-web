@@ -110,7 +110,7 @@ export default function CaseStudyGallery({ layout = 'grid', items = [], cta, Til
   }
 
   if (layout === 'asymmetric' && media.length >= 5) {
-    const [a, b, tall, c, d, banner] = media;
+    const [a, b, tall, c, d, banner, ...rest] = media;
     return (
       <section className="bg-[#F4EDE2] flex items-center justify-center py-10 sm:py-16 lg:py-24 px-3 sm:px-4">
         <div className="container flex flex-col gap-2 sm:gap-3">
@@ -129,6 +129,18 @@ export default function CaseStudyGallery({ layout = 'grid', items = [], cta, Til
           )}
           {banner && (
             <Cell id={banner._key} className={`${tile} ${h.asymBanner}`}><Media item={banner} className={mediaCls('object-contain')} />{overlay}</Cell>
+          )}
+          {/* Any items beyond the fixed 6 asymmetric slots (a, b, tall, c, d, banner)
+              still get shown, in simple two-up rows, instead of being dropped. */}
+          {rest.length > 0 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+              {rest.map((item) => (
+                <Cell key={item._key ?? item.src} id={item._key} className={`${tile} ${h.pair}`}>
+                  <Media item={item} className={mediaCls(fitClass(item))} />
+                  {overlay}
+                </Cell>
+              ))}
+            </div>
           )}
           <GalleryCta cta={cta} />
         </div>
