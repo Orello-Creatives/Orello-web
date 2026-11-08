@@ -622,7 +622,7 @@ export const STATIC_CASE_STUDIES = [
     title: "Villgro",
     titleHighlight: "Empowering Social Enterpreneurs with",
     subtitle: "Multilingual communication",
-    description: "Villgro, one of India's leading social enterprise incubators, partnered with us across multiple social initiatives to help their incubated enterprises connect with grassroots communities. Through multilingual flyers, motion graphics videos, event collateral, and workshop recap videos, we simplified complex innovations into engaging, accessible formats that built trust and drove adoption.",
+    description: "Villgro, one of India's leading social enterprise incubators, partnered with us to create communication tools that help their incubated enterprises connect with grassroots communities. Through multilingual flyers and motion graphics videos, we simplified complex innovations into engaging, accessible formats that built trust and drove adoption.",
     industries: [
       "Climate Tech",
       "Sustainability",
@@ -666,34 +666,6 @@ export const STATIC_CASE_STUDIES = [
       {
         url: "https://orello-cms.sfo3.cdn.digitaloceanspaces.com/cms/case-studies/0eee699c66d81eb9.png",
         type: "image"
-      },
-      {
-        url: "/case-studies/villgro/ebike-event-video.mp4",
-        type: "video"
-      },
-      {
-        url: "/case-studies/villgro/event-01.jpg",
-        type: "image"
-      },
-      {
-        url: "/case-studies/villgro/event-02.jpg",
-        type: "image"
-      },
-      {
-        url: "/case-studies/villgro/event-03.jpg",
-        type: "image"
-      },
-      {
-        url: "/case-studies/villgro/event-04.jpg",
-        type: "image"
-      },
-      {
-        url: "/case-studies/villgro/event-05.jpg",
-        type: "image"
-      },
-      {
-        url: "/case-studies/villgro/event-06.jpg",
-        type: "image"
       }
     ],
     galleryCta: {
@@ -710,14 +682,6 @@ export const STATIC_CASE_STUDIES = [
         description: "Animated explainers simplifying technical solutions into relatable stories"
       },
       {
-        title: "E-Bike Event Video",
-        description: "An edited recap video from Villgro's Charging Rural Deliveries policymaker workshop on e-bikes for rural e-commerce delivery agents"
-      },
-      {
-        title: "Event Collaterals",
-        description: "Standees, digital displays, and print materials designed for Villgro's policymaker workshops and field events"
-      },
-      {
         title: "Localized Content",
         description: "Region-specific collaterals ensuring cultural resonance and clarity"
       },
@@ -728,20 +692,20 @@ export const STATIC_CASE_STUDIES = [
     ],
     metrics: [
       {
-        value: "10+",
-        label: "Social initiatives supported"
+        value: "20+",
+        label: "Enterprises supported with tailored communication tools"
+      },
+      {
+        value: "08+",
+        label: "Enterprises supported with tailored communication tools"
+      },
+      {
+        value: "10,000+",
+        label: "Enterprises supported with tailored communication tools"
       },
       {
         value: "20+",
-        label: "Videos delivered"
-      },
-      {
-        value: "150+",
-        label: "Creatives delivered"
-      },
-      {
-        value: "09+",
-        label: "Verticals worked across"
+        label: "Enterprises supported with tailored communication tools"
       }
     ],
     review: {
@@ -2046,5 +2010,55 @@ export const STATIC_CASE_STUDIES = [
     published: true,
     featuredOnHome: false,
     order: 105,
+  },
+  {
+    _id: "static-villgro-ebike-event",
+    slug: "villgro-ebike-event",
+    title: "Villgro E-Bike Event",
+    titleHighlight: "Villgro:",
+    subtitle: "Covering a policymaker workshop on rural e-bike delivery",
+    description:
+      "Villgro's Charging Rural Deliveries workshop brought policymakers together to look at e-bikes as a cleaner option for rural e-commerce delivery agents. Orello produced an edited recap video of the sessions plus standees and digital displays for the venue, alongside Orello's ongoing flyer and motion graphics work for Villgro's incubated enterprises.",
+    industries: ["Climate Tech", "Sustainability", "Agritech"],
+    serviceKeys: ["motion", "videography", "penn"],
+    cardDefaultImage: "/case-studies/villgro-ebike-event/card.jpg",
+    cardHoverImage: "/case-studies/villgro-ebike-event/ebike-event-video.mp4",
+    clientLogos: [
+      "https://orello-cms.sfo3.cdn.digitaloceanspaces.com/cms/case-studies/1f5d8e388026fef4.svg",
+    ],
+    heroMedia: { url: "/case-studies/villgro-ebike-event/ebike-event-video.mp4", type: "video" },
+    galleryLayout: "grid",
+    gallery: [
+      { url: "/case-studies/villgro-ebike-event/ebike-event-video.mp4", type: "video" },
+      { url: "/case-studies/villgro-ebike-event/event-01.jpg", type: "image" },
+      { url: "/case-studies/villgro-ebike-event/event-02.jpg", type: "image" },
+      { url: "/case-studies/villgro-ebike-event/event-03.jpg", type: "image" },
+      { url: "/case-studies/villgro-ebike-event/event-04.jpg", type: "image" },
+      { url: "/case-studies/villgro-ebike-event/event-05.jpg", type: "image" },
+      { url: "/case-studies/villgro-ebike-event/event-06.jpg", type: "image" },
+    ],
+    galleryCta: null,
+    deliverables: [
+      {
+        title: "E-Bike Event Video",
+        description:
+          "An edited recap video from Villgro's Charging Rural Deliveries policymaker workshop on e-bikes for rural e-commerce delivery agents",
+      },
+      {
+        title: "Event Collaterals",
+        description:
+          "Standees, digital displays, and print materials designed for the policymaker workshop venue",
+      },
+    ],
+    metrics: [
+      { value: "10+", label: "Social initiatives supported with Villgro" },
+      { value: "20+", label: "Videos delivered for Villgro" },
+      { value: "150+", label: "Creatives delivered for Villgro" },
+      { value: "09+", label: "Verticals worked across with Villgro" },
+    ],
+    review: null,
+    published: true,
+    featuredOnHome: false,
+    order: 106,
   },
 ];
