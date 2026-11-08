@@ -39,7 +39,11 @@ import tryy from '../assets/logos/tryy.svg'
 gsap.registerPlugin(ScrollTrigger);
 
 // Service logo SVGs stay local; case studies reference them by key (matches MoreCaseStudies.jsx)
-const LOGO_BY_KEY = { starr, togglee, penn, motion: tryy };
+const LOGO_BY_KEY = { starr, togglee, penn, motion: tryy, videography: tryy };
+
+function isVideo(src) {
+  return !!src && /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(String(src));
+}
 
 // Map a CMS case study to the card shape this section renders.
 const toCard = (doc) => {
@@ -326,11 +330,23 @@ const AFewSelected = () => {
                   onMouseEnter={() => handleMouseEnter(project.id)}
                   onMouseLeave={() => handleMouseLeave(project.id)}
                 >
-                  <img
-                    src={hoveredId === project.id ? project.hoverLogo : project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-all duration-300"
-                  />
+                  {isVideo(hoveredId === project.id ? project.hoverLogo : project.image) ? (
+                    <video
+                      key={hoveredId === project.id ? 'hover' : 'default'}
+                      src={hoveredId === project.id ? project.hoverLogo : project.image}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-full object-cover transition-all duration-300"
+                    />
+                  ) : (
+                    <img
+                      src={hoveredId === project.id ? project.hoverLogo : project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-all duration-300"
+                    />
+                  )}
                 </div>
               </Link>
               <div className="flex justify-between items-center mb-2">

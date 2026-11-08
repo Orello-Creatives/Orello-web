@@ -10,6 +10,30 @@ import { useCaseStudies } from '../hooks/useCaseStudies';
 // Service logo SVGs stay local; case studies reference them by key
 const LOGO_BY_KEY = { starr, togglee, penn, motion: tryy, videography: tryy };
 
+function isVideo(src) {
+  return !!src && /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(String(src));
+}
+
+// Renders a card's default/hover media as a <video> when it's a video file
+// (an <img> can't play mp4/webm) and as a plain <img> otherwise.
+function MediaElement({ src, alt, elRef, className, style }) {
+  if (isVideo(src)) {
+    return (
+      <video
+        ref={elRef}
+        src={src}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className={className}
+        style={style}
+      />
+    );
+  }
+  return <img ref={elRef} src={src} alt={alt} className={className} style={style} />;
+}
+
 // Map a CMS case study to the card shape (cards without a default image are
 // skipped so the grid never shows empty tiles).
 const toCard = (doc) => {
@@ -111,15 +135,15 @@ export default function MoreCaseStudies({ currentSlug }) {
                 onMouseEnter={() => onEnter(project.id)}
                 onMouseLeave={() => onLeave(project.id)}
               >
-                <img
-                  ref={(el) => (imageRefs.current[`d-${project.id}`] = el)}
+                <MediaElement
+                  elRef={(el) => (imageRefs.current[`d-${project.id}`] = el)}
                   src={project.defaultImage}
                   alt={project.title}
                   className="absolute inset-0 w-full h-full object-cover"
                   style={{ opacity: 1 }}
                 />
-                <img
-                  ref={(el) => (imageRefs.current[`h-${project.id}`] = el)}
+                <MediaElement
+                  elRef={(el) => (imageRefs.current[`h-${project.id}`] = el)}
                   src={project.hoverImage}
                   alt=""
                   className="absolute inset-0 w-full h-full object-cover"
