@@ -91,11 +91,11 @@ export const STATIC_CASE_STUDIES = [
       },
       {
         value: "50+",
-        label: "Green enterprises represenated"
+        label: "Green enterprises united on one sector-wide platform"
       },
       {
         value: "10+",
-        label: "Investor and policymaker groups involved"
+        label: "Investor and policymaker groups aligned to back the sector"
       },
       {
         value: "01",
@@ -192,19 +192,19 @@ export const STATIC_CASE_STUDIES = [
     metrics: [
       {
         value: "05",
-        label: "User Roles Designed"
+        label: "User roles unified into one seamless platform"
       },
       {
         value: "100+",
-        label: "Data Points Visualized"
+        label: "Data points turned into real-time, actionable insights"
       },
       {
         value: "20+",
-        label: "Custom dashboards, reports, analytics, and monitoring screens."
+        label: "Dashboards giving admins one view for data-driven decisions"
       },
       {
         value: "26",
-        label: "Languages Supported"
+        label: "Languages — one platform, accessible across every region"
       }
     ],
     review: {
@@ -393,19 +393,19 @@ export const STATIC_CASE_STUDIES = [
     metrics: [
       {
         value: "75+",
-        label: "On-Page SEO Enhancements"
+        label: "On-page SEO enhancements built for lasting organic visibility"
       },
       {
         value: "50+",
-        label: "Target Search Keywords"
+        label: "Keywords targeted to reach serious property buyers"
       },
       {
         value: "100+",
-        label: "Metadata Elements Optimized"
+        label: "Metadata elements optimized to strengthen search visibility"
       },
       {
         value: "05+",
-        label: "Lead Generation Pages"
+        label: "Pages built to turn visitors into enquiries"
       }
     ],
     review: {
@@ -603,7 +603,7 @@ export const STATIC_CASE_STUDIES = [
       },
       {
         value: "03+",
-        label: "Core digital touchpoints built — website, product flyers, and event collaterals"
+        label: "Core touchpoints unified under one consistent brand experience"
       }
     ],
     review: {
@@ -887,15 +887,15 @@ export const STATIC_CASE_STUDIES = [
     metrics: [
       {
         value: "150+",
-        label: "Target Keywords Researched"
+        label: "Keywords targeted to grow organic search visibility"
       },
       {
         value: "25+",
-        label: "SEO-Optimized Pages"
+        label: "Pages optimized to turn search traffic into enquiries"
       },
       {
         value: "10+",
-        label: "Destination Experiences Showcased"
+        label: "Destination experiences showcased to inspire bookings"
       },
       {
         value: "01",
@@ -990,7 +990,7 @@ export const STATIC_CASE_STUDIES = [
       },
       {
         value: "50+",
-        label: "Brand assets designed across logo, emblem, typography, and visual language"
+        label: "Brand assets unified into one confident, market-ready identity"
       },
       {
         value: "5+",
@@ -1084,7 +1084,7 @@ export const STATIC_CASE_STUDIES = [
     metrics: [
       {
         value: "04+",
-        label: "Core brand assets created for digital and print use"
+        label: "Core brand assets unified to signal credibility from day one"
       },
       {
         value: "06+",
@@ -1289,11 +1289,11 @@ export const STATIC_CASE_STUDIES = [
     metrics: [
       {
         value: "20+",
-        label: "Brand assets developed, logo, typography, color palette, and guidelines"
+        label: "Brand assets unified into one credible, trustworthy identity"
       },
       {
         value: "01",
-        label: "Responsive landing page designed and deployed"
+        label: "Landing page built to earn stakeholder trust at first glance"
       },
       {
         value: "03+",
@@ -1390,7 +1390,7 @@ export const STATIC_CASE_STUDIES = [
       },
       {
         value: "150+",
-        label: "Brand applications rolled out across print, digital, and space branding"
+        label: "Brand touchpoints unified across print, digital, and physical space"
       },
       {
         value: "07+",
@@ -1480,7 +1480,7 @@ export const STATIC_CASE_STUDIES = [
     metrics: [
       {
         value: "100%",
-        label: "Website redesigned with a modern and intuitive experience"
+        label: "Modern, intuitive experience delivered for a worldwide audience"
       },
       {
         value: "02",
@@ -1583,7 +1583,7 @@ export const STATIC_CASE_STUDIES = [
       },
       {
         value: "06+",
-        label: "Core sections clearly outlining operations, values, and approach"
+        label: "Core sections built to earn trust at a glance"
       },
       {
         value: "03",
@@ -1746,10 +1746,10 @@ export const STATIC_CASE_STUDIES = [
       },
     ],
     metrics: [
-      { value: "5", label: "Regional Language Videos" },
+      { value: "5", label: "Regional languages reached with one consistent product story" },
       { value: "~2 min", label: "High-Quality Video, Per Language" },
-      { value: "1 Week", label: "All 5 Languages Delivered" },
-      { value: "4", label: "Deliverables: Flyer, Video, Motion & Photography" },
+      { value: "1 Week", label: "Nationwide, multilingual campaign ready to launch" },
+      { value: "4", label: "Formats working together as one unified campaign" },
     ],
     review: null,
     published: true,
@@ -1799,8 +1799,8 @@ export const STATIC_CASE_STUDIES = [
       },
     ],
     metrics: [
-      { value: "5", label: "Regional Language Videos" },
-      { value: "2", label: "Catalogue Languages Delivered" },
+      { value: "5", label: "Regional languages — one explainer, understood nationwide" },
+      { value: "2", label: "Catalogue languages supporting on-ground distribution" },
       { value: "600+", label: "MultiPro Machines Installed" },
       { value: "5000+", label: "Livelihoods Supported" },
     ],
