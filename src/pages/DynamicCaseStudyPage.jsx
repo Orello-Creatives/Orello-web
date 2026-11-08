@@ -146,7 +146,11 @@ function Delivered({ cs }) {
   return (
     <div className="w-full pt-10 bg-[#FDF6E9] font-sans">
       <div className="container mx-auto">
-        {cs.heroMedia && <Media item={cs.heroMedia} className="object-cover w-full h-full" />}
+        {cs.heroMedia && (
+          <div className="w-full h-[180px] sm:h-[240px] md:h-[300px] lg:h-[360px] overflow-hidden rounded-xl sm:rounded-2xl">
+            <Media item={cs.heroMedia} className="object-cover w-full h-full" />
+          </div>
+        )}
 
         {hasDeliverables && (
           <div className="w-full py-16 flex flex-col md:flex-row gap-12">

@@ -1822,7 +1822,7 @@ export const STATIC_CASE_STUDIES = [
     cardDefaultImage: "/case-studies/truva/card-default.jpg",
     cardHoverImage: "/case-studies/truva/card-hover.mp4",
     clientLogos: ["/case-studies/truva/logo.png"],
-    heroMedia: { url: "/case-studies/truva/hero-loop.mp4", type: "video" },
+    heroMedia: { url: "/case-studies/truva/hero-skyline.mp4", type: "video" },
     galleryLayout: "portrait",
     gallery: [
       { url: "/case-studies/truva/gallery-aerial.mp4", type: "video", fit: "contain", aspect: "4 / 5" },
