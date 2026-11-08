@@ -666,6 +666,10 @@ export const STATIC_CASE_STUDIES = [
       {
         url: "https://orello-cms.sfo3.cdn.digitaloceanspaces.com/cms/case-studies/0eee699c66d81eb9.png",
         type: "image"
+      },
+      {
+        url: "/case-studies/villgro/ebike-event-video.mp4",
+        type: "video"
       }
     ],
     galleryCta: {
@@ -680,6 +684,10 @@ export const STATIC_CASE_STUDIES = [
       {
         title: "Motion Graphic Videos",
         description: "Animated explainers simplifying technical solutions into relatable stories"
+      },
+      {
+        title: "E-Bike Event Video",
+        description: "An AI-produced video for Villgro's Charging Rural Deliveries policymaker workshop, covering e-bikes for rural e-commerce delivery agents"
       },
       {
         title: "Localized Content",
@@ -1859,5 +1867,157 @@ export const STATIC_CASE_STUDIES = [
     published: true,
     featuredOnHome: false,
     order: 101,
+  },
+  {
+    _id: "static-agrostudio",
+    slug: "agrostudio",
+    title: "AgroStudio",
+    titleHighlight: "AgroStudio:",
+    subtitle: "Explaining affordable farm tech in the farmer's own language",
+    description:
+      "AgroStudio builds affordable, battery-powered farm equipment, including a multipurpose sprayer that weighs just 5.5-6.5kg against a traditional 20kg tank, cutting liquid use and labour for small and mid-scale farmers across Maharashtra. Orello produced a regional-language motion graphic explainer that breaks the product down for the audience that actually buys it: farmers, FPOs, and dealers who think in Marathi, not spec sheets.",
+    industries: ["AgriTech", "Agriculture"],
+    serviceKeys: ["motion", "videography"],
+    cardDefaultImage: "/case-studies/agrostudio/card.jpg",
+    cardHoverImage: "/case-studies/agrostudio/explainer.mp4",
+    clientLogos: [],
+    heroMedia: { url: "/case-studies/agrostudio/explainer.mp4", type: "video" },
+    galleryLayout: "portrait",
+    gallery: [
+      { url: "/case-studies/agrostudio/explainer.mp4", type: "video", fit: "contain" },
+    ],
+    galleryCta: null,
+    deliverables: [
+      {
+        title: "Marathi Motion Graphic Explainer",
+        description:
+          "A character-led animated explainer walking Maharashtra's farmers through the battery sprayer's weight, running cost, and ease of use, in the language they actually speak.",
+      },
+      {
+        title: "Script & Storyboard",
+        description:
+          "Simplified farmer-first messaging built around the product's real specs: lighter weight, lower liquid use, and reduced labour cost.",
+      },
+    ],
+    metrics: [
+      { value: "70%", label: "Lighter than a traditional 20kg sprayer tank" },
+      { value: "25%", label: "Less spray liquid used per application" },
+    ],
+    review: null,
+    published: true,
+    featuredOnHome: false,
+    order: 102,
+  },
+  {
+    _id: "static-oscillo",
+    slug: "oscillo",
+    title: "Oscillo",
+    titleHighlight: "Oscillo:",
+    subtitle: "Two farm machines, one Kannada story each",
+    description:
+      "Oscillo makes battery and solar-powered farm machines, including the electric paddy weeder and the Rake King, built to cut manual labour and promote SRI transplanting methods. Orello produced Kannada-language motion graphic explainers for both products, showing them at work in the field so farmers can see exactly what they're buying before a dealer ever shows up.",
+    industries: ["AgriTech", "Agriculture"],
+    serviceKeys: ["motion", "videography"],
+    cardDefaultImage: "/case-studies/oscillo/card.jpg",
+    cardHoverImage: "/case-studies/oscillo/paddyweeder-explainer.mp4",
+    clientLogos: [],
+    heroMedia: { url: "/case-studies/oscillo/paddyweeder-explainer.mp4", type: "video" },
+    galleryLayout: "portrait",
+    gallery: [
+      { url: "/case-studies/oscillo/paddyweeder-explainer.mp4", type: "video", fit: "contain" },
+      { url: "/case-studies/oscillo/rakeking-explainer.mp4", type: "video", fit: "contain" },
+    ],
+    galleryCta: null,
+    deliverables: [
+      {
+        title: "Electric Paddy Weeder Explainer (Kannada)",
+        description:
+          "An animated walkthrough of the paddy weeder's build, battery life, and field coverage, built for the Kannada-speaking farmer audience.",
+      },
+      {
+        title: "Rake King Explainer (Kannada)",
+        description:
+          "A matching explainer for Oscillo's second product, keeping the same visual language so the two machines read as one product family.",
+      },
+    ],
+    metrics: [
+      { value: "2.5 Hrs", label: "Field running time per charge" },
+      { value: "3/4 Acre", label: "Covered in a single charge" },
+      { value: "2 Yrs", label: "Battery warranty on both machines" },
+    ],
+    review: null,
+    published: true,
+    featuredOnHome: false,
+    order: 103,
+  },
+  {
+    _id: "static-sapthkrishi",
+    slug: "sapthkrishi",
+    title: "Sapthkrishi",
+    titleHighlight: "Sapthkrishi:",
+    subtitle: "Making cold storage make sense to the farmer who needs it",
+    description:
+      "Sapthkrishi's Sabjikothi is a portable, chemical-free cooling unit that extends the shelf life of fruits, vegetables, and flowers by up to 30 days, built for farmers and street vendors who lose income to spoilage. Orello produced a Hindi-language motion graphic explainer that walks through how it works and what it saves, in the market language of the people who'd actually carry it home.",
+    industries: ["AgriTech", "Agriculture"],
+    serviceKeys: ["motion", "videography"],
+    cardDefaultImage: "/case-studies/sapthkrishi/card.jpg",
+    cardHoverImage: "/case-studies/sapthkrishi/explainer.mp4",
+    clientLogos: [],
+    heroMedia: { url: "/case-studies/sapthkrishi/explainer.mp4", type: "video" },
+    galleryLayout: "portrait",
+    gallery: [
+      { url: "/case-studies/sapthkrishi/explainer.mp4", type: "video", fit: "contain" },
+    ],
+    galleryCta: null,
+    deliverables: [
+      {
+        title: "Hindi Motion Graphic Explainer",
+        description:
+          "An animated explainer covering Sabjikothi's chemical-free, portable design and its shelf-life benefit, built for farmers and street vendors across the Hindi belt.",
+      },
+    ],
+    metrics: [
+      { value: "30 Days", label: "Extended shelf life for stored produce" },
+      { value: "30-40%", label: "Reduction in spoilage-related waste" },
+    ],
+    review: null,
+    published: true,
+    featuredOnHome: false,
+    order: 104,
+  },
+  {
+    _id: "static-sema",
+    slug: "sema",
+    title: "SEMA",
+    titleHighlight: "SEMA:",
+    subtitle: "A six-machine mini rice mill, explained in Tamil",
+    description:
+      "SEMA (Small-Scale Efficient Machinery for Agriculture) builds a solar-powered, six-machine integrated mini rice mill aimed at Tamil Nadu's FPOs, SHGs, and small farmers who need to process paddy without a full industrial setup. Orello produced a Tamil-language motion graphic explainer that breaks the six-stage process down visually, so a farmer can follow the machine's value without reading a single spec sheet.",
+    industries: ["AgriTech", "Agriculture"],
+    serviceKeys: ["motion", "videography"],
+    cardDefaultImage: "/case-studies/sema/card.jpg",
+    cardHoverImage: "/case-studies/sema/explainer.mp4",
+    clientLogos: [],
+    heroMedia: { url: "/case-studies/sema/explainer.mp4", type: "video" },
+    galleryLayout: "portrait",
+    gallery: [
+      { url: "/case-studies/sema/explainer.mp4", type: "video", fit: "contain" },
+    ],
+    galleryCta: null,
+    deliverables: [
+      {
+        title: "Tamil Motion Graphic Explainer",
+        description:
+          "An animated walkthrough of the mini rice mill's six integrated machines and solar-powered operation, aimed at Tamil Nadu's FPOs, SHGs, and small farmers.",
+      },
+    ],
+    metrics: [
+      { value: "6", label: "Integrated machines in one solar-powered unit" },
+      { value: "3 Tons/Day", label: "Processing capacity" },
+    ],
+    review: null,
+    published: true,
+    featuredOnHome: false,
+    order: 105,
   },
 ];
