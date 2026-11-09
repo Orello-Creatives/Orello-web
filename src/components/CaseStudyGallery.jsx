@@ -87,22 +87,31 @@ export default function CaseStudyGallery({ layout = 'grid', items = [], cta, Til
     const tileWidth = compact
       ? 'w-[110px]'
       : 'w-[200px] sm:w-[240px] md:w-[270px] lg:w-[300px]';
+    // Chunk into fixed rows of 3, each row its own centered flex container,
+    // instead of one big flex-wrap block. A trailing row of 1-2 items then
+    // centers on its own rather than reading as a sparse leftover pinned to
+    // one side of the full-width line above it.
+    const PER_ROW = 3;
+    const rows = [];
+    for (let i = 0; i < media.length; i += PER_ROW) rows.push(media.slice(i, i + PER_ROW));
     return (
       <section className="bg-[#F4EDE2] flex items-center justify-center py-10 sm:py-16 lg:py-24 px-3 sm:px-4">
         <div className="container flex flex-col items-center gap-6 sm:gap-8">
-          <div className="flex flex-wrap items-start justify-center gap-4 sm:gap-6">
-            {media.map((item) => (
-              <Cell
-                key={item._key ?? item.src}
-                id={item._key}
-                className={`${tile} ${tileWidth}`}
-                style={{ aspectRatio: item.aspect || '9 / 16' }}
-              >
-                <Media item={item} className={mediaCls(fitClass(item))} />
-                {overlay}
-              </Cell>
-            ))}
-          </div>
+          {rows.map((row, i) => (
+            <div key={i} className="flex flex-wrap items-start justify-center gap-4 sm:gap-6">
+              {row.map((item) => (
+                <Cell
+                  key={item._key ?? item.src}
+                  id={item._key}
+                  className={`${tile} ${tileWidth}`}
+                  style={{ aspectRatio: item.aspect || '9 / 16' }}
+                >
+                  <Media item={item} className={mediaCls(fitClass(item))} />
+                  {overlay}
+                </Cell>
+              ))}
+            </div>
+          ))}
           <GalleryCta cta={cta} />
         </div>
       </section>
