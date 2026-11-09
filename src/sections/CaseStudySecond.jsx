@@ -93,13 +93,13 @@ export default function PortfolioGrid({ selIndustries, selServices, gridRef }) {
     return () => window.removeEventListener('mousemove', onMove);
   }, [showCursor]);
 
+  // The thumbnail video now plays by default (not just on hover), so hover
+  // only drives a subtle zoom on the media and the custom "our work" cursor.
   function onEnter(id) {
     setShowCursor(true);
-    const def = imageRefs.current[`d-${id}`];
-    const hov = imageRefs.current[`h-${id}`];
-    if (def && hov) {
-      gsap.to(def, { opacity: 0, scale: 1.05, duration: 0.6, ease: "power2.inOut" });
-      gsap.fromTo(hov, { opacity: 0, scale: 1.1 }, { opacity: 1, scale: 1, duration: 0.6, ease: "power2.inOut" });
+    const media = imageRefs.current[id];
+    if (media) {
+      gsap.to(media, { scale: 1.08, duration: 0.6, ease: "power2.inOut" });
     }
     if (customCursorRef.current)
       gsap.fromTo(customCursorRef.current, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.7)" });
@@ -107,11 +107,9 @@ export default function PortfolioGrid({ selIndustries, selServices, gridRef }) {
 
   function onLeave(id) {
     setShowCursor(false);
-    const def = imageRefs.current[`d-${id}`];
-    const hov = imageRefs.current[`h-${id}`];
-    if (def && hov) {
-      gsap.to(hov, { opacity: 0, scale: 1.05, duration: 0.6, ease: "power2.inOut" });
-      gsap.fromTo(def, { opacity: 0, scale: 1.1 }, { opacity: 1, scale: 1, duration: 0.6, ease: "power2.inOut" });
+    const media = imageRefs.current[id];
+    if (media) {
+      gsap.to(media, { scale: 1, duration: 0.6, ease: "power2.inOut" });
     }
     if (customCursorRef.current)
       gsap.to(customCursorRef.current, { scale: 0, opacity: 0, duration: 0.2, ease: "power2.in" });
@@ -149,21 +147,14 @@ style={{ left: 0, top: 0, transform: "translate(-50%,-50%)", opacity: 0 }}
                   onMouseEnter={() => onEnter(project.id)}
                   onMouseLeave={() => onLeave(project.id)}
                 >
-                  {/* Default media */}
-                  <MediaElement
-                    src={project.defaultImage}
-                    alt={project.title}
-                    elRef={(el) => (imageRefs.current[`d-${project.id}`] = el)}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    style={{ opacity: 1 }}
-                  />
-                  {/* Hover media */}
+                  {/* Thumbnail media: the hover video (when there is one) plays
+                      by default instead of being gated behind hover; cards
+                      without a video just show the static default image. */}
                   <MediaElement
                     src={project.hoverImage}
-                    alt={`${project.title} hover`}
-                    elRef={(el) => (imageRefs.current[`h-${project.id}`] = el)}
+                    alt={project.title}
+                    elRef={(el) => (imageRefs.current[project.id] = el)}
                     className="absolute inset-0 w-full h-full object-cover"
-                    style={{ opacity: 0 }}
                   />
                 </div>
 
