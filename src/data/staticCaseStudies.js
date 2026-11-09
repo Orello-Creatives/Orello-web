@@ -1877,7 +1877,7 @@ export const STATIC_CASE_STUDIES = [
     galleryLayout: "bento",
     gallery: [
       { url: "/case-studies/agrostudio/explainer.mp4", type: "video", fit: "contain", size: "wide" },
-      { url: "/case-studies/agrostudio/flyer-mockup.mp4", type: "video", size: "lg" },
+      { url: "/case-studies/agrostudio/flyer-mockup.jpg", type: "image", size: "lg" },
       { url: "/case-studies/agrostudio/gallery-extra.jpg", type: "image", size: "wide" },
     ],
     galleryCta: null,
@@ -1925,8 +1925,8 @@ export const STATIC_CASE_STUDIES = [
     gallery: [
       { url: "/case-studies/oscillo/paddyweeder-explainer.mp4", type: "video", fit: "contain", size: "wide" },
       { url: "/case-studies/oscillo/rakeking-explainer.mp4", type: "video", fit: "contain", size: "wide" },
-      { url: "/case-studies/oscillo/flyer-mockup.mp4", type: "video", size: "lg" },
-      { url: "/case-studies/oscillo/gallery-extra.jpg", type: "image", size: "sm" },
+      { url: "/case-studies/oscillo/flyer-mockup.jpg", type: "image", size: "lg" },
+      { url: "/case-studies/oscillo/gallery-extra.jpg", type: "image", size: "wide" },
     ],
     galleryCta: null,
     deliverables: [
@@ -1972,7 +1972,7 @@ export const STATIC_CASE_STUDIES = [
     galleryLayout: "bento",
     gallery: [
       { url: "/case-studies/sapthkrishi/explainer.mp4", type: "video", fit: "contain", size: "wide" },
-      { url: "/case-studies/sapthkrishi/flyer-mockup.mp4", type: "video", size: "lg" },
+      { url: "/case-studies/sapthkrishi/flyer-mockup.jpg", type: "image", size: "lg" },
       { url: "/case-studies/sapthkrishi/gallery-extra.jpg", type: "image", fit: "contain", size: "wide" },
     ],
     galleryCta: null,
@@ -2014,7 +2014,7 @@ export const STATIC_CASE_STUDIES = [
     galleryLayout: "bento",
     gallery: [
       { url: "/case-studies/sema/explainer.mp4", type: "video", fit: "contain", size: "wide" },
-      { url: "/case-studies/sema/flyer-mockup.mp4", type: "video", size: "lg" },
+      { url: "/case-studies/sema/flyer-mockup.jpg", type: "image", size: "lg" },
       { url: "/case-studies/sema/gallery-extra-mockup.mp4", type: "video", size: "wide" },
     ],
     galleryCta: null,
