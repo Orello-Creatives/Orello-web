@@ -125,9 +125,16 @@ export default function CaseStudyGallery({ layout = 'grid', items = [], cta, Til
   // strip. A per-item `size` ('lg' | 'wide' | 'tall' | 'sm') overrides the
   // default when a specific tile should stand out (e.g. a flyer mockup).
   if (layout === 'bento') {
+    // Row height has to keep pace with column width as the container's own
+    // max-width grows per breakpoint, or the "wide" (2-col) tile's aspect
+    // ratio drifts away from the 16:9 video it's sized for. .container caps
+    // at 1280px from the xl breakpoint up (no 2xl override), so without an
+    // xl row height the wide tile actually gets WIDER than 16:9 at any
+    // desktop >=1280px (the most common desktop width), which pillarboxes
+    // contain video and crops cover video's sides into on-screen logos.
     const rowH = compact
       ? 'auto-rows-[110px]'
-      : 'auto-rows-[160px] sm:auto-rows-[210px] md:auto-rows-[260px] lg:auto-rows-[300px]';
+      : 'auto-rows-[160px] sm:auto-rows-[210px] md:auto-rows-[260px] lg:auto-rows-[300px] xl:auto-rows-[348px]';
     const spanClass = (item) => {
       const portrait = (item.aspect || '').includes('9') || (item.aspect || '').includes('4 / 5');
       const size = item.size || (isVideoItem(item) ? (portrait ? 'tall' : 'wide') : 'sm');

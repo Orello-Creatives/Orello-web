@@ -2015,7 +2015,7 @@ export const STATIC_CASE_STUDIES = [
     gallery: [
       { url: "/case-studies/sema/explainer.mp4", type: "video", fit: "contain", size: "wide" },
       { url: "/case-studies/sema/flyer-mockup.mp4", type: "video", size: "lg" },
-      { url: "/case-studies/sema/gallery-extra.jpg", type: "image", size: "wide" },
+      { url: "/case-studies/sema/gallery-extra-mockup.mp4", type: "video", size: "wide" },
     ],
     galleryCta: null,
     deliverables: [
