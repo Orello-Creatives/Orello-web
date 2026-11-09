@@ -2013,7 +2013,7 @@ export const STATIC_CASE_STUDIES = [
     galleryLayout: "bento",
     gallery: [
       { url: "/case-studies/sema/explainer.mp4", type: "video", fit: "contain", size: "wide" },
-      { url: "/case-studies/sema/flyer-mockup.jpg", type: "image", size: "wide" },
+      { url: "/case-studies/sema/flyer-mockup.jpg", type: "image", size: "wide", fit: "contain" },
     ],
     galleryCta: null,
     deliverables: [
