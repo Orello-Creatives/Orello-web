@@ -93,24 +93,46 @@ export default function PortfolioGrid({ selIndustries, selServices, gridRef }) {
     return () => window.removeEventListener('mousemove', onMove);
   }, [showCursor]);
 
-  // The thumbnail video now plays by default (not just on hover), so hover
-  // only drives a subtle zoom on the media and the custom "our work" cursor.
-  function onEnter(id) {
+  // Only a card whose hover asset IS a video plays it in place as the
+  // resting thumbnail (per "let videos play on the thumbnails"); hover then
+  // just zooms. A card whose hover asset is a static image keeps the
+  // original behavior: the default project shot shows at rest, and the
+  // hover image is only revealed via crossfade on interaction. Showing the
+  // hover image at rest for every card (regardless of type) was the earlier
+  // regression that made the grid look like "only the on-hover images are
+  // there on the thumbnail".
+  function onEnter(id, videoResting) {
     setShowCursor(true);
-    const media = imageRefs.current[id];
-    if (media) {
-      gsap.to(media, { scale: 1.08, duration: 0.6, ease: "power2.inOut" });
+    if (!videoResting) {
+      const d = imageRefs.current[`d-${id}`];
+      const h = imageRefs.current[`h-${id}`];
+      if (d) gsap.to(d, { opacity: 0, duration: 0.5, ease: "power2.inOut" });
+      if (h) gsap.to(h, { opacity: 1, duration: 0.5, ease: "power2.inOut" });
     }
+    const zoomTargets = videoResting
+      ? [imageRefs.current[id]]
+      : [imageRefs.current[`d-${id}`], imageRefs.current[`h-${id}`]];
+    zoomTargets.filter(Boolean).forEach((el) =>
+      gsap.to(el, { scale: 1.08, duration: 0.6, ease: "power2.inOut" })
+    );
     if (customCursorRef.current)
       gsap.fromTo(customCursorRef.current, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.7)" });
   }
 
-  function onLeave(id) {
+  function onLeave(id, videoResting) {
     setShowCursor(false);
-    const media = imageRefs.current[id];
-    if (media) {
-      gsap.to(media, { scale: 1, duration: 0.6, ease: "power2.inOut" });
+    if (!videoResting) {
+      const d = imageRefs.current[`d-${id}`];
+      const h = imageRefs.current[`h-${id}`];
+      if (d) gsap.to(d, { opacity: 1, duration: 0.4, ease: "power2.inOut" });
+      if (h) gsap.to(h, { opacity: 0, duration: 0.4, ease: "power2.inOut" });
     }
+    const zoomTargets = videoResting
+      ? [imageRefs.current[id]]
+      : [imageRefs.current[`d-${id}`], imageRefs.current[`h-${id}`]];
+    zoomTargets.filter(Boolean).forEach((el) =>
+      gsap.to(el, { scale: 1, duration: 0.6, ease: "power2.inOut" })
+    );
     if (customCursorRef.current)
       gsap.to(customCursorRef.current, { scale: 0, opacity: 0, duration: 0.2, ease: "power2.in" });
   }
@@ -138,24 +160,46 @@ style={{ left: 0, top: 0, transform: "translate(-50%,-50%)", opacity: 0 }}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {projects.map((project) => {
+            const videoResting = isVideo(project.hoverImage);
             const card = (
               <div className="group relative overflow-hidden transition-shadow duration-300">
                 {/* Image container with responsive heights */}
                 <div
                   className="relative overflow-hidden rounded-xl sm:rounded-[24px] cursor-none
                     h-[200px] sm:h-[260px] md:h-[320px] lg:h-[350px]"
-                  onMouseEnter={() => onEnter(project.id)}
-                  onMouseLeave={() => onLeave(project.id)}
+                  onMouseEnter={() => onEnter(project.id, videoResting)}
+                  onMouseLeave={() => onLeave(project.id, videoResting)}
                 >
-                  {/* Thumbnail media: the hover video (when there is one) plays
-                      by default instead of being gated behind hover; cards
-                      without a video just show the static default image. */}
-                  <MediaElement
-                    src={project.hoverImage}
-                    alt={project.title}
-                    elRef={(el) => (imageRefs.current[project.id] = el)}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
+                  {videoResting ? (
+                    // Hover asset is a video: autoplay it in place as the
+                    // resting thumbnail; hover just zooms.
+                    <MediaElement
+                      src={project.hoverImage}
+                      alt={project.title}
+                      elRef={(el) => (imageRefs.current[project.id] = el)}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  ) : (
+                    // Hover asset is a static image: show the default project
+                    // shot at rest and crossfade to the hover image only on
+                    // interaction, same as before "let videos play" shipped.
+                    <>
+                      <MediaElement
+                        src={project.defaultImage}
+                        alt={project.title}
+                        elRef={(el) => (imageRefs.current[`d-${project.id}`] = el)}
+                        className="absolute inset-0 w-full h-full object-cover"
+                        style={{ opacity: 1 }}
+                      />
+                      <MediaElement
+                        src={project.hoverImage}
+                        alt={project.title}
+                        elRef={(el) => (imageRefs.current[`h-${project.id}`] = el)}
+                        className="absolute inset-0 w-full h-full object-cover"
+                        style={{ opacity: 0 }}
+                      />
+                    </>
+                  )}
                 </div>
 
                 {/* Card info */}
