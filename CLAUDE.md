@@ -29,6 +29,37 @@ or, if it happens to collide with another key's logo, a duplicate icon.
 Apply this check whenever adding, editing, or reviewing any case study's gallery
 or deliverables.
 
+## Explore Work page / case study galleries — media quality checklist (master brief)
+
+Apply this checklist whenever adding, editing, or reviewing ANY gallery, hover
+asset, or thumbnail across ANY case study (new or existing, including ones not
+otherwise being touched in the current change):
+
+- **Never let a logo or watermark get cropped by a tile boundary.** Before
+  shipping a tile, check what `object-cover` will crop off at the tile's actual
+  rendered aspect ratio. If a logo, wordmark, or watermark baked into a photo or
+  video sits near an edge, either use `fit: "contain"` on that gallery item (see
+  `fitClass` in `CaseStudyGallery.jsx`) or pick a tighter source crop that keeps
+  it inside the safe area. This applies to every layout (`portrait`, `bento`,
+  `asymmetric`, `grid`) and every gallery, not just newly-added ones.
+- **Never reuse the same footage or photo in more than one place within a case
+  study.** A frame that's already shown as `cardDefaultImage`/`cardHoverImage`
+  should not also appear again inside that case study's `gallery`, and two
+  gallery items should not be the same stock photo or the same video frame
+  composited differently. When adding a "card" or "extra" image to a gallery,
+  check it isn't a duplicate of something already used for that case study
+  elsewhere on the page.
+- **Never ship a video with empty pillarbox/letterbox space on the sides (or
+  top/bottom).** This can come from the source file itself (e.g. a portrait or
+  oddly-padded clip baked into a wider canvas) as much as from CSS `fit`
+  settings. Check actual frames (not just the first second) before adding a
+  video to a gallery or hero slot, and trim/re-encode the source if it carries
+  its own padding, rather than only tweaking `fit` in code.
+- **Flyer/print-collateral images should be presented as realistic mockups**
+  (a tilted card or paper with a soft drop shadow on a neutral backdrop), not
+  as flat rectangular crops of the raw flyer file, wherever they appear in a
+  gallery.
+
 ## Other standing rules (carried over from engagement history)
 
 - Keep Orello's existing brand look and feel; responsive and accessible.

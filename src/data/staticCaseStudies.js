@@ -1877,8 +1877,7 @@ export const STATIC_CASE_STUDIES = [
     galleryLayout: "bento",
     gallery: [
       { url: "/case-studies/agrostudio/explainer.mp4", type: "video", fit: "contain", size: "wide" },
-      { url: "/case-studies/agrostudio/flyer-mockup.jpg", type: "image", size: "tall" },
-      { url: "/case-studies/agrostudio/card.jpg", type: "image", size: "sm" },
+      { url: "/case-studies/agrostudio/flyer-mockup.mp4", type: "video", size: "tall" },
       { url: "/case-studies/agrostudio/gallery-extra.jpg", type: "image", size: "wide" },
     ],
     galleryCta: null,
@@ -1926,9 +1925,8 @@ export const STATIC_CASE_STUDIES = [
     gallery: [
       { url: "/case-studies/oscillo/paddyweeder-explainer.mp4", type: "video", fit: "contain", size: "wide" },
       { url: "/case-studies/oscillo/rakeking-explainer.mp4", type: "video", fit: "contain", size: "wide" },
-      { url: "/case-studies/oscillo/flyer-mockup.jpg", type: "image", size: "tall" },
+      { url: "/case-studies/oscillo/flyer-mockup.mp4", type: "video", size: "tall" },
       { url: "/case-studies/oscillo/gallery-extra.jpg", type: "image", size: "sm" },
-      { url: "/case-studies/oscillo/card.jpg", type: "image", size: "sm" },
     ],
     galleryCta: null,
     deliverables: [
@@ -1974,9 +1972,7 @@ export const STATIC_CASE_STUDIES = [
     galleryLayout: "bento",
     gallery: [
       { url: "/case-studies/sapthkrishi/explainer.mp4", type: "video", fit: "contain", size: "wide" },
-      { url: "/case-studies/sapthkrishi/flyer-mockup.jpg", type: "image", size: "tall" },
-      { url: "/case-studies/sapthkrishi/card.jpg", type: "image", size: "sm" },
-      { url: "/case-studies/sapthkrishi/gallery-extra.jpg", type: "image", size: "wide" },
+      { url: "/case-studies/sapthkrishi/flyer-mockup.mp4", type: "video", size: "tall" },
     ],
     galleryCta: null,
     deliverables: [
@@ -2017,8 +2013,7 @@ export const STATIC_CASE_STUDIES = [
     galleryLayout: "bento",
     gallery: [
       { url: "/case-studies/sema/explainer.mp4", type: "video", fit: "contain", size: "wide" },
-      { url: "/case-studies/sema/flyer-mockup.jpg", type: "image", size: "tall" },
-      { url: "/case-studies/sema/card.jpg", type: "image", size: "sm" },
+      { url: "/case-studies/sema/flyer-mockup.mp4", type: "video", size: "tall" },
       { url: "/case-studies/sema/gallery-extra.jpg", type: "image", size: "wide" },
     ],
     galleryCta: null,
@@ -2062,7 +2057,7 @@ export const STATIC_CASE_STUDIES = [
     galleryLayout: "grid",
     gallery: [
       { url: "/case-studies/villgro-ebike-event/ebike-event-video.mp4", type: "video" },
-      { url: "/case-studies/villgro-ebike-event/event-01.jpg", type: "image" },
+      { url: "/case-studies/villgro-ebike-event/event-01.jpg", type: "image", fit: "contain" },
       { url: "/case-studies/villgro-ebike-event/event-02.jpg", type: "image" },
       { url: "/case-studies/villgro-ebike-event/event-03.jpg", type: "image" },
       { url: "/case-studies/villgro-ebike-event/event-04.jpg", type: "image" },

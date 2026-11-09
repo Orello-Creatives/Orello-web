@@ -117,8 +117,8 @@ export default function CaseStudyGallery({ layout = 'grid', items = [], cta, Til
   // default when a specific tile should stand out (e.g. a flyer mockup).
   if (layout === 'bento') {
     const rowH = compact
-      ? 'auto-rows-[90px]'
-      : 'auto-rows-[120px] sm:auto-rows-[160px] md:auto-rows-[190px] lg:auto-rows-[220px]';
+      ? 'auto-rows-[110px]'
+      : 'auto-rows-[160px] sm:auto-rows-[210px] md:auto-rows-[260px] lg:auto-rows-[300px]';
     const spanClass = (item) => {
       const portrait = (item.aspect || '').includes('9') || (item.aspect || '').includes('4 / 5');
       const size = item.size || (isVideoItem(item) ? (portrait ? 'tall' : 'wide') : 'sm');
