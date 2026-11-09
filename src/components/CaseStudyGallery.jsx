@@ -109,6 +109,47 @@ export default function CaseStudyGallery({ layout = 'grid', items = [], cta, Til
     );
   }
 
+  // bento: a CSS-grid mosaic where each tile's footprint is driven by its
+  // own asset — a video defaults to a wide 2-col tile (or a tall 1x2 tile
+  // for portrait/9:16 footage), an image defaults to a single 1x1 cell —
+  // so the layout reads as a deliberate bento mix rather than a uniform
+  // strip. A per-item `size` ('lg' | 'wide' | 'tall' | 'sm') overrides the
+  // default when a specific tile should stand out (e.g. a flyer mockup).
+  if (layout === 'bento') {
+    const rowH = compact
+      ? 'auto-rows-[90px]'
+      : 'auto-rows-[120px] sm:auto-rows-[160px] md:auto-rows-[190px] lg:auto-rows-[220px]';
+    const spanClass = (item) => {
+      const portrait = (item.aspect || '').includes('9') || (item.aspect || '').includes('4 / 5');
+      const size = item.size || (isVideoItem(item) ? (portrait ? 'tall' : 'wide') : 'sm');
+      switch (size) {
+        case 'lg':   return 'col-span-2 row-span-2';
+        case 'wide': return 'col-span-2 row-span-1';
+        case 'tall': return 'col-span-1 row-span-2';
+        default:     return 'col-span-1 row-span-1';
+      }
+    };
+    return (
+      <section className="bg-[#F4EDE2] flex items-center justify-center py-10 sm:py-16 lg:py-24 px-3 sm:px-4">
+        <div className="container">
+          <div className={`grid grid-cols-2 sm:grid-cols-4 ${rowH} gap-2 sm:gap-3 [grid-auto-flow:dense]`}>
+            {media.map((item) => (
+              <Cell
+                key={item._key ?? item.src}
+                id={item._key}
+                className={`${tile} ${spanClass(item)}`}
+              >
+                <Media item={item} className={mediaCls(fitClass(item))} />
+                {overlay}
+              </Cell>
+            ))}
+          </div>
+          <GalleryCta cta={cta} />
+        </div>
+      </section>
+    );
+  }
+
   if (layout === 'asymmetric' && media.length >= 5) {
     const [a, b, tall, c, d, banner, ...rest] = media;
     return (

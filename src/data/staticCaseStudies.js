@@ -1818,7 +1818,7 @@ export const STATIC_CASE_STUDIES = [
     description:
       "Truva is a proptech platform, built by alumni of IIT and Stanford, that helps homeowners sell with real transaction data instead of guesswork, and gets listings sold in an average of 44 days. Orello edits Truva's Meta ads campaign: a brand explainer that reframes the pain of selling a home, and property-specific reels like the Godrej Park Retreat walkthrough that convert that trust into booked viewings.",
     industries: ["PropTech", "Real Estate"],
-    serviceKeys: ["motion", "videography"],
+    serviceKeys: ["motion"],
     cardDefaultImage: "/case-studies/truva/card-default.jpg",
     cardHoverImage: "/case-studies/truva/card-hover.mp4",
     clientLogos: ["/case-studies/truva/logo.png"],
@@ -1869,14 +1869,17 @@ export const STATIC_CASE_STUDIES = [
     description:
       "AgroStudio builds affordable, battery-powered farm equipment, including a multipurpose sprayer that weighs just 5.5-6.5kg against a traditional 20kg tank, cutting liquid use and labour for small and mid-scale farmers across Maharashtra. Orello produced a regional-language motion graphic explainer that breaks the product down for the audience that actually buys it: farmers, FPOs, and dealers who think in Marathi, not spec sheets.",
     industries: ["AgriTech", "Agriculture"],
-    serviceKeys: ["motion", "videography"],
+    serviceKeys: ["motion", "penn"],
     cardDefaultImage: "/case-studies/agrostudio/card.jpg",
-    cardHoverImage: "/case-studies/agrostudio/explainer.mp4",
+    cardHoverImage: "/case-studies/agrostudio/card-hover-logo.mp4",
     clientLogos: [],
     heroMedia: { url: "/case-studies/agrostudio/explainer.mp4", type: "video" },
-    galleryLayout: "portrait",
+    galleryLayout: "bento",
     gallery: [
-      { url: "/case-studies/agrostudio/explainer.mp4", type: "video", fit: "contain" },
+      { url: "/case-studies/agrostudio/explainer.mp4", type: "video", fit: "contain", size: "wide" },
+      { url: "/case-studies/agrostudio/flyer-mockup.jpg", type: "image", size: "tall" },
+      { url: "/case-studies/agrostudio/card.jpg", type: "image", size: "sm" },
+      { url: "/case-studies/agrostudio/gallery-extra.jpg", type: "image", size: "wide" },
     ],
     galleryCta: null,
     deliverables: [
@@ -1889,6 +1892,11 @@ export const STATIC_CASE_STUDIES = [
         title: "Script & Storyboard",
         description:
           "Simplified farmer-first messaging built around the product's real specs: lighter weight, lower liquid use, and reduced labour cost.",
+      },
+      {
+        title: "Marathi Print Flyer",
+        description:
+          "A print-ready Marathi flyer covering the sprayer's weight, versatility, and cost savings, for on-ground dealer and FPO distribution.",
       },
     ],
     metrics: [
@@ -1909,15 +1917,18 @@ export const STATIC_CASE_STUDIES = [
     description:
       "Oscillo makes battery and solar-powered farm machines, including the electric paddy weeder and the Rake King, built to cut manual labour and promote SRI transplanting methods. Orello produced Kannada-language motion graphic explainers for both products, showing them at work in the field so farmers can see exactly what they're buying before a dealer ever shows up.",
     industries: ["AgriTech", "Agriculture"],
-    serviceKeys: ["motion", "videography"],
+    serviceKeys: ["motion", "penn"],
     cardDefaultImage: "/case-studies/oscillo/card.jpg",
-    cardHoverImage: "/case-studies/oscillo/paddyweeder-explainer.mp4",
+    cardHoverImage: "/case-studies/oscillo/card-hover-logo.mp4",
     clientLogos: [],
     heroMedia: { url: "/case-studies/oscillo/paddyweeder-explainer.mp4", type: "video" },
-    galleryLayout: "portrait",
+    galleryLayout: "bento",
     gallery: [
-      { url: "/case-studies/oscillo/paddyweeder-explainer.mp4", type: "video", fit: "contain" },
-      { url: "/case-studies/oscillo/rakeking-explainer.mp4", type: "video", fit: "contain" },
+      { url: "/case-studies/oscillo/paddyweeder-explainer.mp4", type: "video", fit: "contain", size: "wide" },
+      { url: "/case-studies/oscillo/rakeking-explainer.mp4", type: "video", fit: "contain", size: "wide" },
+      { url: "/case-studies/oscillo/flyer-mockup.jpg", type: "image", size: "tall" },
+      { url: "/case-studies/oscillo/gallery-extra.jpg", type: "image", size: "sm" },
+      { url: "/case-studies/oscillo/card.jpg", type: "image", size: "sm" },
     ],
     galleryCta: null,
     deliverables: [
@@ -1930,6 +1941,11 @@ export const STATIC_CASE_STUDIES = [
         title: "Rake King Explainer (Kannada)",
         description:
           "A matching explainer for Oscillo's second product, keeping the same visual language so the two machines read as one product family.",
+      },
+      {
+        title: "Print Flyers",
+        description:
+          "Print-ready flyers for the Rake King and electric paddy weeder, covering specs, testimonials, and dealer contact details.",
       },
     ],
     metrics: [
@@ -1950,14 +1966,17 @@ export const STATIC_CASE_STUDIES = [
     description:
       "Sapthkrishi's Sabjikothi is a portable, chemical-free cooling unit that extends the shelf life of fruits, vegetables, and flowers by up to 30 days, built for farmers and street vendors who lose income to spoilage. Orello produced a Hindi-language motion graphic explainer that walks through how it works and what it saves, in the market language of the people who'd actually carry it home.",
     industries: ["AgriTech", "Agriculture"],
-    serviceKeys: ["motion", "videography"],
+    serviceKeys: ["motion", "penn"],
     cardDefaultImage: "/case-studies/sapthkrishi/card.jpg",
-    cardHoverImage: "/case-studies/sapthkrishi/explainer.mp4",
+    cardHoverImage: "/case-studies/sapthkrishi/card-hover-logo.mp4",
     clientLogos: [],
     heroMedia: { url: "/case-studies/sapthkrishi/explainer.mp4", type: "video" },
-    galleryLayout: "portrait",
+    galleryLayout: "bento",
     gallery: [
-      { url: "/case-studies/sapthkrishi/explainer.mp4", type: "video", fit: "contain" },
+      { url: "/case-studies/sapthkrishi/explainer.mp4", type: "video", fit: "contain", size: "wide" },
+      { url: "/case-studies/sapthkrishi/flyer-mockup.jpg", type: "image", size: "tall" },
+      { url: "/case-studies/sapthkrishi/card.jpg", type: "image", size: "sm" },
+      { url: "/case-studies/sapthkrishi/gallery-extra.jpg", type: "image", size: "wide" },
     ],
     galleryCta: null,
     deliverables: [
@@ -1965,6 +1984,11 @@ export const STATIC_CASE_STUDIES = [
         title: "Hindi Motion Graphic Explainer",
         description:
           "An animated explainer covering Sabjikothi's chemical-free, portable design and its shelf-life benefit, built for farmers and street vendors across the Hindi belt.",
+      },
+      {
+        title: "Print Flyers",
+        description:
+          "Farmer- and street-vendor-facing print flyers covering Sabjikothi's chemical-free storage, portability, and shelf-life benefits.",
       },
     ],
     metrics: [
@@ -1985,14 +2009,17 @@ export const STATIC_CASE_STUDIES = [
     description:
       "SEMA (Small-Scale Efficient Machinery for Agriculture) builds a solar-powered, six-machine integrated mini rice mill aimed at Tamil Nadu's FPOs, SHGs, and small farmers who need to process paddy without a full industrial setup. Orello produced a Tamil-language motion graphic explainer that breaks the six-stage process down visually, so a farmer can follow the machine's value without reading a single spec sheet.",
     industries: ["AgriTech", "Agriculture"],
-    serviceKeys: ["motion", "videography"],
+    serviceKeys: ["motion", "penn"],
     cardDefaultImage: "/case-studies/sema/card.jpg",
-    cardHoverImage: "/case-studies/sema/explainer.mp4",
+    cardHoverImage: "/case-studies/sema/card-hover-logo.mp4",
     clientLogos: [],
     heroMedia: { url: "/case-studies/sema/explainer.mp4", type: "video" },
-    galleryLayout: "portrait",
+    galleryLayout: "bento",
     gallery: [
-      { url: "/case-studies/sema/explainer.mp4", type: "video", fit: "contain" },
+      { url: "/case-studies/sema/explainer.mp4", type: "video", fit: "contain", size: "wide" },
+      { url: "/case-studies/sema/flyer-mockup.jpg", type: "image", size: "tall" },
+      { url: "/case-studies/sema/card.jpg", type: "image", size: "sm" },
+      { url: "/case-studies/sema/gallery-extra.jpg", type: "image", size: "wide" },
     ],
     galleryCta: null,
     deliverables: [
@@ -2000,6 +2027,11 @@ export const STATIC_CASE_STUDIES = [
         title: "Tamil Motion Graphic Explainer",
         description:
           "An animated walkthrough of the mini rice mill's six integrated machines and solar-powered operation, aimed at Tamil Nadu's FPOs, SHGs, and small farmers.",
+      },
+      {
+        title: "Print Flyers",
+        description:
+          "Print-ready flyers covering the mini mill's specs, milling package, and financing options, in English and regional languages.",
       },
     ],
     metrics: [
@@ -2020,9 +2052,9 @@ export const STATIC_CASE_STUDIES = [
     description:
       "Villgro's Charging Rural Deliveries workshop brought policymakers together to look at e-bikes as a cleaner option for rural e-commerce delivery agents. Orello produced an edited recap video of the sessions plus standees and digital displays for the venue, alongside Orello's ongoing flyer and motion graphics work for Villgro's incubated enterprises.",
     industries: ["Climate Tech", "Sustainability", "Agritech"],
-    serviceKeys: ["motion", "videography", "penn"],
+    serviceKeys: ["motion", "penn"],
     cardDefaultImage: "/case-studies/villgro-ebike-event/card.jpg",
-    cardHoverImage: "/case-studies/villgro-ebike-event/ebike-event-video.mp4",
+    cardHoverImage: "https://orello-cms.sfo3.cdn.digitaloceanspaces.com/cms/case-studies/9d47d446b89974fa.png",
     clientLogos: [
       "https://orello-cms.sfo3.cdn.digitaloceanspaces.com/cms/case-studies/1f5d8e388026fef4.svg",
     ],
