@@ -33,7 +33,12 @@ or deliverables.
 
 Apply this checklist whenever adding, editing, or reviewing ANY gallery, hover
 asset, or thumbnail across ANY case study (new or existing, including ones not
-otherwise being touched in the current change):
+otherwise being touched in the current change). Before reporting a gallery/
+media fix as done, delegate verification to the `media-quality-reviewer`
+subagent (`.claude/agents/media-quality-reviewer.md`) rather than relying on
+reading the code change alone; it re-derives the actual rendered crop math
+and inspects real video frames, which is what past misses on this checklist
+came down to.
 
 - **Never let a logo or watermark get cropped by a tile boundary.** Before
   shipping a tile, check what `object-cover` will crop off at the tile's actual
