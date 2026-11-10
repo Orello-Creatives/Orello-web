@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from '../components/Navbar'
 gsap.registerPlugin(ScrollTrigger);
-import video from '../assets/videos/video.mp4'
+import video from '../assets/videos/orello-hero.mp4'
 
 
 export default function CreativePartnerHero() {
@@ -12,9 +12,6 @@ export default function CreativePartnerHero() {
   const transitionArcRefs = useRef([]);
   const videoBoxRef = useRef(null);
   const cursorRef = useRef(null);
-
-  const isSmallDesktop = window.innerWidth >= 1024 && window.innerWidth < 1280;
-  const isMediumDesktop = window.innerWidth >= 1280 && window.innerWidth < 1536;
 
 
   useEffect(() => {
@@ -159,18 +156,22 @@ export default function CreativePartnerHero() {
       }
     });
 
+    // Video box: moves to center and grows to fill the complete screen as the
+    // user scrolls, then HOLDS at fullscreen (no tween touches it again) until
+    // the exit fade below, so the video is always fully on screen before the
+    // page is allowed to move on to the next section.
     gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
-        start: "30% top",
-        end: "65% top",
+        start: "22% top",
+        end: "52% top",
         scrub: 1.5,
         anticipatePin: 1,
         invalidateOnRefresh: true,
       }
     })
     .to(videoBoxRef.current, {
-      top: "55%",
+      top: "50%",
       left: "50%",
       right: "auto",
       xPercent: -50,
@@ -180,31 +181,13 @@ export default function CreativePartnerHero() {
       duration: 0.4,
     })
     .to(videoBoxRef.current, {
-  width: isMobile
-    ? "92vw"
-    : isTablet
-    ? "80vw"
-    : isSmallDesktop
-    ? "40vw"
-    : isMediumDesktop
-    ? "78vw"
-    : "58vw",
+      width: "100vw",
+      height: "100vh",
+      borderRadius: "0px",
+      ease: "power2.inOut",
+      duration: 0.6,
+    }, "-=0.1");
 
-  height: isMobile
-    ? "52vw"
-    : isTablet
-    ? "45vw"
-    : isSmallDesktop
-    ? "45vw"
-    : isMediumDesktop
-    ? "45vw"
-    : "32vw",
-
-  borderRadius: "1rem",
-  ease: "power2.inOut",
-  duration: 0.6,
-}, "-=0.1");
-     
     gsap.fromTo(
       ".arrow-down",
       { y: 0 },
@@ -217,16 +200,33 @@ export default function CreativePartnerHero() {
       }
     );
 
+    // Hero text clears out of the way before the video takes over the screen.
     gsap.to(".hero-container", {
       scrollTrigger: {
         trigger: containerRef.current,
-        start: "40% top",
-        end: "55% top",
+        start: "15% top",
+        end: "32% top",
         scrub: 1.5,
         anticipatePin: 1,
         invalidateOnRefresh: true,
       },
       y: "-120vh",
+      opacity: 0,
+      ease: "power2.inOut",
+    });
+
+    // The video sits fullscreen, untouched, from 52% to 85% of the scroll
+    // range (a long hold) before this final fade clears it so the next
+    // section can take over cleanly.
+    gsap.to(videoBoxRef.current, {
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "85% top",
+        end: "100% top",
+        scrub: 1.5,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      },
       opacity: 0,
       ease: "power2.inOut",
     });
