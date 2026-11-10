@@ -40,9 +40,17 @@ export function useCaseStudies() {
 // images/tags show up while the rest of the page body still renders from
 // the static content. Falls back to CMS-only or static-only when just one
 // of the two exists.
+//
+// This fetches the single-item endpoint (/case-studies/:slug), not the
+// list endpoint. The list endpoint (used by useCaseStudies() above, for
+// the grid) returns a trimmed projection of each doc for listing-card
+// fields only (title, images, industries, serviceKeys) and omits
+// deliverables/metrics/gallery entirely; the single-item endpoint returns
+// the full document. Filtering the list response for one slug (as this
+// used to do) silently dropped any deliverables/metrics/gallery content
+// actually saved to a case study's CMS doc.
 export function useCaseStudyBySlug(slug) {
-  const cmsDocs = useCmsContent("/case-studies", []) || [];
-  const cmsMatch = cmsDocs.find((d) => d.slug === slug);
+  const cmsMatch = useCmsContent(`/case-studies/${slug}`, null);
   const staticMatch = STATIC_CASE_STUDIES.find((d) => d.slug === slug) || null;
   if (cmsMatch) return mergeWithStatic(cmsMatch, staticMatch);
   return staticMatch;
