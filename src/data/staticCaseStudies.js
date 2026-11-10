@@ -1823,10 +1823,10 @@ export const STATIC_CASE_STUDIES = [
     cardHoverImage: "/case-studies/truva/card-hover.mp4",
     clientLogos: ["/case-studies/truva/logo.png"],
     heroMedia: { url: "/case-studies/truva/hero-skyline.mp4", type: "video" },
-    galleryLayout: "portrait",
+    galleryLayout: "grid",
     gallery: [
-      { url: "/case-studies/truva/gallery-aerial.mp4", type: "video", fit: "contain", aspect: "4 / 5" },
-      { url: "/case-studies/truva/gallery-intro.mp4", type: "video", fit: "contain", aspect: "4 / 5" },
+      { url: "/case-studies/truva/gallery-aerial.mp4", type: "video", fit: "contain" },
+      { url: "/case-studies/truva/gallery-intro.mp4", type: "video", fit: "contain" },
       { url: "/case-studies/truva/gallery-painpoint.mp4", type: "video", fit: "contain" },
       { url: "/case-studies/truva/gallery-app.mp4", type: "video", fit: "contain" },
       { url: "/case-studies/truva/gallery-stat.mp4", type: "video", fit: "contain" },
