@@ -13,6 +13,14 @@ export function useCaseStudies() {
   return [...cmsDocs, ...extra];
 }
 
+// Single case study by slug: CMS document wins when one exists for that
+// slug (same precedence as the list above), otherwise falls back to the
+// static entry. Previously this only ever read the static file, so CMS
+// edits to an existing case study's own detail page silently never showed
+// up even though the listing grids already reflected them correctly.
 export function useCaseStudyBySlug(slug) {
+  const cmsDocs = useCmsContent("/case-studies", []) || [];
+  const cmsMatch = cmsDocs.find((d) => d.slug === slug);
+  if (cmsMatch) return cmsMatch;
   return STATIC_CASE_STUDIES.find((d) => d.slug === slug) || null;
 }
