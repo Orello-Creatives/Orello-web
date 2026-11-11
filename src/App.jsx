@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router";
 import HomePage from "./pages/HomePage";
 import ContactPage from "./pages/ContactPage";
 import ResourcesPage from './pages/ResourcesPage'
@@ -11,6 +11,7 @@ import ServicesPage from '../src/pages/ServicesPage'
 import ScrollToTop from './sections/ScrollToTop'
 import BlogDetailPage from './pages/BlogDetailPage'
 import DynamicCaseStudyPage from './pages/DynamicCaseStudyPage'
+import AmbientAudioPlayer from './components/AmbientAudioPlayer'
 
 const AdminApp = lazy(() => import('./admin/AdminApp'))
 
@@ -32,10 +33,18 @@ const CASE_STUDY_REDIRECTS = {
   '/findtheircare-casestudy': 'findtheircare',
 }
 
+// Background audio plays across the public site only, not inside the admin CMS.
+const SiteAmbientAudio = () => {
+  const location = useLocation();
+  if (location.pathname.startsWith("/admin")) return null;
+  return <AmbientAudioPlayer />;
+};
+
 const App = () => {
   return (
     <BrowserRouter>
     <ScrollToTop />
+    <SiteAmbientAudio />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/contact" element={<ContactPage />} />

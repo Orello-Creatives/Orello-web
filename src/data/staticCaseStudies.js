@@ -1717,8 +1717,8 @@ export const STATIC_CASE_STUDIES = [
     galleryLayout: "grid",
     gallery: [
       { url: "/case-studies/rudra/gallery-rooftop.mp4", type: "video" },
-      { url: "/case-studies/rudra/gallery-kannada.mp4", type: "video", fit: "contain" },
-      { url: "/case-studies/rudra/gallery-multilingual.mp4", type: "video", fit: "contain" },
+      { url: "/case-studies/rudra/gallery-kannada.mp4", type: "video" },
+      { url: "/case-studies/rudra/gallery-multilingual.mp4", type: "video" },
       { url: "/case-studies/rudra/gallery-prep.mp4", type: "video" },
       { url: "/case-studies/rudra/gallery-drying.mp4", type: "video" },
     ],
@@ -1877,8 +1877,8 @@ export const STATIC_CASE_STUDIES = [
     galleryLayout: "bento",
     gallery: [
       { url: "/case-studies/agrostudio/explainer.mp4", type: "video", fit: "contain", size: "wide" },
-      { url: "/case-studies/agrostudio/flyer-mockup.mp4", type: "video", size: "lg" },
-      { url: "/case-studies/agrostudio/gallery-extra.jpg", type: "image", size: "wide" },
+      { url: "/case-studies/agrostudio/flyer-mockup.jpg", type: "image", size: "lg" },
+      { url: "/case-studies/agrostudio/flyer-holder.jpg", type: "image", size: "sm" },
     ],
     galleryCta: null,
     deliverables: [
@@ -1924,9 +1924,8 @@ export const STATIC_CASE_STUDIES = [
     galleryLayout: "bento",
     gallery: [
       { url: "/case-studies/oscillo/paddyweeder-explainer.mp4", type: "video", fit: "contain", size: "wide" },
+      { url: "/case-studies/oscillo/flyer-mockup.jpg", type: "image", size: "lg" },
       { url: "/case-studies/oscillo/rakeking-explainer.mp4", type: "video", fit: "contain", size: "wide" },
-      { url: "/case-studies/oscillo/flyer-mockup.mp4", type: "video", size: "lg" },
-      { url: "/case-studies/oscillo/gallery-extra.jpg", type: "image", size: "sm" },
     ],
     galleryCta: null,
     deliverables: [
@@ -1972,7 +1971,7 @@ export const STATIC_CASE_STUDIES = [
     galleryLayout: "bento",
     gallery: [
       { url: "/case-studies/sapthkrishi/explainer.mp4", type: "video", fit: "contain", size: "wide" },
-      { url: "/case-studies/sapthkrishi/flyer-mockup.mp4", type: "video", size: "lg" },
+      { url: "/case-studies/sapthkrishi/flyer-mockup.jpg", type: "image", size: "lg" },
       { url: "/case-studies/sapthkrishi/gallery-extra.jpg", type: "image", fit: "contain", size: "wide" },
     ],
     galleryCta: null,
@@ -2014,8 +2013,7 @@ export const STATIC_CASE_STUDIES = [
     galleryLayout: "bento",
     gallery: [
       { url: "/case-studies/sema/explainer.mp4", type: "video", fit: "contain", size: "wide" },
-      { url: "/case-studies/sema/flyer-mockup.mp4", type: "video", size: "lg" },
-      { url: "/case-studies/sema/gallery-extra-mockup.mp4", type: "video", size: "wide" },
+      { url: "/case-studies/sema/flyer-mockup.jpg", type: "image", size: "wide", fit: "contain" },
     ],
     galleryCta: null,
     deliverables: [
