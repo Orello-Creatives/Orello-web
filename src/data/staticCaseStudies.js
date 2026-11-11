@@ -1903,7 +1903,7 @@ export const STATIC_CASE_STUDIES = [
       { value: "1:57", label: "Full explainer runtime" },
     ],
     review: null,
-    published: true,
+    published: false,
     featuredOnHome: false,
     order: 102,
   },
