@@ -1878,7 +1878,7 @@ export const STATIC_CASE_STUDIES = [
     gallery: [
       { url: "/case-studies/agrostudio/explainer.mp4", type: "video", fit: "contain", size: "wide" },
       { url: "/case-studies/agrostudio/flyer-mockup.jpg", type: "image", size: "lg" },
-      { url: "/case-studies/agrostudio/flyer-holder.jpg", type: "image", fit: "contain", size: "wide" },
+      { url: "/case-studies/agrostudio/flyer-holder.jpg", type: "image", size: "sm" },
     ],
     galleryCta: null,
     deliverables: [
