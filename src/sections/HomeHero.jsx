@@ -218,18 +218,32 @@ export default function CreativePartnerHero() {
     // The video sits fullscreen, untouched, from 52% to 85% of the scroll
     // range (a long hold) before this final fade clears it so the next
     // section can take over cleanly.
-    gsap.to(videoBoxRef.current, {
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "85% top",
-        end: "100% top",
-        scrub: 1.5,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-      },
-      opacity: 0,
-      ease: "power2.inOut",
-    });
+    //
+    // This is gsap.fromTo with an explicit opacity: 1 start, not gsap.to
+    // with an implicit one. With gsap.to, GSAP only infers the "from"
+    // opacity by reading the element's live value, and invalidateOnRefresh
+    // forced that read to happen again on the ScrollTrigger.refresh() call
+    // 100ms after mount — before the delayed intro tween (delay 0.8s) had
+    // set opacity to 1, so it was still 0 from the initial gsap.set(). That
+    // locked this tween's range to opacity 0 -> 0 for the rest of the page
+    // life: scrolling past 85% kept it at 0, and scrolling back up never
+    // restored it, which is why the hero video appeared to vanish for good
+    // on scroll-up. An explicit fromTo start has nothing to invalidate.
+    gsap.fromTo(
+      videoBoxRef.current,
+      { opacity: 1 },
+      {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "85% top",
+          end: "100% top",
+          scrub: 1.5,
+          anticipatePin: 1,
+        },
+        opacity: 0,
+        ease: "power2.inOut",
+      }
+    );
 
     window.scrollTo(0, 0);
     

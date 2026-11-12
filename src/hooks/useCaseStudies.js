@@ -31,7 +31,10 @@ export function useCaseStudies() {
   const staticBySlug = new Map(STATIC_CASE_STUDIES.map((d) => [d.slug, d]));
   const cmsSlugs = new Set(cmsDocs.map((d) => d.slug));
   const merged = cmsDocs.map((d) => mergeWithStatic(d, staticBySlug.get(d.slug)));
-  const extra = STATIC_CASE_STUDIES.filter((d) => !cmsSlugs.has(d.slug));
+  // A static entry marked published: false is a case study that was removed
+  // from the CMS (its slug has no matching CMS doc anymore). Without this
+  // check it would silently reappear here as an "extra", undoing the removal.
+  const extra = STATIC_CASE_STUDIES.filter((d) => !cmsSlugs.has(d.slug) && d.published !== false);
   return [...merged, ...extra];
 }
 
@@ -53,5 +56,8 @@ export function useCaseStudyBySlug(slug) {
   const cmsMatch = useCmsContent(`/case-studies/${slug}`, null);
   const staticMatch = STATIC_CASE_STUDIES.find((d) => d.slug === slug) || null;
   if (cmsMatch) return mergeWithStatic(cmsMatch, staticMatch);
+  // A static-only entry marked published: false was removed from the CMS;
+  // direct navigation to its old URL should not resurrect it either.
+  if (staticMatch && staticMatch.published === false) return null;
   return staticMatch;
 }
