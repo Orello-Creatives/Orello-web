@@ -1,0 +1,42 @@
+name: Build and publish production site
+
+# Builds the Vite app on every push to main and publishes the built
+# output (the "dist" folder) to the "deploy" branch. Hostinger's Git
+# deploy feature for orello.io is pointed at the "deploy" branch (root
+# directory "/"), since it copies files as-is and does not run a build
+# step itself. This workflow is what makes that build step happen.
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Publish dist to deploy branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: deploy
+          force_orphan: true
