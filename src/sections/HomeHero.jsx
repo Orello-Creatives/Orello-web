@@ -160,6 +160,33 @@ export default function CreativePartnerHero() {
     // user scrolls, then HOLDS at fullscreen (no tween touches it again) until
     // the exit fade below, so the video is always fully on screen before the
     // page is allowed to move on to the next section.
+    //
+    // Both steps below are gsap.fromTo with explicit starting values (read
+    // from the box's actual per-breakpoint resting state set by matchMedia
+    // above), not gsap.to with implicit ones. With gsap.to, GSAP only infers
+    // each property's "from" value by reading the element's live value, and
+    // invalidateOnRefresh forces that read to happen again on every
+    // ScrollTrigger.refresh() call, not just the one at mount. If a refresh
+    // ever fires while this timeline is mid-scroll (a resize, a layout shift
+    // from the video loading, etc.), the "from" value gets re-captured as
+    // whatever partial value was live at that instant, permanently shrinking
+    // the tween's range from then on: the box stops fully returning to its
+    // small, correctly-rotated corner size on scroll-up, which is what made
+    // it look oversized, tilted and blocky ("pixellated") instead of
+    // cleanly shrinking back down. An explicit fromTo start has nothing to
+    // invalidate.
+    const videoBoxRestState = {
+      top: gsap.getProperty(videoBoxRef.current, "top"),
+      left: gsap.getProperty(videoBoxRef.current, "left"),
+      right: gsap.getProperty(videoBoxRef.current, "right"),
+      xPercent: gsap.getProperty(videoBoxRef.current, "xPercent"),
+      yPercent: gsap.getProperty(videoBoxRef.current, "yPercent"),
+      rotation: gsap.getProperty(videoBoxRef.current, "rotation"),
+      width: gsap.getProperty(videoBoxRef.current, "width"),
+      height: gsap.getProperty(videoBoxRef.current, "height"),
+      borderRadius: gsap.getProperty(videoBoxRef.current, "borderRadius"),
+    };
+
     gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
@@ -170,7 +197,14 @@ export default function CreativePartnerHero() {
         invalidateOnRefresh: true,
       }
     })
-    .to(videoBoxRef.current, {
+    .fromTo(videoBoxRef.current, {
+      top: videoBoxRestState.top,
+      left: videoBoxRestState.left,
+      right: videoBoxRestState.right,
+      xPercent: videoBoxRestState.xPercent,
+      yPercent: videoBoxRestState.yPercent,
+      rotation: videoBoxRestState.rotation,
+    }, {
       top: "50%",
       left: "50%",
       right: "auto",
@@ -180,7 +214,11 @@ export default function CreativePartnerHero() {
       ease: "power2.inOut",
       duration: 0.4,
     })
-    .to(videoBoxRef.current, {
+    .fromTo(videoBoxRef.current, {
+      width: videoBoxRestState.width,
+      height: videoBoxRestState.height,
+      borderRadius: videoBoxRestState.borderRadius,
+    }, {
       width: "100vw",
       height: "100vh",
       borderRadius: "0px",
@@ -201,19 +239,32 @@ export default function CreativePartnerHero() {
     );
 
     // Hero text clears out of the way before the video takes over the screen.
-    gsap.to(".hero-container", {
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "15% top",
-        end: "32% top",
-        scrub: 1.5,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-      },
-      y: "-120vh",
-      opacity: 0,
-      ease: "power2.inOut",
-    });
+    //
+    // gsap.fromTo with an explicit {y:0, opacity:1} start, not gsap.to with
+    // an implicit one, for the same reason as the video box tweens above:
+    // invalidateOnRefresh re-reads the "from" value on every
+    // ScrollTrigger.refresh(), not just the one at mount, so a refresh that
+    // happens mid-scroll would lock this tween's start to whatever partial
+    // opacity/position was live at that instant. That is what made the
+    // "PARTNER" line (and the rest of the hero text) fail to fully reappear
+    // on scroll-up, since the resting opacity:1 never had a chance to be
+    // re-reached. An explicit fromTo start has nothing to invalidate.
+    gsap.fromTo(".hero-container",
+      { y: 0, opacity: 1 },
+      {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "15% top",
+          end: "32% top",
+          scrub: 1.5,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+        y: "-120vh",
+        opacity: 0,
+        ease: "power2.inOut",
+      }
+    );
 
     // The video sits fullscreen, untouched, from 52% to 85% of the scroll
     // range (a long hold) before this final fade clears it so the next
